@@ -1,0 +1,18 @@
+                    { path: 'IndexVehiculo', component: VehiculoListadoComponent },
+                    { path: 'IndexPlanPago', component: PlanpagoListadoComponent }
+
+
+import { VehiculoListadoComponent } from "./demo/components/Vehiculos/vehiculo-listado/vehiculo-listado.component";
+import { PlanpagoListadoComponent } from "./demo/components/PlanesPagos/planpago-listado/planpago-listado.component";
+
+
+                            {
+                                label: 'Vehiculo',
+                                icon: 'pi pi-fw pi-sign-in',
+                                routerLink: ['/app/IndexVehiculo']
+                            },
+                            {
+                                label: 'PlanPago',
+                                icon: 'pi pi-fw pi-sign-in',
+                                routerLink: ['/app/IndexPlanPago']
+                            },

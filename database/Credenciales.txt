@@ -1,0 +1,6 @@
+dbCredirapi.mssql.somee.com
+
+Nadaim_SQLLogin_1
+
+12345678
+

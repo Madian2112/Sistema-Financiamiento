@@ -1,0 +1,114 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h1>Crear Empleado</h1>
+            <div class="card-body">
+                <form [formGroup]="formEmpleado">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">DNI</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="dni" autocomplete="off" id="dni" type="text" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Nombre</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="nombre" autocomplete="off" id="nombre" type="text" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:2%">
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Apellido</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="apellido" autocomplete="off" id="apellido" type="text" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" for="sexo" class="form-label">Sexo</label>
+                                <div class="col-md-3">
+                                    <label style="color:aliceblue">
+                                        <input type="radio" class="form-check-input" name="sexo" value="M" checked formControlName="sexo"> Masculino
+                                      </label>
+                                    </div>
+        
+                                    <div class="col-md-3">
+                                        <label style="color:aliceblue">
+                                            <input type="radio" class="form-check-input" name="sexo" value="F" formControlName="sexo"> Femenino
+                                          </label>
+                                        </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:2%">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="marca">Estado Civil</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="estado" id="estado">
+                                      <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                      <option style="background-color: #121212; color: aliceblue;" *ngFor="let estado of estados" [value]="estado.esta_Id">{{ estado.esta_Descripcion}}</option>
+                                    </select>       
+                                    </div>
+                                </div>   
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="marca">Cargo</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="cargo" id="cargo">
+                                      <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                      <option style="background-color: #121212; color: aliceblue;" *ngFor="let cargo of cargos" [value]="cargo.carg_Id">{{ cargo.carg_Descripcion}}</option>
+                                    </select>       
+                                    </div>
+                                </div>   
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 2%; margin-left: 0%;">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                <div class="row">
+                                    <label style="color:aliceblue"  htmlFor="marca">Departamentos</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="departamento" id="departamento"
+                                    (change)="onDepartmentChange(formEmpleado.get('departamento').value)" >
+                                        <option style="background-color: #121212; color: rgb(234, 236, 236);" [value]="">Seleccione</option>
+                                        <option style="background-color: #121212; color: aliceblue;" *ngFor="let departamento of departamentos" [ngValue]="departamento.dept_Id">
+                                            {{ departamento.dept_Descripcion }}
+                                        </option>
+                                    </select>                                
+                                </div>   
+                            </div>
+                        </div>
+                            <div class="col-sm-3" style="margin-left: 25%">
+                                <div class="form-group">
+                                <div class="row">
+                                    <label style="color:aliceblue"  htmlFor="marca">Municipios</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="municipio" id="municipio">
+                                        <option style="background-color: #121212; color: aliceblue;" *ngFor="let municipio of municipios" [ngValue]="municipio.value">{{ municipio.text }}
+                                        </option>
+                                    </select>                                
+                                </div>   
+                            </div>
+                            </div> 
+                        </div>
+                </form>
+                <div class="row" style="margin-top: 2%;">
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                        <button pButton icon="pi pi-times" (click)="Regresar()" label="Regresar" class="p-button-outlined p-button-danger"></button>
+                    </div>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                        <button pButton icon="pi pi-check" (click)="Nuevo()" label="Guardar" class="p-button-outlined"></button>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

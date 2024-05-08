@@ -1,0 +1,140 @@
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Practica.BussinesLogic.Servicios;
+using Practica.Common.Models;
+using Practica.Entities.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Practica.API.Controllers
+{
+    [ApiController]
+    [Route("API/[Controller]")]
+    public class PlanPagoClienteController : Controller
+    {
+        private readonly CrediRapidServicio _credirapidServicio;
+        private readonly IMapper _mapper;
+
+
+        public PlanPagoClienteController(CrediRapidServicio credirapidServicio, IMapper mapper)
+        {
+
+            _mapper = mapper;   
+            _credirapidServicio = credirapidServicio;
+
+
+        }
+        [HttpGet("List")]
+        public IActionResult List()
+        {
+            var list = _credirapidServicio.ListPlanPagoClientes();
+            return Ok(list.Data);
+        }
+
+        [HttpGet("ObtenerPrestaPorMes")]
+        public IActionResult ObtenerPrestaPorMes()
+        {
+            var list = _credirapidServicio.ObtenerPresaPorMes();
+            return Ok(list.Data);
+        }
+        [HttpGet("ObtenerPrestaPorEstadoCivil")]
+        public IActionResult ObtenerPrestaPorEstadoCivil()
+        {
+            var list = _credirapidServicio.ObtenerPrestaPorEstado();
+            return Ok(list.Data);
+        }
+        [HttpGet("ObtenerPrestaPorSexo")]
+        public IActionResult ObtenerPrestaPorSexo()
+        {
+            var list = _credirapidServicio.ObtenerPrestaPorSexo();
+            return Ok(list.Data);
+        }
+        [HttpGet("ObtenerPrestaPorModelo")]
+        public IActionResult ObtenerPrestaPorModelo()
+        {
+            var list = _credirapidServicio.ObtenerPrestaPorModelo();
+            return Ok(list.Data);
+        }
+
+
+
+        [HttpGet("Details/{id}")]
+        public IActionResult Details(int id)
+        {
+            var modelo = _credirapidServicio.DetallesPlanPagoCliente(id);
+            var detail = modelo.First();
+            return Ok(detail);
+        }
+
+        [HttpGet("DetailsPP/{id}")]
+        public IActionResult DetailsPP(int? id)
+        {
+            if(id == 0)
+            {
+                return Ok(id);
+            }
+            var modelo = _credirapidServicio.DetallesPP(id);
+            return Ok(modelo);
+        }
+
+        [HttpGet("Edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var modelo = _credirapidServicio.ObtenerPlanPagoClienteID(id);
+            return Json(modelo.Data);
+        }
+        [HttpPost("Create")]
+        public IActionResult Create(PlanesPagosClientesViewModel item)
+        {
+            //var model = _mapper.Map<tbCargos>(item);
+            var modelo = new tbPlanesPagosClientes()
+            {
+                Papa_Id = item.Papa_Id,
+                Pacl_Monto_Pago = item.Pacl_Monto_Pago,
+                Pacl_Fecha_Emision = item.Pacl_Fecha_Creacion,
+                Sucu_Id = item.Sucu_Id,
+                Pacl_Usua_Creacion = item.Pacl_Usua_Creacion,
+            };
+            var listado = _credirapidServicio.ListPlanPagoClientes();
+
+            var prueba = _credirapidServicio.InsertarPlanPagoCliente(modelo);
+            if (prueba.Code == 200)
+            {
+                return Ok(prueba);
+            }
+            else
+            {
+                return BadRequest("Error");
+            }
+
+        }
+        [HttpPut("Edit/{id}")]
+        public IActionResult Edit(int id, PlanesPagosClientesViewModel item)
+        {
+
+            var modelo = new tbPlanesPagosClientes()
+            {
+                Pacl_Id = id,
+                Papa_Id = item.Papa_Id,
+                Pacl_Monto_Pago = item.Pacl_Monto_Pago,
+                Pacl_Fecha_Emision = item.Pacl_Fecha_Creacion,
+                Sucu_Id = item.Sucu_Id,
+                Pacl_Usua_Modi = item.Pacl_Usua_Modi,
+            };
+            var listado = _credirapidServicio.ActualizarPlanPagoClientes(modelo);
+            return Ok(listado);
+
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            
+                var listado = _credirapidServicio.EliminarPlanPagoClientes(id);
+                return Ok(listado);
+           
+        }
+    }
+}
