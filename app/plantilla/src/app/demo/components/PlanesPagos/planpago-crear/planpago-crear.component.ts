@@ -87,28 +87,28 @@ export class PlanpagoCrearComponent implements OnInit {
 
 papa_Id?: number = 0;
 papa_Financiamiento?:string = "";   
-pap_Intereses_Porcentaje?:string = "";  
-pap_Intereses_Monto?:string = "";  
+papa_Intereses_Porcentaje?:string = "";  
+papa_Intereses_Monto?:string = "";  
 cliente?:string = "";  
 ticu_Descripcion?:string = "";  
 usua_Creacion?:string = "";   
 papa_Fecha_Creacion?:string ="";    
 usua_Modifica?:string ="";   
 papa_Fecha_Modificacion?:string = "";  
+mora: string = "";
+marca: string = "";
+modelo: string = "";
+cuotas: string = "";
 
 Nuevo() {
     this.detalle = "";
     this.create = "collapse";
-    const planpago: PLanPagoCreate = {
-      pap_Intereses_Porcentaje: this.formPlanPago.value.interesPorcentaje, 
+    const planpago: PLanPagoCreate = { 
       papa_Financiamiento: this.formPlanPago.value.financiamiento, 
       papa_Id: 0, 
-      papa_Mora: this.formPlanPago.value.mora, 
       papa_Numero_Cuota: this.formPlanPago.value.cuota, 
       papa_Precio_Mercado: this.formPlanPago.value.preciomercado, 
-      ticu_Id: this.formPlanPago.value.tipocuota, 
       vecl_Id: this.formPlanPago.value.vehiculo, 
-      resultado: 0
         }
         this._PlanPagoservice.agregar(planpago).subscribe(
           (respuesta: Respuesta) => {
@@ -128,10 +128,13 @@ Nuevo() {
                 next: (data: Fill) => {
                   this.papa_Id = data.papa_Id;
                   this.papa_Financiamiento = data.papa_Financiamiento;
-                  this.pap_Intereses_Porcentaje = data.pap_Intereses_Porcentaje;
-                  this.pap_Intereses_Monto = data.pap_Intereses_Monto;
+                  this.papa_Intereses_Porcentaje = data.papa_Intereses_Porcentaje;
+                  this.papa_Intereses_Monto = data.papa_Intereses_Monto;
+                  this.mora = data.papa_Mora;
+                  this.cuotas = data.papa_Numero_Cuota;
+                  this.marca = data.marc_Descripcion; 
+                  this.modelo = data.mode_Descripcion;
                   this.cliente = data.cliente;
-                  this.ticu_Descripcion = data.ticu_Descripcion;
                   this.usua_Creacion = data.usua_Creacion;
                   this.papa_Fecha_Creacion = data.papa_Fecha_Creacion;
                   this.usua_Modifica = data.usua_Modifica;

@@ -76,8 +76,9 @@ export class PlanpagoListadoComponent implements OnInit {
 
   papa_Id?: number = 0;
   papa_Financiamiento?:string = "";   
-  pap_Intereses_Porcentaje?:string = "";  
-  pap_Intereses_Monto?:string = "";  
+  papa_Intereses_Porcentaje?:string = "";  
+  papa_Intereses_Monto?:string = ""; 
+  papa_Numero_Cuota?: string = ""; 
   cliente?:string = "";  
   ticu_Descripcion?:string = "";  
   usua_Creacion?:string = "";   
@@ -92,10 +93,10 @@ export class PlanpagoListadoComponent implements OnInit {
         next: (data: Fill) => {
           this.papa_Id = data.papa_Id;
           this.papa_Financiamiento = data.papa_Financiamiento;
-          this.pap_Intereses_Porcentaje = data.pap_Intereses_Porcentaje;
-          this.pap_Intereses_Monto = data.pap_Intereses_Monto;
+          this.papa_Intereses_Porcentaje = data.papa_Intereses_Porcentaje;
+          this.papa_Intereses_Monto = data.papa_Intereses_Monto;
+          this.papa_Numero_Cuota = data.papa_Numero_Cuota;
           this.cliente = data.cliente;
-          this.ticu_Descripcion = data.ticu_Descripcion;
           this.usua_Creacion = data.usua_Creacion;
           this.papa_Fecha_Creacion = data.papa_Fecha_Creacion;
           this.usua_Modifica = data.usua_Modifica;

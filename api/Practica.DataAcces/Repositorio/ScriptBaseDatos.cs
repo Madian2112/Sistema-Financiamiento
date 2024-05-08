@@ -131,7 +131,7 @@ namespace Practica.DataAcces.Repositorio
         public static string Papa_Insertar = "Cred.SP_PlanesPagos_Insertar";
         public static string Papa_Actualizar = "Cred.SP_PlanesPagos_Actualizar";
         public static string Papa_Eliminar = "Cred.SP_PlanesPagos_Eliminar";
-        public static string Papa_Detalles = "Cred.SP_PlanesPagos_Llenar";
+        public static string Papa_Detalles = "[Cred].[SP_PlanesPagos_Llenar]";
         #endregion
 
 

@@ -56,14 +56,10 @@ namespace Practica.API.Controllers
             {
                 Papa_Financiamiento = item.Papa_Financiamiento,
                 Papa_Precio_Mercado = item.Papa_Precio_Mercado,
-                Papa_Mora = item.Papa_Mora,
                 Vecl_Id = item.Vecl_Id,
-                Ticu_Id = item.Ticu_Id,
-                Pap_Intereses_Porcentaje = item.Pap_Intereses_Porcentaje,
                 Papa_Numero_Cuota = item.Papa_Numero_Cuota,
                 Papa_Fecha_Emision = DateTime.Now , 
-                Papa_Usua_Creacion = item.Papa_Usua_Creacion ,
-                Resultado = item.Resultado
+                Papa_Usua_Creacion = item.Papa_Usua_Creacion 
                
 
             };

@@ -16,5 +16,8 @@ export class PLanPagoClientTB{
     pacl_Pago_Capital!: number;
     pacl_Pago_Intereses!: number;  
     pacl_Pago_Mora!: number; 
+    pacl_Financiamiento!: number; 
+    pacl_Saldo_Inicial!: number; 
+    pacl_Saldo_Restante!: number; 
     pacl_Fecha_Emision!: string; 
 }

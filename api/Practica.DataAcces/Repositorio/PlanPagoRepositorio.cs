@@ -68,10 +68,7 @@ namespace Practica.DataAcces.Repositorio
                 var parametro = new DynamicParameters();
                 parametro.Add("Papa_Financiamiento", item.Papa_Financiamiento);
                 parametro.Add("Papa_Precio_Mercado", item.Papa_Precio_Mercado);
-                parametro.Add("Papa_Mora", item.Papa_Mora);
                 parametro.Add("Vecl_Id", item.Vecl_Id);
-                parametro.Add("Ticu_Id", item.Ticu_Id);
-                parametro.Add("Pap_Intereses_Porcentaje", item.Pap_Intereses_Porcentaje);
                 parametro.Add("Papa_Numero_Cuota", item.Papa_Numero_Cuota);
                 parametro.Add("Papa_Fecha_Emision", DateTime.Now);
                 parametro.Add("Papa_Usua_Creacion", 1);

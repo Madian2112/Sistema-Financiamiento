@@ -56,6 +56,12 @@ namespace Practica.Entities.Entities
         [NotMapped]
         public int? Exito { get; set; }
 
+        [NotMapped]
+        public int Papa_Intereses_Porcentaje { get; set; }
+
+        [NotMapped]
+        public decimal Papa_Intereses_Monto { get; set; }
+
         public virtual tbUsuarios Papa_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Papa_Usua_ModiNavigation { get; set; }
         public virtual tbTipoCuotas Ticu { get; set; }
