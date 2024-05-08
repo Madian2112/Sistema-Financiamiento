@@ -1,0 +1,83 @@
+ <h2 mat-dialog-title>Editar Registro</h2>
+<mat-dialog-content>
+  <form [formGroup]="formDepa">
+    <mat-grid-list cols="2" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Codigo</mat-label>
+          <input matInput formControlName="codigo" autocomplete="off">
+          
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Departamento</mat-label>
+          <input matInput formControlName="departamento" autocomplete="off">
+          
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- <div class="p-fluid">
+    
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label htmlFor="name2">Codigo</label>
+                <input pInputText formControlName="codigo" autocomplete="off" id="name2" type="text" />
+            </div>
+            <div class="field col">
+                <label htmlFor="email2">Departamento</label>
+                <input pInputText formControlName="departamento" autocomplete="off" id="email2" type="text" />
+            </div>
+
+        </div>
+    </div> -->
+</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+  <button mat-raised-button color="primary">Guardar</button>
+</mat-dialog-actions> 
+
+
+
+<h2 mat-dialog-title>Editar Registro</h2>
+<mat-dialog-content>
+  <form [formGroup]="formDepa">
+    <mat-grid-list cols="2" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Codigo</mat-label>
+          <input matInput formControlName="codigo" autocomplete="off">
+          
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Departamento</mat-label>
+          <input matInput formControlName="departamento" autocomplete="off">
+          
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- <div class="p-fluid">
+    
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label htmlFor="name2">Codigo</label>
+                <input pInputText formControlName="codigo" autocomplete="off" id="name2" type="text" />
+            </div>
+            <div class="field col">
+                <label htmlFor="email2">Departamento</label>
+                <input pInputText formControlName="departamento" autocomplete="off" id="email2" type="text" />
+            </div>
+
+        </div>
+    </div> -->
+</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+  <button mat-raised-button color="primary">Guardar</button>
+</mat-dialog-actions> 

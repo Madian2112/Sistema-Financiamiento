@@ -1,0 +1,222 @@
+<style>
+    .letras {
+        color: white;
+        font-size: 130%;
+    }
+
+    .titulo{
+        color:aliceblue;
+        font-size: 150%;
+    }
+
+    .hola{
+        background-color: #1E1E1E;
+    }
+
+    .letras-content {
+        margin-top: 2%;
+        color: beige;
+        font-size: 110%
+    }
+
+    .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #8DA22C;
+    background-color: #1E1E1E;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 8px;
+    border: 1px solid #8DA22C;
+    color: white;
+}
+
+.custom-table th {
+    background-color: #8DA22C;
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: #1E1E1E;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+</style>
+<div class="grid">
+    <div class="col-12">
+        <div class="{{tabla}}">
+        <div class="card">
+            <p-toast></p-toast>
+            <h1>Departamentos</h1>
+            <p-dialog header="{{modalTitle}}" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+                <form [formGroup]="formDepartamento">
+                    <div class="p-fluid">
+                        <div class="p-formgrid grid">
+                            <div class="field col">
+                                <label htmlFor="name2">Codigo</label>
+                                <input pInputText formControlName="codigo" autocomplete="off" id="name2" type="text" />
+                                <small *ngIf="campoVacio('codigo')" class="text-danger">El campo es requerido.</small>
+                            </div>
+                            <div class="field col">
+                                <label htmlFor="email2">Departamento</label>
+                                <input pInputText formControlName="departamento" autocomplete="off" id="email2" type="text" />
+                                <small *ngIf="campoVacio('departamento')" class="text-danger">El campo es requerido.</small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-times" (click)="display=false" label="Cerrar" class="p-button-outlined p-button-danger mr-2"></button>
+                    <button pButton icon="pi pi-check" (click)="guardarDepartamento()"  label="{{modalButtonLabel}}" class="p-button-outlined"></button>
+                </ng-template>
+            </p-dialog>
+            <div class="grid">
+                <div class="col-12">
+                    <button (click)="displayNuevoDepartamento()" pButton icon="pi pi-external-link" label="Nuevo" class="mr-2"></button>
+                
+
+                    <!-- <button mat-button >Nuevo</button>                         -->
+                </div>
+            </div>
+    
+            <p-table [value]="departamento" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+    [paginator]="true" [globalFilterFields]="['dept_Id','dept_Descripcion']" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                    Código
+                    <p-columnFilter type="text" field="dept_Id" display="menu"
+                        placeholder="Buscar por código"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                    Departamento
+                    <p-columnFilter type="text" field="dept_Descripcion" display="menu"
+                        placeholder="Buscar por descripción"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                    Acciones
+                  
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-departamento>
+        <tr>
+            <td>{{departamento.dept_Id}}</td>
+            <td>{{departamento.dept_Descripcion}}</td>
+            <td  style="display: flex; grid-gap:10px">
+                <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editDepartamento(departamento)"></button>
+                <button pButton pRipple type="button" label="Detalles" class="p-button-info" (click)="detalles(departamento.dept_Id)"></button>
+                <button pButton pRipple type="button" label="Eliminar" class="p-button-danger" (click)="confirmarEliminarDepartamento(departamento)"></button>
+
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="2">No hay datos para cargar.</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="loadingbody">
+        <tr>
+            <td colspan="2">Cargando datos. Por favor espera.</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+        </div>
+    </div>
+        <p-dialog header="Confirmar Eliminación" [(visible)]="confirmacionVisible" modal="true" [style]="{ width: '300px' }">
+            <p>¿Está seguro de que desea eliminar este registro?</p>
+            <p-footer>
+              <button pButton type="button" class="mr-2" label="Cancelar" (click)="cancelarEliminar()"></button>
+              <button pButton type="button" label="Confirmar" class="p-button-danger" (click)="eliminarDepartamento()"></button>
+            </p-footer>
+          </p-dialog>
+          <div class="{{detalless}}">
+          <div class="card">
+            <div class="card-header ">
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title titulo">Detalles - Departamento</h3>
+                </div>
+            </div>
+            <div>
+            <div class="card-body" >
+                <dl class="row">
+                    <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            ID
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+                            {{dept_Id}}
+                        </dd>
+                    </dl>
+                    <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            Departamento
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+                            {{dept_Descripcion}}
+                        </dd>
+                    </dl>
+                </dl>
+                <div class="table-responsive">
+                <table class="custom-table table-bordered table-striped" style="border: 2px solid #BE561B; background-color: black;" id="MasterTable">
+                        <thead style="background-color: #1E1E1E;">
+                            <tr style="background-color: #8DA22C ">
+                                <th class="letras" >
+                                    Acciones
+                                </th>
+                                <th class="letras">
+                                    Usuario
+                                </th>
+                                <th class="letras">
+                                    Fecha
+                                </th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        <tr style="background-color: #1E1E1E;">
+                            <td>
+                                Creacion
+                            </td>
+                            <td>
+                                {{usua_Creacion}}
+                            </td>
+                            <td>
+                                {{dept_Fecha_Creacion}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Modificacion</td>
+                            <td>
+                                {{usua_Modifica}}
+                            </td>
+                            <td>
+                                {{dept_Fecha_Modifica}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" style="margin-top:2%">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <button pButton type="button" label="Regresar" class="btn btn-dark" (click)="volver()"></button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,87 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h1>Crear - Plan de Pago</h1>
+            <div class="card-body">
+                <form [formGroup]="formPlanPago">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Financiamiento</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="financiamiento" autocomplete="off" id="financiamiento" type="text" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Precio Mercado</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="preciomercado" autocomplete="off" id="preciomercado" type="text" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Interes Porcentaje</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="interesPorcentaje" autocomplete="off" id="interesPorcentaje" type="number" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Cuotas</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="cuota" autocomplete="off" id="cuota" type="number" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Mora</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="mora" autocomplete="off" id="mora" type="number" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="marca">Tipo de Cuota</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="tipocuota" id="tipocuota">
+                                      <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                      <option style="background-color: #121212; color: aliceblue;" *ngFor="let tp of tipocuotas" [value]="tp.ticu_Id">{{ tp.ticu_Descripcion }}</option>
+                                    </select>
+                                    </div>       
+                                </div>   
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="marca">Vehiculo</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="vehiculo" id="vehiculo">
+                                      <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                      <option style="background-color: #121212; color: aliceblue;" *ngFor="let vehiculo of vehiculos" [value]="vehiculo.vehi_Id">{{ vehiculo.mode_Descripcion + ' - '+ vehiculo.marc_Descripcion + " , "+ vehiculo.cliente}}</option>
+                                    </select>
+                                    </div>       
+                                </div>   
+                            </div>
+                            </div>
+                        </div>
+                </form>
+                <div class="row" style="margin-top: 2%;">
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                        <button pButton icon="pi pi-times" (click)="Regresar()" label="Regresar" class="p-button-outlined p-button-danger"></button>
+                    </div>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                        <button pButton icon="pi pi-check" (click)="Nuevo()" label="Guardar" class="p-button-outlined"></button>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
