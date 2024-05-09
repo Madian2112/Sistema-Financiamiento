@@ -27,6 +27,10 @@ import {DashboardsComponent} from './demo/components/dashboards/dashboards.compo
 import {RolListadoComponent} from './demo/components/Rol/rol-listado/rol-listado.component';
 import {RolCreateComponent} from './demo/components/Rol/rol-create/rol-create.component';
 import {ReportesComponent} from './demo/components/reportes/reportes.component';
+import { ReportePrestamosAprobadosComponent } from './demo/components/reporte-prestamos-aprobados/reporte-prestamos-aprobados.component';
+import { ReporteClientesMoraComponent } from './demo/components/reporte-clientes-mora/reporte-clientes-mora.component';
+import { ReporteModelosVehiculosComponent } from './demo/components/reporte-modelos-vehiculos/reporte-modelos-vehiculos.component';
+import { ReporteVentasEmpleadosComponent } from './demo/components/reporte-ventas-empleados/reporte-ventas-empleados.component';
 import { EstadisticosComponent } from './demo/components/estadisticos/estadisticos.component';
 
 
@@ -50,6 +54,10 @@ import { EstadisticosComponent } from './demo/components/estadisticos/estadistic
                     { path: 'IndexEstadistico', component: EstadisticosComponent },
                      { path: 'IndexRol', component: RolListadoComponent },
                      { path: 'IndexReportes', component: ReportesComponent },
+                     { path: 'IndexReportePrestamos', component: ReportePrestamosAprobadosComponent },
+                     { path: 'IndexReporteClientesMora', component: ReporteClientesMoraComponent },
+                     { path: 'IndexReporteModelosVehiculos', component: ReporteModelosVehiculosComponent },
+                     { path: 'IndexReporteVentasEmpleado', component: ReporteVentasEmpleadosComponent },
                      { path: 'CreateRol', component: RolCreateComponent } , 
                     // { path: 'departamento/:id', component: DetalleDepartamentoComponent }, // Agrega la ruta para DepartamentosListadoComponent
                     { path: 'IndexCargo', component: CargosListadoComponent }, // Agrega la ruta para CargosListadoComponent
