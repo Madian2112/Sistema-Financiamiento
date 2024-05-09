@@ -262,7 +262,7 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
       
-                public IEnumerable<tbPlanesPagosClientes> DetallesPP(int? id)
+        public IEnumerable<tbPlanesPagosClientes> DetallesPP(int? id)
         {
             return _planpagoclienteRepositorio.DetallePP(id);
         }

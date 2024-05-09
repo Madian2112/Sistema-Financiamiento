@@ -69,7 +69,7 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("Papa_Financiamiento", item.Papa_Financiamiento);
                 parametro.Add("Papa_Precio_Mercado", item.Papa_Precio_Mercado);
                 parametro.Add("Vecl_Id", item.Vecl_Id);
-                                parametro.Add("Papa_Numero_Cuota", item.Papa_Numero_Cuota);
+                parametro.Add("Papa_Numero_Cuota", item.Papa_Numero_Cuota);
                 parametro.Add("Papa_Fecha_Emision", DateTime.Now);
                 parametro.Add("Papa_Usua_Creacion", 1);
                 parametro.Add("Papa_Fecha_Creacion", DateTime.Now);

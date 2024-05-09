@@ -260,9 +260,8 @@ namespace Practica.DataAcces.Repositorio
             }
         }
         
-                public IEnumerable<tbPlanesPagosClientes> DetallePP(int? Papa_Id)
+        public IEnumerable<tbPlanesPagosClientes> DetallePP(int? Papa_Id)
         {
-
 
             List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
