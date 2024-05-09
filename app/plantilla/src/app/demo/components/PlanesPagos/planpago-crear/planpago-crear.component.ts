@@ -1,5 +1,6 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { PLanPago, PLanPagoCreate, Fill } from '../../../models/PlanPagoViewModel';
 import { PLanPagoCliente, PLanPagoClientTB } from '../../../models/PlanPagoClienteViewModel';
 import { Vehiculo } from '../../../models/VehiculoViewModel';
@@ -26,6 +27,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { PlanpagoListadoComponent } from '../planpago-listado/planpago-listado.component';
 import { Respuesta } from 'src/app/demo/models/ServiceResult';
 
+
 @Component({
   selector: 'app-planpago-crear',
   templateUrl: './planpago-crear.component.html',
@@ -36,16 +38,20 @@ export class PlanpagoCrearComponent implements OnInit {
   displ: boolean= true;
   display: boolean = false;
   planpago!: PLanPago[];
+
   planpagoclientes!: PLanPagoClientTB[];
   prueba: PLanPagoClientTB[];
+
   vehiculos!: Vehiculo[];
   tipocuotas!: TipoCuota[];
   formPlanPago: FormGroup;
   listadoPLanPago: PLanPago[] = [];
 
+
   create: string = "";
   detalle : string ="collapse";
   idplanpag: number = 0;
+
 
   constructor
   ( 
@@ -84,6 +90,7 @@ export class PlanpagoCrearComponent implements OnInit {
     // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
     this.router.navigate(['/app/IndexPlanPago']); // Ajusta la ruta según tu configuración de enrutamiento
 }
+
 
 papa_Id?: number = 0;
 papa_Financiamiento?:string = "";   
@@ -155,6 +162,7 @@ Nuevo() {
          
           }
       );
+
     this.formPlanPago = this.fb.group({
       financiamiento:[""],
       preciomercado:[""],
@@ -170,12 +178,14 @@ Nuevo() {
   };
 
 
+
     pacl_Id?: number = 0;
     pacl_Monto_Pago?: number = 0;
     pacl_Pago_Capital?: number =0;
     pacl_Pago_Intereses?: number = 0;  
     pacl_Pago_Mora?: number = 0; 
     pacl_Fecha_Emision?: string =""; 
+
 
   ngOnInit(): void {
 

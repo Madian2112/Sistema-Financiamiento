@@ -1,4 +1,4 @@
-<style>
+  <style>
     .letras {
         color: white;
         font-size: 130%;
@@ -50,6 +50,10 @@
     <div class="col-12">
         <div class="card">
             <div class="{{create}}">
+=======
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
             <h1>Crear - Plan de Pago</h1>
             <div class="card-body">
                 <form [formGroup]="formPlanPago">
@@ -69,12 +73,19 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <label style="color:aliceblue" htmlFor="email2">Cuotas</label>
+                            <label style="color:aliceblue" htmlFor="email2">Interes Porcentaje</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="interesPorcentaje" autocomplete="off" id="interesPorcentaje" type="number" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                            <label style="color:aliceblue" htmlFor="email2">Cuotas</label>
                             <div class="form-group">
                                 <input pInputText formControlName="cuota" autocomplete="off" id="cuota" type="number" />
                             </div>
-                            </div>
-                        
+                          </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                 <div class="row">
@@ -300,6 +311,7 @@
             </ng-template>
         </p-table>
         </div>
+
         </div>
     </div>
 </div>

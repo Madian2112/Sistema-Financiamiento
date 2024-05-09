@@ -61,6 +61,7 @@ namespace Practica.Entities.Entities
 
         [NotMapped]
         public decimal Papa_Intereses_Monto { get; set; }
+        
 
         public virtual tbUsuarios Papa_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Papa_Usua_ModiNavigation { get; set; }

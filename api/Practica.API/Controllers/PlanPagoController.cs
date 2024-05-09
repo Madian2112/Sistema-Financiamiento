@@ -66,8 +66,7 @@ namespace Practica.API.Controllers
 
             var listado = _credirapidServicio.ListPlanPago();
             var prueba = _credirapidServicio.InsertarPlanPago(modelo);
-
-
+            
             if (prueba.Code == 200)
             {
                 return Ok(prueba);

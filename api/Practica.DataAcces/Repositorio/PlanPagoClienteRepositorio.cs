@@ -259,8 +259,8 @@ namespace Practica.DataAcces.Repositorio
                 return result;
             }
         }
-
-        public IEnumerable<tbPlanesPagosClientes> DetallePP(int? Papa_Id)
+        
+                public IEnumerable<tbPlanesPagosClientes> DetallePP(int? Papa_Id)
         {
 
 
@@ -272,6 +272,6 @@ namespace Practica.DataAcces.Repositorio
                 return result;
             }
         }
-
+        
     }
 }

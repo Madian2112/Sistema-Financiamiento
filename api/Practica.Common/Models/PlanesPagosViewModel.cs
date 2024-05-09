@@ -32,11 +32,11 @@ namespace Practica.Common.Models
 
         [NotMapped]
         public string Usua_Modifica { get; set; }
-
-        [NotMapped]
+      
+                [NotMapped]
         public int Resultado { get; set; }
 
         [NotMapped]
-        public int? Exito { get; set; }
+
     }
 }

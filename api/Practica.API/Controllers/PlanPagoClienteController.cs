@@ -32,7 +32,7 @@ namespace Practica.API.Controllers
             var list = _credirapidServicio.ListPlanPagoClientes();
             return Ok(list.Data);
         }
-
+        
         [HttpGet("DetailsPP/{id}")]
         public IActionResult DetailsPP(int? id)
         {

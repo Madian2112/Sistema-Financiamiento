@@ -261,11 +261,12 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
         }
-
-        public IEnumerable<tbPlanesPagosClientes> DetallesPP(int? id)
+      
+                public IEnumerable<tbPlanesPagosClientes> DetallesPP(int? id)
         {
             return _planpagoclienteRepositorio.DetallePP(id);
         }
+      
         public ServiceResult ObtenerPresaPorMes()
         {
             var result = new ServiceResult();

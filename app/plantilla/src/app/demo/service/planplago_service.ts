@@ -9,6 +9,7 @@ import {PLanPagoCliente, PLanPagoClientTB} from '../models/PlanPagoClienteViewMo
 import { Respuesta } from '../models/ServiceResult';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,6 +44,7 @@ export class PLanPagoServiceService {
 
   agregar(planpago: PLanPagoCreate): Observable<Respuesta> {
     return this.http.post<Respuesta>(`${this.apiUrl}Create`, planpago);
+
   }
 
   obtener(id:number){

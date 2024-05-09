@@ -13,6 +13,7 @@ export class PLanPago{
     ticu_Id!: number;  
 }
 
+
 export class PLanPagoCreate{
     papa_Id!: number;
     papa_Financiamiento!:number;   

@@ -79,6 +79,7 @@ export class PlanpagoListadoComponent implements OnInit {
   papa_Intereses_Porcentaje?:string = "";  
   papa_Intereses_Monto?:string = ""; 
   papa_Numero_Cuota?: string = ""; 
+
   cliente?:string = "";  
   ticu_Descripcion?:string = "";  
   usua_Creacion?:string = "";   
@@ -97,6 +98,7 @@ export class PlanpagoListadoComponent implements OnInit {
           this.papa_Intereses_Monto = data.papa_Intereses_Monto;
           this.papa_Numero_Cuota = data.papa_Numero_Cuota;
           this.cliente = data.cliente;
+
           this.usua_Creacion = data.usua_Creacion;
           this.papa_Fecha_Creacion = data.papa_Fecha_Creacion;
           this.usua_Modifica = data.usua_Modifica;
