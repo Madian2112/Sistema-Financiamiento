@@ -19,7 +19,47 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Inicio', icon: 'pi pi-fw pi-home', routerLink: ['/app/IndexEstadistico'] },
                     { label: 'Dashboard', icon: 'pi pi-fw pi-chart-pie', routerLink: ['/app/IndexPrueba'] },
-                    { label: 'Reportes', icon: 'pi pi-fw pi-file', routerLink: ['/app/IndexReportes'] }
+                    // { label: 'Reportes', icon: 'pi pi-fw pi-file', routerLink: ['/app/IndexReportes'] },
+                    // { label: 'Reporte Mensual', icon: 'pi pi-fw pi-file', routerLink: ['/app/IndexReporteMensual'] },
+                    // { label: 'Reporte de Modelos', icon: 'pi pi-fw pi-file', routerLink: ['/app/IndexReporteModelos'] },
+                    // { label: 'Reporte  de Estados Civiles', icon: 'pi pi-fw pi-file', routerLink: ['/app/IndexReporteEstadoCivil'] },
+                    // { label: 'Reporte Por Sexo', icon: 'pi pi-fw pi-file', routerLink: ['/app/IndexReportesSexo'] },
+                    {
+                        label: 'Reportes',
+                        icon: 'pi pi-fw pi-file',
+                        items: [
+                            {
+                                label: 'Reporte Prueba',
+                                icon: 'pi pi-fw pi-file',
+                                routerLink: ['/app/IndexReportes']
+                            },
+                            {
+                                label: 'Prestamos Aprobados',
+                                icon: 'pi pi-fw pi-file',
+                                routerLink: ['/app/IndexReportePrestamos']
+                            },
+                            {
+                                label: 'Modelos de Vehiculos',
+                                icon: 'pi pi-fw pi-file',
+                                routerLink: ['/app/IndexReporteModelosVehiculos']
+                            },
+                            {
+                                label: 'Ventas Hechas por Empleados',
+                                icon: 'pi pi-fw pi-file',
+                                routerLink: ['/app/IndexReporteVentasEmpleado']
+                            },
+                            {
+                                label: 'Clientes en Mora',
+                                icon: 'pi pi-fw pi-file',
+                                routerLink: ['/app/IndexReporteClientesMora']
+                            },
+                            {
+                                label: 'Clientes en Mora',
+                                icon: 'pi pi-fw pi-file',
+                                routerLink: ['/app/IndexReporteClientesMora']
+                            },
+                        ]
+                    }
                 ]
             },
             

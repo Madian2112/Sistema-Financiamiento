@@ -107,6 +107,115 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
+        public IEnumerable<tbPlanesPagosClientes> ObtenerPrestamoPorMesFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@FechaInicio", FechaInicio);
+                parametro.Add("@FechaFin", FechaFinal);
+                parametro.Add("@SucursalId", Sucu_Id);
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_PrestamoPorMesFiltro, parametro, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+        public IEnumerable<tbPlanesPagosClientes> ObtenerPrestamoPorEstadoFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@FechaInicio", FechaInicio);
+                parametro.Add("@FechaFin", FechaFinal);
+                parametro.Add("@SucursalId", Sucu_Id);
+   
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_PrestamoPorEstadoFiltro, parametro, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@FechaInicio", FechaInicio);
+                parametro.Add("@FechaFin", FechaFinal);
+                parametro.Add("@SucursalId", Sucu_Id);
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoPorMes, parametro, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorModelo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@FechaInicio", FechaInicio);
+                parametro.Add("@FechaFin", FechaFinal);
+                parametro.Add("@SucursalId", Sucu_Id);
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoPorModelo, parametro, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorEstado(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@FechaInicio", FechaInicio);
+                parametro.Add("@FechaFin", FechaFinal);
+                parametro.Add("@SucursalId", Sucu_Id);
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoPorEstado, parametro, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorSexo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@FechaInicio", FechaInicio);
+                parametro.Add("@FechaFin", FechaFinal);
+                parametro.Add("@SucursalId", Sucu_Id);
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoPorSexo, parametro, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+        public IEnumerable<tbPlanesPagosClientes> ObtenerPrestamoPorSexoFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@FechaInicio", FechaInicio);
+                parametro.Add("@FechaFin", FechaFinal);
+                parametro.Add("@SucursalId", Sucu_Id);
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_PrestamoPorSexoFiltro, parametro, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> ObtenerPrestamoPorModeloFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@FechaInicio", FechaInicio);
+                parametro.Add("@FechaFin", FechaFinal);
+                parametro.Add("@SucursalId", Sucu_Id);
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_PrestamoPorModeloFiltro, parametro, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
         public IEnumerable<tbPlanesPagosClientes> ObtenerPrestamoPorEstado()
         {
             List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
@@ -151,7 +260,7 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
-        public IEnumerable<tbPlanesPagosClientes> DetallePP(int ? Papa_Id)
+        public IEnumerable<tbPlanesPagosClientes> DetallePP(int? Papa_Id)
         {
 
 
@@ -163,5 +272,6 @@ namespace Practica.DataAcces.Repositorio
                 return result;
             }
         }
+
     }
 }

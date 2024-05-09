@@ -1,3 +1,213 @@
+<div class="grid p-fluid">
+  <div class="col-12 lg:col-12">
+    <div class="card">
+  
+      <div class="field">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <h3>Fecha Inicio:</h3>
+              <input type="date" id="fechaInicio" [(ngModel)]="fechaInicio" (change)="cambiarFechaInicio($event)" class="p-inputtext">
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+       
+              <h3>Fecha Final:</h3>
+              <input type="date" id="fechaFin" [(ngModel)]="fechaFin" (change)="cambiarFechaFin($event)" class="p-inputtext">
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <h3>Sucursal:</h3>
+              <select style="background-color: #121212; color: aliceblue;" (change)="cambiarSucursal($event)" class="form-control">
+                <!-- <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione</option> -->
+                <option style="background-color: #121212; color: aliceblue;" *ngFor="let sucursal of sucursales" [value]="sucursal.sucu_Id">
+                  {{ sucursal.muni_Descripcion }}
+                </option>
+              </select>
+              
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <h3>Tipo Reporte:</h3>
+              <p-dropdown [options]="cities" [(ngModel)]="selectedDrop" placeholder="Seleccione"></p-dropdown>
+            </div>
+          </div>
+          <!-- <h5>Calendar</h5>
+			<p-calendar [showIcon]="true" inputId="icon" ></p-calendar> -->
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <p-table [value]="FiltroMes" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+        [paginator]="true" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 12rem">
+              <div class="flex justify-content-between align-items-center">
+                Año
+              
+              </div>
+            </th>
+            <th style="min-width: 12rem">
+              <div class="flex justify-content-between align-items-center">
+                Mes
+              </div>
+            </th>
+            <th style="min-width: 12rem">
+              <div class="flex justify-content-between align-items-center">
+               Cantidad
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-FiltroMes>
+          <tr>
+            <td>{{FiltroMes.anio}}</td>
+            <td>{{ obtenerNombreMes(FiltroMes.mes) }}</td>
+            <td>{{FiltroMes.cantidadPrestamos}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="2">No hay datos para cargar.</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="loadingbody">
+          <tr>
+            <td colspan="2">Cargando datos. Por favor espera.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+
+      <p-table [value]="FiltroPorModelo" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+      [paginator]="true" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <!-- <th style="min-width: 12rem">
+            <div class="flex justify-content-between align-items-center">
+              Año
+            
+            </div>
+          </th>
+          <th style="min-width: 12rem">
+            <div class="flex justify-content-between align-items-center">
+              Mes
+            </div>
+          </th> -->
+          <th style="min-width: 12rem">
+            <div class="flex justify-content-between align-items-center">
+              Modelo
+            </div>
+          </th>
+          <th style="min-width: 12rem">
+            <div class="flex justify-content-between align-items-center">
+             Cantidad
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-FiltroPorModelo>
+        <tr>
+          <td>{{FiltroPorModelo.mode_Descripcion}}</td>
+          <!-- <td>{{ obtenerNombreMes(FiltroPorModelo.mes) }}</td>
+          <td>{{ obtenerNombreMes(FiltroPorModelo.mes) }}</td> -->
+          <td>{{FiltroPorModelo.cantidadPrestamos}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="2">No hay datos para cargar.</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="loadingbody">
+        <tr>
+          <td colspan="2">Cargando datos. Por favor espera.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+
+      <p-table [value]="FiltroPorEstado" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+      [paginator]="true" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <!-- <th style="min-width: 12rem">
+            <div class="flex justify-content-between align-items-center">
+              Año
+            
+            </div>
+          </th>
+          <th style="min-width: 12rem">
+            <div class="flex justify-content-between align-items-center">
+              Mes
+            </div>
+          </th> -->
+          <th style="min-width: 12rem">
+            <div class="flex justify-content-between align-items-center">
+              Modelo
+            </div>
+          </th>
+          <th style="min-width: 12rem">
+            <div class="flex justify-content-between align-items-center">
+             Cantidad
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-FiltroPorEstado>
+        <tr>
+          <td>{{FiltroPorModelo.mode_Descripcion}}</td>
+          <!-- <td>{{ obtenerNombreMes(FiltroPorModelo.mes) }}</td>
+          <td>{{ obtenerNombreMes(FiltroPorModelo.mes) }}</td> -->
+          <td>{{FiltroPorModelo.cantidadPrestamos}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="2">No hay datos para cargar.</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="loadingbody">
+        <tr>
+          <td colspan="2">Cargando datos. Por favor espera.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+
+    </div>
+  </div>
+</div>
+
+
 <button (click)="onImprimir()">PDF</button>
 
 <div *ngIf="pdfSrc" style="margin-top: 20px;">

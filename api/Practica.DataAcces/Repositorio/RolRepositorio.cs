@@ -98,6 +98,7 @@ namespace Practica.DataAcces.Repositorio
         public IEnumerable<tbPantallas> Listpant(int RoleId)
         {
 
+
             List<tbPantallas> result = new List<tbPantallas>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {

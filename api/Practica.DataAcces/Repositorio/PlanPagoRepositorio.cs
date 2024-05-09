@@ -109,6 +109,8 @@ namespace Practica.DataAcces.Repositorio
         }
         public IEnumerable<tbPlanesPagos> Detalle(int Papa_Id)
         {
+
+
             List<tbPlanesPagos> result = new List<tbPlanesPagos>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {

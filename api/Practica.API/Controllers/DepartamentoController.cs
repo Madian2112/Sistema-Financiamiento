@@ -60,7 +60,6 @@ namespace Practica.API.Controllers
         public IActionResult Municipios(string id)
         {
             var list = _generalServicio.ListaMunicipiosID(id);
-
             var drop = list.Data as List<tbMunicipios>;
             var rol = drop.Select(x => new SelectListItem
             {

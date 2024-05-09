@@ -261,6 +261,11 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
         }
+
+        public IEnumerable<tbPlanesPagosClientes> DetallesPP(int? id)
+        {
+            return _planpagoclienteRepositorio.DetallePP(id);
+        }
         public ServiceResult ObtenerPresaPorMes()
         {
             var result = new ServiceResult();
@@ -281,6 +286,124 @@ namespace Practica.BussinesLogic.Servicios
             try
             {
                 var lost = _planpagoclienteRepositorio.ObtenerPrestamoPorEstado();
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult ObtenerPrestaPorModeloFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ObtenerPrestamoPorModeloFiltro(FechaInicio, FechaFinal, Sucu_Id);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ObtenerPrestaPorSexoFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ObtenerPrestamoPorSexoFiltro(FechaInicio, FechaFinal, Sucu_Id);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ReportePrestamoPorMes(FechaInicio, FechaFinal, Sucu_Id);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult ReportePrestamoPorModelo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ReportePrestamoPorModelo(FechaInicio, FechaFinal, Sucu_Id);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult ReportePrestamoPorEstado(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ReportePrestamoPorEstado(FechaInicio, FechaFinal, Sucu_Id);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ReportePrestamoPorSexo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ReportePrestamoPorSexo(FechaInicio, FechaFinal, Sucu_Id);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+
+        public ServiceResult ObtenerPrestaPorMesFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ObtenerPrestamoPorMesFiltro(FechaInicio, FechaFinal, Sucu_Id);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ObtenerPrestaPorEstadoFiltro(string FechaInicio,string FechaFinal, int Sucu_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ObtenerPrestamoPorEstadoFiltro(FechaInicio, FechaFinal, Sucu_Id);
                 return result.Ok(lost);
             }
             catch (Exception ex)
@@ -393,12 +516,6 @@ namespace Practica.BussinesLogic.Servicios
         {
             return _planpagoclienteRepositorio.Detalle(id);
         }
-
-        public IEnumerable<tbPlanesPagosClientes> DetallesPP(int ? id)
-        {
-            return _planpagoclienteRepositorio.DetallePP(id);
-        }
-
         public ServiceResult ObtenerPlanPagoClienteID(int Pacl_Id)
         {
             var result = new ServiceResult();

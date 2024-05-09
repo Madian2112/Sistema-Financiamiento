@@ -131,21 +131,33 @@ namespace Practica.DataAcces.Repositorio
         public static string Papa_Insertar = "Cred.SP_PlanesPagos_Insertar";
         public static string Papa_Actualizar = "Cred.SP_PlanesPagos_Actualizar";
         public static string Papa_Eliminar = "Cred.SP_PlanesPagos_Eliminar";
-        public static string Papa_Detalles = "[Cred].[SP_PlanesPagos_Llenar]";
+        public static string Papa_Detalles = "Cred.SP_PlanesPagos_Llenar";
         #endregion
 
 
         #region Planes Pagos Clientes
         public static string Pacl_Mostrar = "Cred.SP_PlanesPagosClientes_Mostrar";
+        public static string Pacl_LlenarPlanPago = "Cred.SP_PlanesPagosClientes_LlenarPlanPago";
         public static string Pacl_Insertar = "Cred.SP_PlanesPagosClientes_Insertar";
         public static string Pacl_Actualizar = "Cred.SP_PlanesPagosClientes_Actualizar";
         public static string Pacl_Eliminar = "Cred.SP_PlanesPagosClientes_Eliminar";
         public static string Pacl_Detalles = "Cred.SP_PlanesPagosClientes_Llenar";
-        public static string Pacl_LlenarPlanPago = "Cred.SP_PlanesPagosClientes_LlenarPlanPago";
         public static string Pacl_PrestamoPorMes = "[Cred].[SP_PlanesPagosClientes_PrestamoPorMes]";
         public static string Pacl_PrestamoPorEstado = "[Cred].[SP_PlanesPagosClientes_PrestamoPorEstadoCivil]";
         public static string Pacl_PrestamoPorSexo = "[Cred].[SP_PlanesPagosClientes_PrestamoPorSexo]";
         public static string Pacl_PrestamoPorModelo = "[Cred].[SP_PlanesPagosClientes_PrestamoPorModelo]";
+        public static string Pacl_PrestamoPorMesFiltro = "[Cred].[SP_PlanesPagosClientes_PrestamoPorMesFiltro]";
+        public static string Pacl_PrestamoPorEstadoFiltro = "[Cred].[SP_PlanesPagosClientes_PrestamoPorEstadoCivilFiltro]";
+        public static string Pacl_PrestamoPorSexoFiltro = "[Cred].[SP_PlanesPagosClientes_PrestamoPorSexoFiltro]";
+        public static string Pacl_PrestamoPorModeloFiltro = "[Cred].[SP_PlanesPagosClientes_PrestamoPorModeloFiltro]";
+
+        #endregion
+
+        #region Reportes
+        public static string Repo_PrestamoPorMes = "[Cred].[SP_Reportes_PrestamoPorMes]";
+        public static string Repo_PrestamoPorModelo = "[Cred].[SP_Reportes_PrestamoPorModelo]";
+        public static string Repo_PrestamoPorSexo = "[Cred].[SP_PlanesPagosClientes_PrestamoPorSexoFiltro]";
+        public static string Repo_PrestamoPorEstado = "[Cred].[SP_Reportes_PrestamoPorEstadoCivil]";
         #endregion
 
         #region Tipos Cuotas

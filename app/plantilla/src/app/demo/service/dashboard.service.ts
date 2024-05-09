@@ -13,15 +13,31 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
+
+
+
+
+  obtenerPrestaPorMesFiltro(FechaInicio: string, FechaFinal: string, Sucu_Id: number): Observable<{ anio: string, mes: string, cantidadPrestamos: number }[]> {
+    return this.http.get<{ anio: string, mes: string, cantidadPrestamos: number }[]>(`${this.apiUrl}ObtenerPrestaPorMesFiltro/${FechaInicio}/${FechaFinal}/${Sucu_Id}`);
+  } 
+
+  obtenerPrestaPorSexoFiltro(FechaInicio: string, FechaFinal: string, Sucu_Id: number): Observable<{ anio: string, mes: string, clie_Sexo: string, cantidadPrestamos: number }[]> {
+    return this.http.get<{ anio: string, mes: string, clie_Sexo:string, cantidadPrestamos: number }[]>(`${this.apiUrl}ObtenerPrestaPorSexoFiltro/${FechaInicio}/${FechaFinal}/${Sucu_Id}`);
+  } 
+
+  obtenerPrestaPorModeloFiltro(FechaInicio: string, FechaFinal: string, Sucu_Id: number): Observable<{ anio: string, mes: string, mode_Descripcion: string, cantidadPrestamos: number }[]> {
+    return this.http.get<{ anio: string, mes: string, mode_Descripcion:string, cantidadPrestamos: number }[]>(`${this.apiUrl}ObtenerPrestaPorModeloFiltro/${FechaInicio}/${FechaFinal}/${Sucu_Id}`);
+  } 
+
+  obtenerPrestaPorEstadoFiltro(FechaInicio: string, FechaFinal: string, Sucu_Id: number): Observable<{ anio: string, mes: string, esta_Descripcion: string, cantidadPrestamos: number }[]> {
+    return this.http.get<{ anio: string, mes: string, esta_Descripcion:string, cantidadPrestamos: number }[]>(`${this.apiUrl}ObtenerPrestaPorEstadoCivilFiltro/${FechaInicio}/${FechaFinal}/${Sucu_Id}`);
+  } 
+
+  
+
   obtenerPrestaPorMes(): Observable<{ anio: string, mes: string, cantidadPrestamos: number }[]> {
     return this.http.get<{ anio: string, mes: string, cantidadPrestamos: number }[]>(`${this.apiUrl}ObtenerPrestaPorMes`);
   } 
-
-
-
-
-
-
 
   
   obtenerPrestaPorSexo(): Observable<{ anio: string, mes: string,clie_Sexo: string, cantidadPrestamos: number }[]> {

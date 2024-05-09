@@ -33,6 +33,17 @@ namespace Practica.API.Controllers
             return Ok(list.Data);
         }
 
+        [HttpGet("DetailsPP/{id}")]
+        public IActionResult DetailsPP(int? id)
+        {
+            if (id == 0)
+            {
+                return Ok(id);
+            }
+            var modelo = _credirapidServicio.DetallesPP(id);
+            return Ok(modelo);
+        }
+
         [HttpGet("ObtenerPrestaPorMes")]
         public IActionResult ObtenerPrestaPorMes()
         {
@@ -45,6 +56,9 @@ namespace Practica.API.Controllers
             var list = _credirapidServicio.ObtenerPrestaPorEstado();
             return Ok(list.Data);
         }
+
+        
+
         [HttpGet("ObtenerPrestaPorSexo")]
         public IActionResult ObtenerPrestaPorSexo()
         {
@@ -58,6 +72,60 @@ namespace Practica.API.Controllers
             return Ok(list.Data);
         }
 
+        [HttpGet("ObtenerPrestaPorEstadoCivilFiltro/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        public IActionResult ObtenerPrestaPorEstadoCivilFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var list = _credirapidServicio.ObtenerPrestaPorEstadoFiltro(FechaInicio, FechaFinal, Sucu_Id);
+            return Ok(list.Data);
+        }
+        [HttpGet("ObtenerPrestaPorModeloFiltro/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        public IActionResult ObtenerPrestaPorModeloFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var list = _credirapidServicio.ObtenerPrestaPorModeloFiltro(FechaInicio, FechaFinal, Sucu_Id);
+            return Ok(list.Data);
+        }
+        [HttpGet("ObtenerPrestaPorMesFiltro/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        public IActionResult ObtenerPrestaPorMesFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var list = _credirapidServicio.ObtenerPrestaPorMesFiltro(FechaInicio, FechaFinal, Sucu_Id);
+            return Ok(list.Data);
+        }
+        [HttpGet("ObtenerPrestaPorSexoFiltro/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        public IActionResult ObtenerPrestaPorSexoFiltro(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var list = _credirapidServicio.ObtenerPrestaPorSexoFiltro(FechaInicio, FechaFinal, Sucu_Id);
+            return Ok(list.Data);
+        }
+
+        [HttpGet("ReportePorMes/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        public IActionResult RepoPorMes(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var list = _credirapidServicio.ReportePrestamoPorMes(FechaInicio, FechaFinal, Sucu_Id);
+            return Ok(list.Data);
+        }
+
+        [HttpGet("ReportePorModelo/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        public IActionResult RepoPorModelo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var list = _credirapidServicio.ReportePrestamoPorModelo(FechaInicio, FechaFinal, Sucu_Id);
+            return Ok(list.Data);
+        }
+
+
+        [HttpGet("ReportePorEstado/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        public IActionResult RepoPorEstado(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var list = _credirapidServicio.ReportePrestamoPorEstado(FechaInicio, FechaFinal, Sucu_Id);
+            return Ok(list.Data);
+        }
+
+
+        [HttpGet("ReportePorSexo/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        public IActionResult RepoPorSexo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        {
+            var list = _credirapidServicio.ReportePrestamoPorSexo(FechaInicio, FechaFinal, Sucu_Id);
+            return Ok(list.Data);
+        }
 
 
         [HttpGet("Details/{id}")]
@@ -66,17 +134,6 @@ namespace Practica.API.Controllers
             var modelo = _credirapidServicio.DetallesPlanPagoCliente(id);
             var detail = modelo.First();
             return Ok(detail);
-        }
-
-        [HttpGet("DetailsPP/{id}")]
-        public IActionResult DetailsPP(int? id)
-        {
-            if(id == 0)
-            {
-                return Ok(id);
-            }
-            var modelo = _credirapidServicio.DetallesPP(id);
-            return Ok(modelo);
         }
 
         [HttpGet("Edit/{id}")]

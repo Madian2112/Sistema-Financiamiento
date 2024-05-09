@@ -29,6 +29,8 @@ import { OrderListModule } from 'primeng/orderlist';
 import { Product } from 'src/app/demo/api/product';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { SelectItem } from 'primeng/api';
+//import 'chartjs-plugin-labels';
+
 
 Chart.register(...registerables);
 
@@ -62,7 +64,8 @@ export class EstadisticosComponent implements OnInit{
     const fechaActual = new Date().toISOString().slice(0, 10);
     this.fechaInicio = fechaActual;
     this.fechaFin = fechaActual;
-   
+    
+    console.log(this.fechaInicio + this.fechaFin)
     this.filtrarCompras();
   }
 
@@ -85,9 +88,10 @@ export class EstadisticosComponent implements OnInit{
                 
                 const comprasFiltradas = data.filter(compra => {
                     const fechaCompra = `${compra.anio}-${compra.mes.padStart(2, '0')}`;
+                    
                     return fechasEnRango.includes(fechaCompra);
                 });
-            
+                
                 this.renderizarGrafico(comprasFiltradas);
             },
             error => {
@@ -149,6 +153,7 @@ this.dashboardService.obtenerPrestaPorEstado().subscribe(
 
   renderizarGrafico(compras: { anio: string, mes: string, cantidadPrestamos: number }[]) {
     const fechas = compras.map(compra => `${compra.anio}-${compra.mes}`);
+    console.log(fechas)
     const cantidades = compras.map(compra => compra.cantidadPrestamos);
 
     if (this.MyChart) {

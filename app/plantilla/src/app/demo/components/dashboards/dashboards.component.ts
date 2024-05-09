@@ -52,105 +52,91 @@ export class DashboardsComponent implements OnInit {
   chartDataModelo: ChartData;
   chartOptionsModelo: ChartOptions;
 
+  cantidadPrestamos: number = 0;
+
   constructor(
     private dashboardService: DashboardService,
     private messageService: MessageService // Inyectar MessageService
   ) { }
-
   ngOnInit(): void {
-    const fechaActual = new Date().toISOString().slice(0, 10);
-    this.fechaInicio = fechaActual;
-    this.fechaFin = fechaActual;
-   
+    const fechaActual = new Date();
+    
+    fechaActual.setMonth(fechaActual.getMonth() - 1);
+    const fechaMesAnterior = fechaActual.toISOString().slice(0, 10);
+    const fechaActualISO = new Date().toISOString().slice(0, 10);
+    this.fechaInicio = fechaMesAnterior;
+    this.fechaFin = fechaActualISO;
+    
+    console.log("Fechas" + this.fechaInicio + this.fechaFin)
     this.filtrarCompras();
   }
-
+  
   filtrarCompras() {
     const fechaInicio = new Date(this.fechaInicio);
     const fechaFin = new Date(this.fechaFin);
 
     if (fechaInicio <= fechaFin) {
-      
-        const fechasEnRango: string[] = [];
-        let fechaActual = new Date(fechaInicio);
-        while (fechaActual <= fechaFin) {
-            fechasEnRango.push(fechaActual.toISOString().slice(0, 7));
-            fechaActual.setMonth(fechaActual.getMonth() + 1); 
+      const fechasEnRango: string[] = [];
+      let fechaActual = new Date(fechaInicio);
+      while (fechaActual <= fechaFin) {
+        fechasEnRango.push(fechaActual.toISOString().slice(0, 7));
+        fechaActual.setMonth(fechaActual.getMonth() + 1);
+      }
+
+      // Obtener los datos filtrados por rango de fechas para cada gráfico
+ 
+      this.dashboardService.obtenerPrestaPorMesFiltro(this.fechaInicio, this.fechaFin,1).subscribe(
+        data => {
+          this.renderizarGrafico(data);
+        },
+        error => {
+          console.error('Error al obtener datos de préstamos:', error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al obtener datos de la API.' });
         }
+      );
 
-     
-        this.dashboardService.obtenerPrestaPorMes().subscribe(
-            data => {
-                
-                const comprasFiltradas = data.filter(compra => {
-                    const fechaCompra = `${compra.anio}-${compra.mes.padStart(2, '0')}`;
-                    return fechasEnRango.includes(fechaCompra);
-                });
-            
-                this.renderizarGrafico(comprasFiltradas);
-            },
-            error => {
-                console.error('Error al obtener datos de préstamos:', error);
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al obtener datos de la API.' });
-            }
-        );
+      this.dashboardService.obtenerPrestaPorSexoFiltro(this.fechaInicio, this.fechaFin,1).subscribe(
+        data => {
+          this.renderizarGraficoSexo(data);
+        },
+        error => {
+          console.error('Error al obtener datos de préstamos:', error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al obtener datos de la API.' });
+        }
+      );
 
- this.dashboardService.obtenerPrestaPorSexo().subscribe(
-  data => {
-   
-      const comprasFiltradas = data.filter(compra => {
-          const fechaCompra = `${compra.anio}-${compra.mes.padStart(2, '0')}`;
-          return fechasEnRango.includes(fechaCompra);
-      });
-   
-      this.renderizarGraficoSexo(comprasFiltradas);
-  },
-  error => {
-      console.error('Error al obtener datos de préstamos:', error);
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al obtener datos de la API.' });
-  }
-);
-this.dashboardService.obtenerPrestaPorModelo().subscribe(
-  data => {
-      // Filtrar los datos por todas las fechas dentro del rango
-      const comprasFiltradas = data.filter(compra => {
-          const fechaCompra = `${compra.anio}-${compra.mes.padStart(2, '0')}`;
-          return fechasEnRango.includes(fechaCompra);
-      });
-      // Renderizar gráfico con los datos filtrados
-      this.renderizarGraficoModelo(comprasFiltradas);
-  },
-  error => {
-      console.error('Error al obtener datos de préstamos:', error);
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al obtener datos de la API.' });
-  }
-);
+      this.dashboardService.obtenerPrestaPorModeloFiltro(this.fechaInicio, this.fechaFin,1).subscribe(
+        data => {
+          this.renderizarGraficoModelo(data);
+        },
+        error => {
+          console.error('Error al obtener datos de préstamos:', error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al obtener datos de la API.' });
+        }
+      );
 
-this.dashboardService.obtenerPrestaPorEstado().subscribe(
-  data => {
-      // Filtrar los datos por todas las fechas dentro del rango
-      const comprasFiltradas = data.filter(compra => {
-          const fechaCompra = `${compra.anio}-${compra.mes.padStart(2, '0')}`;
-          return fechasEnRango.includes(fechaCompra);
-      });
-      // Renderizar gráfico con los datos filtrados
-      this.renderizarGraficoEstado(comprasFiltradas);
-  },
-  error => {
-      console.error('Error al obtener datos de préstamos:', error);
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al obtener datos de la API.' });
-  }
-);
+      this.dashboardService.obtenerPrestaPorEstadoFiltro(this.fechaInicio, this.fechaFin,1).subscribe(
+        data => {
+          this.renderizarGraficoEstado(data);
+        },
+        error => {
+          console.error('Error al obtener datos de préstamos:', error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al obtener datos de la API.' });
+        }
+      );
     } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'La fecha de inicio debe ser anterior o igual a la fecha de fin.' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'La fecha de inicio debe ser anterior o igual a la fecha de fin.' });
     }
-}
+  }
 
   
   renderizarGrafico(compras: { anio: string, mes: string, cantidadPrestamos: number }[]) {
     const fechas = compras.map(compra => `${compra.anio}-${compra.mes}`);
     const cantidades = compras.map(compra => compra.cantidadPrestamos);
 
+        // Asignar la cantidad total de préstamos
+        this.cantidadPrestamos = cantidades.reduce((total, cantidad) => total + cantidad, 0);
+        
     if (this.MyChart) {
       this.MyChart.destroy(); // Destruir el gráfico existente si existe
     }
@@ -301,7 +287,7 @@ this.dashboardService.obtenerPrestaPorEstado().subscribe(
 
 renderizarGraficoModelo(compras: { anio: string, mes: string, mode_Descripcion: string, cantidadPrestamos: number }[]) {
   // Obtén los datos para el gráfico de estado civil
-  const labels = compras.map(compra => `${compra.anio}-${compra.mes.padStart(2, '0')} - ${compra.mode_Descripcion}`);
+  const labels = compras.map(compra => `${compra.mode_Descripcion}`);
   const data = compras.map(compra => compra.cantidadPrestamos);
 
   // Asigna los datos y opciones para el gráfico de estado civil
@@ -325,7 +311,7 @@ renderizarGraficoModelo(compras: { anio: string, mes: string, mode_Descripcion: 
 
 renderizarGraficoEstado(compras: { anio: string, mes: string, esta_Descripcion: string, cantidadPrestamos: number }[]) {
   // Obtén los datos para el gráfico de estado civil
-  const labels = compras.map(compra => `${compra.anio}-${compra.mes.padStart(2, '0')} - ${compra.esta_Descripcion}`);
+  const labels = compras.map(compra => ` ${compra.esta_Descripcion}`);
   const data = compras.map(compra => compra.cantidadPrestamos);
 
   // Asigna los datos y opciones para el gráfico de estado civil
@@ -351,16 +337,25 @@ renderizarGraficoEstado(compras: { anio: string, mes: string, esta_Descripcion: 
 
 
 
+// cambiarFechaInicio(event: Event) {
+//   this.fechaInicio = (event.target as HTMLInputElement).value;
+//   this.filtrarCompras();
+// }
 
-  cambiarFechaInicio(event: Event) {
-    this.fechaInicio = (event.target as HTMLInputElement).value;
-    this.filtrarCompras();
-  }
+// cambiarFechaFin(event: Event) {
+//   this.fechaFin = (event.target as HTMLInputElement).value;
+//   this.filtrarCompras();
+// }
 
-  cambiarFechaFin(event: Event) {
-    this.fechaFin = (event.target as HTMLInputElement).value;
-    this.filtrarCompras();
-  }
+cambiarFechaInicio(event: Event) {
+  this.fechaInicio = (event.target as HTMLInputElement).value;
+  this.filtrarCompras();
+}
+
+cambiarFechaFin(event: Event) {
+  this.fechaFin = (event.target as HTMLInputElement).value;
+  this.filtrarCompras();
+}
 }
 
 

@@ -1,123 +1,30 @@
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column align-items-center justify-content-center">
+        <img src="assets/demo/images/credirapi-removebg-preview.png" alt="CrediRapid logo" class="mb-5 w-10rem flex-shrink-0">                
+        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, #CC5B1C 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+                <div class="text-center mb-5">
+                    <div class="text-900 text-3xl font-medium mb-3">Bienvenido a CrediRapi!</div>
+                    <span class="text-600 font-medium">Sign in to continue</span>
+                </div>
 
-<!DOCTYPE html>
-<html lang="en">
+                <div>
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Usuario</label>
+                    <input id="email1" type="text" placeholder="Usuario" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
 
-<head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>
-        Login
-    </title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-    <!-- Nucleo Icons -->
-    <link href="~/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <!-- CSS Files -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-    <!-- datatables -->
-    <link href="assets/css/datatables.min.css" rel="stylesheet" />
+                    <label for="password1" class="block text-900 font-medium text-xl mb-2">Clave</label>
+                    <p-password id="password1" [(ngModel)]="password" placeholder="Clave" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
 
-</head>
-
-<body class=" ">
-
-    <section class="container">
-        <div class="login-container">
-            <div class="form-container">
-                <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
-                <h1 class="opacity">Iniciar Sesion</h1>
-                <form asp-action="Login" class="login">
-                    <div class="mb-4">
-                        <label for="username">Usuario</label>
-                        <input type="text" id="Usuario" placeholder="Usuario" name="Usuario" class="form-control " />
+                    <div class="flex align-items-center justify-content-between mb-5 gap-5">
+                        <div class="flex align-items-center">
+                            <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
+                            <label for="rememberme1">Recuerdame</label>
+                        </div>
+                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: #A4BD30">Olvide mi clave</a>
                     </div>
-                    <div class="mb-4">
-                        <label for="password">Constraseña</label>
-                        <input type="password" id="Clave" placeholder="Contraseña" name="Contrasenia" class="form-control" />
-                    </div>
-                    <div class="mb-5 @TempData["Credenciales"]">
-                        <label class="control-label" style="color:red;">@TempData["saberrr"]</label>
-                    </div>
-                    <button id="btningresar" class="mt-5 btn btn-primary btn-block">Iniciar Sesion</button>
-                </form>
-
+                    <button type="button" pButton pRipple label="Inicia Sesion" style="background-color: #CC5B1C; " class="w-full p-3 text-xl" (click)="login()"></button>
+                </div>
             </div>
-
-
-    </section>
-
-    <div class="bubbles">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
+        </div>
     </div>
-    </div>
-
-    <!--   Core JS Files   -->
-    <script src="assets/js/core/jquery.min.js"></script>
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-    <!--  Notifications Plugin    -->
-    <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="assets/js/black-dashboard.min.js?v=1.0.0" type="text/javascript"></script>
-
-    <!-- datatables -->
-    <script src="assets/js/core/datatables.min.js"></script>
-
-</body>
-
-</html>
+</div>
