@@ -138,6 +138,7 @@ namespace Practica.DataAcces.Repositorio
         #region Planes Pagos Clientes
         public static string Pacl_Mostrar = "Cred.SP_PlanesPagosClientes_Mostrar";
         public static string Pacl_Insertar = "Cred.SP_PlanesPagosClientes_Insertar";
+        public static string Pacl_LlenarPlanPago = "Cred.SP_PlanesPagosClientes_LlenarPlanPago";
         public static string Pacl_Actualizar = "Cred.SP_PlanesPagosClientes_Actualizar";
         public static string Pacl_Eliminar = "Cred.SP_PlanesPagosClientes_Eliminar";
         public static string Pacl_Detalles = "Cred.SP_PlanesPagosClientes_Llenar";

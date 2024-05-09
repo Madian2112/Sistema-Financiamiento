@@ -36,6 +36,15 @@ namespace Practica.Entities.Entities
         public bool? Pacl_Estado { get; set; }
 
         [NotMapped]
+        public decimal Pacl_Financiamiento { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Saldo_Inicial { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Saldo_Restante { get; set; }
+
+        [NotMapped]
         public string Usua_Creacion { get; set; }
 
         [NotMapped]

@@ -229,13 +229,6 @@
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Tipo Cuota
-                                <p-columnFilter type="text" field="ticu_Descripcion" display="menu"
-                                    placeholder="Buscar por descripción"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
                                 Estado
                                 <p-columnFilter type="text" field="papa_Estado_PlanesPagos" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
@@ -254,13 +247,13 @@
                         <td>{{planpago.papa_Id}}</td>
                         <td>{{planpago.papa_Financiamiento}}</td>
                         <td>{{planpago.papa_Precio_Mercado}}</td>
-                        <td>{{planpago.pap_Intereses_Porcentaje}}</td>
-                        <td>{{planpago.pap_Intereses_Monto}}</td>
+                        <td>{{planpago.papa_Intereses_Porcentaje}}</td>
+                        <td>{{planpago.papa_Intereses_Monto}}</td>
+
                         <td>{{planpago.papa_Numero_Cuota}}</td>
                         <td>{{planpago.marc_Descripcion}}</td>
                         <td>{{planpago.mode_Descripcion}}</td>
                         <td>{{planpago.cliente}}</td>
-                        <td>{{planpago.ticu_Descripcion}}</td>
                         <td>{{planpago.papa_Estado_PlanesPagos}}</td>
                         <td  style="display: flex; grid-gap:10px">
                             <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editar(planpago)"></button>>
@@ -320,7 +313,9 @@
                             Interes Porcentaje
                         </dt>
                         <dd class="col-sm-12 letras-content">
-                            {{pap_Intereses_Porcentaje}}
+
+                            {{papa_Intereses_Porcentaje}}
+
                         </dd>
                     </dl>
                   </dl>
@@ -330,7 +325,17 @@
                             Interes Monto
                         </dt>
                         <dd class="col-sm-12 letras-content">
-                            {{pap_Intereses_Monto}}
+
+                            {{papa_Intereses_Monto}}
+                        </dd>
+                    </dl>
+                    <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            Numero Cuotas
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+                            {{papa_Numero_Cuota}}
+
                         </dd>
                     </dl>
                     <dl class="form-group col-sm-3">
@@ -341,14 +346,6 @@
                             {{cliente}}
                         </dd>
                     </dl>
-                    <dl class="form-group col-sm-3">
-                      <dt class="col-sm-12 letras">
-                          Cuota
-                      </dt>
-                      <dd class="col-sm-12 letras-content">
-                          {{ticu_Descripcion}}
-                      </dd>
-                  </dl>
                 </dl>
                   <div class="table-responsive">
                   <table class="custom-table table-bordered table-striped" style="border: 2px solid #BE561B; background-color: black;" id="MasterTable">

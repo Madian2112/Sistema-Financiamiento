@@ -32,6 +32,17 @@ namespace Practica.API.Controllers
             var list = _credirapidServicio.ListPlanPagoClientes();
             return Ok(list.Data);
         }
+        
+        [HttpGet("DetailsPP/{id}")]
+        public IActionResult DetailsPP(int? id)
+        {
+            if (id == 0)
+            {
+                return Ok(id);
+            }
+            var modelo = _credirapidServicio.DetallesPP(id);
+            return Ok(modelo);
+        }
 
         [HttpGet("ObtenerPrestaPorMes")]
         public IActionResult ObtenerPrestaPorMes()

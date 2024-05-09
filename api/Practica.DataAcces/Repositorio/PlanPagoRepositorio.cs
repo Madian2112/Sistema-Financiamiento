@@ -69,23 +69,25 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("Papa_Financiamiento", item.Papa_Financiamiento);
                 parametro.Add("Papa_Precio_Mercado", item.Papa_Precio_Mercado);
                 parametro.Add("Vecl_Id", item.Vecl_Id);
-                parametro.Add("Ticu_Id", item.Ticu_Id);
-                parametro.Add("Pap_Intereses_Porcentaje", item.Pap_Intereses_Porcentaje);
-                parametro.Add("Papa_Numero_Cuota", item.Papa_Numero_Cuota);
-                parametro.Add("Papa_Estado_PlanesPagos", false);
+                                parametro.Add("Papa_Numero_Cuota", item.Papa_Numero_Cuota);
                 parametro.Add("Papa_Fecha_Emision", DateTime.Now);
-                parametro.Add("Papa_Fecha_Finalizacion", item.Papa_Fecha_Finalizacion);
-                parametro.Add("Papa_Usua_Creacion", item.Papa_Usua_Creacion);
+                parametro.Add("Papa_Usua_Creacion", 1);
                 parametro.Add("Papa_Fecha_Creacion", DateTime.Now);
-
-                var result = db.Execute(ScriptBaseDatos.Papa_Insertar,
+                parametro.Add("@UltimoId", dbType: DbType.Int32, direction: ParameterDirection.Output); // Agrega el parámetro de salida
+                
+               var result = db.Execute(ScriptBaseDatos.Papa_Insertar,
                     parametro,
                     commandType: CommandType.StoredProcedure
                     );
-                string mensaje = (result == 1) ? "Exito" : "Error";
-                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+                    
+                int planpago = parametro.Get<int>("@UltimoId");
+
+                item.Resultado = result;
+                string mensaje = (result != -1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = planpago, MessageStatus = mensaje };
             }
         }
+        
         public IEnumerable<tbPlanesPagos> ObtenerPlanPagoID(int Papa_Id)
         {
 

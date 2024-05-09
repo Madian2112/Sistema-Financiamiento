@@ -1,6 +1,8 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
-import { PLanPago } from '../../../models/PlanPagoViewModel';
+
+import { PLanPago, PLanPagoCreate, Fill } from '../../../models/PlanPagoViewModel';
+import { PLanPagoCliente, PLanPagoClientTB } from '../../../models/PlanPagoClienteViewModel';
 import { Vehiculo } from '../../../models/VehiculoViewModel';
 import { TipoCuota } from '../../../models/TipoCuotaViewModel';
 import { PLanPagoServiceService } from '../../../service/planplago_service';
@@ -23,6 +25,8 @@ import {DialogAddEditComponent} from 'src/app/demo/Dialogs/dialog-add-edit/dialo
 import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { PlanpagoListadoComponent } from '../planpago-listado/planpago-listado.component';
+import { Respuesta } from 'src/app/demo/models/ServiceResult';
+
 
 @Component({
   selector: 'app-planpago-crear',
@@ -34,10 +38,20 @@ export class PlanpagoCrearComponent implements OnInit {
   displ: boolean= true;
   display: boolean = false;
   planpago!: PLanPago[];
+
+  planpagoclientes!: PLanPagoClientTB[];
+  prueba: PLanPagoClientTB[];
+
   vehiculos!: Vehiculo[];
   tipocuotas!: TipoCuota[];
   formPlanPago: FormGroup;
   listadoPLanPago: PLanPago[] = [];
+
+
+  create: string = "";
+  detalle : string ="collapse";
+  idplanpag: number = 0;
+
 
   constructor
   ( 
@@ -77,42 +91,78 @@ export class PlanpagoCrearComponent implements OnInit {
     this.router.navigate(['/app/IndexPlanPago']); // Ajusta la ruta según tu configuración de enrutamiento
 }
 
+
+papa_Id?: number = 0;
+papa_Financiamiento?:string = "";   
+papa_Intereses_Porcentaje?:string = "";  
+papa_Intereses_Monto?:string = "";  
+cliente?:string = "";  
+ticu_Descripcion?:string = "";  
+usua_Creacion?:string = "";   
+papa_Fecha_Creacion?:string ="";    
+usua_Modifica?:string ="";   
+papa_Fecha_Modificacion?:string = "";  
+mora: string = "";
+marca: string = "";
+modelo: string = "";
+cuotas: string = "";
+
 Nuevo() {
-  console.log(this.formPlanPago.value);
-  console.log(this.formPlanPago.value.empleado +' ' + this.formPlanPago.value.rol);
-    const planpago: PLanPago = {
-      cliente: "",
-      marc_Descripcion: "", 
-      mode_Descripcion: "", 
-      pap_Intereses_Monto: this.formPlanPago.value.interesMonto,
-      pap_Intereses_Porcentaje: this.formPlanPago.value.interesPorcentaje,
-      papa_Financiamiento: this.formPlanPago.value.financiamiento,
-      papa_Id: 0,
-      papa_Numero_Cuota: this.formPlanPago.value.cuota,
-      papa_Precio_Mercado: this.formPlanPago.value.preciomercado,
-      ticu_Descripcion: "",
-      ticu_Id: this.formPlanPago.value.tipocuota,
-      vecl_Id: this.formPlanPago.value.vehiculo,
+    this.detalle = "";
+    this.create = "collapse";
+    const planpago: PLanPagoCreate = { 
+      papa_Financiamiento: this.formPlanPago.value.financiamiento, 
+      papa_Id: 0, 
+      papa_Numero_Cuota: this.formPlanPago.value.cuota, 
+      papa_Precio_Mercado: this.formPlanPago.value.preciomercado, 
+      vecl_Id: this.formPlanPago.value.vehiculo, 
         }
-    // Llamar al servicio solo si los valores necesarios están definidos
-    this._PlanPagoservice.agregar(planpago).subscribe({
-      next: (data) => {
-        this.service.getPLanPago().subscribe(
-          (data: any) => {
-            console.log(data);
-            this.planpago = data;
-            console.log(this.planpago);
-            this.display = false;
+        this._PlanPagoservice.agregar(planpago).subscribe(
+          (respuesta: Respuesta) => {
+              console.log(respuesta.success)
+              console.log(respuesta.data)
+              console.log(respuesta.data.codeStatus)
+              console.log(respuesta.message)
+              console.log(respuesta.code)
+              this.idplanpag = respuesta.data.codeStatus;
+
+              this.service.getPLanPagoCliente(respuesta.data.codeStatus).subscribe(data => {
+                this.planpagoclientes = data;
+                console.log("Los datos som: "+ data)
+              });
+
+              this.service.getFill(respuesta.data.codeStatus).subscribe({
+                next: (data: Fill) => {
+                  this.papa_Id = data.papa_Id;
+                  this.papa_Financiamiento = data.papa_Financiamiento;
+                  this.papa_Intereses_Porcentaje = data.papa_Intereses_Porcentaje;
+                  this.papa_Intereses_Monto = data.papa_Intereses_Monto;
+                  this.mora = data.papa_Mora;
+                  this.cuotas = data.papa_Numero_Cuota;
+                  this.marca = data.marc_Descripcion; 
+                  this.modelo = data.mode_Descripcion;
+                  this.cliente = data.cliente;
+                  this.usua_Creacion = data.usua_Creacion;
+                  this.papa_Fecha_Creacion = data.papa_Fecha_Creacion;
+                  this.usua_Modifica = data.usua_Modifica;
+                  this.papa_Fecha_Modificacion = data.papa_Fecha_Modificacion;
+                }
+              });
+
+              if (respuesta.success) {
+                  const mensaje = respuesta.message;
+                   
+              } else {
+                  console.error('Error en la respuesta:', respuesta);
+            
+              }
           },
           error => {
-            console.log(error);
+              console.error('Error al crear el rol:', error);
+         
           }
-        );
-      },
-      error: (e) => {
-        console.error(e);
-      }
-    })
+      );
+
     this.formPlanPago = this.fb.group({
       financiamiento:[""],
       preciomercado:[""],
@@ -127,12 +177,22 @@ Nuevo() {
     })
   };
 
+
+
+    pacl_Id?: number = 0;
+    pacl_Monto_Pago?: number = 0;
+    pacl_Pago_Capital?: number =0;
+    pacl_Pago_Intereses?: number = 0;  
+    pacl_Pago_Mora?: number = 0; 
+    pacl_Fecha_Emision?: string =""; 
+
+
   ngOnInit(): void {
 
     this.service.getTipoCuota().subscribe(data => {
       this.tipocuotas = data;
     });
-  
+
     this.service.getVehiculo().subscribe(data => {
       this.vehiculos = data;
     });

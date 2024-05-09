@@ -57,19 +57,16 @@ namespace Practica.API.Controllers
                 Papa_Financiamiento = item.Papa_Financiamiento,
                 Papa_Precio_Mercado = item.Papa_Precio_Mercado,
                 Vecl_Id = item.Vecl_Id,
-                Ticu_Id = item.Ticu_Id,
-                Pap_Intereses_Porcentaje = item.Pap_Intereses_Porcentaje,
-                Papa_Estado_PlanesPagos = false,
                 Papa_Numero_Cuota = item.Papa_Numero_Cuota,
                 Papa_Fecha_Emision = DateTime.Now , 
-                Papa_Fecha_Finalizacion = item.Papa_Fecha_Finalizacion,
-                Papa_Usua_Creacion = item.Papa_Usua_Creacion
+                Papa_Usua_Creacion = item.Papa_Usua_Creacion 
                
 
             };
-            var listado = _credirapidServicio.ListPlanPago();
 
+            var listado = _credirapidServicio.ListPlanPago();
             var prueba = _credirapidServicio.InsertarPlanPago(modelo);
+            
             if (prueba.Code == 200)
             {
                 return Ok(prueba);

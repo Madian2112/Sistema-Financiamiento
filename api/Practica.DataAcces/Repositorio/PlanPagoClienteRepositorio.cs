@@ -259,5 +259,19 @@ namespace Practica.DataAcces.Repositorio
                 return result;
             }
         }
+        
+                public IEnumerable<tbPlanesPagosClientes> DetallePP(int? Papa_Id)
+        {
+
+
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new { Papa_Id = Papa_Id };
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_LlenarPlanPago, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+        
     }
 }
