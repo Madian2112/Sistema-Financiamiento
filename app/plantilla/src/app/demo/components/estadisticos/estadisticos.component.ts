@@ -29,6 +29,8 @@ import { OrderListModule } from 'primeng/orderlist';
 import { Product } from 'src/app/demo/api/product';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { SelectItem } from 'primeng/api';
+//import 'chartjs-plugin-labels';
+
 
 Chart.register(...registerables);
 
