@@ -14,6 +14,8 @@ namespace Practica.Entities.Entities
             tbVehiculosPorClientes = new HashSet<tbVehiculosPorClientes>();
         }
 
+        [NotMapped]
+        public string Vecl_Id { get; set; }
         public int Vehi_Id { get; set; }
         public string Vehi_Placa { get; set; }
         public string Vehi_Descripcion { get; set; }

@@ -92,6 +92,7 @@ export class VehiculoCrearComponent implements OnInit {
       mode_Id : this.formVehiculo.value.modelooo,
       mode_Descripcion : this.formVehiculo.value.modelooo,
       marc_Descripcion : this.formVehiculo.value.marca,
+      vecl_Id : 0,
       cliente: "",
     }
 

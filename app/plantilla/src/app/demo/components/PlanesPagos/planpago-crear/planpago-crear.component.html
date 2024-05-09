@@ -46,14 +46,11 @@
 }
 
 </style>
-<div class="grid">
-    <div class="col-12">
-        <div class="card">
-            <div class="{{create}}">
 =======
 <div class="grid">
     <div class="col-12">
         <div class="card">
+            <div class="{{create}}">
             <h1>Crear - Plan de Pago</h1>
             <div class="card-body">
                 <form [formGroup]="formPlanPago">
@@ -73,32 +70,24 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                            <label style="color:aliceblue" htmlFor="email2">Interes Porcentaje</label>
-                            <div class="form-group">
-                                <input pInputText formControlName="interesPorcentaje" autocomplete="off" id="interesPorcentaje" type="number" />
-                            </div>
-                            </div>
-                            <div class="col-sm-6">
                             <label style="color:aliceblue" htmlFor="email2">Cuotas</label>
                             <div class="form-group">
                                 <input pInputText formControlName="cuota" autocomplete="off" id="cuota" type="number" />
                             </div>
                           </div>
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="marca">Vehiculo</label>
+                                <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="vehiculo" id="vehiculo">
+                                  <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                  <option style="background-color: #121212; color: aliceblue;" *ngFor="let vehiculo of vehiculos" [value]="vehiculo.vecl_Id">{{ vehiculo.mode_Descripcion + ' - '+ vehiculo.marc_Descripcion + " , "+ vehiculo.cliente}}</option>
+                                </select>
+                                </div>       
+                            </div>   
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                    <label style="color:aliceblue" htmlFor="marca">Vehiculo</label>
-                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="vehiculo" id="vehiculo">
-                                      <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
-                                      <option style="background-color: #121212; color: aliceblue;" *ngFor="let vehiculo of vehiculos" [value]="vehiculo.vehi_Id">{{ vehiculo.mode_Descripcion + ' - '+ vehiculo.marc_Descripcion + " , "+ vehiculo.cliente}}</option>
-                                    </select>
-                                    </div>       
-                                </div>   
-                            </div>
-                            </div>
+                        </div>
                         </div>
                 </form>
                 <div class="row" style="margin-top: 2%;">
@@ -311,7 +300,6 @@
             </ng-template>
         </p-table>
         </div>
-
         </div>
     </div>
 </div>

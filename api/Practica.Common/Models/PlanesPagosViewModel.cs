@@ -36,7 +36,5 @@ namespace Practica.Common.Models
                 [NotMapped]
         public int Resultado { get; set; }
 
-        [NotMapped]
-
     }
 }

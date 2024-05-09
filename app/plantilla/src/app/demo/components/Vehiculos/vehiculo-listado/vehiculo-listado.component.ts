@@ -164,7 +164,8 @@ actualizar() {
     vehi_Color: this.formVehiculo.value.Color, 
     vehi_Descripcion: this.formVehiculo.value.descripcion, 
     vehi_Id: idDepartamento,
-    vehi_Placa: this.formVehiculo.value.placa
+    vehi_Placa: this.formVehiculo.value.placa, 
+    vecl_Id: 0, 
   }
   console.log(modelo);
   console.log(idDepartamento);
@@ -230,6 +231,7 @@ cancelarEliminar() {
       mode_Descripcion : this.formVehiculo.value.modelo,
       marc_Descripcion : this.formVehiculo.value.marca,
       cliente: "",
+      vecl_Id:0
     }
 
     this._vehiculoservice.agregar(vehiculo).subscribe({
