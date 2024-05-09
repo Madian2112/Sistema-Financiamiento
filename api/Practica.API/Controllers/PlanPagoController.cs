@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Practica.BussinesLogic.Servicios;
 using Practica.Common.Models;
+using Practica.DataAcces.Repositorio;
 using Practica.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -66,7 +67,22 @@ namespace Practica.API.Controllers
 
             var listado = _credirapidServicio.ListPlanPago();
             var prueba = _credirapidServicio.InsertarPlanPago(modelo);
-            
+
+            RequestStatus request = new RequestStatus();
+
+            request = prueba.Data;
+            var valor = request.CodeStatus;
+            var fecha = request.Fecha;
+
+            var detalle = _credirapidServicio.DetallesPP(valor);
+
+            foreach (var i in detalle)
+            {
+                int id = i.Pacl_Id;
+             }
+
+
+
             if (prueba.Code == 200)
             {
                 return Ok(prueba);
