@@ -1,0 +1,370 @@
+<style>
+    .letras {
+        color: white;
+        font-size: 130%;
+    }
+
+    .titulo{
+        color:aliceblue;
+        font-size: 150%;
+    }
+
+    .hola{
+        background-color: #1E1E1E;
+    }
+
+    .letras-content {
+        margin-top: 2%;
+        color: beige;
+        font-size: 110%
+    }
+
+    .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #8DA22C;
+    background-color: #1E1E1E;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 8px;
+    border: 1px solid #8DA22C;
+    color: white;
+}
+
+.custom-table th {
+    background-color: #8DA22C;
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: #1E1E1E;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+</style>
+<div class="grid">
+    <div class="col-12">
+        <div class="{{edit}}">
+            <div class="card">
+                <h1>Crear Clientes</h1>
+                <div class="card-body">
+                    <form [formGroup]="formClientes">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">DNI</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="dni" autocomplete="off" id="dni" type="text" />
+                                </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">Nombre</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="nombre" autocomplete="off" id="nombre" type="text" />
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:2%">
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">Apellido</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="apellido" autocomplete="off" id="apellido" type="text" />
+                                </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" for="sexo" class="form-label">Sexo</label>
+                                    <div class="col-md-3">
+                                        <label style="color:aliceblue">
+                                            <input type="radio" class="form-check-input" name="sexo" value="M" checked formControlName="sexo"> Masculino
+                                          </label>
+                                        </div>
+            
+                                        <div class="col-md-3">
+                                            <label style="color:aliceblue">
+                                                <input type="radio" class="form-check-input" name="sexo" value="F" formControlName="sexo"> Femenino
+                                              </label>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class="row" style="margin-top:2%">
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">Telefono</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="numero" autocomplete="off" id="numero" type="text" />
+                                </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                        <label style="color:aliceblue" htmlFor="marca">Estado Civil</label>
+                                        <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="estado" id="estado">
+                                          <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                          <option style="background-color: #121212; color: aliceblue;" *ngFor="let estado of estados" [value]="estado.esta_Id">{{ estado.esta_Descripcion}}</option>
+                                        </select>       
+                                        </div>
+                                    </div>   
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 2%; margin-left: 0%;">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                    <div class="row">
+                                        <label style="color:aliceblue"  htmlFor="marca">Departamentos</label>
+                                        <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="departamento" id="departamento"
+                                        (change)="onDepartmentChange(formClientes.get('departamento').value)" >
+                                            <option style="background-color: #121212; color: rgb(234, 236, 236);" [value]="">Seleccione</option>
+                                            <option style="background-color: #121212; color: aliceblue;" *ngFor="let departamento of departamentos" [ngValue]="departamento.dept_Id">
+                                                {{ departamento.dept_Descripcion }}
+                                            </option>
+                                        </select>                                
+                                    </div>   
+                                </div>
+                            </div>
+                                <div class="col-sm-3" style="margin-left: 25%">
+                                    <div class="form-group">
+                                    <div class="row">
+                                        <label style="color:aliceblue"  htmlFor="marca">Municipios</label>
+                                        <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="municipio" id="municipio">
+                                            <option style="background-color: #121212; color: aliceblue;" *ngFor="let municipio of municipios" [ngValue]="municipio.value">{{ municipio.text }}
+                                            </option>
+                                        </select>                                
+                                    </div>   
+                                </div>
+                                </div> 
+                            </div>
+                    </form>
+                    <div class="row" style="margin-top: 2%;">
+                        <div class="col-sm-2">
+                        <div class="form-group">
+                            <button pButton icon="pi pi-times" (click)="Regresar()" label="Regresar" class="p-button-outlined p-button-danger"></button>
+                        </div>
+                        </div>
+                        <div class="col-sm-2">
+                        <div class="form-group">
+                            <button pButton icon="pi pi-check" (click)="actualizar()" label="Actualizar" class="p-button-outlined"></button>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="{{tabla}}">
+        <div class="card">
+            <h1>Clientes</h1>
+            <div class="grid">
+                <div class="col-12">
+                    <button (click)="Crear()" pButton icon="pi pi-external-link" label="Nuevo"></button>
+                </div>
+            </div>
+            <p-table [value]="cliente" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+                [paginator]="true" [globalFilterFields]="['clie_Id','clie_DNI', 'clie_Nombre', 'clie_Apellido', 'clie_Sexo','esta_Descripcion', 'esta_Id', 'muni_Id']" responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+                            (click)="clear()"></button>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" #filter (input)="onGlobalFilter($event)" placeholder="Buscar"
+                                class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Código
+                                <p-columnFilter type="text" field="clie_Id" display="menu"
+                                    placeholder="Buscar por código"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                DNI
+                                <p-columnFilter type="text" field="clie_DNI" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Nombre
+                                <p-columnFilter type="text" field="clie_Nombre" display="menu"
+                                    placeholder="Buscar por código"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Apellido
+                                <p-columnFilter type="text" field="clie_Apellido" display="menu"
+                                    placeholder="Buscar por código"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Sexo
+                                <p-columnFilter type="text" field="clie_Sexo" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Estado Civil
+                                <p-columnFilter type="text" field="esta_Descripcion" display="menu"
+                                    placeholder="Buscar por código"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                             Acciones
+                       
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-cliente>
+                    <tr>
+                        <td>{{cliente.clie_Id}}</td>
+                        <td>{{cliente.clie_DNI}}</td>
+                        <td>{{cliente.clie_Nombre}}</td>
+                        <td>{{cliente.clie_Apellido}}</td>
+                        <td>{{cliente.clie_Sexo}}</td>
+                        <td>{{cliente.esta_Descripcion}}</td>
+                        <td class="collapse">{{cliente.esta_Id}}</td>
+                        <td class="collapse">{{cliente.muni_Id}}</td>
+                        <td  style="display: flex; grid-gap:10px">
+                            <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editar(cliente)"></button>>
+                            <button pButton pRipple type="button" label="Detalles" class="p-button-info" (click)="detalles(cliente.clie_Id)"></button>
+                            <button pButton pRipple type="button" label="Eliminar" class="p-button-danger" (click)="confirmarEliminar(cliente)" ></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="2">No hay datos para cargar.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="2">Cargando datos. Por favor espera.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <p-dialog header="Confirmar Eliminación" [(visible)]="confirmacionVisible" modal="true" [style]="{ width: '300px' }">
+        <p>¿Está seguro de que desea eliminar este registro?</p>
+        <p-footer>
+          <button pButton type="button" class="mr-2" label="Cancelar" (click)="cancelarEliminar()"></button>
+          <button pButton type="button" label="Confirmar" class="p-button-danger" (click)="eliminar()"></button>
+        </p-footer>
+      </p-dialog>
+        <div class="{{detalless}}">
+            <div class="card">
+              <div class="card-header ">
+                  <div class="d-flex justify-content-between">
+                      <h3 class="card-title titulo">Detalles - Clientes</h3>
+                  </div>
+              </div>
+              <div>
+              <div class="card-body" >
+                  <dl class="row">
+                      <dl class="form-group col-sm-3">
+                          <dt class="col-sm-12 letras">
+                              DNI
+                          </dt>
+                          <dd class="col-sm-12 letras-content">
+                              {{clie_DNI}}
+                          </dd>
+                      </dl>
+                      <dl class="form-group col-sm-3">
+                          <dt class="col-sm-12 letras">
+                              Nombre
+                          </dt>
+                          <dd class="col-sm-12 letras-content">
+                              {{clie_Nombre}}
+                          </dd>
+                      </dl>
+                      <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            Apellido
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+                            {{clie_Apellido}}
+                        </dd>
+                    </dl>
+                  </dl>
+                  <dl class="row">
+                    <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            Sexo
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+                            {{clie_Sexo}}
+                        </dd>
+                    </dl>
+                    <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            Estado Civil
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+                            {{esta_Descripcion}}
+                        </dd>
+                    </dl>
+                </dl>
+                  <div class="table-responsive">
+                  <table class="custom-table table-bordered table-striped" style="border: 2px solid #BE561B; background-color: black;" id="MasterTable">
+                          <thead style="background-color: #1E1E1E;">
+                              <tr style="background-color: #8DA22C ">
+                                  <th class="letras" >
+                                      Acciones
+                                  </th>
+                                  <th class="letras">
+                                      Usuario
+                                  </th>
+                                  <th class="letras">
+                                      Fecha
+                                  </th>
+                              </tr>
+                          </thead>
+                      <tbody>
+                          <tr style="background-color: #1E1E1E;">
+                              <td>
+                                  Creacion
+                              </td>
+                              <td>
+                                  {{usua_Creacion}}
+                              </td>
+                              <td>
+                                  {{clie_Fecha_Creacion}}
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>Modificacion</td>
+                              <td>
+                                  {{usua_Modifica}}
+                              </td>
+                              <td>
+                                  {{clie_Fecha_Modifica}}
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="row" style="margin-top:2%">
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <button pButton type="button" label="Regresar" class="btn btn-dark" (click)="volver()"></button>
+                      </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+      </div>
+  </div>
+    </div>
+</div>

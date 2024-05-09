@@ -1,0 +1,64 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h1>Crear Vehiculo</h1>
+                <form [formGroup]="formVehiculo">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Placa</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="placa" autocomplete="off" id="placa" type="text" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Descripcion</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="descripcion" autocomplete="off" id="descripcion" type="text" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Color</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="Color" autocomplete="off" id="Color" type="text" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Año</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="Aniooo" autocomplete="off" id="Aniooo" type="number" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="marca">Modelo</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="modelooo" id="modelooo">
+                                      <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                      <option style="background-color: #121212; color: aliceblue;" *ngFor="let modelooo of modelos" [value]="modelooo.mode_Id">{{ modelooo.mode_Descripcion }}</option>
+                                    </select>
+                                    </div>       
+                                </div>   
+                            </div>
+                            </div>
+                        </div>
+                </form>
+                <div class="row" style="margin-top: 2%;">
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                        <button pButton icon="pi pi-times" (click)="Regresar()" label="Regresar" class="p-button-outlined p-button-danger"></button>
+                    </div>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                        <button pButton icon="pi pi-check" (click)="NuevoVehiculo()" label="Guardar" class="p-button-outlined"></button>
+                    </div>
+                    </div>
+                    </div>
+        </div>
+    </div>
+</div>

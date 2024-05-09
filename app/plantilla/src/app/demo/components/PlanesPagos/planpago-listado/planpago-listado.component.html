@@ -1,0 +1,401 @@
+<style>
+    .letras {
+        color: white;
+        font-size: 130%;
+    }
+
+    .titulo{
+        color:aliceblue;
+        font-size: 150%;
+    }
+
+    .hola{
+        background-color: #1E1E1E;
+    }
+
+    .letras-content {
+        margin-top: 2%;
+        color: beige;
+        font-size: 110%
+    }
+
+    .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #8DA22C;
+    background-color: #1E1E1E;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 8px;
+    border: 1px solid #8DA22C;
+    color: white;
+}
+
+.custom-table th {
+    background-color: #8DA22C;
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: #1E1E1E;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+</style>
+<div class="grid">
+    <div class="col-12">
+        <div class="{{edit}}">
+            <div class="card">
+                <h1>Crear - Plan de Pago</h1>
+                <div class="card-body">
+                    <form [formGroup]="formPlanPago">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">Financiamiento</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="financiamiento" autocomplete="off" id="financiamiento" type="text" />
+                                </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">Precio Mercado</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="preciomercado" autocomplete="off" id="preciomercado" type="text" />
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">Interes Porcentaje</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="interesPorcentaje" autocomplete="off" id="interesPorcentaje" type="number" />
+                                </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">Cuotas</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="cuota" autocomplete="off" id="cuota" type="number" />
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">Mora</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="mora" autocomplete="off" id="mora" type="number" />
+                                </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                        <label style="color:aliceblue" htmlFor="marca">Tipo de Cuota</label>
+                                        <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="tipocuota" id="tipocuota">
+                                          <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                          <option style="background-color: #121212; color: aliceblue;" *ngFor="let tp of tipocuotas" [value]="tp.ticu_Id">{{ tp.ticu_Descripcion }}</option>
+                                        </select>
+                                        </div>       
+                                    </div>   
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                        <label style="color:aliceblue" htmlFor="marca">Vehiculo</label>
+                                        <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="vehiculo" id="vehiculo">
+                                          <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                          <option style="background-color: #121212; color: aliceblue;" *ngFor="let vehiculo of vehiculos" [value]="vehiculo.vehi_Id">{{ vehiculo.mode_Descripcion + ' - '+ vehiculo.marc_Descripcion + " , "+ vehiculo.cliente}}</option>
+                                        </select>
+                                        </div>       
+                                    </div>   
+                                </div>
+                                </div>
+                            </div>
+                    </form>
+                    <div class="row" style="margin-top: 2%;">
+                        <div class="col-sm-2">
+                        <div class="form-group">
+                            <button pButton icon="pi pi-times" (click)="Regresar()" label="Regresar" class="p-button-outlined p-button-danger"></button>
+                        </div>
+                        </div>
+                        <div class="col-sm-2">
+                        <div class="form-group">
+                            <button pButton icon="pi pi-check" (click)="actualizar()" label="Actualizar" class="p-button-outlined"></button>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="{{tabla}}">
+        <div class="card">
+            <h1>Planes de Pago</h1>
+            <p-dialog header="Nuevo Registro" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-times" (click)="display=false" label="Cerrar" class="p-button-outlined p-button-danger"></button>
+                    <button pButton icon="pi pi-check" (click)="NuevoModelo()" [disabled]="formModelo.invalid" label="Guardar" class="p-button-outlined"></button>
+
+                </ng-template>
+            </p-dialog>
+            <div class="grid">
+                <div class="col-12">
+                    <button (click)="Crear()" pButton icon="pi pi-external-link" label="Nuevo"></button>
+                </div>
+            </div>
+            <p-table [value]="planpago" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+                [paginator]="true" [globalFilterFields]="['papa_Id', 'papa_Financiamiento', 'papa_Precio_Mercado', 'pap_Intereses_Porcentaje', 'pap_Intereses_Monto', 'papa_Numero_Cuota', 'marc_Descripcion','mode_Descripcion', 'cliente', 'ticu_Descripcion' ,'papa_Estado_PlanesPagos']" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <div class="flex justify-content-between flex-column sm:flex-row">
+                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+                            (click)="clear()"></button>
+                        <span class="p-input-icon-left mb-2">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" #filter (input)="onGlobalFilter($event)" placeholder="Buscar"
+                                class="w-full" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Código
+                                <p-columnFilter type="text" field="papa_Id" display="menu"
+                                    placeholder="Buscar por código"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Financiamiento
+                                <p-columnFilter type="text" field="papa_Financiamiento" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Precio Mercado
+                                <p-columnFilter type="text" field="papa_Precio_Mercado" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Porcentaje Intereses
+                                <p-columnFilter type="text" field="pap_Intereses_Porcentaje" display="menu"
+                                    placeholder="Buscar por código"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Monto Intereses
+                                <p-columnFilter type="text" field="pap_Intereses_Monto" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Numero Cuotas
+                                <p-columnFilter type="text" field="papa_Numero_Cuota" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Marca Carro
+                                <p-columnFilter type="text" field="marc_Descripcion" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Modelo Carro
+                                <p-columnFilter type="text" field="mode_Descripcion" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Cliente
+                                <p-columnFilter type="text" field="cliente" display="menu"
+                                    placeholder="Buscar por código"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Estado
+                                <p-columnFilter type="text" field="papa_Estado_PlanesPagos" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Acciones
+                              
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-planpago>
+                    <tr>
+                        <td>{{planpago.papa_Id}}</td>
+                        <td>{{planpago.papa_Financiamiento}}</td>
+                        <td>{{planpago.papa_Precio_Mercado}}</td>
+                        <td>{{planpago.papa_Intereses_Porcentaje}}</td>
+                        <td>{{planpago.papa_Intereses_Monto}}</td>
+
+                        <td>{{planpago.papa_Numero_Cuota}}</td>
+                        <td>{{planpago.marc_Descripcion}}</td>
+                        <td>{{planpago.mode_Descripcion}}</td>
+                        <td>{{planpago.cliente}}</td>
+                        <td>{{planpago.papa_Estado_PlanesPagos}}</td>
+                        <td  style="display: flex; grid-gap:10px">
+                            <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editar(planpago)"></button>>
+                            <button pButton pRipple type="button" label="Detalles" class="p-button-info" (click)="detalles(planpago.papa_Id)"></button>
+                            <button pButton pRipple type="button" label="Eliminar" class="p-button-danger" (click)="confirmarEliminar(planpago)" ></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="2">No hay datos para cargar.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="2">Cargando datos. Por favor espera.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <p-dialog header="Confirmar Eliminación" [(visible)]="confirmacionVisible" modal="true" [style]="{ width: '300px' }">
+        <p>¿Está seguro de que desea eliminar este registro?</p>
+        <p-footer>
+          <button pButton type="button" class="mr-2" label="Cancelar" (click)="cancelarEliminar()"></button>
+          <button pButton type="button" label="Confirmar" class="p-button-danger" (click)="eliminar()"></button>
+        </p-footer>
+      </p-dialog>
+        <div class="{{detalless}}">
+            <div class="card">
+              <div class="card-header ">
+                  <div class="d-flex justify-content-between">
+                      <h3 class="card-title titulo">Detalles - Plan Pago</h3>
+                  </div>
+              </div>
+              <div>
+              <div class="card-body" >
+                  <dl class="row">
+                      <dl class="form-group col-sm-3">
+                          <dt class="col-sm-12 letras">
+                              ID
+                          </dt>
+                          <dd class="col-sm-12 letras-content">
+                              {{papa_Id}}
+                          </dd>
+                      </dl>
+                      <dl class="form-group col-sm-3">
+                          <dt class="col-sm-12 letras">
+                              Financiamiento
+                          </dt>
+                          <dd class="col-sm-12 letras-content">
+                              {{papa_Financiamiento}}
+                          </dd>
+                      </dl>
+                      <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            Interes Porcentaje
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+
+                            {{papa_Intereses_Porcentaje}}
+
+                        </dd>
+                    </dl>
+                  </dl>
+                  <dl class="row">
+                    <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            Interes Monto
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+
+                            {{papa_Intereses_Monto}}
+                        </dd>
+                    </dl>
+                    <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            Numero Cuotas
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+                            {{papa_Numero_Cuota}}
+
+                        </dd>
+                    </dl>
+                    <dl class="form-group col-sm-3">
+                        <dt class="col-sm-12 letras">
+                            Cliente
+                        </dt>
+                        <dd class="col-sm-12 letras-content">
+                            {{cliente}}
+                        </dd>
+                    </dl>
+                </dl>
+                  <div class="table-responsive">
+                  <table class="custom-table table-bordered table-striped" style="border: 2px solid #BE561B; background-color: black;" id="MasterTable">
+                          <thead style="background-color: #1E1E1E;">
+                              <tr style="background-color: #8DA22C ">
+                                  <th class="letras" >
+                                      Acciones
+                                  </th>
+                                  <th class="letras">
+                                      Usuario
+                                  </th>
+                                  <th class="letras">
+                                      Fecha
+                                  </th>
+                              </tr>
+                          </thead>
+                      <tbody>
+                          <tr style="background-color: #1E1E1E;">
+                              <td>
+                                  Creacion
+                              </td>
+                              <td>
+                                  {{usua_Creacion}}
+                              </td>
+                              <td>
+                                  {{papa_Fecha_Creacion}}
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>Modificacion</td>
+                              <td>
+                                  {{usua_Modifica}}
+                              </td>
+                              <td>
+                                  {{papa_Fecha_Modificacion}}
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="row" style="margin-top:2%">
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <button pButton type="button" label="Regresar" class="btn btn-dark" (click)="volver()"></button>
+                      </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+      </div>
+  </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h1>Crear Usuario</h1>
+            <div class="card-body">
+                <form [formGroup]="formUsuarioC">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Usuario</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="Usuario" autocomplete="off" id="Usuario" type="text" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" htmlFor="email2">Clave</label>
+                            <div class="form-group">
+                                <input pInputText formControlName="Claveee" autocomplete="off" id="Claveee" type="text" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 2%;">
+                            <div class="col-sm-6">
+                                <label style="color:aliceblue" for="sexo" class="form-label">Es Admin</label>
+                                <div class="col-md-3">
+                                    <label style="color:aliceblue">
+                                        <input type="radio" class="form-check-input" name="number" value="1" checked formControlName="number"> Si
+                                      </label>
+                                    </div>
+        
+                                    <div class="col-md-3">
+                                        <label style="color:aliceblue">
+                                            <input type="radio" class="form-check-input" name="number" value="0" formControlName="number"> No
+                                          </label>
+                                        </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="marca">Empleado</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="empleadooo" id="empleadooo">
+                                      <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                      <option style="background-color: #121212; color: aliceblue;" *ngFor="let empleadooo of empleados" [value]="empleadooo.empl_Id">{{ empleadooo.empl_Nombre +' '+ empleadooo.empl_Apellido }}</option>
+                                    </select>       
+                                    </div>
+                                </div>   
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 2%;">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="marca">Rol</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="rolll" id="rolll">
+                                      <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                      <option style="background-color: #121212; color: aliceblue;" *ngFor="let rolll of roles" [value]="rolll.rol_Id">{{ rolll.rol_Descripcion }}</option>
+                                    </select>
+                                    </div>       
+                                </div>   
+                            </div>
+                            </div>
+                        </div>
+                </form>
+                <div class="row" style="margin-top: 2%;">
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                        <button pButton icon="pi pi-times" (click)="Regresar()" label="Regresar" class="p-button-outlined p-button-danger"></button>
+                    </div>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                        <button pButton icon="pi pi-check" (click)="Nuevo()" label="Guardar" class="p-button-outlined"></button>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
