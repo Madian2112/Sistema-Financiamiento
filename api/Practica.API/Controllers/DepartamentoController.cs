@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Practica.BussinesLogic.Servicios;
 using Practica.Common.Models;
+using Practica.DataAcces.Repositorio;
 using Practica.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,28 @@ namespace Practica.API.Controllers
             var listado = _generalServicio.ListDepto();
 
             var prueba = _generalServicio.InsertarDepto(modelo);
+
+            RequestStatus request = new RequestStatus();
+
+            request = prueba.Data;
+            var valor = request.CodeStatus;
+            var fecha = request.Fecha;
+
+            DateTime fechaprueba = DateTime.Today.Date;
+            int x = 1;
+            int y = 0;
+
+            for (int i = 1; i < 4 ; i++)
+            {
+                int fechaactual = fechaprueba.Month;
+
+                DateTime actual1 = fechaprueba.AddMonths(x);
+                DateTime actual2 = fechaprueba.AddMonths(y);
+
+                x += 1;
+                y += 1;
+            }
+
             if (prueba.Code == 200)
             {
                 return Ok (new { success = true,message = prueba.Message });

@@ -31,6 +31,7 @@ namespace Practica.API.Controllers
         [HttpGet("List")]
         public IActionResult List()
         {
+            var fecha = DateTime.Today.Date;
             var list = _credirapidServicio.ListPlanPago();
             return Ok(list.Data);
         }
@@ -75,13 +76,18 @@ namespace Practica.API.Controllers
             var fecha = request.Fecha;
 
             var detalle = _credirapidServicio.DetallesPP(valor);
+            DateTime FechaActual = DateTime.Today.Date;
+            int x = 1;
+            int y = 0;
 
             foreach (var i in detalle)
             {
-                int id = i.Pacl_Id;
+                DateTime fechafin = fecha.AddMonths(x);
+                DateTime fechapreview = fecha.AddMonths(y);
+                var insertarfechas = _credirapidServicio.InsertarFechas(i.Pacl_Id, fechafin.ToString(), fechapreview.ToString());
+                x += 1;
+                y += 1;
              }
-
-
 
             if (prueba.Code == 200)
             {

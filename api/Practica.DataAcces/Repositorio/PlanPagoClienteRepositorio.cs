@@ -35,6 +35,24 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
+        public RequestStatus InsertarFechas(int id, string fechafin, string fechapreview)
+        {
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("Pacl_Id", id);
+                parametro.Add("Pacl_Fecha_Pago", fechafin);
+                parametro.Add("Pacl_Fecha_PreviaPago", fechapreview);
+                var result = db.Execute(ScriptBaseDatos.Pacl_InsertarFecha,
+                    parametro,
+                     commandType: CommandType.StoredProcedure
+                    );
+
+                string mensaje = (result == 1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
+
         public RequestStatus Eliminar(int? id)
         {
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
