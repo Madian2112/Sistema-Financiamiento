@@ -21,6 +21,7 @@ import { MessageService } from 'primeng/api';
 import {DialogAddEditComponent} from 'src/app/demo/Dialogs/dialog-add-edit/dialog-add-edit.component';
 import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-vehiculo-listado',
@@ -166,6 +167,7 @@ actualizar() {
     vehi_Id: idDepartamento,
     vehi_Placa: this.formVehiculo.value.placa, 
     vecl_Id: 0, 
+    clie_Id: 0
   }
   console.log(modelo);
   console.log(idDepartamento);
@@ -231,7 +233,8 @@ cancelarEliminar() {
       mode_Descripcion : this.formVehiculo.value.modelo,
       marc_Descripcion : this.formVehiculo.value.marca,
       cliente: "",
-      vecl_Id:0
+      vecl_Id:0,
+      clie_Id: 0
     }
 
     this._vehiculoservice.agregar(vehiculo).subscribe({

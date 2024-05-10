@@ -64,16 +64,21 @@ namespace Practica.DataAcces.Repositorio
                 var parametro = new DynamicParameters();
                 parametro.Add("Dept_Id", item.Dept_Id);
                 parametro.Add("Dept_Descripcion", item.Dept_Descripcion);
-                parametro.Add("Dept_Usua_Creacion", item.Dept_Usua_Creacion);
+                parametro.Add("Dept_Usua_Creacion", 1);
                 parametro.Add("Dept_Fecha_Creacion", DateTime.Now);
+                parametro.Add("@UltimoID", dbType: DbType.Int32, direction: ParameterDirection.Output); // Agrega el parámetro de salida
+                parametro.Add("@Fecha", dbType: DbType.String, size:100 ,direction: ParameterDirection.Output); 
 
                 var result = db.Execute(ScriptBaseDatos.Dept_Insertar,
                     parametro,
                      commandType: CommandType.StoredProcedure
                     );
 
+                int planpago = parametro.Get<int>("@UltimoID");
+                DateTime fecha = parametro.Get<DateTime>("@Fecha");
+
                 string mensaje = (result == 1) ? "Exito" : "Error";
-                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+                return new RequestStatus { CodeStatus = planpago, MessageStatus = mensaje, Fecha = fecha };
             }
         }
 

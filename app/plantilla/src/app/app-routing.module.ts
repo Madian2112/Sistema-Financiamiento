@@ -32,6 +32,7 @@ import { ReporteClientesMoraComponent } from './demo/components/reporte-clientes
 import { ReporteModelosVehiculosComponent } from './demo/components/reporte-modelos-vehiculos/reporte-modelos-vehiculos.component';
 import { ReporteVentasEmpleadosComponent } from './demo/components/reporte-ventas-empleados/reporte-ventas-empleados.component';
 import { EstadisticosComponent } from './demo/components/estadisticos/estadisticos.component';
+import { PlanpagoclienteCrearComponent } from './demo/components/PlanesPagosClientes/planpagocliente-crear/planpagocliente-crear.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { EstadisticosComponent } from './demo/components/estadisticos/estadistic
                     { path: 'CrearVehiculo', component: VehiculoCrearComponent },
                     { path: 'CrearEmpleados', component: EmpleadosCrearComponent },
                     { path: 'CrearClientes', component: ClientesCrearComponent },
-                    { path: 'CrearPlanPago', component: PlanpagoCrearComponent }
+                    { path: 'CrearPlanPago', component: PlanpagoCrearComponent },
+                    { path: 'CrearPlanPagoCliente', component: PlanpagoclienteCrearComponent }
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

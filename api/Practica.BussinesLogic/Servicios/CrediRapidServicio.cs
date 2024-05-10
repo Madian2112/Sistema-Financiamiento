@@ -513,6 +513,30 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
+        public ServiceResult InsertarFechas(int id, string fechafin, string fechapreview)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.InsertarFechas(id, fechafin, fechapreview);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
         public IEnumerable<tbPlanesPagosClientes> DetallesPlanPagoCliente(int id)
         {
             return _planpagoclienteRepositorio.Detalle(id);
@@ -806,7 +830,7 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
-        public ServiceResult InsertarVehiCliebte(int Vehi_Id, int Clie_Id, int Usua)
+        public ServiceResult InsertarVehiCliebte(int? Vehi_Id, int? Clie_Id, int Usua)
         {
             var result = new ServiceResult();
             try

@@ -10,5 +10,7 @@ namespace Practica.DataAcces.Repositorio
     {
         public int CodeStatus { get; set; }
         public string MessageStatus { get; set; }
+
+        public DateTime Fecha { get; set; }
     }
 }

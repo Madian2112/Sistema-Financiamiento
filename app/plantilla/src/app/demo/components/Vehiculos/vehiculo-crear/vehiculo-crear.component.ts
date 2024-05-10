@@ -1,6 +1,7 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { Modelo } from '../../../models/ModeloViewModel';
+import { Clienteddl } from '../../../models/ClienteViewModel';
 import { Vehiculo } from '../../../models/VehiculoViewModel';
 import { VehiculoServiceService } from '../../../service/vehiculo_service';
 import { CommonModule } from '@angular/common';
@@ -31,6 +32,7 @@ export class VehiculoCrearComponent implements OnInit {
 
   display: boolean = false;
   vehiculo!: Vehiculo[];
+  clientes: Clienteddl[];
   modelos: Modelo[];
   formVehiculo: FormGroup;
   listadoVehiculo: Vehiculo[] = [];
@@ -48,7 +50,8 @@ export class VehiculoCrearComponent implements OnInit {
       Color:["",Validators.required],
       Aniooo:[""],
       placa:["",Validators.required],
-      modelooo:["Seleccione"]     
+      modelooo:["Seleccione"]     ,
+      clienteeee:["Seleccione"] 
     })
 
     this._vehiculoservice.getVehiculo().subscribe(
@@ -94,6 +97,7 @@ export class VehiculoCrearComponent implements OnInit {
       marc_Descripcion : this.formVehiculo.value.marca,
       vecl_Id : 0,
       cliente: "",
+      clie_Id: this.formVehiculo.value.clienteeee
     }
 
     this._vehiculoservice.agregar(vehiculo).subscribe({
@@ -120,6 +124,7 @@ export class VehiculoCrearComponent implements OnInit {
       Aniooo:[""],
       placa:[""],
       modelooo:["Seleccione"],
+      clienteeee: ["Seleccione"]
      
     })
 
@@ -140,6 +145,10 @@ export class VehiculoCrearComponent implements OnInit {
     this.service.getModelos().subscribe(data => {
       this.modelos = data;
     });
+
+    this.service.getClientes().subscribe(data => {
+      this.clientes = data;
+    })
 
   }
 }

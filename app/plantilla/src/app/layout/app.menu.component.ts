@@ -163,6 +163,11 @@ export class AppMenuComponent implements OnInit {
                                 icon: 'pi pi-fw pi-sign-in',
                                 routerLink: ['/app/IndexPlanPago']
                             },
+                            {
+                                label: 'PlanPago - Cliente',
+                                icon: 'pi pi-fw pi-sign-in',
+                                routerLink: ['/app/CrearPlanPagoCliente']
+                            },
                         ]
                     },
                     {

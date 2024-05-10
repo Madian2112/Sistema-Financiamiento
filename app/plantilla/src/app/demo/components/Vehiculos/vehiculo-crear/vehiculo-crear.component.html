@@ -45,6 +45,19 @@
                                 </div>   
                             </div>
                             </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="marca">Clientes</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="clienteeee" id="clienteeee">
+                                      <option style="background-color: #121212; color: aliceblue;" [selected]="true" [value]="">Seleccione</option>
+                                      <option style="background-color: #121212; color: aliceblue;" *ngFor="let clienteeee of clientes" [value]="clienteeee.clie_Id">{{ clienteeee.clie_Nombre + ' '+ clienteeee.clie_Apellido }}</option>
+                                    </select>
+                                    </div>       
+                                </div>   
+                            </div>
+                            </div>
                         </div>
                 </form>
                 <div class="row" style="margin-top: 2%;">

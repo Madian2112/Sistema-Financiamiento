@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Practica.BussinesLogic.Servicios;
 using Practica.Common.Models;
+using Practica.DataAcces.Repositorio;
 using Practica.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace Practica.API.Controllers
         [HttpGet("List")]
         public IActionResult List()
         {
+            var fecha = DateTime.Today.Date;
             var list = _credirapidServicio.ListPlanPago();
             return Ok(list.Data);
         }
@@ -66,7 +68,27 @@ namespace Practica.API.Controllers
 
             var listado = _credirapidServicio.ListPlanPago();
             var prueba = _credirapidServicio.InsertarPlanPago(modelo);
-            
+
+            RequestStatus request = new RequestStatus();
+
+            request = prueba.Data;
+            var valor = request.CodeStatus;
+            var fecha = request.Fecha;
+
+            var detalle = _credirapidServicio.DetallesPP(valor);
+            DateTime FechaActual = DateTime.Today.Date;
+            int x = 1;
+            int y = 0;
+
+            foreach (var i in detalle)
+            {
+                DateTime fechafin = fecha.AddMonths(x);
+                DateTime fechapreview = fecha.AddMonths(y);
+                var insertarfechas = _credirapidServicio.InsertarFechas(i.Pacl_Id, fechafin.ToString(), fechapreview.ToString());
+                x += 1;
+                y += 1;
+             }
+
             if (prueba.Code == 200)
             {
                 return Ok(prueba);

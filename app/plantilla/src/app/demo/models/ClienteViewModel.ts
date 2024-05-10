@@ -11,6 +11,12 @@ export class Cliente{
     dept_Id!: string;
 }
 
+export class Clienteddl{
+    clie_Id!: number; 
+    clie_Nombre!: string;
+    clie_Apellido!: string;
+}
+
 export class Fill{
     clie_Id!: string;
     clie_DNI!:string;   
