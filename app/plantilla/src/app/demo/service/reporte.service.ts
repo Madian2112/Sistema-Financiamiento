@@ -23,9 +23,9 @@ export class ReporteService {
     return this.http.get<{ anio: string, mes: string, cantidadPrestamos: number }[]>(`${this.apiUrl}ReportePorModelo/${FechaInicio}/${FechaFinal}/${Sucu_Id}`);
   } 
   ReportePorEstado(FechaInicio: string, FechaFinal: string, Sucu_Id: number): Observable<{ anio: string, mes: string, cantidadPrestamos: number }[]> {
-    return this.http.get<{ anio: string, mes: string, cantidadPrestamos: number }[]>(`${this.apiUrl}ReportePorModelo/${FechaInicio}/${FechaFinal}/${Sucu_Id}`);
+    return this.http.get<{ anio: string, mes: string, cantidadPrestamos: number }[]>(`${this.apiUrl}ReportePorEmpleado/${FechaInicio}/${FechaFinal}/${Sucu_Id}`);
   } 
   ReportePorSexo(FechaInicio: string, FechaFinal: string, Sucu_Id: number): Observable<{ anio: string, mes: string, cantidadPrestamos: number }[]> {
-    return this.http.get<{ anio: string, mes: string, cantidadPrestamos: number }[]>(`${this.apiUrl}ReportePorModelo/${FechaInicio}/${FechaFinal}/${Sucu_Id}`);
+    return this.http.get<{ anio: string, mes: string, cantidadPrestamos: number }[]>(`${this.apiUrl}ReporteClientePorMora/${FechaInicio}/${FechaFinal}/${Sucu_Id}`);
   } 
 }

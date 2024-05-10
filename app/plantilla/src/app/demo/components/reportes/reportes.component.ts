@@ -155,40 +155,32 @@ export class ReportesComponent implements OnInit{
     }
   
 
-  onImprimir() {
-    const encabezado =  ["Año", "Mes", "Cantidad"];
-        // const cuerpo = [
-    //                 ["2024","9","3"],
-    //                 ["2024","9","3"],
-    //               ];
-    
-
-        this.dashboardService.obtenerPrestaPorMes().subscribe(
-          data => {
-              this.ListData = data 
-
-              for(var k = 0; k < this.ListData.length; k++){
-                this.cuerpo.push([
-                  this.ListData[k].anio,
-                  this.ListData[k].mes,
-                  this.ListData[k].cantidadPrestamos
-                ]);
-              }
-          },error =>{
-            console.log("Error:" + error)
+    onImprimir() {
+      const encabezado = ["Año", "Mes", "Cantidad"];
+      this.cuerpo = []; // Inicializar cuerpo
+      
+      this.dashboardService.obtenerPrestaPorMes().subscribe(
+        data => {
+          this.ListData = data;
+          for (let i = 0; i < this.ListData.length; i++) {
+            this.cuerpo.push([
+              this.ListData[i].anio,
+              this.ListData[i].mes,
+              //this.ListData[i].cantidadPrestamos
+             { content: this.ListData[i].cantidadPrestamos, styles: { halign: 'left' } }
+            ]);
           }
-      );
-      console.log(this.cuerpo)
-
     
-     if (this.pdfSrc !== null) {
-     this.pdfSrc = null;
-      } else {
-        
-        console.log(this.cuerpo)
-       this.pdfSrc = this.service.imprimir(encabezado, this.cuerpo,"Cantidad Por Mes");
-      }
-  }
+          // Generar el PDF una vez que se hayan obtenido los datos
+          this.pdfSrc = this.service.imprimir(encabezado, this.cuerpo, "Reporte de Prestamos Hechos en cada Mes");
+        },
+        error => {
+          console.log("Error:" + error);
+          // Manejar el error apropiadamente, por ejemplo, mostrando un mensaje al usuario
+        }
+      );
+    }
+    
 }
 
 

@@ -23,7 +23,7 @@
               <select style="background-color: #121212; color: aliceblue;" (change)="cambiarSucursal($event)" class="form-control">
                 <!-- <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione</option> -->
                 <option style="background-color: #121212; color: aliceblue;" *ngFor="let sucursal of sucursales" [value]="sucursal.sucu_Id">
-                  {{ sucursal.muni_Descripcion }}
+                  {{ sucursal.muni_Descripcion + ', ' + sucursal.sucu_Direccion }}
                 </option>
               </select>
               
@@ -210,6 +210,8 @@
 
 <button (click)="onImprimir()">PDF</button>
 
+<div class="no-print">
 <div *ngIf="pdfSrc" style="margin-top: 20px;">
   <iframe [src]="pdfSrc" width="100%" height="500px"></iframe>
+</div>
 </div>

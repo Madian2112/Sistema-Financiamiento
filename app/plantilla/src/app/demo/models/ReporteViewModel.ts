@@ -15,8 +15,9 @@ export class FiltroPorModelo{
 export class FiltroPorEstado{
     anio: string;
     mes!:string;  
-    esta_Descripcion!: string;
     cantidadPrestamos!: number;
+    empleado!: string;
+
 }
 
 
