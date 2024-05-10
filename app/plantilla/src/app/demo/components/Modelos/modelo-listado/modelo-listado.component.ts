@@ -1,7 +1,8 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
-import { Modelo, Fill } from '../../../models/ModeloViewModel';
+import { Modelo, Fill, ModeloCrear } from '../../../models/ModeloViewModel';
 import { Marca } from '../../../models/MarcaViewModel';
+import { Clienteddl } from '../../../models/ClienteViewModel';
 import { ModeloServiceService } from '../../../service/modelo_service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -35,6 +36,7 @@ export class ModeloListadoComponent implements OnInit {
   display: boolean = false;
   modelo!: Modelo[];
   marcas: Marca[];
+  clientes: Clienteddl[];
   formModelo: FormGroup;
   listadoModelo: Modelo[] = [];
   selectedDepartamento: any;
@@ -105,10 +107,8 @@ export class ModeloListadoComponent implements OnInit {
 
   NuevoModelo(){
     console.log(this.formModelo.value)
-    const modelo : Modelo = {
-      mode_Id : this.formModelo.value.codigo,
+    const modelo : ModeloCrear = {
       mode_Descripcion : this.formModelo.value.modelo,
-      marc_Descripcion : this.formModelo.value.marca,
       marc_Id: this.formModelo.value.marca 
     }
     this._modeloServicio.agregar(modelo).subscribe({
@@ -241,7 +241,6 @@ export class ModeloListadoComponent implements OnInit {
     this.service.getMarcas().subscribe(data => {
       this.marcas = data;
     });
-
   }
 }
 

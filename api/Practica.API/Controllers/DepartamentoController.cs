@@ -89,8 +89,6 @@ namespace Practica.API.Controllers
             RequestStatus request = new RequestStatus();
 
             request = prueba.Data;
-            var valor = request.CodeStatus;
-            var fecha = request.Fecha;
 
             DateTime fechaprueba = DateTime.Today.Date;
             int x = 1;

@@ -64,13 +64,16 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("Mode_Id", item.Mode_Id);
                 parametro.Add("Vehi_Usua_Creacion", item.Vehi_Usua_Creacion);
                 parametro.Add("Vehi_Fecha_Creacion", DateTime.Now);
+                parametro.Add("@UltimoID", dbType: DbType.Int32, direction: ParameterDirection.Output); // Agrega el parámetro de salida
 
                 var result = db.Execute(ScriptBaseDatos.Vehi_Insertar,
                     parametro,
                     commandType: CommandType.StoredProcedure
                     );
-                string mensaje = (result == 1) ? "Exito" : "Error";
-                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+
+                int planpago = parametro.Get<int>("@UltimoID");
+                string mensaje = (result != -1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = planpago, MessageStatus = mensaje };
             }
         }
 
@@ -106,7 +109,7 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
-        public RequestStatus InsertarVehiculoCliente(int Vehi_Id,int Clie_Id, int Usua)
+        public RequestStatus InsertarVehiculoCliente(int? Vehi_Id, int? Clie_Id, int Usua)
         {
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {

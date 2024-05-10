@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Vehiculo, Fill} from '../models/VehiculoViewModel'
+import { Clienteddl } from '../models/ClienteViewModel';
 import {Modelo} from '../models/ModeloViewModel'
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,11 +14,16 @@ export class VehiculoServiceService {
   private endpoint: string = environment.endPoint;
   private apiUrl: string = this.endpoint + "API/Vehiculo/";
   private apiUrlm: string = this.endpoint + "API/Modelo/";
+  private apiUrlc: string = this.endpoint + "API/Cliente/";
 
   constructor(private http: HttpClient) { }
 
   getVehiculo(): Observable<Modelo[]> {
     return this.http.get<Modelo[]>(this.apiUrl + 'List');
+  }
+
+  getClientes(): Observable<Clienteddl[]> {
+    return this.http.get<Clienteddl[]>(this.apiUrlc + 'List');
   }
 
   getModelos(): Observable<Modelo[]> {

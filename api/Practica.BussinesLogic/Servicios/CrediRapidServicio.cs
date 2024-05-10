@@ -830,7 +830,7 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
-        public ServiceResult InsertarVehiCliebte(int Vehi_Id, int Clie_Id, int Usua)
+        public ServiceResult InsertarVehiCliebte(int? Vehi_Id, int? Clie_Id, int Usua)
         {
             var result = new ServiceResult();
             try

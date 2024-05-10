@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Practica.BussinesLogic.Servicios;
 using Practica.Common.Models;
+using Practica.DataAcces.Repositorio;
 using Practica.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,8 @@ namespace Practica.API.Controllers
             _mapper = mapper;
             _credirapidServicio = credirapidServicio;
 
-
         }
+
         [HttpGet("List")]
         public IActionResult List()
         {
@@ -77,9 +78,17 @@ namespace Practica.API.Controllers
                 Vehi_Usua_Creacion = item.Vehi_Usua_Creacion,
 
             };
+             
             var listado = _credirapidServicio.ListVehi();
 
             var prueba = _credirapidServicio.InsertarVehi(modelo);
+
+            RequestStatus request = new RequestStatus();
+
+            request = prueba.Data;
+            var ultimoid = request.CodeStatus;
+
+            var modelo2 = _credirapidServicio.InsertarVehiCliebte(ultimoid, item.Clie_Id, 1);
             if (prueba.Code == 200)
             {
                 return Ok(prueba);
