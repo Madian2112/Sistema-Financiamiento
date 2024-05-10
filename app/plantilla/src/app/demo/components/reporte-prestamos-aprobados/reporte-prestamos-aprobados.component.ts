@@ -39,7 +39,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
   FiltroPorModelo: FiltroPorModelo [] = [];
   FiltroPorEstado: FiltroPorEstado [] = [];
   FiltroPorSexo: FiltroPorSexo [] = [];
-  fechaInicio: string = ""; // Variable para almacenar la fecha de inicio seleccionada
+  fechaInicio: string = ""; 
   fechaFin: string = "";
   sucursales: Sucursal[];
   SucursalId: number;
@@ -82,7 +82,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
     this.ReportePorMes();
   }
 
-   // Método para ejecutar cuando cambia la fecha de inicio
+   // cambia la fecha de inicio
    cambiarFechaInicio(event: any) {
     this.fechaInicio = event.target.value;
     this.ReportePorMes();
@@ -91,11 +91,11 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
   cambiarSucursal(event: any) {
     this.SucursalId = event.target.value;
     console.log(this.SucursalId);
-    this.ReportePorMes(); // Llamar al método para actualizar el reporte cuando cambie la sucursal
+    this.ReportePorMes(); 
   }
   
   
-  // Método para ejecutar cuando cambia la fecha de fin
+  // cambia la fecha de fin
   cambiarFechaFin(event: any) {
     this.fechaFin = event.target.value;
     console.log("Fecha fin:" + this.fechaFin)
@@ -104,10 +104,10 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
 
 
   ReportePorMes() {
-    // Utiliza this.fechaInicio y this.fechaFin en lugar de fechas en duro
+  
     const FechaInicio = this.fechaInicio;
     const FechaFinal = this.fechaFin;
-    const Sucu_Id = this.SucursalId; // Usar el valor seleccionado en lugar de un valor estático
+    const Sucu_Id = this.SucursalId; 
     console.log(Sucu_Id);
     this.reporteService.ReportePorMes(FechaInicio, FechaFinal, Sucu_Id).subscribe(
       (data: any) => {
@@ -149,7 +149,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
     );
   }
 
-    // Esta función convierte el número del mes al nombre del mes
+    // convierte el numero de mes al nombre
     obtenerNombreMes(numeroMes: string): string {
       const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
       return meses[parseInt(numeroMes) - 1];
@@ -181,11 +181,13 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
     //     }
     //   );
     // }
+
+
     onImprimir() {
       const encabezado = ["Año", "Mes", "Cantidad"];
       const cuerpo = [];
   
-      // Recorrer los datos de FiltroMes y agregarlos al cuerpo del PDF
+      
       this.FiltroMes.forEach(filtro => {
           cuerpo.push([
               filtro.anio,
@@ -194,7 +196,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
           ]);
       });
   
-      // Generar el PDF utilizando los datos de la tabla
+      // PDF con datosde la tabla
       this.pdfSrc = this.service.imprimir(encabezado, cuerpo, "Reporte de Prestamos Hechos en cada Mes");
   }
   

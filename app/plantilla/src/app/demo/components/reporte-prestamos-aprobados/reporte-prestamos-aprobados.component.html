@@ -21,7 +21,7 @@
               <div class="form-group">
                 <h3>Sucursal:</h3>
                 <select style="background-color: #121212; color: aliceblue;" (change)="cambiarSucursal($event)" class="form-control">
-                  <!-- <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione</option> -->
+                <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione una Sucursal</option> 
                   <option style="background-color: #121212; color: aliceblue;" *ngFor="let sucursal of sucursales" [value]="sucursal.sucu_Id">
                     {{ sucursal.muni_Descripcion + ', ' + sucursal.sucu_Direccion }}
                   </option>
