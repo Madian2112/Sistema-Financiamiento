@@ -21,6 +21,8 @@ namespace Practica.Common.Models
         public string Mode_Descripcion { get; set; }
         [NotMapped]
         public int CantidadPrestamos { get; set; }
+        [NotMapped]
+        public string Empleado { get; set; }
         public int Pacl_Id { get; set; }
         public int? Papa_Id { get; set; }
         public decimal? Pacl_Monto_Pago { get; set; }

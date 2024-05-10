@@ -155,8 +155,8 @@ namespace Practica.DataAcces.Repositorio
         #region Reportes
         public static string Repo_PrestamoPorMes = "[Cred].[SP_Reportes_PrestamoPorMes]";
         public static string Repo_PrestamoPorModelo = "[Cred].[SP_Reportes_PrestamoPorModelo]";
-        public static string Repo_PrestamoPorSexo = "[Cred].[SP_PlanesPagosClientes_PrestamoPorSexoFiltro]";
-        public static string Repo_PrestamoPorEstado = "[Cred].[SP_Reportes_PrestamoPorEstadoCivil]";
+        public static string Repo_ClientePorMora = "[Cred].[SP_Reportes_ClientesMora]";
+        public static string Repo_PrestamoEmpleado = "[Cred].[SP_Reportes_VentasEmpleado]";
         #endregion
 
         #region Tipos Cuotas

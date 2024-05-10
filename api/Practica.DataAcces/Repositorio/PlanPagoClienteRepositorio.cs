@@ -162,7 +162,7 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
-        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorEstado(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorEmpleado(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
             List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
@@ -171,11 +171,11 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("@FechaInicio", FechaInicio);
                 parametro.Add("@FechaFin", FechaFinal);
                 parametro.Add("@SucursalId", Sucu_Id);
-                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoPorEstado, parametro, commandType: CommandType.StoredProcedure).ToList();
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoEmpleado, parametro, commandType: CommandType.StoredProcedure).ToList();
                 return result;
             }
         }
-        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorSexo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public IEnumerable<tbPlanesPagosClientes> ReporteClientePorMora(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
             List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
@@ -184,7 +184,7 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("@FechaInicio", FechaInicio);
                 parametro.Add("@FechaFin", FechaFinal);
                 parametro.Add("@SucursalId", Sucu_Id);
-                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoPorSexo, parametro, commandType: CommandType.StoredProcedure).ToList();
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_ClientePorMora, parametro, commandType: CommandType.StoredProcedure).ToList();
                 return result;
             }
         }

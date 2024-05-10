@@ -347,12 +347,12 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
         }
-        public ServiceResult ReportePrestamoPorEstado(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public ServiceResult ReportePrestamoPorEmpleado(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var lost = _planpagoclienteRepositorio.ReportePrestamoPorEstado(FechaInicio, FechaFinal, Sucu_Id);
+                var lost = _planpagoclienteRepositorio.ReportePrestamoPorEmpleado(FechaInicio, FechaFinal, Sucu_Id);
                 return result.Ok(lost);
             }
             catch (Exception ex)
@@ -362,12 +362,12 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
-        public ServiceResult ReportePrestamoPorSexo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public ServiceResult ReporteClientePorMora(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var lost = _planpagoclienteRepositorio.ReportePrestamoPorSexo(FechaInicio, FechaFinal, Sucu_Id);
+                var lost = _planpagoclienteRepositorio.ReporteClientePorMora(FechaInicio, FechaFinal, Sucu_Id);
                 return result.Ok(lost);
             }
             catch (Exception ex)

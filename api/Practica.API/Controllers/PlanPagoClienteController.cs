@@ -101,18 +101,18 @@ namespace Practica.API.Controllers
         }
 
 
-        [HttpGet("ReportePorEstado/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        [HttpGet("ReportePorEmpleado/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
         public IActionResult RepoPorEstado(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
-            var list = _credirapidServicio.ReportePrestamoPorEstado(FechaInicio, FechaFinal, Sucu_Id);
+            var list = _credirapidServicio.ReportePrestamoPorEmpleado(FechaInicio, FechaFinal, Sucu_Id);
             return Ok(list.Data);
         }
 
 
-        [HttpGet("ReportePorSexo/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
+        [HttpGet("ReporteClientePorMora/{FechaInicio}/{FechaFinal}/{Sucu_Id}")]
         public IActionResult RepoPorSexo(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
-            var list = _credirapidServicio.ReportePrestamoPorSexo(FechaInicio, FechaFinal, Sucu_Id);
+            var list = _credirapidServicio.ReporteClientePorMora(FechaInicio, FechaFinal, Sucu_Id);
             return Ok(list.Data);
         }
 
