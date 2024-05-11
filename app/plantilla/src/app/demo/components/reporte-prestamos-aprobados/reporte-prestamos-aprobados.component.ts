@@ -108,6 +108,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
     const FechaInicio = this.fechaInicio;
     const FechaFinal = this.fechaFin;
     const Sucu_Id = this.SucursalId; 
+
     console.log(Sucu_Id);
     this.reporteService.ReportePorMes(FechaInicio, FechaFinal, Sucu_Id).subscribe(
       (data: any) => {
@@ -154,37 +155,9 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
       const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
       return meses[parseInt(numeroMes) - 1];
     }
-  
-
-    // onImprimir() {
-    //   const encabezado = ["Año", "Mes", "Cantidad"];
-    //   this.cuerpo = []; // Inicializar cuerpo
-      
-    //   this.dashboardService.obtenerPrestaPorMes().subscribe(
-    //     data => {
-    //       this.ListData = data;
-    //       for (let i = 0; i < this.ListData.length; i++) {
-    //         this.cuerpo.push([
-    //           this.ListData[i].anio,
-    //           this.ListData[i].mes,
-    //           //this.ListData[i].cantidadPrestamos
-    //          { content: this.ListData[i].cantidadPrestamos, styles: { halign: 'left' } }
-    //         ]);
-    //       }
-    
-    //       // Generar el PDF una vez que se hayan obtenido los datos
-    //       this.pdfSrc = this.service.imprimir(encabezado, this.cuerpo, "Reporte de Prestamos Hechos en cada Mes");
-    //     },
-    //     error => {
-    //       console.log("Error:" + error);
-    //       // Manejar el error apropiadamente, por ejemplo, mostrando un mensaje al usuario
-    //     }
-    //   );
-    // }
-
 
     onImprimir() {
-      const encabezado = ["Año", "Mes", "Cantidad"];
+      const encabezado = ["Año", "Mes", "Monto", "Pago Capital", "Pago interes", "Financiamiento", "Cliente", "Marca Vehiculo", "Modelo", "Sucursal"];
       const cuerpo = [];
   
       
@@ -192,7 +165,14 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
           cuerpo.push([
               filtro.anio,
               this.obtenerNombreMes(filtro.mes),
-              filtro.cantidadPrestamos
+              filtro.pacl_Monto_Pago,
+              filtro.pacl_Pago_Capital,
+              filtro.pacl_Pago_Intereses,
+              filtro.papa_Financiamiento,
+              filtro.cliente,
+              filtro.marc_Descripcion,
+              filtro.mode_Descripcion,
+              filtro.sucursal
           ]);
       });
   

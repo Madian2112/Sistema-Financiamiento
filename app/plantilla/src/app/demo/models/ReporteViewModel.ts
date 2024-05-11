@@ -1,7 +1,17 @@
 export class FiltroPorMes{
     anio: string;
-    mes!:string;  
-    cantidadPrestamos!: number;
+    mes:string;  
+    cantidadPrestamos: number;
+    pacl_Monto_Pago: number;
+    pacl_Pago_Capital: number;
+    pacl_Pago_Intereses: number;
+    pacl_Pago_Mora: number;
+    papa_Financiamiento: number;
+    cliente: string;
+    marc_Descripcion: string;
+    mode_Descripcion: string;
+    sucursal: string;
+     
 }
 
 export class FiltroPorModelo{

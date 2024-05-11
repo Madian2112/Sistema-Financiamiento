@@ -59,7 +59,47 @@
               </th>
               <th style="min-width: 12rem">
                 <div class="flex justify-content-between align-items-center">
-                 Cantidad
+                 Monto
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 Capital
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 Interes
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 Mora
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 Financiamiento
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 cliente
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 marca
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 modelo
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 sucursal
                 </div>
               </th>
             </tr>
@@ -68,7 +108,15 @@
             <tr>
               <td>{{FiltroMes.anio}}</td>
               <td>{{ obtenerNombreMes(FiltroMes.mes) }}</td>
-              <td>{{FiltroMes.cantidadPrestamos}}</td>
+              <td>{{FiltroMes.pacl_Monto_Pago}}</td>
+              <td>{{FiltroMes.pacl_Pago_Capital}}</td>
+              <td>{{FiltroMes.pacl_Pago_Intereses}}</td>
+              <td>{{FiltroMes.pacl_Pago_Mora}}</td>
+              <td>{{FiltroMes.papa_Financiamiento}}</td>
+              <td>{{FiltroMes.cliente}}</td>
+              <td>{{FiltroMes.marc_Descripcion}}</td>
+              <td>{{FiltroMes.mode_Descripcion}}</td>
+              <td>{{FiltroMes.sucursal}}</td>
             </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage">
