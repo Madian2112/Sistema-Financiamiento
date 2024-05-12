@@ -6,7 +6,7 @@
             <div class="grid">
                 <div class="col-12" >
                     <button  pButton icon="pi pi-external-link" (click)="Nuevo()" label="Nuevo" class="mr-2"></button>
-                       -->
+                    
                 </div>
             </div>
     
@@ -42,7 +42,7 @@
             <td>{{rol.rol_Id}}</td>
             <td>{{rol.rol_Descripcion}}</td>
             <td  style="display: flex; grid-gap:10px">
-                <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editDepartamento(departamento)"></button>
+                <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="Editar()"></button>
                 <button pButton pRipple type="button" label="Detalles" class="p-button-info" (click)="detalle(departamento)"></button>
                 <button pButton pRipple type="button" label="Eliminar" class="p-button-danger" (click)="confirmarEliminarDepartamento(departamento)"></button>
 

@@ -42,6 +42,9 @@ ngOnInit(): void {
   Nuevo(){
     this.router.navigate(['app/CreateRol'])
   }
+  Editar(){
+    this.router.navigate(['app/EditarRol'])
+  }
 getRoles() {
   this.service.getRol().subscribe(
     (data: any) => {

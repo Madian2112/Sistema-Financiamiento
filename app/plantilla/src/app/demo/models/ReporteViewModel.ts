@@ -16,17 +16,35 @@ export class FiltroPorMes{
 
 export class FiltroPorModelo{
     anio: string;
-    mes!:string;  
-    mode_Descripcion!: string;
-    cantidadPrestamos!: number;
+    mes:string;   
+    empleado:string;       
+    cantidadPrestamos: number;
+    pacl_Monto_Pago: number;
+    pacl_Pago_Capital: number;
+    pacl_Pago_Intereses: number;
+    pacl_Pago_Mora: number;
+    papa_Financiamiento: number;
+    cliente: string;
+    marc_Descripcion: string;
+    mode_Descripcion: string;
+    sucursal: string;
 }
 
 
 export class FiltroPorEstado{
     anio: string;
-    mes!:string;  
-    cantidadPrestamos!: number;
-    empleado!: string;
+    mes:string;   
+    empleado:string;       
+    cantidadPrestamos: number;
+    pacl_Monto_Pago: number;
+    pacl_Pago_Capital: number;
+    pacl_Pago_Intereses: number;
+    pacl_Pago_Mora: number;
+    papa_Financiamiento: number;
+    cliente: string;
+    marc_Descripcion: string;
+    mode_Descripcion: string;
+    sucursal: string;
 
 }
 

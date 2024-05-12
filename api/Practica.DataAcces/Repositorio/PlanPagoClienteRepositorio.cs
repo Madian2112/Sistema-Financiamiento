@@ -134,7 +134,7 @@ namespace Practica.DataAcces.Repositorio
                 return result;
             }
         }
-        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int? Sucu_Id)
         {
             List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))

@@ -21,8 +21,10 @@
               <div class="form-group">
                 <h3>Sucursal:</h3>
                 <select style="background-color: #121212; color: aliceblue;" (change)="cambiarSucursal($event)" class="form-control">
-                <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione una Sucursal</option> 
+                 <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione una Sucursal</option> 
+                 <option style="background-color: #121212; color: aliceblue;"  [value]="100">  Mostrar Todas  </option> 
                   <option style="background-color: #121212; color: aliceblue;" *ngFor="let sucursal of sucursales" [value]="sucursal.sucu_Id">
+                   
                     {{ sucursal.muni_Descripcion + ', ' + sucursal.sucu_Direccion }}
                   </option>
                 </select>
@@ -39,102 +41,7 @@
   </div>
   
   
-  <div class="grid">
-    <div class="col-12">
-      <div class="card">
-        <p-table [value]="FiltroMes" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
-          [paginator]="true" responsiveLayout="scroll">
-          <ng-template pTemplate="header">
-            <tr>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                  Año
-                
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                  Mes
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                 Monto
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                 Capital
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                 Interes
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                 Mora
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                 Financiamiento
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                 cliente
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                 marca
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                 modelo
-                </div>
-              </th>
-              <th style="min-width: 12rem">
-                <div class="flex justify-content-between align-items-center">
-                 sucursal
-                </div>
-              </th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-FiltroMes>
-            <tr>
-              <td>{{FiltroMes.anio}}</td>
-              <td>{{ obtenerNombreMes(FiltroMes.mes) }}</td>
-              <td>{{FiltroMes.pacl_Monto_Pago}}</td>
-              <td>{{FiltroMes.pacl_Pago_Capital}}</td>
-              <td>{{FiltroMes.pacl_Pago_Intereses}}</td>
-              <td>{{FiltroMes.pacl_Pago_Mora}}</td>
-              <td>{{FiltroMes.papa_Financiamiento}}</td>
-              <td>{{FiltroMes.cliente}}</td>
-              <td>{{FiltroMes.marc_Descripcion}}</td>
-              <td>{{FiltroMes.mode_Descripcion}}</td>
-              <td>{{FiltroMes.sucursal}}</td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="emptymessage">
-            <tr>
-              <td colspan="2">No hay datos para cargar.</td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="loadingbody">
-            <tr>
-              <td colspan="2">Cargando datos. Por favor espera.</td>
-            </tr>
-          </ng-template>
-        </p-table>
   
-  
-      </div>
-    </div>
-  </div>
   
   
   <button (click)="onImprimir()">PDF</button>
