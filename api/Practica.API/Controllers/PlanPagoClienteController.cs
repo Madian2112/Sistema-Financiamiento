@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Practica.BussinesLogic.Servicios;
 using Practica.Common.Models;
 using Practica.Entities.Entities;
+using SistemaAsilos.BussinesLogic;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -42,6 +45,55 @@ namespace Practica.API.Controllers
             }
             var modelo = _credirapidServicio.DetallesPP(id);
             return Ok(modelo);
+        }
+
+        [HttpGet("BuscarDNI/{id}")]
+        public IActionResult BuscarDNI(string id)
+        {
+            DateTime fechaactual = DateTime.Today.Date;
+
+
+            var modelo = _credirapidServicio.BuscarDNI(id);
+
+            ServiceResult serviceResult = new ServiceResult();
+
+            foreach (var item in modelo)
+            {
+                if (item.Pacl_Fecha_Pago != null && item.Pacl_Fecha_PreviaPago != null)
+                { 
+
+                    if (DateTime.Parse(item.Pacl_Fecha_Pago) < fechaactual) 
+                    {
+                       var sabermora = _credirapidServicio.SaberMora(item.Pacl_Id);
+                    }
+
+                    if(DateTime.Parse(item.Pacl_Fecha_PreviaPago) <= fechaactual)
+                    {
+                        var insertarfechaprevia = _credirapidServicio.InsertarVFechaPrevia(item.Pacl_Id);
+                    }
+                }
+            }
+
+            var final = _credirapidServicio.BuscarFechaPrevia(id);
+
+            return Ok(final);
+        }
+
+        [HttpPut("PagarCuota/")]
+        public IActionResult InsertarCuota(PagosClientesViewModel item)
+        {
+
+            var modelo = new tbPlanesPagosClientes()
+            {
+                Pacl_Id = item.Pacl_Id,
+                Papa_Id = item.Papa_Id,
+                Pacl_Monto_Pago = item.Pacl_Monto_Pago,
+                Pacl_NumeroCuota = item.Pacl_NumeroCuota
+            };
+
+            var listado = _credirapidServicio.InsertarCuota(modelo);
+            return Ok(listado);
+
         }
 
         [HttpGet("ObtenerPrestaPorMes")]
@@ -165,23 +217,6 @@ namespace Practica.API.Controllers
             {
                 return BadRequest("Error");
             }
-
-        }
-        [HttpPut("Edit/{id}")]
-        public IActionResult Edit(int id, PlanesPagosClientesViewModel item)
-        {
-
-            var modelo = new tbPlanesPagosClientes()
-            {
-                Pacl_Id = id,
-                Papa_Id = item.Papa_Id,
-                Pacl_Monto_Pago = item.Pacl_Monto_Pago,
-                Pacl_Fecha_Emision = item.Pacl_Fecha_Creacion,
-                Sucu_Id = item.Sucu_Id,
-                Pacl_Usua_Modi = item.Pacl_Usua_Modi,
-            };
-            var listado = _credirapidServicio.ActualizarPlanPagoClientes(modelo);
-            return Ok(listado);
 
         }
 

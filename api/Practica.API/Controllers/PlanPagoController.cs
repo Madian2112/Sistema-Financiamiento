@@ -82,8 +82,8 @@ namespace Practica.API.Controllers
 
             foreach (var i in detalle)
             {
-                DateTime fechafin = fecha.AddMonths(x);
-                DateTime fechapreview = fecha.AddMonths(y);
+                DateTime fechafin = FechaActual.AddMonths(x);
+                DateTime fechapreview = FechaActual.AddMonths(y);
                 var insertarfechas = _credirapidServicio.InsertarFechas(i.Pacl_Id, fechafin.ToString(), fechapreview.ToString());
                 x += 1;
                 y += 1;

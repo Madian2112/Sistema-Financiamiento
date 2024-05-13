@@ -78,15 +78,13 @@ export class DepartamentoListadoComponent implements OnInit {
     this.service.getDepartamento().subscribe(
       (data: any) => {
         this.departamento = data;
+        console.log(this.departamento);
       },
       error => {
         console.log(error);
       }
     );
   }
-
-
-
 
   detalle(obeto:Departamento){
     this.router.navigate(['/departamento',obeto.dept_Id])
@@ -159,14 +157,14 @@ export class DepartamentoListadoComponent implements OnInit {
     this.display = true;
   }
 
-  editDepartamento(departamento: any) {
-    this.selectedDepartamento = departamento;
+  editDepartamento(depart: any) {
+    this.selectedDepartamento = depart;
     this.modalTitle = 'Editar Registro';
     this.modalButtonLabel = 'Actualizar';
 
     this.formDepartamento.patchValue({
-      codigo: departamento.dept_Id,
-      departamento: departamento.dept_Descripcion,
+      codigo: depart.dept_Id,
+      departamento: depart.dept_Descripcion,
     });
     this.display = true;
   }
