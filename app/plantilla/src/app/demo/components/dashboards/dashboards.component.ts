@@ -28,6 +28,8 @@ import { OrderListModule } from 'primeng/orderlist';
 import { Product } from 'src/app/demo/api/product';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { SelectItem } from 'primeng/api';
+import { Sucursal } from '../../models/SucursalViewModel';
+import {SucursalServiceService} from 'src/app/demo/service/sucursal_service';
 
 Chart.register(...registerables);
 
@@ -35,7 +37,7 @@ Chart.register(...registerables);
   selector: 'app-dashboards',
   templateUrl: './dashboards.component.html',
   styleUrls: ['./dashboards.component.scss'],
-  providers: [MessageService] // Agregar MessageService como proveedor
+  providers: [MessageService] 
 })
 export class DashboardsComponent implements OnInit {
   fechaInicio: string;
@@ -48,7 +50,8 @@ export class DashboardsComponent implements OnInit {
 
   chartDataEstado: ChartData;
   chartOptionsEstado: ChartOptions;
-
+  sucursales: Sucursal[];
+  SucursalId: number;
   chartDataModelo: ChartData;
   chartOptionsModelo: ChartOptions;
 
@@ -56,7 +59,8 @@ export class DashboardsComponent implements OnInit {
 
   constructor(
     private dashboardService: DashboardService,
-    private messageService: MessageService // Inyectar MessageService
+    private messageService: MessageService ,
+    private sucursalService: SucursalServiceService
   ) { }
   ngOnInit(): void {
     const fechaActual = new Date();
@@ -69,23 +73,31 @@ export class DashboardsComponent implements OnInit {
     
     console.log("Fechas" + this.fechaInicio + this.fechaFin)
     this.filtrarCompras();
+    this.sucursalService.getSucursal().subscribe(data => {
+      this.sucursales = data;
+      console.log(this.sucursales)
+    });
   }
   
   filtrarCompras() {
     const fechaInicio = new Date(this.fechaInicio);
     const fechaFin = new Date(this.fechaFin);
-
+    const Sucu_Id = this.SucursalId; 
     if (fechaInicio <= fechaFin) {
       const fechasEnRango: string[] = [];
+      
       let fechaActual = new Date(fechaInicio);
       while (fechaActual <= fechaFin) {
         fechasEnRango.push(fechaActual.toISOString().slice(0, 7));
         fechaActual.setMonth(fechaActual.getMonth() + 1);
+
       }
 
-      // Obtener los datos filtrados por rango de fechas para cada gráfico
+      
+
+     
  
-      this.dashboardService.obtenerPrestaPorMesFiltro(this.fechaInicio, this.fechaFin,1).subscribe(
+      this.dashboardService.obtenerPrestaPorMesFiltro(this.fechaInicio, this.fechaFin,Sucu_Id).subscribe(
         data => {
           this.renderizarGrafico(data);
         },
@@ -95,7 +107,7 @@ export class DashboardsComponent implements OnInit {
         }
       );
 
-      this.dashboardService.obtenerPrestaPorSexoFiltro(this.fechaInicio, this.fechaFin,1).subscribe(
+      this.dashboardService.obtenerPrestaPorSexoFiltro(this.fechaInicio, this.fechaFin,Sucu_Id).subscribe(
         data => {
           this.renderizarGraficoSexo(data);
         },
@@ -105,7 +117,7 @@ export class DashboardsComponent implements OnInit {
         }
       );
 
-      this.dashboardService.obtenerPrestaPorModeloFiltro(this.fechaInicio, this.fechaFin,1).subscribe(
+      this.dashboardService.obtenerPrestaPorModeloFiltro(this.fechaInicio, this.fechaFin,Sucu_Id).subscribe(
         data => {
           this.renderizarGraficoModelo(data);
         },
@@ -115,7 +127,7 @@ export class DashboardsComponent implements OnInit {
         }
       );
 
-      this.dashboardService.obtenerPrestaPorEstadoFiltro(this.fechaInicio, this.fechaFin,1).subscribe(
+      this.dashboardService.obtenerPrestaPorEstadoFiltro(this.fechaInicio, this.fechaFin,Sucu_Id).subscribe(
         data => {
           this.renderizarGraficoEstado(data);
         },
@@ -129,7 +141,7 @@ export class DashboardsComponent implements OnInit {
     }
   }
 
-  
+
   renderizarGrafico(compras: { anio: string, mes: string, cantidadPrestamos: number }[]) {
     const fechas = compras.map(compra => `${compra.anio}-${compra.mes}`);
     const cantidades = compras.map(compra => compra.cantidadPrestamos);
@@ -139,6 +151,7 @@ export class DashboardsComponent implements OnInit {
         
     if (this.MyChart) {
       this.MyChart.destroy(); // Destruir el gráfico existente si existe
+      
     }
 
     this.MyChart = new Chart("barChart", {
@@ -269,7 +282,7 @@ export class DashboardsComponent implements OnInit {
             },
             plugins: {
                 legend: {
-                    display: false   // Ocultar leyenda ya que solo hay dos barras
+                    display: false   
                 }
             },
             layout: {
@@ -286,11 +299,11 @@ export class DashboardsComponent implements OnInit {
 }
 
 renderizarGraficoModelo(compras: { anio: string, mes: string, mode_Descripcion: string, cantidadPrestamos: number }[]) {
-  // Obtén los datos para el gráfico de estado civil
+
   const labels = compras.map(compra => `${compra.mode_Descripcion}`);
   const data = compras.map(compra => compra.cantidadPrestamos);
 
-  // Asigna los datos y opciones para el gráfico de estado civil
+
   this.chartDataModelo = {
     labels: labels,
     datasets: [
@@ -305,16 +318,16 @@ renderizarGraficoModelo(compras: { anio: string, mes: string, mode_Descripcion: 
   this.chartOptionsModelo = {
     responsive: true,
     maintainAspectRatio: false,
-    // Otras opciones que desees configurar...
+
   };
 }
 
 renderizarGraficoEstado(compras: { anio: string, mes: string, esta_Descripcion: string, cantidadPrestamos: number }[]) {
-  // Obtén los datos para el gráfico de estado civil
+
   const labels = compras.map(compra => ` ${compra.esta_Descripcion}`);
   const data = compras.map(compra => compra.cantidadPrestamos);
 
-  // Asigna los datos y opciones para el gráfico de estado civil
+ 
   this.chartDataEstado = {
     labels: labels,
     datasets: [
@@ -329,7 +342,7 @@ renderizarGraficoEstado(compras: { anio: string, mes: string, esta_Descripcion: 
   this.chartOptionsEstado = {
     responsive: true,
     maintainAspectRatio: false,
-    // Otras opciones que desees configurar...
+
   };
 }
 
@@ -354,6 +367,12 @@ cambiarFechaInicio(event: Event) {
 
 cambiarFechaFin(event: Event) {
   this.fechaFin = (event.target as HTMLInputElement).value;
+  this.filtrarCompras();
+}
+
+cambiarSucursal(event: any) {
+  this.SucursalId = event.target.value;
+  console.log(this.SucursalId);
   this.filtrarCompras();
 }
 }

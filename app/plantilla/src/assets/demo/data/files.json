@@ -4,7 +4,7 @@
             "key": "0",
             "label": "Credi Rapid",
             "data": "Documents Folder",
-            "icon": "pi pi-fw pi-inbox",
+            "icon": "pi pi-caret-down",
             "children": [{
                 "key": "102",
                 "label": "Acceso",
