@@ -28,21 +28,21 @@ export class AppMenuComponent implements OnInit {
                         label: 'Reportes',
                         icon: 'pi pi-fw pi-file',
                         items: [
-                            {
-                                label: 'Reporte Prueba',
-                                icon: 'pi pi-fw pi-file',
-                                routerLink: ['/app/IndexReportes']
-                            },
+                            // {
+                            //     label: 'Reporte Prueba',
+                            //     icon: 'pi pi-fw pi-file',
+                            //     routerLink: ['/app/IndexReportes']
+                            // },
                             {
                                 label: 'Prestamos Aprobados',
                                 icon: 'pi pi-fw pi-file',
                                 routerLink: ['/app/IndexReportePrestamos']
                             },
-                            {
-                                label: 'Modelos de Vehiculos',
-                                icon: 'pi pi-fw pi-file',
-                                routerLink: ['/app/IndexReporteModelosVehiculos']
-                            },
+                            // {
+                            //     label: 'Modelos de Vehiculos',
+                            //     icon: 'pi pi-fw pi-file',
+                            //     routerLink: ['/app/IndexReporteModelosVehiculos']
+                            // },
                             {
                                 label: 'Ventas Hechas por Empleados',
                                 icon: 'pi pi-fw pi-file',
@@ -53,11 +53,11 @@ export class AppMenuComponent implements OnInit {
                                 icon: 'pi pi-fw pi-file',
                                 routerLink: ['/app/IndexReporteClientesMora']
                             },
-                            {
-                                label: 'Clientes en Mora',
-                                icon: 'pi pi-fw pi-file',
-                                routerLink: ['/app/IndexReporteClientesMora']
-                            },
+                            // {
+                            //     label: 'Clientes en Mora',
+                            //     icon: 'pi pi-fw pi-file',
+                            //     routerLink: ['/app/IndexReporteClientesMora']
+                            // },
                         ]
                     }
                 ]
