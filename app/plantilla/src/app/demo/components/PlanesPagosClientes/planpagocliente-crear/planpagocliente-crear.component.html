@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <button pripple="" style="background-color: rgb(51, 94, 151); border-color: rgb(51, 94, 151); " (click)="Vercuotas()" class="p-ripple p-element p-button p-component" ng-reflect-ng-class="[object Object]" type="button" data-pc-name="button" data-pc-section="root">
+                                <button pripple="" style="background-color: rgb(51, 94, 151); border-color: rgb(51, 94, 151); " (click)="VerCuotas()" class="p-ripple p-element p-button p-component" ng-reflect-ng-class="[object Object]" type="button" data-pc-name="button" data-pc-section="root">
                                     <span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-eye p-button-icon p-button-icon-left ng-star-inserted"></span>
                                     <span class="p-button-label ng-star-inserted" aria-hidden="false" data-pc-section="label">Ver cuotas</span>
                                     <span class="p-ink" aria-hidden="true" role="presentation"></span>
@@ -89,7 +89,24 @@
             </div>
         </div>
     </div>
+    <div class="{{mostrarPDF}}">
+        <div class="no-print">
+            <div *ngIf="pdfSrc" style="margin-top: 20px;">
+              <iframe [src]="pdfSrc" width="100%" height="500px"></iframe>
+            </div>
+        </div>
+    </div>
     <div class="{{tablaFecha}}">
+        <div class="row">
+            <div style="margin-left: 1.5%" class="col-sm-2">
+                <div class="form-group">
+                    <button pripple="" style="background-color: rgb(28, 134, 160); border-color: rgb(28, 134, 160);" (click)="PDF()" class="p-ripple p-element p-button p-component" ng-reflect-ng-class="[object Object]" type="button" data-pc-name="button" data-pc-section="root">
+                        <span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-file-pdf p-button-icon p-button-icon-left ng-star-inserted"></span>
+                        <span class="p-button-label ng-star-inserted" aria-hidden="false" data-pc-section="label">PDF</span>
+                        <span class="p-ink" aria-hidden="true" role="presentation"></span></button>
+                </div>
+            </div>
+        </div>
     <p-table [value]="ppagoclientefecha" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
     [paginator]="true" [globalFilterFields]="['papa_Id', 'pacl_Id','pacl_NumeroCuota', 'pacl_Fecha_Pago' , 'pacl_Saldo_Inicial', 'pacl_Monto_Pago', 'pacl_Pago_Capital', 'pacl_Pago_Intereses', 'pacl_Pago_Mora', 'pacl_Estado_Pago', 'papa_Intereses_Monto', 'monto_Mora', 'minimoPagar']" responsiveLayout="scroll">
     <ng-template pTemplate="header">

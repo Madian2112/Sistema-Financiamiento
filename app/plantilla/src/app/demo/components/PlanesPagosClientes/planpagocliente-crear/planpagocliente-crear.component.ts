@@ -21,6 +21,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { Message, MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { ImpresionService } from 'src/app/demo/service/impresion.service';
 
 @Component({
   selector: 'app-planpagocliente-crear',
@@ -35,6 +37,7 @@ export class PlanpagoclienteCrearComponent {
   display: boolean = false;
   ppagoclientefecha: PagoClienteFechaPrevia [] = [];
   selectCliente: any ;
+  pdfSrc: SafeResourceUrl | null = null;
 
   vacio: string = "collapse";
   encabezado: string = "";
@@ -44,11 +47,13 @@ export class PlanpagoclienteCrearComponent {
   montovacio: string = "collapse";
   label: string ="collapse";
   pagada: string = "";
+  mostrarPDF: string = "";
 
   intereses: number;
   mora: number;
   minimototal: number;
   pagarcuota: string = "collapse";
+  pdf: string = "collapse";
 
   // Dentro del componente TypeScript
 ocultarEncabezado: boolean = false;
@@ -59,6 +64,7 @@ ocultarEncabezado: boolean = false;
     private service:  PLanPagoServiceService, 
     private _PagoCliente:  PLanPagoServiceService, 
     private fb: FormBuilder,
+    private serviceIMprimir: ImpresionService, 
   ) 
    {
     this.formCliente = this.fb.group({
@@ -74,6 +80,59 @@ ocultarEncabezado: boolean = false;
 
    }
    
+   PDF(){
+
+    /*this._PagoCliente.getPlanPagoClienteDNI(this.formCliente.get('identidad').value).subscribe(
+      (data: any) => {
+        this.ppagoclientefecha = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );*/
+
+
+    const encabezado = ["Pago","Fecha de Pago" , "Saldo Inicial", "Pago", "Capital", "Initereses", "Mora"];
+    const cuerpo = [];
+
+    
+    this.ppagoclientefecha.forEach(cliente => {
+        cuerpo.push([
+            cliente.pacl_NumeroCuota,
+            cliente.pacl_Fecha_Pago,
+            cliente.pacl_Saldo_Inicial,
+            cliente.pacl_Monto_Pago,
+            cliente.pacl_Pago_Capital,
+            cliente.pacl_Pago_Intereses,   
+            cliente.monto_Mora,       
+          ]);
+    });
+
+    // PDF con datosde la tabla
+    this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte del plan de pago");
+
+  }
+
+  VerCuotas(){
+    if (this.formCliente.get('identidad').value === '') 
+      {
+          this.vacio = ""; // Oculta el mensaje de error
+          // Aquí puedes mostrar un mensaje de error adicional si lo deseas
+      } 
+      else 
+      {
+        this.service.getPlanPagoClienteDNI(this.formCliente.get('identidad').value).subscribe(data => {
+          this.ppagoclientefecha = data;
+          this.pdf = "";
+          this.mostrarPDF = "";
+          console.log("El contenido de la clase es: "+this.pdf)
+          console.log("Los datos son: "+ data)
+        });
+  
+        this.tablaFecha = "";
+      }
+  }
+
    Buscar(){
 
     if (this.formCliente.get('identidad').value === '') 
@@ -85,7 +144,9 @@ ocultarEncabezado: boolean = false;
     {
       this.service.getPlanPagoClienteFecha(this.formCliente.get('identidad').value).subscribe(data => {
         this.ppagoclientefecha = data;
-        
+        this.pdf = "";
+        this.mostrarPDF = "";
+        console.log("El contenido de la clase es: "+this.pdf)
         console.log("Los datos son: "+ data)
       });
 
@@ -161,6 +222,7 @@ ocultarEncabezado: boolean = false;
 }
 
 
+
   InsertarCuota(){
     const modelo: PagoCliente = {
       pacl_Monto_Pago: this.formClienteInsertar.value.monto, 
@@ -211,6 +273,8 @@ ocultarEncabezado: boolean = false;
   Limpiar(){
     this.vacio = "collapse"; 
     this.tablaFecha = "collapse";
+    this.pdf = "collapse";
+    this.mostrarPDF = "collapse";
     this.formCliente = this.fb.group({
       identidad: [""],
     });

@@ -47,8 +47,8 @@ namespace Practica.API.Controllers
             return Ok(modelo);
         }
 
-        [HttpGet("BuscarDNI/{id}")]
-        public IActionResult BuscarDNI(string id)
+        [HttpGet("BuscarDNIFecha/{id}")]
+        public IActionResult BuscarDNIFecha(string id)
         {
             DateTime fechaactual = DateTime.Today.Date;
 
@@ -77,6 +77,13 @@ namespace Practica.API.Controllers
             var final = _credirapidServicio.BuscarFechaPrevia(id);
 
             return Ok(final);
+        }
+
+        [HttpGet("BuscarDNI/{id}")]
+        public IActionResult BuscarDNI(string id)
+        {
+            var modelo = _credirapidServicio.BuscarDNI(id);
+            return Ok(modelo);
         }
 
         [HttpPut("PagarCuota/")]

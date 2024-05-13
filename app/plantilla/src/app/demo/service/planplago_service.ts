@@ -25,6 +25,10 @@ export class PLanPagoServiceService {
 
   /*--PLANES DE PAGO CLIENTES*/
   getPlanPagoClienteFecha(codigo: string){
+    return this.http.get<PagoClienteFechaPrevia[]>('https://localhost:44372/API/PlanPagoCliente/BuscarDNIFecha/'+ codigo);
+  }
+
+  getPlanPagoClienteDNI(codigo: string){
     return this.http.get<PagoClienteFechaPrevia[]>('https://localhost:44372/API/PlanPagoCliente/BuscarDNI/'+ codigo);
   }
 

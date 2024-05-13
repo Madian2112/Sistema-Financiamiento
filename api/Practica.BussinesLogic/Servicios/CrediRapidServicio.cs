@@ -324,7 +324,6 @@ namespace Practica.BussinesLogic.Servicios
         {
             return _planpagoclienteRepositorio.BuscarVFechaPrevia(id);
         }
-
         public ServiceResult ObtenerPresaPorMes()
         {
             var result = new ServiceResult();

@@ -40,12 +40,9 @@
     </div>
   </div>
   
-  
-  
-  
+
   
   <button (click)="onImprimir()">PDF</button>
-  
   <div class="no-print">
   <div *ngIf="pdfSrc" style="margin-top: 20px;">
     <iframe [src]="pdfSrc" width="100%" height="500px"></iframe>

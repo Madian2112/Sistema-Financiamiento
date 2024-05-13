@@ -110,6 +110,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
     const Sucu_Id = this.SucursalId; 
 
     console.log(Sucu_Id);
+    
     this.reporteService.ReportePorMes(FechaInicio, FechaFinal, Sucu_Id).subscribe(
       (data: any) => {
         this.FiltroMes = data;
