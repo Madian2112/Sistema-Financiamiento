@@ -171,9 +171,9 @@ export class AppMenuComponent implements OnInit {
                         ]
                     },
                     {
-                        label: 'Crud',
-                        icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/app/pages/crud']
+                        label: 'Cerrar Cesion',
+                        icon: 'pi pi-fw pi-sign-out',
+                        routerLink: ['/']
                     },
                 ]
             },
