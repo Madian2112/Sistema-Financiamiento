@@ -267,7 +267,17 @@ namespace Practica.BussinesLogic.Servicios
             return _planpagoclienteRepositorio.DetallePP(id);
         }
 
+        public IEnumerable<tbPlanesPagosClientes> ValidarCliente(int? id)
+        {
+            return _planpagoclienteRepositorio.ValidarCiente(id);
+        }
+
         public IEnumerable<tbPlanesPagosClientes> BuscarDNI(string id)
+        {
+            return _planpagoclienteRepositorio.BuscarDNI(id);
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> BuscarPapaID(string id)
         {
             return _planpagoclienteRepositorio.BuscarDNI(id);
         }

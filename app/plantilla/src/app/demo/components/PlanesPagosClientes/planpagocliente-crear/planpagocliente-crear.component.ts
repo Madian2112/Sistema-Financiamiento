@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PagoClienteFechaPrevia, PagoCliente } from '../../../models/PlanPagoClienteViewModel';
+import { PagoClienteFechaPrevia, PagoCliente, PagoClientePapaID } from '../../../models/PlanPagoClienteViewModel';
 import { PLanPagoServiceService } from '../../../service/planplago_service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableModule } from 'primeng/table';
@@ -36,6 +36,7 @@ export class PlanpagoclienteCrearComponent {
   formClienteInsertar: FormGroup;
   display: boolean = false;
   ppagoclientefecha: PagoClienteFechaPrevia [] = [];
+  planpagoid: PagoClientePapaID [] = [];
   selectCliente: any ;
   pdfSrc: SafeResourceUrl | null = null;
 
@@ -55,6 +56,9 @@ export class PlanpagoclienteCrearComponent {
   pagarcuota: string = "collapse";
   pdf: string = "collapse";
 
+   vercuotas: number = 0;
+   buscar: number = 0;
+
   // Dentro del componente TypeScript
 ocultarEncabezado: boolean = false;
 
@@ -69,6 +73,7 @@ ocultarEncabezado: boolean = false;
    {
     this.formCliente = this.fb.group({
       identidad: [""],
+      planpagoid: [""], 
     });
 
     this.formClienteInsertar = this.fb.group({
@@ -90,6 +95,7 @@ ocultarEncabezado: boolean = false;
         console.log(error);
       }
     );*/
+
 
 
     const encabezado = ["Pago","Fecha de Pago" , "Saldo Inicial", "Pago", "Capital", "Initereses", "Mora"];
@@ -114,6 +120,7 @@ ocultarEncabezado: boolean = false;
   }
 
   VerCuotas(){
+        
     if (this.formCliente.get('identidad').value === '') 
       {
           this.vacio = ""; // Oculta el mensaje de error
@@ -122,6 +129,8 @@ ocultarEncabezado: boolean = false;
       else 
       {
         this.service.getPlanPagoClienteDNI(this.formCliente.get('identidad').value).subscribe(data => {
+          this.vercuotas = 1; 
+          this.buscar = 0;
           this.ppagoclientefecha = data;
           this.pdf = "";
           this.mostrarPDF = "";
@@ -143,6 +152,8 @@ ocultarEncabezado: boolean = false;
     else 
     {
       this.service.getPlanPagoClienteFecha(this.formCliente.get('identidad').value).subscribe(data => {
+        this.vercuotas = 0; 
+        this.buscar = 1;
         this.ppagoclientefecha = data;
         this.pdf = "";
         this.mostrarPDF = "";
@@ -172,6 +183,7 @@ ocultarEncabezado: boolean = false;
   }
 
   AbrirModal(ppagoclientefecha : any){
+    this.pdf = "collapse";
 
     if (this.verificarCuotasAnteriores(ppagoclientefecha))
     {
@@ -252,11 +264,27 @@ ocultarEncabezado: boolean = false;
               console.log(data);
               this.display = false;
               this.messageService.add({severity:'success', summary:'Éxito', detail:'Cuota insertada correctamente!'});
-            
-              this.service.getPlanPagoClienteFecha(this.formCliente.get('identidad').value).subscribe(data => {
-                this.ppagoclientefecha = data;
-                console.log("Los datos son: "+ data)
-              });
+              this.pdf = "collapse";
+              if(this.buscar == 1)
+                {
+                  this.service.getPlanPagoClienteFecha(this.formCliente.get('identidad').value).subscribe(data => {
+                    this.ppagoclientefecha = data;
+                    console.log("Los datos son: "+ data)
+                  });
+                }
+
+              else if (this.vercuotas == 1)
+                {
+                  this.service.getPlanPagoClienteDNI(this.formCliente.get('identidad').value).subscribe(data => {
+                    this.vercuotas = 1; 
+                    this.buscar = 0;
+                    this.ppagoclientefecha = data;
+                    this.pdf = "";
+                    this.mostrarPDF = "";
+                    console.log("El contenido de la clase es: "+this.pdf)
+                    console.log("Los datos son: "+ data)
+                  });
+                }
       
             },
             error: (e) => {
@@ -271,6 +299,8 @@ ocultarEncabezado: boolean = false;
   }
 
   Limpiar(){
+    this.vercuotas = 0; 
+    this.buscar = 0;
     this.vacio = "collapse"; 
     this.tablaFecha = "collapse";
     this.pdf = "collapse";
@@ -287,6 +317,7 @@ ocultarEncabezado: boolean = false;
     } else {
         console.log("Hola mundo");
         this.vacio = "collapse"; // Oculta el mensaje de error
+        this.pdf = "collapse";
         this.messageService.add({severity:'success', summary:'Éxito', detail:'¡Departamento eliminado correctamente!'});
     }}
 

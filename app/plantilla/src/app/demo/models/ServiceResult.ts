@@ -5,6 +5,7 @@ export class Respuesta {
       messageStatus: string;
       message?: string; // El mensaje puede ser opcional
     };
+    messageStatus:string;
     message?: string;
     success: boolean;
   }

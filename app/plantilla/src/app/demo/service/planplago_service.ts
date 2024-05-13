@@ -31,6 +31,10 @@ export class PLanPagoServiceService {
   getPlanPagoClienteDNI(codigo: string){
     return this.http.get<PagoClienteFechaPrevia[]>('https://localhost:44372/API/PlanPagoCliente/BuscarDNI/'+ codigo);
   }
+  
+  getPlanPagoPapaID(codigo: string){
+    return this.http.get<PagoClienteFechaPrevia[]>('https://localhost:44372/API/PlanPagoCliente/BuscarPapaID/'+ codigo);
+  }
 
   agregarPagoCliente(planpago: PagoCliente): Observable<PagoCliente> {
     return this.http.put<PagoCliente>('https://localhost:44372/API/PlanPagoCliente/PagarCuota/', planpago);
@@ -41,6 +45,10 @@ export class PLanPagoServiceService {
 
   getVehiculo (){
     return this.http.get<Vehiculo[]>(this.endpoint + 'API/Vehiculo/ListVC');
+  }
+
+  getValidarCliente(id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(this.endpoint + 'API/PlanPago/ValidarCliente/' + id);
   }
 
   getTipoCuota (){

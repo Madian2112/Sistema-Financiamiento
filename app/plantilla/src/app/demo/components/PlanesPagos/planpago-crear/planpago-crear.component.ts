@@ -51,6 +51,8 @@ export class PlanpagoCrearComponent implements OnInit {
   create: string = "";
   detalle : string ="collapse";
   idplanpag: number = 0;
+  sabermsj: string = "";
+  ValidarCliente: string = "collapse";
 
 
   constructor
@@ -108,73 +110,101 @@ modelo: string = "";
 cuotas: string = "";
 
 Nuevo() {
-    this.detalle = "";
-    this.create = "collapse";
-    const planpago: PLanPagoCreate = { 
-      papa_Financiamiento: this.formPlanPago.value.financiamiento, 
-      papa_Id: 0, 
-      papa_Numero_Cuota: this.formPlanPago.value.cuota, 
-      papa_Precio_Mercado: this.formPlanPago.value.preciomercado, 
-      vecl_Id: this.formPlanPago.value.vehiculo, 
-        }
-        this._PlanPagoservice.agregar(planpago).subscribe(
-          (respuesta: Respuesta) => {
-              console.log(respuesta.success)
-              console.log(respuesta.data)
-              console.log(respuesta.data.codeStatus)
-              console.log(respuesta.message)
-              console.log(respuesta.code)
-              this.idplanpag = respuesta.data.codeStatus;
 
-              this.service.getPLanPagoCliente(respuesta.data.codeStatus).subscribe(data => {
-                this.planpagoclientes = data;
-                console.log("Los datos som: "+ data)
-              });
-
-              this.service.getFill(respuesta.data.codeStatus).subscribe({
-                next: (data: Fill) => {
-                  this.papa_Id = data.papa_Id;
-                  this.papa_Financiamiento = data.papa_Financiamiento;
-                  this.papa_Intereses_Porcentaje = data.papa_Intereses_Porcentaje;
-                  this.papa_Intereses_Monto = data.papa_Intereses_Monto;
-                  this.mora = data.papa_Mora;
-                  this.cuotas = data.papa_Numero_Cuota;
-                  this.marca = data.marc_Descripcion; 
-                  this.modelo = data.mode_Descripcion;
-                  this.cliente = data.cliente;
-                  this.usua_Creacion = data.usua_Creacion;
-                  this.papa_Fecha_Creacion = data.papa_Fecha_Creacion;
-                  this.usua_Modifica = data.usua_Modifica;
-                  this.papa_Fecha_Modificacion = data.papa_Fecha_Modificacion;
+    this._PlanPagoservice.getValidarCliente(this.formPlanPago.get('vehiculo').value).subscribe(
+    (respuesta: Respuesta) => {
+      console.log(this.formPlanPago.get('vehiculo').value)
+        console.log(respuesta.success)
+        console.log(respuesta.data)
+        console.log(respuesta.message)
+        console.log(respuesta.code)
+        
+        console.log(respuesta.messageStatus)
+        this.sabermsj = respuesta.messageStatus;
+        
+        if(this.sabermsj == "exito")
+          {
+            this.ValidarCliente = "collapse";
+            this.detalle = "";
+            this.create = "collapse";
+            console.log("El mensaje es: "+ this.sabermsj)
+            const planpago: PLanPagoCreate = { 
+              papa_Financiamiento: this.formPlanPago.value.financiamiento, 
+              papa_Id: 0, 
+              papa_Numero_Cuota: this.formPlanPago.value.cuota, 
+              papa_Precio_Mercado: this.formPlanPago.value.preciomercado, 
+              vecl_Id: this.formPlanPago.value.vehiculo, 
                 }
-              });
-
-              if (respuesta.success) {
-                  const mensaje = respuesta.message;
-                   
-              } else {
-                  console.error('Error en la respuesta:', respuesta);
-            
-              }
-          },
-          error => {
-              console.error('Error al crear el rol:', error);
-         
+                this._PlanPagoservice.agregar(planpago).subscribe(
+                  (respuesta: Respuesta) => {
+                      console.log(respuesta.success)
+                      console.log(respuesta.data)
+                      console.log(respuesta.data.codeStatus)
+                      console.log(respuesta.message)
+                      console.log(respuesta.code)
+                      this.idplanpag = respuesta.data.codeStatus;
+        
+                      this.service.getPLanPagoCliente(respuesta.data.codeStatus).subscribe(data => {
+                        this.planpagoclientes = data;
+                        console.log("Los datos som: "+ data)
+                      });
+        
+                      this.service.getFill(respuesta.data.codeStatus).subscribe({
+                        next: (data: Fill) => {
+                          this.papa_Id = data.papa_Id;
+                          this.papa_Financiamiento = data.papa_Financiamiento;
+                          this.papa_Intereses_Porcentaje = data.papa_Intereses_Porcentaje;
+                          this.papa_Intereses_Monto = data.papa_Intereses_Monto;
+                          this.mora = data.papa_Mora;
+                          this.cuotas = data.papa_Numero_Cuota;
+                          this.marca = data.marc_Descripcion; 
+                          this.modelo = data.mode_Descripcion;
+                          this.cliente = data.cliente;
+                          this.usua_Creacion = data.usua_Creacion;
+                          this.papa_Fecha_Creacion = data.papa_Fecha_Creacion;
+                          this.usua_Modifica = data.usua_Modifica;
+                          this.papa_Fecha_Modificacion = data.papa_Fecha_Modificacion;
+                        }
+                      });
+        
+                      if (respuesta.success) {
+                          const mensaje = respuesta.message;
+                           
+                      } else {
+                          console.error('Error en la respuesta:', respuesta);
+                    
+                      }
+                  },
+                  error => {
+                      console.error('Error al crear el rol:', error);
+                 
+                  }
+              );
+        
+            this.formPlanPago = this.fb.group({
+              financiamiento:[""],
+              preciomercado:[""],
+              vehiculo:["Seleccione"],
+              tipocuota:["Seleccione"],
+              interesPorcentaje:[0],
+              interesMonto:[""],
+              cuota:[0],
+              mora:[0],
+              number:[0],
+             
+            })
+            this.sabermsj =  "";
           }
-      );
-
-    this.formPlanPago = this.fb.group({
-      financiamiento:[""],
-      preciomercado:[""],
-      vehiculo:["Seleccione"],
-      tipocuota:["Seleccione"],
-      interesPorcentaje:[0],
-      interesMonto:[""],
-      cuota:[0],
-      mora:[0],
-      number:[0],
-     
-    })
+    
+          else if(this.sabermsj == "error")
+          {
+            this.ValidarCliente = "";
+          }
+    },
+    error => {
+        console.error('Error al crear el rol:', error);
+   
+    });
   };
 
 

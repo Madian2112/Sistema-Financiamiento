@@ -119,6 +119,30 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
+        public IEnumerable<tbPlanesPagosClientes> BuscarPapaID(string Clie_DNI)
+        {
+
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new { Clie_DNI = Clie_DNI };
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_BuscarPapaID, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> ValidarCiente(int? Vecl_Id)
+        {
+
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new { Vecl_Id = Vecl_Id };
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_ValidarCliente, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
         public RequestStatus SaberMora(int id)
         {
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
