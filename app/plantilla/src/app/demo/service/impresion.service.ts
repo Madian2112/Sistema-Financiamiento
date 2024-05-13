@@ -17,7 +17,7 @@ export class ImpresionService {
       format: 'letter'
     });
 
-    doc.setFillColor(233, 233, 233); 
+    doc.setFillColor(247, 247, 247); 
     doc.rect(0, 80, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
 
     const img = new Image();
@@ -42,7 +42,7 @@ export class ImpresionService {
     autoTables(doc, {
       head: [['N.', ...encabezado]], 
       body: cuerpoConNumeros,
-      startY: imgY + imgHeight + 40,
+      startY: imgY + imgHeight + 30,
       theme: 'grid',
       styles: {
         fontSize: 10,
@@ -64,24 +64,24 @@ export class ImpresionService {
     const pageCount = doc.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
-      doc.setFontSize(12); 
+      doc.setFontSize(10); 
       doc.setFillColor(255, 255, 255); 
       doc.rect(doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 35, 60, 25, 'F'); 
       doc.setTextColor(0); 
-      doc.text(`Página ${i} de ${pageCount}`, doc.internal.pageSize.width - 80 + 30, doc.internal.pageSize.height - 35, { align: 'center' });
+      doc.text(`Página ${i} de ${pageCount}`, doc.internal.pageSize.width - 80 + 30, doc.internal.pageSize.height - 30, { align: 'center' });
     
     
-      doc.setFontSize(12); 
+      doc.setFontSize(10); 
       doc.setTextColor(0, 0, 0);
-      doc.text('PDF generado por: Usuario', 10, doc.internal.pageSize.height - 35); 
+      doc.text('PDF generado por: Usuario', 10, doc.internal.pageSize.height - 30); 
     }
     
     doc.setFillColor(204, 91, 27);
-    doc.rect(0, doc.internal.pageSize.height - 30, doc.internal.pageSize.width, 30, 'F');
+    doc.rect(0, doc.internal.pageSize.height - 20, doc.internal.pageSize.width, 30, 'F');
     
 
     doc.setFillColor(204, 91, 27);
-    doc.rect(0, doc.internal.pageSize.height - 30, doc.internal.pageSize.width, 30, 'F');
+    doc.rect(0, doc.internal.pageSize.height - 20, doc.internal.pageSize.width, 30, 'F');
 
     const blobUrl = doc.output('bloburl');
     return this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl.toString());
