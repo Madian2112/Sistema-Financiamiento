@@ -26,12 +26,14 @@ namespace Practica.DataAcces.Repositorio
         public static string Rol_Detalles = "Acce.SP_Roles_Llenar";
         #endregion
 
-        #region Pantallas Por Roles
-        public static string PantXRol_Insertar = "[Acce].[SP_PantallasPorRoles_Insertar]";
-        public static string PantXRol_Eliminar = "[Acce].[SP_PantallasPorRoles_Eliminar]";
-        public static string Pant_Mostrar2 = "[Acce].[SP_Pantallas_Mostrar2]";
-        public static string Pant_Mostrar = "[Acce].[SP_Pantallas_Mostrar]";
-        public static string PantxRoles_Mostrar = "[Acce].[SP_PantallasPorRoles_Mostrar]";
+        #region Pantalla por Roles
+
+        public static string PantallasRolesListar = "[Acce].[SP_PantallasPorRoles_Mostrar]";
+        public static string PantallasRolesllenar2 = "[Acce].[SP_Roles_LLenar]";
+        public static string PantallasRolesllenar = "[Acce].[sp_PantallasPorRol2_buscar]";
+        public static string PantallasRolesActualizar = "[Acce].[sp_PantallasPorRoles_actualizar]";
+        public static string PantallasRolesEliminar = "[Acce].[SP_PantallasPorRoles_Eliminar]";
+
         #endregion
 
         #region Departamentos

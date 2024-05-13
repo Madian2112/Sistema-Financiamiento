@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RolListadoComponent } from './rol-listado.component';
+import { ListRolComponent } from './rol-listado.component';
 
-describe('RolListadoComponent', () => {
-  let component: RolListadoComponent;
-  let fixture: ComponentFixture<RolListadoComponent>;
+describe('ListRolComponent', () => {
+  let component: ListRolComponent;
+  let fixture: ComponentFixture<ListRolComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RolListadoComponent]
+      imports: [ListRolComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RolListadoComponent);
+    fixture = TestBed.createComponent(ListRolComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

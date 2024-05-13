@@ -1,47 +1,45 @@
 import { Injectable } from '@angular/core';
-import {Rol} from '../models/RolViewModel'
-import {HttpClient} from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Pantallas } from '../models/PantallaViewMode';
-import { Respuesta } from '../models/ServiceResult';
+import { Rol, Fill } from '../models/RolViewModel';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RolService {
-  private endpoint:string = environment.endPoint;
-  private apiUrl:string  = this.endpoint + "API/Role/";
+export class ServiceService {
+
   constructor(private http: HttpClient) { }
 
-  getRol (){
-    return this.http.get<Rol[]>(`${this.apiUrl}List`);
+
+  private baseUrl = environment.endPoint + 'API/Rol/';
+
+  getRol(): Observable<Rol[]> {
+    return this.http.get<Rol[]>(this.baseUrl + 'List');
   }
 
-  getPantallas(): Observable<Pantallas[]> {
-    return this.http.get<Pantallas[]>(`${this.apiUrl}ListPantallas`);
+  EnviarRol(formData: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'Create/', formData).pipe(
+      map(response => {
+        return response;
+      }),
+    );
   }
 
-  agregar(modelo: Rol): Observable<Respuesta> {
-    return this.http.post<Respuesta>(`${this.apiUrl}Create`, modelo);
-  }
-  agregarPantallaARol(pantid: number, rolId: number, Usua_Id: number): Observable<Respuesta> {
-    return this.http.get<Respuesta>(`${this.apiUrl}Agregarpant/${pantid}/${rolId}/${Usua_Id}`);
+  getFill(codigo: string): Observable<Fill> {
+    return this.http.get<Fill>(this.baseUrl + 'Fill/' + codigo);
   }
 
-  eliminarPantallaARol(Pant_Id: number, Rol_Id: number): Observable<Respuesta> {
-    return this.http.delete<Respuesta>(`${this.apiUrl}DeletePanRol/${Pant_Id}/${Rol_Id}`);
-  }
-  
-    obtener(id:number){
-    return this.http.get<Rol>(`${this.apiUrl}Edit/${id}`);
+  getDetalles(codigo: string): Observable<Fill> {
+    return this.http.get<Fill>(this.baseUrl + 'FillDetalles/' + codigo);
   }
 
-  actualizar(idDepartamento:number,modelo:Rol):Observable<Rol>{
-    return this.http.put<Rol>(`${this.apiUrl}Edit/${idDepartamento}`,modelo);
+  EliminarRol(ID: any): Observable<any> {
+    return this.http.delete<any>(this.baseUrl + 'Delete/' + ID);
   }
-  
-  eliminar(idDepartamento:string):Observable<void>{
-    return this.http.delete<void>(`${this.apiUrl}Delete/${idDepartamento}`);
+
+  ActualizarRol(formData: any) {
+    return this.http.put(this.baseUrl + 'Edit/', formData);
   }
 }

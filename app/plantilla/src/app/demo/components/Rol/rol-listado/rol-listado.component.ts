@@ -1,84 +1,324 @@
-import { Component, OnInit, NgModule,Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { Rol } from '../../../models/RolViewModel';
-import { RolService } from '../../../service/rol.service';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { DialogModule } from 'primeng/dialog';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { RippleModule } from 'primeng/ripple';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { DropdownModule } from 'primeng/dropdown';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
-import { SliderModule } from 'primeng/slider';
-import { RatingModule } from 'primeng/rating';
-import { MatDialog } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { Product } from 'src/app/demo/api/product';
+import {Router} from '@angular/router';
+import { Table } from 'primeng/table';
+import { Fill, Rol, RolEnviar } from '../../../models/RolViewModel';
+import { NodeService } from 'src/app/demo/service/node.service';
+import { ServiceService } from '../../../service/rol.service';
+import { TreeNode} from 'primeng/api';
+import { FormGroup, FormControl,  Validators  } from '@angular/forms';
+import { Mensaje } from '../../../models/MensajeViewModel';
 @Component({
-  selector: 'app-rol-listado',
   templateUrl: './rol-listado.component.html',
   styleUrl: './rol-listado.component.scss',
-  providers: [MessageService]
+  providers: [ConfirmationService, MessageService]
 })
-export class RolListadoComponent implements OnInit{
-  rol: Rol[] = [];
-  constructor(
-    private service: RolService,
-    private router: Router,
+export class ListRolComponent implements OnInit{
+  Rol!:Rol[];
+  files1: TreeNode[] = [];
+  selectedFiles1: TreeNode[] = [];
+  Mensaje!: Mensaje[];
+  submitted: boolean = false;
+  loading: boolean = false;
+  empleados: any[] = [];
+  rol: any[] = [];
+  fill: any[] = [];
+  viewModel: RolEnviar = new RolEnviar();
+  rolForm: FormGroup;
 
-  ) {
+ 
+  @ViewChild('filter') filter!: ElementRef;
+
+  selectedState: any = null;
+  Collapse: boolean = false;
+  DataTable: boolean = true;
+  Detalles: boolean = false;
+  Agregar: boolean = true;
+  Contrasenas: boolean = true;
+  Valor: string = "";
+  staticData = [{}];
+  selectedKeys: string[] = []; ç
+  llenado: any = []; 
+  deleteProductDialog: boolean = false;
+    //Detalle
+    Detalle_Rol: String = "";
+    UsuarioCreacion: String = "";
+    UsuarioModificacion: String = "";
+    FechaCreacion: String = "";
+    FechaModificacion: String = "";
+    ID: String = "";
+
+
+    Valor1: string = "";
+    Valor2: string = "";
+  constructor(private service: ServiceService, private router: Router,private nodeService: NodeService,private messageService: MessageService
+  
+  ) { }
+
+
+  ngOnInit(): void {
+    this.nodeService.getFiles().then(files => this.files1 = files);
+    this.rolForm = new FormGroup({
+      Rol_Descripcion: new FormControl("",Validators.required),
+    });
+
+
+
+
+      this.service.getRol().subscribe((data: any)=>{
+          console.log(data);
+          this.Rol = data;
+      },error=>{
+        console.log(error);
+      });
+   }
+
+  onNodeSelect(event: any) {
+    this.updateSelectedKeys();
   }
-ngOnInit(): void {
-  this.getRoles();
+
+  onNodeUnselect(event: any) {
+    this.updateSelectedKeys();
+  }
+
+  updateSelectedKeys() {
+    const excludedKeys = ['0', '100', '101', '102']; 
+    this.selectedKeys = this.selectedFiles1
+      .map(node => node.key) 
+      .filter(key => !excludedKeys.includes(key)); 
+  
+   
+  }
+   collapse(){
+    this.Collapse= true;
+    this.DataTable = false;
+    this.Valor = "Agregar";
+    this.Agregar= false;
+    this.Detalles = false;
+}
+detalles(codigo){
+  this.Collapse= false;
+  this.DataTable = false;
+  this.Agregar= false;
+  this.Detalles = true;
+  this.service.getDetalles(codigo).subscribe({
+      next: (data: Fill) => {
+        this.ID = data[0].rol_Id,
+        this.Detalle_Rol = data[0].rol_Descripcion,
+         this.UsuarioCreacion = data[0].usuarioCreacion,
+         this.UsuarioModificacion = data[0].usuarioModificacion
+         this.FechaCreacion = data[0].fechaCreacion,
+         this.FechaModificacion = data[0].fechaModificacion
+      }
+    });
+}
+cancelar(){
+  this.Collapse= false;
+  this.DataTable = true;
+  this.Detalles = false;
+  this.ngOnInit();
+  this.submitted = false;
+  this.Agregar= true;
+  this.Valor = "";
+  this.selectedFiles1 = []; 
+  this.selectedKeys = [];
 }
 
-  Nuevo(){
-    this.router.navigate(['app/CreateRol'])
-  }
-  Editar(){
-    this.router.navigate(['app/EditarRol'])
-  }
-getRoles() {
-  this.service.getRol().subscribe(
-    (data: any) => {
-      this.rol = data;
-    },
-    error => {
-      console.log(error);
+llenar(id){
+  this.nodeService.getFiles().then(treeFiles => {
+    this.files1 = treeFiles;
+    this.service.getDetalles(id).subscribe({
+      next: (data: Fill) => {
+         this.ID = data[0].rol_Id
+         console.log(data[0].rol_Descripcion)
+         this.rolForm = new FormGroup({
+          Rol_Descripcion: new FormControl(data[0].rol_Descripcion,Validators.required),
+        });
+      }
+    });
+    this.service.getFill(id).subscribe((data) => {
+      if (Array.isArray(data)) {
+        const pantIds = data.map((item) => item.pant_Id);
+      
+        this.markAddedScreens(treeFiles, pantIds); 
+      } else {
+        console.error("El formato de datos devuelto no es un arreglo.");
+      }
+    });
+    
+  },
+  
+);
+
+  this.Collapse= true;
+  this.DataTable = false;
+  this.Agregar= false;
+  this.Detalles = false;
+
+}
+markAddedScreens(treeNodes: TreeNode[], pantIds: number[]) {
+  const addedKeys = pantIds.map((id) => id.toString()); 
+  console.log(addedKeys)
+  this.selectedFiles1 = this.findNodesByKey(treeNodes, addedKeys);
+  this.updateSelectedKeys(); 
+}
+
+findNodesByKey(nodes: TreeNode[], keys: string[], parent: TreeNode | null = null): TreeNode[] {
+  let selected: TreeNode[] = [];
+
+  nodes.forEach((node) => {
+    const isSelected = keys.includes(node.key);
+    let childrenSelected: TreeNode[] = [];
+
+  
+    if (node.children && node.children.length > 0) {
+      childrenSelected = this.findNodesByKey(node.children, keys, node);
+      selected = selected.concat(childrenSelected);
     }
-  );
-}
+
+ 
+    const allChildrenSelected = node.children && node.children.length > 0 && node.children.every((child) => keys.includes(child.key));
+    const hasSelectedChildren = childrenSelected.length > 0;
+
+    if (isSelected || allChildrenSelected) {
+      selected.push(node);
+      node.expanded = true;
+      node.partialSelected = false; 
+    } else if (hasSelectedChildren) {
+      node.partialSelected = true;
+      node.expanded = true;
+    } else {
+      node.partialSelected = false; 
+    }
+
+  
+    if (parent) {
+      parent.expanded = true;
+
+     
+      parent.partialSelected = parent.partialSelected || hasSelectedChildren;
+
+      if (allChildrenSelected) {
+        parent.partialSelected = true;
+      }
+    }
+  });
+
+
+  if (parent === null) {
+
+    const expectedCount = nodes.reduce((count, node) => count + 1 + (node.children ? node.children.length : 0), 0);
+
+    if (keys.length === 15) {
+      nodes.forEach((node) => {
+        node.partialSelected = false;
+        if (!selected.includes(node)) {
+          selected.push(node);
+        }
+      });
+    }
+  }
+
+  return selected;
 }
 
 
-@NgModule({
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TableModule,
-    ButtonModule,
-    InputTextModule,
-    ToggleButtonModule,
-    RippleModule,
-    SplitButtonModule,
-    MultiSelectModule,
-    DropdownModule,
-    ProgressBarModule,
-    DialogModule,
-    ToastModule,
-    SliderModule,
-    RatingModule,
-    MatButtonModule
-  ],
-  declarations: [
-    RolListadoComponent
-  ]
-})
-export class RolListadoModule { }
+
+
+
+validarTexto(event: KeyboardEvent) {
+
+  if (!/^[a-zA-Z\s]+$/.test(event.key) && event.key !== 'Backspace' && event.key !== 'Tab' && event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+      event.preventDefault();
+  }
+}onSubmit() {
+  if (this.rolForm.valid) {
+     this.viewModel.txtRol = this.rolForm.get('Rol_Descripcion').value;
+     this.viewModel.pantallasSeleccionadas = this.selectedKeys;
+     if (this.Valor == "Agregar") {
+      this.service.EnviarRol(this.viewModel).subscribe((data: Mensaje[]) => {
+          if(data["message"] == "Operación completada exitosamente."){
+          this.ngOnInit();
+           this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Insertado con Exito', life: 3000 });
+           this.Collapse= false;
+           this.DataTable = true;
+           this.submitted = false;
+           this.Detalles = false;
+           this.Agregar= true;
+           this.selectedFiles1 = []; 
+           this.selectedKeys = [];
+          }else{
+           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro insertar', life: 3000 });
+          }
+          
+       })
+     } else {
+          this.viewModel.Rol_Id = this.ID;
+          this.service.ActualizarRol(this.viewModel).subscribe((data: Mensaje[]) => {
+          if(data["message"] == "Operación completada exitosamente."){
+            this.ngOnInit();
+           this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Actualizado con Exito', life: 3000 });
+           this.Collapse= false;
+           this.DataTable = true;
+           this.Detalles = false;
+           this.submitted = false;
+           this.Agregar= true;
+           this.selectedFiles1 = []; 
+           this.selectedKeys = [];
+          }else{
+           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro actualizar', life: 3000 });
+          }
+          
+       })
+     }  
+     
+  }   
+      else 
+      {
+          this.submitted = true;
+      }
+  }
+
+  deleteSelectedProducts(codigo) {
+    this.deleteProductDialog = true;
+    this.ID = codigo;
+    console.log("El codigo es" + codigo);
+}
+confirmDelete() {
+    this.service.EliminarRol(this.ID).subscribe({
+        next: (response) => {
+            if(response.message == "La accion ha sido existosa"){
+               this.ngOnInit();
+                this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Eliminado con Exito', life: 3000 });
+                this.Collapse= false;
+                this.DataTable = true;
+                this.Detalles = false;
+                this.submitted = false;
+                this.deleteProductDialog = false;
+               }else{
+                this.deleteProductDialog = false;
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se logro eliminar', life: 3000 });
+               }
+        },
+    });
+
+}
+Fill(codigo) {
+    this.service.getFill(codigo).subscribe({
+        next: (data: Fill) => {
+          this.rolForm = new FormGroup({
+            Rol_Descripcion: new FormControl("",Validators.required),
+          });
+            this.ID = data.rol_Id;
+            this.Collapse= true;
+            this.DataTable = false;
+            this.Agregar = false;
+            this.Detalles = false;
+            this.Contrasenas = false;
+            this.Valor = "Editar";
+        }
+      });
+
+}
+}
