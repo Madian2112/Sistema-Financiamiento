@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {PLanPago, Fill, PLanPagoCreate} from '../models/PlanPagoViewModel'
+import {PLanPago, Fill, PLanPagoCreate} from '../models/PlanPagoViewModel';
+import {PagoClienteFechaPrevia} from '../models/PlanPagoClienteViewModel'
 import {HttpClient} from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import {Vehiculo} from '../models/VehiculoViewModel'
 import {TipoCuota} from '../models/TipoCuotaViewModel'
-import {PLanPagoCliente, PLanPagoClientTB} from '../models/PlanPagoClienteViewModel'
+import {PLanPagoCliente, PLanPagoClientTB, PagoCliente} from '../models/PlanPagoClienteViewModel'
 import { Respuesta } from '../models/ServiceResult';
 
 
@@ -21,6 +22,18 @@ export class PLanPagoServiceService {
   constructor(private http: HttpClient) { }
 
   Url = 'https://localhost:44372/API/PlanPago/List';
+
+  /*--PLANES DE PAGO CLIENTES*/
+  getPlanPagoClienteFecha(codigo: string){
+    return this.http.get<PagoClienteFechaPrevia[]>('https://localhost:44372/API/PlanPagoCliente/BuscarDNI/'+ codigo);
+  }
+
+  agregarPagoCliente(planpago: PagoCliente): Observable<PagoCliente> {
+    return this.http.put<PagoCliente>('https://localhost:44372/API/PlanPagoCliente/PagarCuota/', planpago);
+
+  }
+
+  /*--PLANES DE PAGO CLIENTES*/
 
   getVehiculo (){
     return this.http.get<Vehiculo[]>(this.endpoint + 'API/Vehiculo/ListVC');

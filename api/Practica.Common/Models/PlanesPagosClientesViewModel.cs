@@ -47,4 +47,14 @@ namespace Practica.Common.Models
         public int? Pacl_Usua_Modi { get; set; }
         public DateTime? Pacl_Fecha_Modi { get; set; }
     }
+
+    public class PagosClientesViewModel
+    {
+        public int Pacl_Id { get; set; }
+        public int Papa_Id { get; set; }
+        public decimal Pacl_Monto_Pago { get; set; }
+
+        [NotMapped]
+        public int Pacl_NumeroCuota { get; set; }
+    }
 }
