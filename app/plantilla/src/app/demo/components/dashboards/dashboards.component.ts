@@ -224,17 +224,17 @@ export class DashboardsComponent implements OnInit {
   }
   
   renderizarGraficoSexo(compras: { anio: string, mes: string, clie_Sexo: string, cantidadPrestamos: number }[]) {
-    // Filtrar los datos por género (solo Femenino y Masculino)
+ 
     const comprasFemenino = compras.filter(compra => compra.clie_Sexo === 'Femenino');
     const comprasMasculino = compras.filter(compra => compra.clie_Sexo === 'Masculino');
 
-    // Obtener las cantidades de préstamos para cada género
+
     const cantidadFemenino = comprasFemenino.reduce((total, compra) => total + compra.cantidadPrestamos, 0);
     const cantidadMasculino = comprasMasculino.reduce((total, compra) => total + compra.cantidadPrestamos, 0);
 
-    // Renderizar el gráfico con solo dos barras (Femenino y Masculino)
+   
     if (this.MyChartSexo) {
-        this.MyChartSexo.destroy(); // Destruir el gráfico existente si existe
+        this.MyChartSexo.destroy(); 
     }
 
     this.MyChartSexo = new Chart("barChartSexo", {
