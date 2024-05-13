@@ -4,27 +4,27 @@
             "key": "0",
             "label": "Credi Rapid",
             "data": "Documents Folder",
-            "icon": "pi pi-fw pi-inbox",
+            "icon": "pi pi-caret-down",
             "children": [{
                 "key": "102",
                 "label": "Acceso",
                 "data": "Work Folder",
-                "icon": "pi pi-fw pi-cog",
-                "children": [{ "key": "1", "label": "Usuarios", "icon": "pi pi-fw pi-file" }, { "key": "2", "label": "Roles", "icon": "pi pi-fw pi-file"}]
+                "icon": "pi pi-fw pi-lock",
+                "children": [{ "key": "1", "label": "Usuarios", "icon": "pi pi-desktop" }, { "key": "2", "label": "Roles", "icon": "pi pi-desktop"}]
             },
             {
                 "key": "101",
                 "label": "Generales",
                 "data": "Work Folder",
-                "icon": "pi pi-fw pi-cog",
-                "children": [{ "key": "3", "label": "Cargos", "icon": "pi pi-fw pi-file" }, { "key": "4", "label": "Clientes", "icon": "pi pi-fw pi-file" },{ "key": "5", "label": "Departamentos", "icon": "pi pi-fw pi-file" },{ "key": "6", "label": "Empleados", "icon": "pi pi-fw pi-file" },{ "key": "7", "label": "Estados Civiles", "icon": "pi pi-fw pi-file" },{ "key": "8", "label": "Marcas", "icon": "pi pi-fw pi-file" },{ "key": "9", "label": "Municipios", "icon": "pi pi-fw pi-file" },{ "key": "10", "label": "Sucursales", "icon": "pi pi-fw pi-file" }]
+                "icon": "pi pi-fw pi-user",
+                "children": [{ "key": "3", "label": "Cargos", "icon": "pi pi-desktop" }, { "key": "4", "label": "Clientes", "icon": "pi pi-desktop" },{ "key": "5", "label": "Departamentos", "icon": "pi pi-desktop" },{ "key": "6", "label": "Empleados", "icon": "pi pi-desktop" },{ "key": "7", "label": "Estados Civiles", "icon": "pi pi-desktop" },{ "key": "8", "label": "Marcas", "icon": "pi pi-desktop" },{ "key": "9", "label": "Municipios", "icon": "pi pi-desktop" },{ "key": "10", "label": "Sucursales", "icon": "pi pi-desktop" }]
             },
             {
                 "key": "100",
                 "label": "Credito",
                 "data": "Work Folder",
-                "icon": "pi pi-fw pi-cog",
-                "children": [{ "key": "11", "label": "Tipo de Cuota", "icon": "pi pi-fw pi-file" }, { "key": "12", "label": "Modelo", "icon": "pi pi-fw pi-file" }, { "key": "13", "label": "Vehiculo", "icon": "pi pi-fw pi-file" }, { "key": "14", "label": "Plan de Pago", "icon": "pi pi-fw pi-file" }]
+                "icon": "pi pi-fw pi-car",
+                "children": [{ "key": "11", "label": "Tipo de Cuota", "icon": "pi pi-desktop" }, { "key": "12", "label": "Modelo", "icon": "pi pi-desktop" }, { "key": "13", "label": "Vehiculo", "icon": "pi pi-desktop" }, { "key": "14", "label": "Plan de Pago", "icon": "pi pi-desktop" }]
             }
         ]
         }
