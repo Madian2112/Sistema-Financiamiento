@@ -69,7 +69,16 @@ export class ImpresionService {
       doc.rect(doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 35, 60, 25, 'F'); 
       doc.setTextColor(0); 
       doc.text(`Página ${i} de ${pageCount}`, doc.internal.pageSize.width - 80 + 30, doc.internal.pageSize.height - 35, { align: 'center' });
+    
+    
+      doc.setFontSize(12); 
+      doc.setTextColor(0, 0, 0);
+      doc.text('PDF generado por: Usuario', 10, doc.internal.pageSize.height - 35); 
     }
+    
+    doc.setFillColor(204, 91, 27);
+    doc.rect(0, doc.internal.pageSize.height - 30, doc.internal.pageSize.width, 30, 'F');
+    
 
     doc.setFillColor(204, 91, 27);
     doc.rect(0, doc.internal.pageSize.height - 30, doc.internal.pageSize.width, 30, 'F');
