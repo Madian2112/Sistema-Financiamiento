@@ -42,7 +42,7 @@ export class ImpresionService {
     autoTables(doc, {
       head: [['N.', ...encabezado]], 
       body: cuerpoConNumeros,
-      startY: imgY + imgHeight + 60,
+      startY: imgY + imgHeight + 40,
       theme: 'grid',
       styles: {
         fontSize: 10,
