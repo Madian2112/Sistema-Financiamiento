@@ -41,7 +41,8 @@
   </div>
 
 <div class="grid">
-    <div class="col-12 lg:col-6 xl:col-3">
+  
+    <div class="col-12 lg:col-6 xl:col-6">
         <div class="card mb-0">
             <div class="flex justify-content-between mb-3">
                 <div>
@@ -54,25 +55,23 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="col-12 lg:col-6 xl:col-6">   </div>
 
-
-<div class="grid p-fluid">
      <div class="col-12 lg:col-6">
         <div class="card">
             <h2>Cantidad de Prestamos Por Sexo</h2>
             <canvas id="barChartSexo" class="chart"></canvas>
         </div>
     </div> 
+    <div class="col-12 lg:col-6 xl:col-6">   </div>
+
     <div class="col-12 lg:col-6">
         <div class="card">
             <h2>Cantidad de Prestamos Por Modelo </h2>
             <p-chart type="doughnut" [data]="chartDataModelo" [options]="chartOptionsModelo" styleClass="chart"></p-chart>
         </div>
     </div>
-</div>
 
-<div class="grid p-fluid">
     
     <div class="col-12 lg:col-6">
         <div class="card">
