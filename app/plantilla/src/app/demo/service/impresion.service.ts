@@ -42,7 +42,7 @@ export class ImpresionService {
     autoTables(doc, {
       head: [['N.', ...encabezado]], 
       body: cuerpoConNumeros,
-      startY: imgY + imgHeight + 30,
+      startY: imgY + imgHeight + 20,
       theme: 'grid',
       styles: {
         fontSize: 10,
@@ -57,7 +57,7 @@ export class ImpresionService {
         fontStyle: 'bold'
       },
       alternateRowStyles: {
-        fillColor: [240, 240, 240]
+        fillColor: [224, 224, 224]
       }
     });
 
@@ -66,7 +66,7 @@ export class ImpresionService {
       doc.setPage(i);
       doc.setFontSize(10); 
       doc.setFillColor(247, 247, 247); 
-      doc.rect(doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 35, 60, 25, 'F'); 
+      // doc.rect(doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 35, 60, 25, 'F'); 
       doc.setTextColor(0); 
       doc.text(`Página ${i} de ${pageCount}`, doc.internal.pageSize.width - 80 + 30, doc.internal.pageSize.height - 22, { align: 'center' });
     
