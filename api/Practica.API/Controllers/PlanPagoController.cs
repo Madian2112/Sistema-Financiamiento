@@ -50,10 +50,49 @@ namespace Practica.API.Controllers
             var modelo = _credirapidServicio.ObtenerPlanPagoID(id);
             return Json(modelo.Data);
         }
+
+        [HttpGet("ValidarCliente/{id}")]
+        public IActionResult ValidarCliente(int id)
+        {
+            RequestStatus status = new RequestStatus();
+            var ValidarCliente = _credirapidServicio.ValidarCliente(id);
+
+            if (ValidarCliente.ToList().Count >= 1)
+            {
+                status.MessageStatus = "error";
+                return Ok(status);
+            }
+
+            else
+            {
+                status.MessageStatus = "exito";
+            }
+
+            return Ok(status);
+        }
+
         [HttpPost("Create")]
         public IActionResult Create(PlanesPagosViewModel item)
         {
             //var model = _mapper.Map<tbCargos>(item);
+
+            RequestStatus request = new RequestStatus();
+
+            RequestStatus status = new RequestStatus();
+
+            var ValidarCliente = _credirapidServicio.ValidarCliente(item.Vecl_Id);
+
+            if (ValidarCliente.ToList().Count >= 1)
+            {
+                status.MessageStatus = "error";
+                return Ok(status);
+            }
+
+            else 
+            {
+                status.MessageStatus = "exito";
+            }
+            
             var modelo = new tbPlanesPagos()
             {
                 Papa_Financiamiento = item.Papa_Financiamiento,
@@ -62,15 +101,12 @@ namespace Practica.API.Controllers
                 Papa_Numero_Cuota = item.Papa_Numero_Cuota,
                 Papa_Fecha_Emision = DateTime.Now , 
                 Papa_Usua_Creacion = item.Papa_Usua_Creacion 
-               
-
             };
 
             var listado = _credirapidServicio.ListPlanPago();
             var prueba = _credirapidServicio.InsertarPlanPago(modelo);
 
-            RequestStatus request = new RequestStatus();
-
+            
             request = prueba.Data;
             var valor = request.CodeStatus;
             var fecha = request.Fecha;

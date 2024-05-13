@@ -86,6 +86,13 @@ namespace Practica.API.Controllers
             return Ok(modelo);
         }
 
+        [HttpGet("BuscarPapaID/{id}")]
+        public IActionResult BuscarPapaID(string id)
+        {
+            var modelo = _credirapidServicio.BuscarPapaID(id);
+            return Ok(modelo);
+        }
+
         [HttpPut("PagarCuota/")]
         public IActionResult InsertarCuota(PagosClientesViewModel item)
         {

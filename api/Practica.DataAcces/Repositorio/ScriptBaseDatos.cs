@@ -137,7 +137,7 @@ namespace Practica.DataAcces.Repositorio
         #endregion
 
 
-        #region Planes Pagos Clientes [Cred].[SP_PlanesPagosClientes_Buscar]
+        #region Planes Pagos Clientes
         public static string Pacl_Mostrar = "Cred.SP_PlanesPagosClientes_Mostrar";
         public static string Pacl_Insertar = "Cred.SP_PlanesPagosClientes_Insertar";
         public static string Pacl_InsertarFecha = "[Cred].[SP_PlanesPagosClientes_InsertarFechas]";
@@ -145,7 +145,9 @@ namespace Practica.DataAcces.Repositorio
         public static string Pacl_Actualizar = "[Cred].[SP_PlanesPagosClientes_Actualizar]";
         public static string Pacl_Eliminar = "Cred.SP_PlanesPagosClientes_Eliminar";
         public static string Pacl_Detalles = "Cred.SP_PlanesPagosClientes_Llenar";
+        public static string Pacl_ValidarCliente = "Cred.SP_PlanesPagosClientes_ValidarClienteRepetido";
         public static string Pacl_Buscar = "[Cred].[SP_PlanesPagosClientes_Buscar]";
+        public static string Pacl_BuscarPapaID = "[Cred].[SP_PlanesPagosClientes_BuscarPapaID] ";
         public static string Pacl_SaberMora = "Cred.SP_PlanesPagosClientes_InsertarMora";
         public static string Pacl_InsertarFechaPrevia = "Cred.SP_PlanesPagosClientes_InsertarValorFechaPrevia";
         public static string Pacl_BuscarFechaPrevia = "[Cred].[SP_PlanesPagosClientes_BuscarFechaPrevia]";
