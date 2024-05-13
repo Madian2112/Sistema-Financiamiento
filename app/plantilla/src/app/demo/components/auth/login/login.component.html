@@ -1,27 +1,21 @@
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
     <div class="flex flex-column align-items-center justify-content-center">
-        <img src="assets/demo/images/credirapi-removebg-preview.png" alt="CrediRapid logo" class="mb-5 w-10rem flex-shrink-0">                
         <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, #CC5B1C 10%, rgba(33, 150, 243, 0) 30%);">
             <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
                 <div class="text-center mb-5">
                     <div class="text-900 text-3xl font-medium mb-3">Bienvenido a CrediRapi!</div>
-                    <span class="text-600 font-medium">Sign in to continue</span>
+                    <img src="assets/demo/images/credirapi-removebg-preview.png" alt="CrediRapid logo" class="mb-5 w-10rem flex-shrink-0">                
                 </div>
 
                 <div>
+                    <form [formGroup]="formUsuario">
                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Usuario</label>
-                    <input id="email1" type="text" placeholder="Usuario" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+                    <input id="usuario"formControlName="usuario" type="text" placeholder="Usuario" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
 
-                    <label for="password1" class="block text-900 font-medium text-xl mb-2">Clave</label>
-                    <p-password id="password1" [(ngModel)]="password" placeholder="Clave" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
-
-                    <div class="flex align-items-center justify-content-between mb-5 gap-5">
-                        <div class="flex align-items-center">
-                            <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
-                            <label for="rememberme1">Recuerdame</label>
-                        </div>
-                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: #A4BD30">Olvide mi clave</a>
-                    </div>
+                    <label for="password1" class="block text-900 font-medium text-xl mb-2">Contraseña</label>
+                    <p-password id="clave" formControlName="clave" placeholder="Clave" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+                    </form>
+                    <label class="{{loginvalidacion}}" style="color:red; font-size: 130%; margin-block-end: 2%; margin-top:-1%">Credenciales invalidas</label>
                     <button type="button" pButton pRipple label="Inicia Sesion" style="background-color: #CC5B1C; " class="w-full p-3 text-xl" (click)="login()"></button>
                 </div>
             </div>

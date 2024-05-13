@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Practica.BussinesLogic.Servicios;
 using Practica.Common.Models;
 using Practica.Entities.Entities;
+using SistemaAsilos.BussinesLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,24 @@ namespace Practica.API.Controllers
         public IActionResult loginUsuario(string usuario, string contraseña)
         {
             var estado = _accesoServicio.Login(usuario, contraseña);
-            return Ok(estado);
+
+            var saber = estado.Data as IEnumerable<tbUsuarios>;
+
+            ServiceResult serviceResult = new ServiceResult();
+
+            serviceResult = estado;
+
+            if (saber.ToList().Count == 1)
+            {
+                serviceResult.Message = "exito";
+            }
+
+            else
+            {
+                serviceResult.Message = "error";
+            }
+
+            return Ok(serviceResult);
 
         }
         [HttpPost("Create")]

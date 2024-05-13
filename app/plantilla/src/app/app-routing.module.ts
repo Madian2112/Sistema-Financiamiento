@@ -25,7 +25,6 @@ import { ClientesCrearComponent } from "./demo/components/Clientes/clientes-crea
 import { PlanpagoCrearComponent } from "./demo/components/PlanesPagos/planpago-crear/planpago-crear.component";
 import {DashboardsComponent} from './demo/components/dashboards/dashboards.component';
 import {ListRolComponent} from './demo/components/Rol/rol-listado/rol-listado.component';
-
 import {ReportesComponent} from './demo/components/reportes/reportes.component';
 import { ReportePrestamosAprobadosComponent } from './demo/components/reporte-prestamos-aprobados/reporte-prestamos-aprobados.component';
 import { ReporteClientesMoraComponent } from './demo/components/reporte-clientes-mora/reporte-clientes-mora.component';
@@ -59,6 +58,7 @@ import { PlanpagoclienteCrearComponent } from './demo/components/PlanesPagosClie
                      { path: 'IndexReporteClientesMora', component: ReporteClientesMoraComponent },
                      { path: 'IndexReporteModelosVehiculos', component: ReporteModelosVehiculosComponent },
                      { path: 'IndexReporteVentasEmpleado', component: ReporteVentasEmpleadosComponent },
+                     { path: 'Login', component: LoginComponent },
                
                     // { path: 'departamento/:id', component: DetalleDepartamentoComponent }, // Agrega la ruta para DepartamentosListadoComponent
                     { path: 'IndexCargo', component: CargosListadoComponent }, // Agrega la ruta para CargosListadoComponent
