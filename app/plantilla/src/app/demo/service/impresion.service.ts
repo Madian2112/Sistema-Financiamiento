@@ -65,15 +65,15 @@ export class ImpresionService {
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
       doc.setFontSize(10); 
-      doc.setFillColor(255, 255, 255); 
+      doc.setFillColor(247, 247, 247); 
       doc.rect(doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 35, 60, 25, 'F'); 
       doc.setTextColor(0); 
-      doc.text(`Página ${i} de ${pageCount}`, doc.internal.pageSize.width - 80 + 30, doc.internal.pageSize.height - 30, { align: 'center' });
+      doc.text(`Página ${i} de ${pageCount}`, doc.internal.pageSize.width - 80 + 30, doc.internal.pageSize.height - 22, { align: 'center' });
     
     
       doc.setFontSize(10); 
       doc.setTextColor(0, 0, 0);
-      doc.text('PDF generado por: Usuario', 10, doc.internal.pageSize.height - 30); 
+      doc.text('PDF generado por: Usuario', 10, doc.internal.pageSize.height - 22); 
     }
     
     doc.setFillColor(204, 91, 27);
