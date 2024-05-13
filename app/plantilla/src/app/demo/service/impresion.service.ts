@@ -17,7 +17,7 @@ export class ImpresionService {
       format: 'letter'
     });
 
-    doc.setFillColor(247, 247, 247); 
+    doc.setFillColor(233, 233, 233); 
     doc.rect(0, 80, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
 
     const img = new Image();

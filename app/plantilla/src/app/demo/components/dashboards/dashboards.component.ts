@@ -146,11 +146,11 @@ export class DashboardsComponent implements OnInit {
     const fechas = compras.map(compra => `${compra.anio}-${compra.mes}`);
     const cantidades = compras.map(compra => compra.cantidadPrestamos);
 
-        // Asignar la cantidad total de préstamos
+     
         this.cantidadPrestamos = cantidades.reduce((total, cantidad) => total + cantidad, 0);
         
     if (this.MyChart) {
-      this.MyChart.destroy(); // Destruir el gráfico existente si existe
+      this.MyChart.destroy(); 
       
     }
 
@@ -162,19 +162,19 @@ export class DashboardsComponent implements OnInit {
           label: 'Prestamos',
           data: cantidades,
           backgroundColor: [
-            'rgba(255, 193, 7, 0.6)', // Color #ffc107 para la primera compra
-            'rgba(54, 162, 235, 0.6)', // Color para la segunda compra
-            'rgba(255, 206, 86, 0.6)', // Color para la tercera compra
-            // Añadir más colores si es necesario
+            'rgba(255, 193, 7, 0.6)', 
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+          
           ],
           borderColor: [
-            'rgba(255, 193, 7, 1)', // Color del borde para la primera compra
-            'rgba(54, 162, 235, 1)', // Color del borde para la segunda compra
-            'rgba(255, 206, 86, 1)', // Color del borde para la tercera compra
-            // Añadir más colores si es necesario
+            'rgba(255, 193, 7, 1)', 
+            'rgba(54, 162, 235, 1)', 
+            'rgba(255, 206, 86, 1)', 
+       
           ],
           borderWidth: 1,
-          barPercentage: 0.4 // Ajusta el ancho de las barras, un valor de 1 significa que las barras ocuparán todo el espacio disponible
+          barPercentage: 0.4
         }]
       },
       options: {
@@ -184,20 +184,20 @@ export class DashboardsComponent implements OnInit {
             title: {
               display: true,
               text: 'Cantidad de Prestamos',
-              color: 'white' // Cambiar color de texto a blanco
+              color: 'white' 
             },
             ticks: {
-              color: 'white' // Cambiar color de las etiquetas del eje Y a blanco
+              color: 'white' 
             }
           },
           x: {
             title: {
               display: true,
               text: 'Fecha',
-              color: 'white' // Cambiar color de texto a blanco
+              color: 'white' 
             },
             ticks: {
-              color: 'white' // Cambiar color de las etiquetas del eje X a blanco
+              color: 'white'
             }
           }
         },
@@ -205,7 +205,7 @@ export class DashboardsComponent implements OnInit {
           legend: {
             display: false,
             labels: {
-              color: 'white' // Cambiar color de las etiquetas de la leyenda a blanco
+              color: 'white' 
             }
           }
         },
@@ -245,15 +245,15 @@ export class DashboardsComponent implements OnInit {
                 label: 'Cantidad de Prestamos',
                 data: [cantidadFemenino, cantidadMasculino],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)', // Color para Femenino
-                    'rgba(54, 162, 235, 0.6)', // Color para Masculino
+                    'rgba(255, 99, 132, 0.6)', 
+                    'rgba(54, 162, 235, 0.6)',
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)', // Color del borde para Femenino
-                    'rgba(54, 162, 235, 1)', // Color del borde para Masculino
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)', 
                 ],
                 borderWidth: 1,
-                barPercentage: 0.4 // Ajusta el ancho de las barras
+                barPercentage: 0.4
             }]
         },
         options: {
@@ -263,20 +263,20 @@ export class DashboardsComponent implements OnInit {
                     title: {
                         display: true,
                         text: 'Cantidad de Prestamos',
-                        color: 'white' // Cambiar color de texto a blanco
+                        color: 'white' 
                     },
                     ticks: {
-                        color: 'white' // Cambiar color de las etiquetas del eje Y a blanco
+                        color: 'white' 
                     }
                 },
                 x: {
                     title: {
                         display: true,
                         text: 'Sexo',
-                        color: 'white' // Cambiar color de texto a blanco
+                        color: 'white' 
                     },
                     ticks: {
-                        color: 'white' // Cambiar color de las etiquetas del eje X a blanco
+                        color: 'white'
                     }
                 }
             },
@@ -309,8 +309,8 @@ renderizarGraficoModelo(compras: { anio: string, mes: string, mode_Descripcion: 
     datasets: [
       {
         data: data,
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'], // Colores para cada sector del gráfico
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'] // Colores para el efecto hover
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'] 
       }
     ]
   };
@@ -333,8 +333,8 @@ renderizarGraficoEstado(compras: { anio: string, mes: string, esta_Descripcion: 
     datasets: [
       {
         data: data,
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'], // Colores para cada sector del gráfico
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'] // Colores para el efecto hover
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'], 
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'] 
       }
     ]
   };
