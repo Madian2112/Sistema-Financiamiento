@@ -23,6 +23,17 @@ namespace Practica.Common.Models
         public int CantidadPrestamos { get; set; }
         [NotMapped]
         public string Empleado { get; set; }
+
+        [NotMapped]
+        public string Cliente { get; set; }
+        [NotMapped]
+        public string Marc_Descripcion { get; set; }
+
+        [NotMapped]
+        public string Sucursal { get; set; }
+        [NotMapped]
+        public string Papa_Financiamiento { get; set; }
+
         public int Pacl_Id { get; set; }
         public int? Papa_Id { get; set; }
         public decimal? Pacl_Monto_Pago { get; set; }

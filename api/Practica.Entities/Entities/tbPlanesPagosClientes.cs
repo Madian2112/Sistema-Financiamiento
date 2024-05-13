@@ -48,6 +48,15 @@ namespace Practica.Entities.Entities
 
         [NotMapped]
         public string Usua_Creacion { get; set; }
+        [NotMapped]
+        public string Cliente { get; set; }
+        [NotMapped]
+        public string Marc_Descripcion { get; set; }
+
+        [NotMapped]
+        public string Sucursal { get; set; }
+        [NotMapped]
+        public string Papa_Financiamiento { get; set; }
 
         [NotMapped]
         public string Usua_Modifica { get; set; }

@@ -12,186 +12,142 @@ namespace Practica.DataAcces.Repositorio
 {
     public class RolRepositorio : IRepository<tbRoles>
     {
-        public RequestStatus Actualizar(tbRoles item)
+        public int Insert(tbRoles item)
         {
+            const string sql = "[Acce].[SP_Roles_Insertar]";
+
+
+
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {
                 var parametro = new DynamicParameters();
-                parametro.Add("Rol_Id", item.Rol_Id);
-                parametro.Add("Rol_Descripcion", item.Rol_Descripcion);
+                parametro.Add("@Rol_Descripcion", item.Rol_Descripcion);
+                parametro.Add("@Role_UsuarioCreacion", item.Rol_Usua_Creacion);
+                parametro.Add("@Role_FechaCreacion", item.Rol_Fecha_Creacion);
+                parametro.Add("@ID", DbType.Int32, direction: ParameterDirection.Output);
 
-                parametro.Add("Rol_Usua_Modifica", item.Rol_Usua_Modifica);
-                parametro.Add("Rol_Fecha_Modifica", DateTime.Now);
 
-                var result = db.QueryFirst(ScriptBaseDatos.Rol_Actualizar,
-                    parametro,
-                     commandType: CommandType.StoredProcedure
-                    );
+                var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
+                int id = parametro.Get<int>("@ID");
 
-                return result;
+
+                return id;
             }
         }
 
-        public RequestStatus Eliminar(int? id)
+        public IEnumerable<tbRoles> List()
         {
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
-                var parametro = new DynamicParameters();
-                parametro.Add("Rol_Id", id);
-                var result = db.Execute(ScriptBaseDatos.Rol_Eliminar,
-                    parametro,
-                     commandType: CommandType.StoredProcedure
-                    );
-
-                string mensaje = (result == 1) ? "Exito" : "Error";
-                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
-            }
-        }
-        public IEnumerable<tbRoles> ObtenerRoleID(int Rol_Id)
-        {
-
+            const string sql = "[Acce].[SP_Roles_Mostrar]";
 
             List<tbRoles> result = new List<tbRoles>();
+
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {
-                var parameters = new { Rol_Id = Rol_Id };
-                result = db.Query<tbRoles>(ScriptBaseDatos.Rol_Detalles, parameters, commandType: CommandType.StoredProcedure).ToList();
+                result = db.Query<tbRoles>(sql, commandType: CommandType.Text).ToList();
+
+                return result;
+            }
+        }
+
+        public tbRoles Fill(int id)
+        {
+
+            tbRoles result = new tbRoles();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameter = new DynamicParameters();
+                parameter.Add("Rol_Id", id);
+                result = db.QueryFirst<tbRoles>(ScriptBaseDatos.Rol_Detalles, parameter, commandType: CommandType.StoredProcedure);
+                return result;
+            }
+
+        }
+
+        public RequestStatus Update(tbRoles item)
+        {
+            string sql = ScriptBaseDatos.Rol_Actualizar;
+
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameter = new DynamicParameters();
+                parameter.Add("@Rol_Id", item.Rol_Id);
+                parameter.Add("@Rol_Descripcion", item.Rol_Descripcion);
+                parameter.Add("@Role_UsuarioModificacion", item.Rol_Usua_Modifica);
+                parameter.Add("@Role_FechaModificacion", item.Rol_Fecha_Modifica);
+
+                var result = db.Execute(sql, parameter, commandType: CommandType.StoredProcedure);
+                string mensaje = (result == 1) ? "exito" : "error";
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+
+            }
+        }
+
+
+
+        public RequestStatus Delete(string Rol_Id)
+        {
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameter = new DynamicParameters();
+                parameter.Add("Rol_Id", Rol_Id);
+
+                var result = db.QueryFirst(ScriptBaseDatos.Rol_Eliminar, parameter, commandType: CommandType.StoredProcedure);
+                return new RequestStatus { CodeStatus = result.Resultado, MessageStatus = (result.Resultado == 1) ? "Exito" : "Error" };
+            }
+        }
+
+
+
+
+
+
+
+        public IEnumerable<tbRoles> Listpantallas()
+        {
+            const string sql = "[Acce].[SP_Pantallas_Mostrar2]";
+
+            List<tbRoles> result = new List<tbRoles>();
+
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                result = db.Query<tbRoles>(sql, commandType: CommandType.Text).ToList();
+
                 return result;
             }
         }
 
 
-        public tbRoles Find(int? id)
+        public RequestStatus Delete(int? id)
         {
             throw new NotImplementedException();
         }
 
-        public (RequestStatus,int) Insertar(tbRoles item)
+        public tbRoles Details(int? id)
         {
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
-                var parametro = new DynamicParameters();
-
-                parametro.Add("Rol_Descripcion", item.Rol_Descripcion);
-
-                parametro.Add("Rol_Usua_Creacion", 1);
-                parametro.Add("Rol_Fecha_Creacion", DateTime.Now);
-               
-                parametro.Add("role_id", dbType: DbType.Int32, direction: ParameterDirection.Output);
-
-                var result = db.Execute(ScriptBaseDatos.Rol_Insertar,
-                    parametro,
-                     commandType: CommandType.StoredProcedure
-                    );
-
-                int proyId = 0;
-                if (result > 0)
-                {
-                    proyId = parametro.Get<int>("role_id");
-                }
-
-                string mensaje = (result == 1) ? "Exito" : "Error";
-                return (new RequestStatus { CodeStatus = result, MessageStatus = mensaje },proyId);
-            }
-        }
-       
-        public IEnumerable<tbPantallas> Listpant(int RoleId)
-        {
-
-
-            List<tbPantallas> result = new List<tbPantallas>();
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
-                var parameters = new { RoleId = RoleId };
-                result = db.Query<tbPantallas>(ScriptBaseDatos.Pant_Mostrar, parameters, commandType: CommandType.StoredProcedure).ToList();
-                return result;
-            }
-        }
-        public RequestStatus InsertarPor(int Pant_Id, int Rol_Id,int usuaCreacion)
-        {
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
-                var parametro = new DynamicParameters();
-                parametro.Add("Rol_Id", Rol_Id);
-                parametro.Add("Pant_Id", Pant_Id);
-                parametro.Add("Paro_Usua_Creacion", usuaCreacion);
-                parametro.Add("Paro_Fecha_Creacion", DateTime.Now);
-               
-                var result = db.Execute(ScriptBaseDatos.PantXRol_Insertar,
-                    parametro,
-                     commandType: CommandType.StoredProcedure
-                    );
-
-                string mensaje = (result == 1) ? "Exito" : "Error";
-                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
-            }
+            throw new NotImplementedException();
         }
 
-        public RequestStatus Eliminarpant(int Pant_Id, int Rol_Id)
+        public tbRoles find(int? id)
         {
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
-                var parametro = new DynamicParameters();
-                parametro.Add("Rol_Id", Rol_Id);
-                parametro.Add("Pant_Id", Pant_Id);
-                var result = db.Execute(ScriptBaseDatos.PantXRol_Eliminar,
-                    parametro,
-                     commandType: CommandType.StoredProcedure
-                    );
-
-                string mensaje = (result == 1) ? "Exito" : "Error";
-                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
-            }
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<tbRoles> Detalle(int Rol_Id)
+        public RequestStatus Insertar(tbRoles item)
         {
-
-
-            List<tbRoles> result = new List<tbRoles>();
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
-                var parameters = new { Rol_Id = Rol_Id };
-                result = db.Query<tbRoles>(ScriptBaseDatos.Rol_Detalles, parameters, commandType: CommandType.StoredProcedure).ToList();
-                return result;
-            }
-        }
-        public IEnumerable<tbPantallasPorRoles> ListpantxRoles(int Rol_Id)
-        {
-
-
-            List<tbPantallasPorRoles> result = new List<tbPantallasPorRoles>();
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
-                var parameters = new { Rol_Id = Rol_Id };
-                result = db.Query<tbPantallasPorRoles>(ScriptBaseDatos.PantxRoles_Mostrar, parameters, commandType: CommandType.StoredProcedure).ToList();
-                return result;
-            }   
-        }
-        public IEnumerable<tbRoles> List()
-        {
-
-            List<tbRoles> result = new List<tbRoles>();
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
-                result = db.Query<tbRoles>(ScriptBaseDatos.Rol_Mostrar, commandType: CommandType.Text).ToList();
-                return result;
-            }
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<tbPantallas> ListPanta()
+        public RequestStatus Actualizar(tbRoles item)
         {
-
-            List<tbPantallas> result = new List<tbPantallas>();
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
-                result = db.Query<tbPantallas>(ScriptBaseDatos.Pant_Mostrar2, commandType: CommandType.Text).ToList();
-                return result;
-            }
+            throw new NotImplementedException();
         }
 
+        public RequestStatus Eliminar(int? id)
+        {
+            throw new NotImplementedException();
+        }
 
-        RequestStatus IRepository<tbRoles>.Insertar(tbRoles item)
+        public tbRoles Find(int? id)
         {
             throw new NotImplementedException();
         }

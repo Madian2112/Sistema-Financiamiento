@@ -27,6 +27,7 @@ import { FiltroPorMes, FiltroPorModelo, FiltroPorEstado, FiltroPorSexo } from 's
 import { FormsModule } from '@angular/forms';
 import { Sucursal } from '../../models/SucursalViewModel';
 import { CalendarModule } from "primeng/calendar";
+import { flush } from '@angular/core/testing';
 
 @Component({
   selector: 'app-reporte-ventas-empleados',
@@ -159,18 +160,25 @@ export class ReporteVentasEmpleadosComponent implements OnInit{
    
 
     onImprimir() {
-      const encabezado = ["Año", "Mes", "Empleado", "Total de Ventas"];
+      const encabezado = ["Año", "Mes", "Empleado", "Monto", "Pago Capital", "Pago interes", "Financiamiento", "Cliente", "Marca Vehiculo", "Modelo", "Sucursal"];
       const cuerpo = [];
   
       
       this.FiltroPorEstado.forEach(filtro => {
-          cuerpo.push([
-              filtro.anio,
-              this.obtenerNombreMes(filtro.mes),
-              filtro.empleado,
-              filtro.cantidadPrestamos
-          ]);
-      });
+        cuerpo.push([
+            filtro.anio,
+            this.obtenerNombreMes(filtro.mes),
+            filtro.empleado,
+            filtro.pacl_Monto_Pago,
+            filtro.pacl_Pago_Capital,
+            filtro.pacl_Pago_Intereses,
+            filtro.papa_Financiamiento,
+            filtro.cliente,
+            filtro.marc_Descripcion,
+            filtro.mode_Descripcion,
+            filtro.sucursal
+        ]);
+    });
   
       // PDF con datosde la tabla
       this.pdfSrc = this.service.imprimir(encabezado, cuerpo, "Reporte de Ventas de Empleados");

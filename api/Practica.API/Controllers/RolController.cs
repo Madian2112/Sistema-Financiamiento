@@ -1,130 +1,186 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Practica.BussinesLogic.Servicios;
-using Practica.Common.Models;
-using Practica.Entities.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Practica.BussinesLogic.Servicios;
+using Practica.Common.Models;
+using Practica.Entities.Entities;
+using SistemaEsmeralda.API.Clases;
+using SistemaAsilos.BussinesLogic;
 
 namespace Practica.API.Controllers
 {
     [ApiController]
-    [Route("API/[Controller]")]
-    public class RoleController : Controller
+    [Route("API/[controller]")]
+    public class RolController : Controller
     {
         private readonly AccesoServicio _accesoServicio;
+
         private readonly IMapper _mapper;
-
-
-        public RoleController(AccesoServicio accesoServicio, IMapper mapper)
+        public RolController(AccesoServicio AccesoServicio, IMapper mapper)
         {
-
+            _accesoServicio = AccesoServicio;
             _mapper = mapper;
-            _accesoServicio = accesoServicio;
-
-
         }
+
         [HttpGet("List")]
+        public IActionResult Index()
+        {
+            var list = _accesoServicio.ListadoRol();
+            return Ok(list.Data);
+        }
+
+        [HttpGet("DropDown")]
         public IActionResult List()
         {
-            var list = _accesoServicio.ListRole();
-            return Ok(list.Data);
+            var list = _accesoServicio.ListadoRol();
+            var drop = list.Data as List<tbRoles>;
+            var rol = drop.Select(x => new SelectListItem
+            {
+                Text = x.Rol_Descripcion,
+                Value = x.Rol_Id.ToString()
+            }).ToList();
+
+
+            rol.Insert(0, new SelectListItem { Text = "-- SELECCIONE --", Value = "0" });
+            return Ok(rol.ToList());
         }
 
-        [HttpGet("ListPantallas")]
-        public IActionResult ListPantallas()
-        {
-            var list = _accesoServicio.ListPanta();
-            return Ok(list.Data);
-        }
-
-        [HttpGet("Details/{id}")]
-        public IActionResult Details(int id)
-        {
-            var modelo = _accesoServicio.DetallesRol(id);
-
-            return Ok(modelo.Data);
-        }
-        [HttpGet("ListRoles/{Pant_ID}")]
-        public IActionResult ListRoles(int Pant_ID)
-        {
-            var list = _accesoServicio.Listpant(Pant_ID);
-
-            return Ok(list);
-        }
-        [HttpGet("ListPantXRole/{Rol_Id}")]
-        public IActionResult ListPantXRole(int Rol_Id)
-        {
-            var list = _accesoServicio.ObtenerPantallasPorRol(Rol_Id);
-
-            return Ok(list);
 
 
-        }
-        [HttpGet("Edit/{id}")]
-        public IActionResult Edit(int id)
-        {
-            var modelo = _accesoServicio.ObtenerRolID(id);
-            return Json(modelo.Data);
-        }
+
 
         [HttpPost("Create")]
-        public IActionResult Create(RolViewModel item)
+
+        public IActionResult Insert(FormData formData)
         {
-            //var model = _mapper.Map<tbRoles>(item);
+
+
+            var msj = new ServiceResult();
+            string txtRol = formData.txtRol;
+            List<int> pantallasSeleccionadas = formData.pantallasSeleccionadas;
+
             var modelo = new tbRoles()
             {
-                Rol_Descripcion = item.Rol_Descripcion,
-                Rol_Usua_Creacion = item.Rol_Usua_Creacion,
+                Rol_Descripcion = txtRol,
+                Rol_Usua_Creacion = 1,
+                Rol_Fecha_Creacion = DateTime.Now
+            };
+            var list = _accesoServicio.InsertarRol(modelo);
+
+
+            int idRol = Int32.Parse(list);
+
+            foreach (var pantalla in pantallasSeleccionadas)
+            {
+                var modelo2 = new tbPantallasPorRoles()
+                {
+                    Pant_Id = pantalla,
+                    Rol_Id = idRol,
+                };
+
+                msj = _accesoServicio.InsertarRolesPantalla(modelo2);
+
+            }
+
+
+            return Ok(new { success = true, message = msj.Message });
+        }
+
+
+
+        [HttpGet("Fill/{id}")]
+        public IActionResult Llenar(int id)
+        {
+            var list = _accesoServicio.obterRolesPantalla(id);
+            if (list.Success)
+            {
+                return Ok(list.Data);
+            }
+            else
+            {
+                return BadRequest(list.Message);
+            }
+        }
+
+
+        [HttpGet("FillDetalles/{id}")]
+        public IActionResult FillDetalles(int id)
+        {
+            var list = _accesoServicio.ObtenerRoles(id);
+            if (list.Success)
+            {
+                return Ok(list.Data);
+            }
+            else
+            {
+                return BadRequest(list.Message);
+            }
+        }
+
+
+
+
+        [HttpPut("Edit")]
+        public IActionResult Update(FormData formData)
+        {
+
+            var msj = new ServiceResult();
+            List<int> pantallasSeleccionadas = formData.pantallasSeleccionadas;
+
+
+            var modelo = new tbRoles()
+            {
+                Rol_Id = formData.Rol_Id,
+                Rol_Descripcion = formData.txtRol,
+                Rol_Usua_Modifica = 1,
+                Rol_Fecha_Modifica = DateTime.Now
 
             };
-         
-            int rolId;
-            var prueba = _accesoServicio.InsertarRol(modelo,out rolId);
-            prueba.Message = rolId.ToString();
-            return Ok(prueba);
-        }
-        [HttpPut("Edit/{id}")]
-        public IActionResult Edit(int id, RolViewModel item)
-        {
-            
-                var model = _mapper.Map<tbRoles>(item);
-                var modelo = new tbRoles()
+            var list = _accesoServicio.EditarRol(modelo);
+
+            var idRol = formData.Rol_Id;
+
+            var res = _accesoServicio.EliminarRolesPantalla(idRol.ToString());
+
+            foreach (var pantalla in pantallasSeleccionadas)
+            {
+                var modelo2 = new tbPantallasPorRoles()
                 {
-                    Rol_Id = item.Rol_Id,
-                    Rol_Descripcion = item.Rol_Descripcion,
-                    Rol_Usua_Modifica = item.Rol_Usua_Modifica,
-                    Rol_Fecha_Modifica = item.Rol_Fecha_Modifica
+                    Pant_Id = pantalla,
+                    Rol_Id = idRol,
                 };
-                var listado = _accesoServicio.ActualizarRole(modelo);
-                return Ok(listado);
-           
+
+                msj = _accesoServicio.InsertarRolesPantalla(modelo2);
+
+            }
+
+
+            return Ok(new { success = true, message = msj.Message });
+
         }
+
+
+
+
+
+
+
 
         [HttpDelete("Delete/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            
-                var listado = _accesoServicio.EliminarRole(id);
-                return Ok(listado);
-          
+            var list = _accesoServicio.EliminarRolesPantalla(id);
+            var list2 = _accesoServicio.EliminarRol(id);
+
+            return Ok(new { success = true, message = list2.Message });
         }
 
-        [HttpGet("Agregarpant/{pantid}/{rolId}/{Usua_Id}")]
-        public IActionResult Agregarpant(int pantid, int rolId,int Usua_Id)
-        {
-            var result = _accesoServicio.InsertarPAntxROle(pantid, rolId, Usua_Id);
-            return Ok(result);
-        }
 
-        [HttpDelete("DeletePanRol/{Pant_Id}/{Rol_Id}")]
-        public IActionResult EliminarPantxRole(int Pant_Id, int Rol_Id) 
-        {
-            var list =  _accesoServicio.EliminarPantXRole(Pant_Id, Rol_Id);
-            return Ok(list.Data);
-        }
+
 
 
     }

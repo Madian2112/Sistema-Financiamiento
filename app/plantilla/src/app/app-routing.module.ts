@@ -24,8 +24,8 @@ import { EmpleadosCrearComponent } from "./demo/components/Empleados/empleados-c
 import { ClientesCrearComponent } from "./demo/components/Clientes/clientes-crear/clientes-crear.component";
 import { PlanpagoCrearComponent } from "./demo/components/PlanesPagos/planpago-crear/planpago-crear.component";
 import {DashboardsComponent} from './demo/components/dashboards/dashboards.component';
-import {RolListadoComponent} from './demo/components/Rol/rol-listado/rol-listado.component';
-import {RolCreateComponent} from './demo/components/Rol/rol-create/rol-create.component';
+import {ListRolComponent} from './demo/components/Rol/rol-listado/rol-listado.component';
+
 import {ReportesComponent} from './demo/components/reportes/reportes.component';
 import { ReportePrestamosAprobadosComponent } from './demo/components/reporte-prestamos-aprobados/reporte-prestamos-aprobados.component';
 import { ReporteClientesMoraComponent } from './demo/components/reporte-clientes-mora/reporte-clientes-mora.component';
@@ -53,13 +53,13 @@ import { PlanpagoclienteCrearComponent } from './demo/components/PlanesPagosClie
                     { path: 'IndexDepartamento', component: DepartamentoListadoComponent },
                     { path: 'IndexPrueba', component: DashboardsComponent },
                     { path: 'IndexEstadistico', component: EstadisticosComponent },
-                     { path: 'IndexRol', component: RolListadoComponent },
+                    { path: 'IndexRol', data: { breadcrumb: 'Rol' }, loadChildren: () => import('./demo/components/Rol/rol-listado/roldemo.module').then(m => m.RolDemoModule) },
                      { path: 'IndexReportes', component: ReportesComponent },
                      { path: 'IndexReportePrestamos', component: ReportePrestamosAprobadosComponent },
                      { path: 'IndexReporteClientesMora', component: ReporteClientesMoraComponent },
                      { path: 'IndexReporteModelosVehiculos', component: ReporteModelosVehiculosComponent },
                      { path: 'IndexReporteVentasEmpleado', component: ReporteVentasEmpleadosComponent },
-                     { path: 'CreateRol', component: RolCreateComponent } , 
+               
                     // { path: 'departamento/:id', component: DetalleDepartamentoComponent }, // Agrega la ruta para DepartamentosListadoComponent
                     { path: 'IndexCargo', component: CargosListadoComponent }, // Agrega la ruta para CargosListadoComponent
                     { path: 'IndexEstadoCivil', component: EstadoscivilesListadoComponent },

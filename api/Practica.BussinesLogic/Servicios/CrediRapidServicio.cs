@@ -325,7 +325,7 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
-        public ServiceResult ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public ServiceResult ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int? Sucu_Id)
         {
             var result = new ServiceResult();
             try

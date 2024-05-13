@@ -22,8 +22,10 @@
                 <h3>Sucursal:</h3>
                 <select style="background-color: #121212; color: aliceblue;" (change)="cambiarSucursal($event)" class="form-control">
                 <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione una Sucursal</option> 
+                <option style="background-color: #121212; color: aliceblue;"  [value]="100">  Mostrar Todas  </option> 
                   <option style="background-color: #121212; color: aliceblue;" *ngFor="let sucursal of sucursales" [value]="sucursal.sucu_Id">
                     {{ sucursal.muni_Descripcion + ', ' + sucursal.sucu_Direccion }}
+                
                   </option>
                 </select>
                 
@@ -39,62 +41,7 @@
   </div>
   
   
-  <div class="grid">
-    <div class="col-12">
-      <div class="card">
-  
-        <p-table [value]="FiltroPorEstado" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
-        [paginator]="true" responsiveLayout="scroll">
-        <ng-template pTemplate="header">
-          <tr>
-          <th style="min-width: 12rem">
-              <div class="flex justify-content-between align-items-center">
-                Año
-              
-              </div>
-            </th>
-            <th style="min-width: 12rem">
-              <div class="flex justify-content-between align-items-center">
-                Mes
-              </div>
-            </th> 
-            <th style="min-width: 12rem">
-              <div class="flex justify-content-between align-items-center">
-                Empleado
-              </div>
-            </th>
-            <th style="min-width: 12rem">
-              <div class="flex justify-content-between align-items-center">
-               Ventas
-              </div>
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-FiltroPorEstado>
-          <tr>
-            <td>{{FiltroPorEstado.anio}}</td>
-            <td>{{ obtenerNombreMes(FiltroPorEstado.mes) }}</td>
-            <td>{{FiltroPorEstado.empleado}}</td>
-            <td>{{FiltroPorEstado.cantidadPrestamos}}</td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="2">No hay datos para cargar.</td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="loadingbody">
-          <tr>
-            <td colspan="2">Cargando datos. Por favor espera.</td>
-          </tr>
-        </ng-template>
-      </p-table>
-  
-  
-      </div>
-    </div>
-  </div>
-  
+
   
   <button (click)="onImprimir()">PDF</button>
   
