@@ -1,29 +1,127 @@
+<style>
+    progress {
+        width: 500px; /*más ancho*/
+        margin: 20px; /*separación de otros elementos*/
+        font-size: 500px;
+    }
+    blancoo {
+   
+        color: '#ffffff'
+    }
+</style>
+
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="IndexEstadistico">
-        <img src="assets/demo/images/credirapi-removebg-preview.png" alt="logo">
-        <span style="color: #CC5B1C;">Credi</span><span style="color: #A4BD30;">Rapid</span>
+        <img
+            src="assets/demo/images/credirapi-removebg-preview.png"
+            alt="logo"
+        />
+        <span style="color: #cc5b1c">Credi</span
+        ><span style="color: #a4bd30">Rapid</span>
     </a>
 
-    <button #menubutton class="p-link layout-menu-button layout-topbar-button" style="color: #CC5B1C;" (click)="layoutService.onMenuToggle()">
+    <button
+        #menubutton
+        class="p-link layout-menu-button layout-topbar-button"
+        style="color: #cc5b1c"
+        (click)="layoutService.onMenuToggle()"
+    >
         <i class="pi pi-bars"></i>
     </button>
 
-    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+    <button
+        #topbarmenubutton
+        class="p-link layout-topbar-menu-button layout-topbar-button"
+        (click)="layoutService.showProfileSidebar()"
+    >
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button class="p-link layout-topbar-button" style="color: #CC5B1C;">
-            <i class="pi pi-calendar"></i>
-            <span>Calendar</span>
-        </button>
-        <button class="p-link layout-topbar-button" style="color: #CC5B1C;">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-        </button>
-        <button class="p-link layout-topbar-button" [routerLink]="'/documentation'" style="color: #CC5B1C;">
+    <div
+        #topbarmenu
+        class="layout-topbar-menu"
+        [ngClass]="{
+            'layout-topbar-menu-mobile-active':
+                layoutService.state.profileSidebarVisible
+        }"
+    >
+        <div
+            class="flex gap-1 align-items-center"
+            (click)="visibleSidebar2 = true"
+        >
+            <p-avatar
+                label="H"
+                [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }"
+                shape="circle"
+            ></p-avatar>
+        </div>
+        <button
+            class="p-link layout-topbar-button"
+            [routerLink]="'/documentation'"
+            style="color: #cc5b1c"
+        >
             <i class="pi pi-cog"></i>
             <span>Settings</span>
         </button>
     </div>
+
+    <p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000">
+        <div class="card">
+        <h1 class="text-center">Perfil</h1>
+        <hr>
+
+            <div class="row">
+                <div class="3"></div>
+              <div class="flex gap-1 align-items-center col-sm-5 " (click)="visibleSidebar2 = true">
+                <p-avatar
+                    label="H"
+                    size="xlarge"
+                    [style]="{
+                        'background-color': '#9c27b0',
+                        color: '#ffffff'
+                    }"
+                    shape="circle"
+                ></p-avatar>
+                
+             </div>
+             
+             <div class="col-sm-7">
+             <br>
+               <!-- <div class="flex align-items-center gap-2">
+                  <form >
+                      <input pInputText formControlName="Usuario" autocomplete="off" id="Usuario" type="text" />
+                  </form>
+              
+               </div> -->
+               
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <br>
+                <button pButton pRipple type="button" label=" Cambiar Nombre">
+                    <i class="pi pi-user-edit"></i>
+                </button>
+                
+                <br>
+                <br>
+            </div>
+          
+
+            <hr>
+          
+            <div class="col-sm-7">
+                <label for="" [style]="{color: '#ffffff' }">Cambiar Color</label>
+                <br>
+                <div class="text-center">
+                    <p-colorPicker [(ngModel)]="color" />
+                </div>
+            </div>
+          
+         </div>
+
+    </div>
+        
+  
+     
+    </p-sidebar>
 </div>
