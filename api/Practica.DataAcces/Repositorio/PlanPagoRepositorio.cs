@@ -74,17 +74,19 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("Papa_Usua_Creacion", 1);
                 parametro.Add("Papa_Fecha_Creacion", DateTime.Now);
                 parametro.Add("@UltimoId", dbType: DbType.Int32, direction: ParameterDirection.Output); // Agrega el parámetro de salida
-                
-               var result = db.Execute(ScriptBaseDatos.Papa_Insertar,
+                parametro.Add("@Fecha", dbType: DbType.DateTime ,direction: ParameterDirection.Output); // Agrega el parámetro de salida
+
+                var result = db.Execute(ScriptBaseDatos.Papa_Insertar,
                     parametro,
                     commandType: CommandType.StoredProcedure
                     );
                     
                 int planpago = parametro.Get<int>("@UltimoId");
+                DateTime fecha = parametro.Get<DateTime>("@Fecha");
 
                 item.Resultado = result;
                 string mensaje = (result != -1) ? "Exito" : "Error";
-                return new RequestStatus { CodeStatus = planpago, MessageStatus = mensaje };
+                return new RequestStatus { CodeStatus = planpago, MessageStatus = mensaje, Fecha = fecha };
             }
         }
         

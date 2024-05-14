@@ -266,7 +266,74 @@ namespace Practica.BussinesLogic.Servicios
         {
             return _planpagoclienteRepositorio.DetallePP(id);
         }
-      
+
+        public IEnumerable<tbPlanesPagosClientes> ValidarCliente(int? id)
+        {
+            return _planpagoclienteRepositorio.ValidarCiente(id);
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> BuscarDNI(string id)
+        {
+            return _planpagoclienteRepositorio.BuscarDNI(id);
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> BuscarPapaID(string id)
+        {
+            return _planpagoclienteRepositorio.BuscarDNI(id);
+        }
+
+        public ServiceResult SaberMora(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.SaberMora(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarVFechaPrevia(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.InsertarFechaPrevia(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> BuscarFechaPrevia(string id)
+        {
+            return _planpagoclienteRepositorio.BuscarVFechaPrevia(id);
+        }
         public ServiceResult ObtenerPresaPorMes()
         {
             var result = new ServiceResult();
@@ -325,7 +392,7 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
-        public ServiceResult ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public ServiceResult ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int? Sucu_Id)
         {
             var result = new ServiceResult();
             try
@@ -353,12 +420,12 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
         }
-        public ServiceResult ReportePrestamoPorEstado(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public ServiceResult ReportePrestamoPorEmpleado(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var lost = _planpagoclienteRepositorio.ReportePrestamoPorEstado(FechaInicio, FechaFinal, Sucu_Id);
+                var lost = _planpagoclienteRepositorio.ReportePrestamoPorEmpleado(FechaInicio, FechaFinal, Sucu_Id);
                 return result.Ok(lost);
             }
             catch (Exception ex)
@@ -368,12 +435,12 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
-        public ServiceResult ReportePrestamoPorSexo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public ServiceResult ReporteClientePorMora(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var lost = _planpagoclienteRepositorio.ReportePrestamoPorSexo(FechaInicio, FechaFinal, Sucu_Id);
+                var lost = _planpagoclienteRepositorio.ReporteClientePorMora(FechaInicio, FechaFinal, Sucu_Id);
                 return result.Ok(lost);
             }
             catch (Exception ex)
@@ -466,12 +533,12 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
         }
-        public ServiceResult ActualizarPlanPagoClientes(tbPlanesPagosClientes item)
+        public ServiceResult InsertarCuota(tbPlanesPagosClientes item)
         {
             var result = new ServiceResult();
             try
             {
-                var lost = _planpagoclienteRepositorio.Actualizar(item);
+                var lost = _planpagoclienteRepositorio.InsertarCuota(item);
                 if (lost.CodeStatus > 0)
                 {
                     return result.Ok(lost);
@@ -495,6 +562,30 @@ namespace Practica.BussinesLogic.Servicios
             try
             {
                 var lost = _planpagoclienteRepositorio.Eliminar(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarFechas(int id, string fechafin, string fechapreview)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.InsertarFechas(id, fechafin, fechapreview);
                 if (lost.CodeStatus > 0)
                 {
                     return result.Ok(lost);
@@ -806,7 +897,7 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
-        public ServiceResult InsertarVehiCliebte(int Vehi_Id, int Clie_Id, int Usua)
+        public ServiceResult InsertarVehiCliebte(int? Vehi_Id, int? Clie_Id, int Usua)
         {
             var result = new ServiceResult();
             try

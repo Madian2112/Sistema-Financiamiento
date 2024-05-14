@@ -1,0 +1,17 @@
+@media print {
+    /* Ocultar elementos que no deseas imprimir */
+    .no-print {
+      display: none;
+    }
+  
+    /* Estilos específicos para la impresión */
+    body {
+      background-color: white;
+      color: black;
+      font-size: 12pt;
+    }
+  
+    /* Ajustar estilos para mejorar la legibilidad en papel */
+    /* Por ejemplo, puedes cambiar los colores de fondo y texto, ajustar márgenes, etc. */
+  }
+  

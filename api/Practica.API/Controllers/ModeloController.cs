@@ -58,7 +58,7 @@ namespace Practica.API.Controllers
             {
                 Mode_Descripcion = item.Mode_Descripcion,
                 Marc_Id = item.Marc_Id,
-                Mode_Usua_Creacion = item.Mode_Usua_Creacion,
+                Mode_Usua_Creacion = 1,
 
             };
             var listado = _credirapidServicio.ListMode();

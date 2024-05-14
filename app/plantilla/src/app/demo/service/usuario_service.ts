@@ -5,6 +5,7 @@ import {Empleado} from '../models/EmpleadoViewModel'
 import {HttpClient} from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Respuesta } from '../models/ServiceResult';
 
 
 @Injectable({
@@ -18,7 +19,13 @@ export class UsuarioServiceService {
   private apiUrlR: string = this.endpoint + "API/Role/";
   private apiUrlE: string = this.endpoint + "API/Empleado/";
 
+  /* LOGIN USUARIO */
+  getLogin(usuario: string, clave: string): Observable<Respuesta> {
+    return this.http.get<Respuesta>(this.apiUrl + 'Login/'+usuario+","+clave);
 
+  }
+
+  /* LOGIN USUARIO */
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.apiUrl + 'List');
   }

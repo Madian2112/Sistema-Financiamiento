@@ -21,6 +21,19 @@ namespace Practica.Common.Models
         public string Mode_Descripcion { get; set; }
         [NotMapped]
         public int CantidadPrestamos { get; set; }
+        [NotMapped]
+        public string Empleado { get; set; }
+
+        [NotMapped]
+        public string Cliente { get; set; }
+        [NotMapped]
+        public string Marc_Descripcion { get; set; }
+
+        [NotMapped]
+        public string Sucursal { get; set; }
+        [NotMapped]
+        public string Papa_Financiamiento { get; set; }
+
         public int Pacl_Id { get; set; }
         public int? Papa_Id { get; set; }
         public decimal? Pacl_Monto_Pago { get; set; }
@@ -33,5 +46,15 @@ namespace Practica.Common.Models
         public DateTime? Pacl_Fecha_Creacion { get; set; }
         public int? Pacl_Usua_Modi { get; set; }
         public DateTime? Pacl_Fecha_Modi { get; set; }
+    }
+
+    public class PagosClientesViewModel
+    {
+        public int Pacl_Id { get; set; }
+        public int Papa_Id { get; set; }
+        public decimal Pacl_Monto_Pago { get; set; }
+
+        [NotMapped]
+        public int Pacl_NumeroCuota { get; set; }
     }
 }

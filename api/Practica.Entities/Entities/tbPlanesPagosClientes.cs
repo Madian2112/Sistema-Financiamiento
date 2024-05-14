@@ -21,6 +21,8 @@ namespace Practica.Entities.Entities
         public string Mode_Descripcion { get; set; }
         [NotMapped]
         public int CantidadPrestamos { get; set; }
+        [NotMapped]
+        public string Empleado { get; set; }
         public int Pacl_Id { get; set; }
         public int? Papa_Id { get; set; }
         public decimal? Pacl_Monto_Pago { get; set; }
@@ -45,7 +47,46 @@ namespace Practica.Entities.Entities
         public decimal Pacl_Saldo_Restante { get; set; }
 
         [NotMapped]
+        public decimal Pacl_Saldo_Sumado { get; set; }
+
+        [NotMapped]
+        public string Pacl_Fecha_Pago { get; set; }
+
+        [NotMapped]
+        public string Pacl_Fecha_PreviaPago { get; set; }
+
+        [NotMapped]
+        public string Pacl_Estado_Pago { get; set; }
+
+        [NotMapped]
+        public string Pacl_Mora_Saber { get; set; }
+
+        [NotMapped]
+        public bool Pacl_SaberFechaPrevia { get; set; }
+
+        [NotMapped]
+        public int Pacl_NumeroCuota { get; set; }
+
+        [NotMapped]
+        public decimal Papa_Intereses_Monto { get; set; }
+
+        [NotMapped]
+        public decimal? Monto_Mora { get; set; }
+
+        [NotMapped]
+        public decimal MinimoPagar { get; set; }
+
+        [NotMapped]
         public string Usua_Creacion { get; set; }
+        [NotMapped]
+        public string Cliente { get; set; }
+        [NotMapped]
+        public string Marc_Descripcion { get; set; }
+
+        [NotMapped]
+        public string Sucursal { get; set; }
+        [NotMapped]
+        public string Papa_Financiamiento { get; set; }
 
         [NotMapped]
         public string Usua_Modifica { get; set; }

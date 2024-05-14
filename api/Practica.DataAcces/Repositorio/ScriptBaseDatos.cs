@@ -26,12 +26,14 @@ namespace Practica.DataAcces.Repositorio
         public static string Rol_Detalles = "Acce.SP_Roles_Llenar";
         #endregion
 
-        #region Pantallas Por Roles
-        public static string PantXRol_Insertar = "[Acce].[SP_PantallasPorRoles_Insertar]";
-        public static string PantXRol_Eliminar = "[Acce].[SP_PantallasPorRoles_Eliminar]";
-        public static string Pant_Mostrar2 = "[Acce].[SP_Pantallas_Mostrar2]";
-        public static string Pant_Mostrar = "[Acce].[SP_Pantallas_Mostrar]";
-        public static string PantxRoles_Mostrar = "[Acce].[SP_PantallasPorRoles_Mostrar]";
+        #region Pantalla por Roles
+
+        public static string PantallasRolesListar = "[Acce].[SP_PantallasPorRoles_Mostrar]";
+        public static string PantallasRolesllenar2 = "[Acce].[SP_Roles_LLenar]";
+        public static string PantallasRolesllenar = "[Acce].[sp_PantallasPorRol2_buscar]";
+        public static string PantallasRolesActualizar = "[Acce].[sp_PantallasPorRoles_actualizar]";
+        public static string PantallasRolesEliminar = "[Acce].[SP_PantallasPorRoles_Eliminar]";
+
         #endregion
 
         #region Departamentos
@@ -138,10 +140,17 @@ namespace Practica.DataAcces.Repositorio
         #region Planes Pagos Clientes
         public static string Pacl_Mostrar = "Cred.SP_PlanesPagosClientes_Mostrar";
         public static string Pacl_Insertar = "Cred.SP_PlanesPagosClientes_Insertar";
+        public static string Pacl_InsertarFecha = "[Cred].[SP_PlanesPagosClientes_InsertarFechas]";
         public static string Pacl_LlenarPlanPago = "Cred.SP_PlanesPagosClientes_LlenarPlanPago";
-        public static string Pacl_Actualizar = "Cred.SP_PlanesPagosClientes_Actualizar";
+        public static string Pacl_Actualizar = "[Cred].[SP_PlanesPagosClientes_Actualizar]";
         public static string Pacl_Eliminar = "Cred.SP_PlanesPagosClientes_Eliminar";
         public static string Pacl_Detalles = "Cred.SP_PlanesPagosClientes_Llenar";
+        public static string Pacl_ValidarCliente = "Cred.SP_PlanesPagosClientes_ValidarClienteRepetido";
+        public static string Pacl_Buscar = "[Cred].[SP_PlanesPagosClientes_Buscar]";
+        public static string Pacl_BuscarPapaID = "[Cred].[SP_PlanesPagosClientes_BuscarPapaID] ";
+        public static string Pacl_SaberMora = "Cred.SP_PlanesPagosClientes_InsertarMora";
+        public static string Pacl_InsertarFechaPrevia = "Cred.SP_PlanesPagosClientes_InsertarValorFechaPrevia";
+        public static string Pacl_BuscarFechaPrevia = "[Cred].[SP_PlanesPagosClientes_BuscarFechaPrevia]";
         public static string Pacl_PrestamoPorMes = "[Cred].[SP_PlanesPagosClientes_PrestamoPorMes]";
         public static string Pacl_PrestamoPorEstado = "[Cred].[SP_PlanesPagosClientes_PrestamoPorEstadoCivil]";
         public static string Pacl_PrestamoPorSexo = "[Cred].[SP_PlanesPagosClientes_PrestamoPorSexo]";
@@ -156,8 +165,8 @@ namespace Practica.DataAcces.Repositorio
         #region Reportes
         public static string Repo_PrestamoPorMes = "[Cred].[SP_Reportes_PrestamoPorMes]";
         public static string Repo_PrestamoPorModelo = "[Cred].[SP_Reportes_PrestamoPorModelo]";
-        public static string Repo_PrestamoPorSexo = "[Cred].[SP_PlanesPagosClientes_PrestamoPorSexoFiltro]";
-        public static string Repo_PrestamoPorEstado = "[Cred].[SP_Reportes_PrestamoPorEstadoCivil]";
+        public static string Repo_ClientePorMora = "[Cred].[SP_Reportes_ClientesMora]";
+        public static string Repo_PrestamoEmpleado = "[Cred].[SP_Reportes_VentasEmpleado]";
         #endregion
 
         #region Tipos Cuotas

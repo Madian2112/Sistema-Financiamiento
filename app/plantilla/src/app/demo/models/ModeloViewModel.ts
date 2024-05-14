@@ -5,6 +5,11 @@ export class Modelo{
     marc_Descripcion!:string;  
 }
 
+export class ModeloCrear{
+    mode_Descripcion!:string;   
+    marc_Id!:string;  
+}
+
 export class Fill{
     mode_Id!: number;
     mode_Descripcion!:string;   

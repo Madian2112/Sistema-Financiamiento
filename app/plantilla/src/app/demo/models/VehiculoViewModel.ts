@@ -1,5 +1,6 @@
 export class Vehiculo{
     vecl_Id!: number;
+    clie_Id!: number;
     vehi_Id!: number;
     vehi_Placa!:string;   
     vehi_Descripcion!: string;

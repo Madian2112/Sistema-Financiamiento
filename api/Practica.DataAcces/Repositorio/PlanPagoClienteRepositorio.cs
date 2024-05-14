@@ -12,7 +12,7 @@ namespace Practica.DataAcces.Repositorio
 {
     public class PlanPagoClienteRepositorio : IRepository<tbPlanesPagosClientes>
     {
-        public RequestStatus Actualizar(tbPlanesPagosClientes item)
+        public RequestStatus InsertarCuota(tbPlanesPagosClientes item)
         {
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {
@@ -20,12 +20,31 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("Pacl_Id", item.Pacl_Id);
                 parametro.Add("Papa_Id", item.Papa_Id);
                 parametro.Add("Pacl_Monto_Pago", item.Pacl_Monto_Pago);
-                parametro.Add("Pacl_Fecha_Emision", item.Pacl_Fecha_Emision);
-                parametro.Add("Sucu_Id", item.Sucu_Id);
-                parametro.Add("Pacl_Usua_Modi", item.Pacl_Usua_Modi);
+                parametro.Add("Pacl_NumeroCuota", item.Pacl_NumeroCuota);
+                parametro.Add("Pacl_Fecha_Emision",DateTime.Now);
+                parametro.Add("Sucu_Id", 1);
+                parametro.Add("Pacl_Usua_Modi", 1);
                 parametro.Add("Pacl_Fecha_Modi", DateTime.Now);
 
                 var result = db.Execute(ScriptBaseDatos.Pacl_Actualizar,
+                    parametro,
+                     commandType: CommandType.StoredProcedure
+                    );
+
+                string mensaje = (result == -1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
+
+        public RequestStatus InsertarFechas(int id, string fechafin, string fechapreview)
+        {
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("Pacl_Id", id);
+                parametro.Add("Pacl_Fecha_Pago", fechafin);
+                parametro.Add("Pacl_Fecha_PreviaPago", fechapreview);
+                var result = db.Execute(ScriptBaseDatos.Pacl_InsertarFecha,
                     parametro,
                      commandType: CommandType.StoredProcedure
                     );
@@ -87,6 +106,87 @@ namespace Practica.DataAcces.Repositorio
                 return result;
             }
         }
+
+        public IEnumerable<tbPlanesPagosClientes> BuscarDNI(string Clie_DNI)
+        {
+
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new { Clie_DNI = Clie_DNI };
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_Buscar, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> BuscarPapaID(string Clie_DNI)
+        {
+
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new { Clie_DNI = Clie_DNI };
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_BuscarPapaID, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> ValidarCiente(int? Vecl_Id)
+        {
+
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new { Vecl_Id = Vecl_Id };
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_ValidarCliente, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+        public RequestStatus SaberMora(int id)
+        {
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("Pacl_Id", id);
+                var result = db.Execute(ScriptBaseDatos.Pacl_SaberMora,
+                    parametro,
+                     commandType: CommandType.StoredProcedure
+                    );
+
+                string mensaje = (result == 1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
+
+        public RequestStatus InsertarFechaPrevia(int id)
+        {
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("Pacl_Id", id);
+                var result = db.Execute(ScriptBaseDatos.Pacl_InsertarFechaPrevia,
+                    parametro,
+                     commandType: CommandType.StoredProcedure
+                    );
+
+                string mensaje = (result == 1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
+
+        public IEnumerable<tbPlanesPagosClientes> BuscarVFechaPrevia(string Clie_DNI)
+        {
+
+            List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new { Clie_DNI = Clie_DNI };
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Pacl_BuscarFechaPrevia, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
         public IEnumerable<tbPlanesPagosClientes> List()
         {
             List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
@@ -134,7 +234,7 @@ namespace Practica.DataAcces.Repositorio
                 return result;
             }
         }
-        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorMes(string FechaInicio, string FechaFinal, int? Sucu_Id)
         {
             List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
@@ -162,7 +262,7 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
-        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorEstado(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorEmpleado(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
             List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
@@ -171,11 +271,11 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("@FechaInicio", FechaInicio);
                 parametro.Add("@FechaFin", FechaFinal);
                 parametro.Add("@SucursalId", Sucu_Id);
-                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoPorEstado, parametro, commandType: CommandType.StoredProcedure).ToList();
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoEmpleado, parametro, commandType: CommandType.StoredProcedure).ToList();
                 return result;
             }
         }
-        public IEnumerable<tbPlanesPagosClientes> ReportePrestamoPorSexo(string FechaInicio, string FechaFinal, int Sucu_Id)
+        public IEnumerable<tbPlanesPagosClientes> ReporteClientePorMora(string FechaInicio, string FechaFinal, int Sucu_Id)
         {
             List<tbPlanesPagosClientes> result = new List<tbPlanesPagosClientes>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
@@ -184,7 +284,7 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("@FechaInicio", FechaInicio);
                 parametro.Add("@FechaFin", FechaFinal);
                 parametro.Add("@SucursalId", Sucu_Id);
-                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_PrestamoPorSexo, parametro, commandType: CommandType.StoredProcedure).ToList();
+                result = db.Query<tbPlanesPagosClientes>(ScriptBaseDatos.Repo_ClientePorMora, parametro, commandType: CommandType.StoredProcedure).ToList();
                 return result;
             }
         }
@@ -271,6 +371,10 @@ namespace Practica.DataAcces.Repositorio
                 return result;
             }
         }
-        
+
+        public RequestStatus Actualizar(tbPlanesPagosClientes item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
