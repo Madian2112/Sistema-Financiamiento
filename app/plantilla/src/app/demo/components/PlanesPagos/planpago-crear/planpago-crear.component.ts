@@ -26,7 +26,8 @@ import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { PlanpagoListadoComponent } from '../planpago-listado/planpago-listado.component';
 import { Respuesta } from 'src/app/demo/models/ServiceResult';
-
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { ImpresionService } from 'src/app/demo/service/impresion.service';
 
 @Component({
   selector: 'app-planpago-crear',
@@ -46,6 +47,7 @@ export class PlanpagoCrearComponent implements OnInit {
   tipocuotas!: TipoCuota[];
   formPlanPago: FormGroup;
   listadoPLanPago: PLanPago[] = [];
+  pdfSrc: SafeResourceUrl | null = null;
 
 
   create: string = "";
@@ -53,6 +55,8 @@ export class PlanpagoCrearComponent implements OnInit {
   idplanpag: number = 0;
   sabermsj: string = "";
   ValidarCliente: string = "collapse";
+  pdfview: string = "collapse";
+  pdf: string = "collapse";
 
 
   constructor
@@ -62,6 +66,7 @@ export class PlanpagoCrearComponent implements OnInit {
     private fb:FormBuilder,
     private _PlanPagoservice:PLanPagoServiceService,
     private dialog: MatDialog,    
+    private serviceIMprimir: ImpresionService, 
   ) {
 
     this.formPlanPago = this.fb.group({
@@ -91,6 +96,35 @@ export class PlanpagoCrearComponent implements OnInit {
     console.log("se hizo click");
     // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
     this.router.navigate(['/app/IndexPlanPago']); // Ajusta la ruta según tu configuración de enrutamiento
+}
+
+RegresarPDF(){
+  this.pdf = "collapse";
+}
+
+
+PDF(){
+
+  const encabezado = ["Pago", "Fecha de Pago" , "Saldo Inicial", "Pago", "Capital", "Interés", "Saldo"];
+  const cuerpo = [];
+  this.pdf = "";
+
+  
+  this.planpagoclientes.forEach(cliente => {
+      cuerpo.push([
+          cliente.pacl_NumeroCuota,
+          cliente.pacl_Fecha_Pago,
+          cliente.pacl_Saldo_Inicial,
+          cliente.pacl_Total_Pago,
+          cliente.pacl_Capital_Restar,
+          cliente.pacl_Intereses_Restar,   
+          cliente.pacl_Saldo,       
+        ]);
+  });
+
+  // PDF con datosde la tabla
+  this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte Plan de Pago");
+
 }
 
 
@@ -148,6 +182,8 @@ Nuevo() {
                         this.planpagoclientes = data;
                         console.log("Los datos som: "+ data)
                       });
+
+                      this.pdfview = "";
         
                       this.service.getFill(respuesta.data.codeStatus).subscribe({
                         next: (data: Fill) => {

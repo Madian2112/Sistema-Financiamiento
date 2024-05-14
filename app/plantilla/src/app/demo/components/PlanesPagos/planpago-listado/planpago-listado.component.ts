@@ -1,6 +1,7 @@
 import { Component,  OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { PLanPago, Fill } from '../../../models/PlanPagoViewModel';
+import { PLanPagoClientTB } from '../../../models/PlanPagoClienteViewModel';
 import { TipoCuota } from '../../../models/TipoCuotaViewModel';
 import { Vehiculo } from '../../../models/VehiculoViewModel';
 import { PLanPagoServiceService } from '../../../service/planplago_service';
@@ -32,6 +33,7 @@ import {MatButtonModule} from '@angular/material/button';
 export class PlanpagoListadoComponent implements OnInit {
   display: boolean = false;
   planpago!: PLanPago[];
+  planpagoclientes!: PLanPagoClientTB[];
   tipocuotas!: TipoCuota[];
   vehiculos: Vehiculo[];
   formPlanPago: FormGroup;
