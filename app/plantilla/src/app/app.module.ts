@@ -20,11 +20,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
+import { Component } from '@angular/core';
+import { AvatarModule } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [
         AppRoutingModule, 
         AppLayoutModule,
+        AvatarModule, 
+        BadgeModule,
         MatButtonModule,
         ReactiveFormsModule,
         HttpClientModule,
