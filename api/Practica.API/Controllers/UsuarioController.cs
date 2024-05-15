@@ -70,7 +70,6 @@ namespace Practica.API.Controllers
             {
                 serviceResult.Message = "exito";
             }
-
             else
             {
                 serviceResult.Message = "error";
