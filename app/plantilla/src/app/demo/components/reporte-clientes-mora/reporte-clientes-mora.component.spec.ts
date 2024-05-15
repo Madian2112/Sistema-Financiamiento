@@ -20,4 +20,4 @@ describe('ReporteClientesMoraComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 

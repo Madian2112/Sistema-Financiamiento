@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { UsuarioServiceService } from '../../../service/usuario_service';
 import { Respuesta } from 'src/app/demo/models/ServiceResult';
-import { Router } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/demo/service/AuthService'; 
 
 @Component({
     selector: 'app-login',
@@ -11,63 +11,44 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
     styles: [`
         :host ::ng-deep .pi-eye,
         :host ::ng-deep .pi-eye-slash {
-            transform:scale(1.6);
+            transform: scale(1.6);
             margin-right: 1rem;
             color: var(--primary-color) !important;
         }
     `]
 })
-
 export class LoginComponent {
-
-    valCheck: string[] = ['remember'];
-
-    password!: string;
     formUsuario: FormGroup;
-    loginvalidacion: string = "collapse";
+    loginvalidacion = true;
 
     constructor(
-        public layoutService: LayoutService, 
         private router: Router, 
         private fb: FormBuilder,
-        private _usuarioservice: UsuarioServiceService
-    ) 
-    {
+        private _usuarioservice: UsuarioServiceService,
+        private authService: AuthService 
+    ) {
         this.formUsuario = this.fb.group({
-            usuario: [""],
-            clave: [""],
-          });
+            usuario: [''],
+            clave: ['']
+        });
     }
 
-    Dashboard(){
-        this.router.navigate(['dashboard']);
-    };
-
     login() {
+        const { usuario, clave } = this.formUsuario.value;
 
-        this._usuarioservice.getLogin(this.formUsuario.get('usuario').value, this.formUsuario.get('clave').value).subscribe(
+        this._usuarioservice.getLogin(usuario, clave).subscribe(
             (respuesta: Respuesta) => {
-                console.log(respuesta.success)
-                console.log(respuesta.data)
-                console.log(respuesta.data.codeStatus)
-                console.log(respuesta.message)
-                console.log(respuesta.code)
-
-                if(respuesta.message == "exito")
-                {
-                    this.loginvalidacion = "collapse";
+                if (respuesta.message === 'exito') {
+                    this.loginvalidacion = true;
+                    this.authService.setUsuarioLogueado(usuario);
                     this.router.navigate(['/app/IndexPrueba']);
-                }
-
-                else
-                {
-                    this.loginvalidacion = "";
+                } else {
+                    this.loginvalidacion = false;
                 }
             },
             error => {
-                console.error('Error al crear el rol:', error);
-           
+                console.error('Error al iniciar sesión:', error);
             }
-        ); // Ajusta la ruta según tu configuración de enrutamiento
+        );
     }
 }

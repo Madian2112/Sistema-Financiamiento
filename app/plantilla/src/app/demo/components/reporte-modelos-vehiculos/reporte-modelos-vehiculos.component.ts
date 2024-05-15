@@ -161,7 +161,7 @@ export class ReporteModelosVehiculosComponent implements OnInit{
     onImprimir() {
       const encabezado = ["Año", "Mes", "Modelo", "Cantidad"];
       const cuerpo = [];
-  
+      const usuario = "";
       
       this.FiltroPorModelo.forEach(filtro => {
         cuerpo.push([
@@ -173,7 +173,7 @@ export class ReporteModelosVehiculosComponent implements OnInit{
     });
   
       // PDF con datosde la tabla
-      this.pdfSrc = this.service.imprimir(encabezado, cuerpo, "Reporte de Modelo de Vehiculos en Sucursales");
+      this.pdfSrc = this.service.imprimir(encabezado, cuerpo, "Reporte de Modelo de Vehiculos en Sucursales", usuario);
   }
   
 }

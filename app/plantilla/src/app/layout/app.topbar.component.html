@@ -1,23 +1,30 @@
 <style>
-    progress {
-        width: 500px; /*más ancho*/
-        margin: 20px; /*separación de otros elementos*/
-        font-size: 500px;
+    .profile-card {
+        max-width: 100%;
+        overflow: hidden;
     }
-    blancoo {
-   
-        color: '#ffffff'
+
+    .profile-row {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-input {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .profile-avatar-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>
 
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="IndexEstadistico">
-        <img
-            src="assets/demo/images/credirapi-removebg-preview.png"
-            alt="logo"
-        />
-        <span style="color: #cc5b1c">Credi</span
-        ><span style="color: #a4bd30">Rapid</span>
+        <img src="assets/demo/images/credirapi-removebg-preview.png" alt="logo" />
+        <span style="color: #cc5b1c">Credi</span><span style="color: #a4bd30">Rapid</span>
     </a>
 
     <button
@@ -41,13 +48,12 @@
         #topbarmenu
         class="layout-topbar-menu"
         [ngClass]="{
-            'layout-topbar-menu-mobile-active':
-                layoutService.state.profileSidebarVisible
+            'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible
         }"
     >
         <div
             class="flex gap-1 align-items-center"
-            (click)="visibleSidebar2 = true"
+            (click)="showProfile($event)"
         >
             <p-avatar
                 label="H"
@@ -65,63 +71,66 @@
         </button>
     </div>
 
-    <p-sidebar [(visible)]="visibleSidebar2" position="right" [baseZIndex]="10000">
-        <div class="card">
-        <h1 class="text-center">Perfil</h1>
-        <hr>
-
-            <div class="row">
-                <div class="3"></div>
-              <div class="flex gap-1 align-items-center col-sm-5 " (click)="visibleSidebar2 = true">
-                <p-avatar
-                    label="H"
-                    size="xlarge"
-                    [style]="{
-                        'background-color': '#9c27b0',
-                        color: '#ffffff'
-                    }"
-                    shape="circle"
-                ></p-avatar>
-                
-             </div>
-             
-             <div class="col-sm-7">
-             <br>
-               <!-- <div class="flex align-items-center gap-2">
-                  <form >
-                      <input pInputText formControlName="Usuario" autocomplete="off" id="Usuario" type="text" />
-                  </form>
-              
-               </div> -->
-               
-            </div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-10">
-                <br>
-                <button pButton pRipple type="button" label=" Cambiar Nombre">
-                    <i class="pi pi-user-edit"></i>
-                </button>
-                
-                <br>
-                <br>
-            </div>
-          
-
+    <p-overlayPanel #op [style]="{'width': '500px', 'height': '300px'}">
+        <div class="card profile-card">
+            <h1 class="text-center">Perfil</h1>
             <hr>
-          
-            <div class="col-sm-7">
-                <label for="" [style]="{color: '#ffffff' }">Cambiar Color</label>
+            <div class="profile-row">
+                <div class="profile-avatar-button">
+                    <p-avatar
+                        label="H"
+                        size="xlarge"
+                        [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }"
+                        shape="circle"
+                    ></p-avatar>
+                    <button 
+                    pButton 
+                    pRipple 
+                    type="button" 
+                    icon="pi pi-pencil" 
+                    (click)="editName()"
+                    pTooltip="Editar nombre"
+                    tooltipPosition="top"
+                    *ngIf="showPencil"
+                    class="ml-2"
+                  ></button>
+                
+                </div>
+                <div class="profile-input" *ngIf="editMode">
+                    <input 
+                        type="text" 
+                        pInputText 
+                        [(ngModel)]="userName" 
+                        placeholder="Nombre de usuario" 
+                        required 
+                        minlength="3" 
+                        #userNameInput="ngModel" 
+                    />
+                    <div *ngIf="userNameInput.invalid && (userNameInput.dirty || userNameInput.touched)">
+                        <small class="p-error" *ngIf="userNameInput.errors?.required">El nombre de usuario es requerido.</small>
+                        <small class="p-error" *ngIf="userNameInput.errors?.minlength">El nombre de usuario debe tener al menos 3 caracteres.</small>
+                    </div>
+                    <button 
+                        pButton 
+                        pRipple 
+                        type="button" 
+                        icon="pi pi-check" 
+                        (click)="saveName()"
+                        pTooltip="Guardar nombre"
+                        tooltipPosition="top"
+                    ></button>
+                </div>
+            </div>
+            <hr>
+            <div class="col-sm-12">
+                <label [style]="{color: '#ffffff'}">Cambiar Color</label>
                 <br>
                 <div class="text-center">
                     <p-colorPicker [(ngModel)]="color" />
                 </div>
             </div>
-          
-         </div>
-
-    </div>
-        
-  
-     
-    </p-sidebar>
+        </div>
+    </p-overlayPanel>
+    
+    
 </div>

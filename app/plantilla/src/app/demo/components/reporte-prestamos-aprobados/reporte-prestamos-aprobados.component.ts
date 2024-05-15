@@ -16,6 +16,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
+import { AuthService } from 'src/app/demo/service/AuthService'; 
 import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
 import { MatDialog } from '@angular/material/dialog';
@@ -45,7 +46,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
   SucursalId: number;
   cities: SelectItem[] = [];
   selectedDrop: SelectItem = { value: '' };
-
+  usuarioLogueado: string;
   public ListData = [];
   // public encabezado = ["Año","Mes","Cantidad"]
   public cuerpo = [];
@@ -53,7 +54,8 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
     private service: ImpresionService, 
      private dashboardService: DashboardService,
      private sucursalService: SucursalServiceService,
-     private reporteService: ReporteService
+     private reporteService: ReporteService,
+     private authService: AuthService 
     ) { }
   ngOnInit(): void {
     const fechaActual = new Date();
@@ -67,6 +69,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
     this.sucursalService.getSucursal().subscribe(data => {
       this.sucursales = data;
       console.log(this.sucursales)
+      this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
     });
 
     
@@ -160,6 +163,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
     onImprimir() {
       const encabezado = ["Año", "Mes", "Monto", "Pago Capital", "Pago interes", "Financiamiento", "Cliente", "Marca Vehiculo", "Modelo", "Sucursal"];
       const cuerpo = [];
+
   
       
       this.FiltroMes.forEach(filtro => {
@@ -178,7 +182,7 @@ export class ReportePrestamosAprobadosComponent implements OnInit{
       });
   
       // PDF con datosde la tabla
-      this.pdfSrc = this.service.imprimir(encabezado, cuerpo, "Reporte de Prestamos Hechos en cada Mes");
+      this.pdfSrc = this.service.imprimir(encabezado, cuerpo, "Reporte de Prestamos Hechos en cada Mes",this.usuarioLogueado);
   }
   
 }
