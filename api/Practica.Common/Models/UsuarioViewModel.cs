@@ -11,6 +11,8 @@ namespace Practica.Common.Models
     {
         public int Usua_Id { get; set; }
         public string Usua_Usuario { get; set; }
+
+        public string Usua_Color { get; set; }
         public string Usua_Contra { get; set; }
         public int? Usua_Admin { get; set; }
         public int? Empl_Id { get; set; }

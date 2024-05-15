@@ -41,6 +41,14 @@ namespace Practica.API.Controllers
             return Ok(detail);
         }
 
+        [HttpGet("PerfilDetails/{id}")]
+        public IActionResult PerfilDetails(string id)
+        {
+            var modelo = _accesoServicio.DetallePerfil(id);
+            var detail = modelo.First();
+            return Ok(detail);
+        }
+
         [HttpGet("Edit/{id}")]
         public IActionResult Edit(int id)
         {
@@ -58,7 +66,7 @@ namespace Practica.API.Controllers
 
             serviceResult = estado;
 
-            if (saber.ToList().Count == 1)
+            if (saber.ToList().Count >=1)
             {
                 serviceResult.Message = "exito";
             }

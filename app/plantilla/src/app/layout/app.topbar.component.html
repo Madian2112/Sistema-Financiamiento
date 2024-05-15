@@ -1,6 +1,8 @@
 <style>
     .profile-card {
-        max-width: 100%;
+        /* max-width: 100%; */
+        width: 300px;
+        height: 400px;
         overflow: hidden;
     }
 
@@ -71,7 +73,8 @@
         </button>
     </div>
 
-    <p-overlayPanel #op [style]="{'width': '500px', 'height': '300px'}">
+    <p-overlayPanel #op [style]="{'width': '330px', 'height': '450px'}">
+     
         <div class="card profile-card">
             <h1 class="text-center">Perfil</h1>
             <hr>
@@ -82,21 +85,15 @@
                         size="xlarge"
                         [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }"
                         shape="circle"
+                        class="col-sm-4"
                     ></p-avatar>
-                    <button 
-                    pButton 
-                    pRipple 
-                    type="button" 
-                    icon="pi pi-pencil" 
-                    (click)="editName()"
-                    pTooltip="Editar nombre"
-                    tooltipPosition="top"
-                    *ngIf="showPencil"
-                    class="ml-2"
-                  ></button>
+                    <h2 class="col-sm-3"></h2>
+                 
+                    <h2 class="col-sm-8">Hector</h2>
+                 
                 
                 </div>
-                <div class="profile-input" *ngIf="editMode">
+                <div class="profile-input " *ngIf="editMode">
                     <input 
                         type="text" 
                         pInputText 
@@ -105,11 +102,14 @@
                         required 
                         minlength="3" 
                         #userNameInput="ngModel" 
+                        
                     />
+                    <br>
                     <div *ngIf="userNameInput.invalid && (userNameInput.dirty || userNameInput.touched)">
                         <small class="p-error" *ngIf="userNameInput.errors?.required">El nombre de usuario es requerido.</small>
                         <small class="p-error" *ngIf="userNameInput.errors?.minlength">El nombre de usuario debe tener al menos 3 caracteres.</small>
                     </div>
+            
                     <button 
                         pButton 
                         pRipple 
@@ -119,18 +119,37 @@
                         pTooltip="Guardar nombre"
                         tooltipPosition="top"
                     ></button>
+     
                 </div>
+           
             </div>
+            <br>
             <hr>
-            <div class="col-sm-12">
+            <button 
+            pButton 
+            pRipple 
+            type="button" 
+            icon="pi pi-pencil" 
+            (click)="editName()"
+            pTooltip="Editar nombre"
+            tooltipPosition="top"
+            *ngIf="showPencil"
+            label="Editar Perfil"
+            class="ml-2 col-sm-6"
+          ></button>
+
+            <div class="">             
                 <label [style]="{color: '#ffffff'}">Cambiar Color</label>
-                <br>
-                <div class="text-center">
+                <div class="text-left">
                     <p-colorPicker [(ngModel)]="color" />
                 </div>
             </div>
-        </div>
-    </p-overlayPanel>
-    
-    
+            <div class="col-sm-12">
+
+                <button pButton icon="pi pi-save" class="profile-avatar-button">Guardar Perfil</button>
+            </div>
+          
+        </div>  
+
+    </p-overlayPanel> 
 </div>

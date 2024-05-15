@@ -151,6 +151,13 @@ namespace Practica.BussinesLogic.Servicios
         {
             return _usuarioRepositorio.Detalle(id);
         }
+
+        public IEnumerable<tbUsuarios> DetallePerfil(string id)
+        {
+            return _usuarioRepositorio.Detalle(id);
+        }
+
+
         public ServiceResult ObtenerUsuaID(int Usua_Id)
         {
             var result = new ServiceResult();

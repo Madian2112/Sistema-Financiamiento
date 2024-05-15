@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Usuario, Fill} from '../models/UsuarioViewModel'
+import {Usuario, Fill, FillPerfilUsuario} from '../models/UsuarioViewModel'
 import {Rol} from '../models/RolViewModel'
 import {Empleado} from '../models/EmpleadoViewModel'
 import {HttpClient} from '@angular/common/http'
@@ -53,5 +53,9 @@ export class UsuarioServiceService {
   eliminar(idDepartamento:number):Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}Delete/${idDepartamento}`);
   }
-  
+
+
+  getFillPerfil(usuario: string): Observable<FillPerfilUsuario> {
+    return this.http.get<FillPerfilUsuario>(`${this.apiUrl}PerfilDetails/${usuario}`);
+  }
 }

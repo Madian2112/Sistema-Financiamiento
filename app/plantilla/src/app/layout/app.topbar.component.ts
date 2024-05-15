@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { UsuarioServiceService } from '../../app/demo/service/usuario_service';
 
 @Component({
     selector: 'app-topbar',
@@ -18,7 +19,7 @@ export class AppTopBarComponent {
     color: string | undefined;
     userName: string = 'Usuario';
     editMode: boolean = false;
-    showPencil: boolean = true; // Agregamos una variable para controlar la visibilidad del lápiz
+    showPencil: boolean = true; 
 
     constructor(public layoutService: LayoutService) { }
 
@@ -29,15 +30,15 @@ export class AppTopBarComponent {
     saveName() {
         if (this.userName.length >= 3) {
             console.log('Nombre de usuario actualizado:', this.userName);
-            this.editMode = false; // Ocultar el input y mostrar solo el lápiz de nuevo
-            this.showPencil = true; // Mostrar el lápiz nuevamente
+            this.editMode = false;
+            this.showPencil = true; 
         } else {
             console.error('El nombre de usuario no cumple con los requisitos.');
         }
     }
 
     editName() {
-        this.editMode = true; // Mostrar el input para editar el nombre
-        this.showPencil = false; // Ocultar el lápiz
+        this.editMode = true; 
+        this.showPencil = false; 
     }
 }
