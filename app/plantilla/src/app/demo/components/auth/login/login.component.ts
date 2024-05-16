@@ -49,15 +49,15 @@ export class LoginComponent {
       next: (data) => {
         if (Array.isArray(data) && data.length > 0) {
           console.log('Login successful', data);
-          this.cookieService.set('roleID', data[0].rol_Id); // Suponiendo que el nombre de usuario está en data[0].empl_Nombre
+          this.cookieService.set('roleID', data[0].rol_Id);
            
           this.cookieService.set('esAdmin', data[0].usua_Admin);
           this.cookieService.set('Usuario', data[0].usua_Usuario);
-         // Suponiendo que el nombre de usuario está en data[0].empl_Nombre
+
           console.log('Es admin:', data[0].usua_Admin);
           console.log('Nombre de Rol almacenado:', data[0].rol_Id);
           console.log('Nombre del Usuario almacenado:', data[0].usua_Usuario);
-          this.authServiceguard.loadPermissions();  // Agrega esta línea para mostrar el nombre de usuario en la consola
+          this.authServiceguard.loadPermissions();  
           this.router.navigate(['/app/IndexPrueba']);
         } else {
           this.errorMessage = 'Usuario o contraseña incorrectos';

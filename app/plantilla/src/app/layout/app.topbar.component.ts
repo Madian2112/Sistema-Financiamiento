@@ -56,6 +56,6 @@ export class AppTopBarComponent {
         window.location.reload();
         // Alternativamente, usa Angular Router para navegar
         // this.router.navigate(['/app/Login']);
-        window.location.replace('http://localhost:4200');
+        window.location.replace('http:/');
     }
 }
