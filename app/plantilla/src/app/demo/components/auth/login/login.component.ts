@@ -1,54 +1,73 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioServiceService } from '../../../service/usuario_service';
-import { Respuesta } from 'src/app/demo/models/ServiceResult';
-import { AuthService } from 'src/app/demo/service/AuthService'; 
+
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/demo/service/authGuard.service';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styles: [`
-        :host ::ng-deep .pi-eye,
-        :host ::ng-deep .pi-eye-slash {
-            transform: scale(1.6);
-            margin-right: 1rem;
-            color: var(--primary-color) !important;
-        }
-    `]
+  selector: 'app-user-login',
+  templateUrl: './login.component.html',
+  styles: [`
+    :host ::ng-deep .pi-eye,
+    :host ::ng-deep .pi-eye-slash {
+      transform: scale(1.6);
+      margin-right: 1rem;
+      color: var(--primary-color) !important;
+    }
+  `]
 })
 export class LoginComponent {
-    formUsuario: FormGroup;
-    loginvalidacion = true;
+  formUsuario: FormGroup;
+  loginvalidacion = true;
+  errorMessage: string = '';
 
-    constructor(
-        private router: Router, 
-        private fb: FormBuilder,
-        private _usuarioservice: UsuarioServiceService,
-        private authService: AuthService 
-    ) {
-        this.formUsuario = this.fb.group({
-            usuario: [''],
-            clave: ['']
-        });
+  constructor(
+    private router: Router,
+    private userService: UsuarioServiceService,
+    private cookieService: CookieService,
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private authServiceguard: AuthService,
+  ) {
+    this.formUsuario = this.fb.group({
+      usuario: ['', Validators.required],
+      clave: ['', Validators.required]
+    });
+  }
+
+  onLogin() {
+    if (this.formUsuario.invalid) {
+      this.errorMessage = 'Usuario y clave son requeridos';
+      return;
     }
 
-    login() {
-        const { usuario, clave } = this.formUsuario.value;
+    const { usuario, clave } = this.formUsuario.value;
 
-        this._usuarioservice.getLogin(usuario, clave).subscribe(
-            (respuesta: Respuesta) => {
-                if (respuesta.message === 'exito') {
-                    this.loginvalidacion = true;
-                    this.authService.setUsuarioLogueado(usuario);
-                    this.router.navigate(['/app/IndexPrueba']);
-                } else {
-                    this.loginvalidacion = false;
-                }
-            },
-            error => {
-                console.error('Error al iniciar sesión:', error);
-            }
-        );
-    }
+    this.userService.getLogin(usuario, clave).subscribe({
+      next: (data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          console.log('Login successful', data);
+          this.cookieService.set('roleID', data[0].rol_Id); // Suponiendo que el nombre de usuario está en data[0].empl_Nombre
+           
+          this.cookieService.set('esAdmin', data[0].usua_Admin);
+          this.cookieService.set('Usuario', data[0].usua_Usuario);
+         // Suponiendo que el nombre de usuario está en data[0].empl_Nombre
+          console.log('Es admin:', data[0].usua_Admin);
+          console.log('Nombre de Rol almacenado:', data[0].rol_Id);
+          console.log('Nombre del Usuario almacenado:', data[0].usua_Usuario);
+          this.authServiceguard.loadPermissions();  // Agrega esta línea para mostrar el nombre de usuario en la consola
+          this.router.navigate(['/app/IndexPrueba']);
+        } else {
+          this.errorMessage = 'Usuario o contraseña incorrectos';
+          console.error('Login failed: Incorrect credentials');
+        }
+      },
+      error: (error) => {
+        this.errorMessage = 'Error en la conexión con el servidor';
+        console.error('Login failed:', error);
+      }
+    });
+  }
 }

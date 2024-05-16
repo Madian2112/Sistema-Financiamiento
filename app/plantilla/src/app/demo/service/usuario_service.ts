@@ -7,7 +7,9 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Respuesta } from '../models/ServiceResult';
 
-
+interface Pantalla {
+  pant_Descripcion: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -20,10 +22,21 @@ export class UsuarioServiceService {
   private apiUrlE: string = this.endpoint + "API/Empleado/";
 
   /* LOGIN USUARIO */
-  getLogin(usuario: string, clave: string): Observable<Respuesta> {
-    return this.http.get<Respuesta>(this.apiUrl + 'Login/'+usuario+","+clave);
+  // getLogin(usuario: string, clave: string): Observable<any> {
+  //   return this.http.get<any>(this.apiUrl + 'Login/'+usuario+","+clave);
 
+  // }
+
+  getLogin(usuario: string, contraseña: string): Observable<any> {
+    if (!usuario || !contraseña) {
+      // Maneja el caso en que los parámetros sean nulos o vacíos
+      throw new Error('Usuario y contraseña son requeridos');
+    }
+    const url = `${this.apiUrl}Login/${encodeURIComponent(usuario)},${encodeURIComponent(contraseña)}`;
+    return this.http.get<any>(url);
   }
+  
+  
 
   /* LOGIN USUARIO */
   getUsuarios(): Observable<Usuario[]> {
@@ -57,5 +70,12 @@ export class UsuarioServiceService {
 
   getFillPerfil(usuario: string): Observable<FillPerfilUsuario> {
     return this.http.get<FillPerfilUsuario>(`${this.apiUrl}PerfilDetails/${usuario}`);
+  }
+
+
+  public rolurl = 'https://localhost:44372/API/';
+  UrlPantallasRoles = this.rolurl + 'Rol/'
+  getPantallasDeRol(idRoll: Number) {
+    return this.http.get<Pantalla[]>(`${this.UrlPantallasRoles}PantallasdeRoles/${idRoll}`);
   }
 }

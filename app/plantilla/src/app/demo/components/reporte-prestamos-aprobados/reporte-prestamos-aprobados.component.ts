@@ -16,7 +16,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
-import { AuthService } from 'src/app/demo/service/AuthService'; 
+import { AuthService } from 'src/app/demo/service/authGuard.service'; 
 import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
 import { MatDialog } from '@angular/material/dialog';

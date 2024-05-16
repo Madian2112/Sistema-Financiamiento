@@ -73,7 +73,7 @@ namespace Practica.API.Controllers
             else
             {
                 list.Message = "Error";
-                return Ok(list.Message);
+                return Ok(list.Data);
             }
 
             //return Json(list.Data);

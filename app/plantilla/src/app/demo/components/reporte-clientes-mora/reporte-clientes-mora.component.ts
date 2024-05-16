@@ -4,7 +4,7 @@ import { ImpresionService } from 'src/app/demo/service/impresion.service';
 import { DashboardService } from 'src/app/demo/service/dashboard.service';
 import { SucursalServiceService } from 'src/app/demo/service/sucursal_service';
 import { ReporteService } from 'src/app/demo/service/reporte.service';
-import { AuthService } from 'src/app/demo/service/AuthService'; // Importa el servicio de autenticación
+import { AuthService } from 'src/app/demo/service/authGuard.service'; // Importa el servicio de autenticación
 import { FiltroPorMes, FiltroPorModelo, FiltroPorEstado, FiltroPorSexo } from 'src/app/demo/models/ReporteViewModel';
 import { Sucursal } from '../../models/SucursalViewModel';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -66,7 +66,7 @@ export class ReporteClientesMoraComponent implements OnInit {
         const fechaActualISO = new Date().toISOString().slice(0, 10);
         this.fechaInicio = fechaMesAnterior;
         this.fechaFin = fechaActualISO;
-        this.usuarioLogueado = this.authService.getUsuarioLogueado(); // Obtén el nombre del usuario logueado
+        this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
 
         this.sucursalService.getSucursal().subscribe(data => {
             this.sucursales = data;

@@ -9,14 +9,15 @@
 
                 <div>
                     <form [formGroup]="formUsuario">
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Usuario</label>
-                    <input id="usuario"formControlName="usuario" type="text" placeholder="Usuario" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+                        <label for="email1" class="block text-900 text-xl font-medium mb-2">Usuario</label>
+                        <input type="text" formControlName="usuario" placeholder="Usuario" required class="form-control">
 
-                    <label for="password1" class="block text-900 font-medium text-xl mb-2">Contraseña</label>
-                    <p-password id="clave" formControlName="clave" placeholder="Clave" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+                        <label for="password1" class="block text-900 font-medium text-xl mb-2">Contraseña</label>
+                        <input type="password" formControlName="clave" placeholder="Contraseña" required class="form-control">
+
+                        <div *ngIf="errorMessage" style="color: red;" class="error-message">{{ errorMessage }}</div>
+                        <button type="button" (click)="onLogin()" pButton pRipple label="Inicia Sesion" style="background-color: #CC5B1C;" class="botonEnviar w-full p-3 text-xl"></button>
                     </form>
-                    <label class="{{loginvalidacion}}" style="color:red; font-size: 130%; margin-block-end: 2%; margin-top:-1%">Credenciales invalidas</label>
-                    <button type="button" pButton pRipple label="Inicia Sesion" style="background-color: #CC5B1C; " class="w-full p-3 text-xl" (click)="login()"></button>
                 </div>
             </div>
         </div>

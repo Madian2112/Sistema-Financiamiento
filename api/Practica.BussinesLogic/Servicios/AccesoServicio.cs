@@ -75,7 +75,7 @@ namespace Practica.BussinesLogic.Servicios
             }
             catch (Exception ex)
             {
-                return result.Error("Lo siento Tit@ Acceso denegado");
+                return result.Error(ex.Message);
             }
         }
         public ServiceResult ActualizarUsua(tbUsuarios item)

@@ -4,7 +4,7 @@ import { PagoClienteFechaPrevia, PagoCliente, PagoClientePapaID } from '../../..
 import { PLanPagoServiceService } from '../../../service/planplago_service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableModule } from 'primeng/table';
-import { AuthService } from 'src/app/demo/service/AuthService'; 
+import { AuthService } from 'src/app/demo/service/authGuard.service'; 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
