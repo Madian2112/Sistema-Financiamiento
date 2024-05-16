@@ -32,6 +32,15 @@ export class PLanPagoClientTB{
     pacl_Saldo_Inicial!: number; 
     pacl_Saldo_Restante!: number; 
     pacl_Fecha_Emision!: string; 
+    
+    pacl_Total_Intereses!: number;  
+    pacl_Total_Capital!: number; 
+    pacl_Intereses_Restar!: number; 
+    pacl_Capital_Restar!: number; 
+    pacl_Total_Pago!: number; 
+    pacl_Saldo!: number; 
+    pacl_NumeroCuota!: number; 
+    pacl_Fecha_Pago!: string;
 }
 
 export class PagoClienteFechaPrevia{
