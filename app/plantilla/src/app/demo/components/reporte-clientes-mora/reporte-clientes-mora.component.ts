@@ -4,7 +4,7 @@ import { ImpresionService } from 'src/app/demo/service/impresion.service';
 import { DashboardService } from 'src/app/demo/service/dashboard.service';
 import { SucursalServiceService } from 'src/app/demo/service/sucursal_service';
 import { ReporteService } from 'src/app/demo/service/reporte.service';
-import { AuthService } from 'src/app/demo/service/authGuard.service'; // Importa el servicio de autenticación
+import { AuthService } from 'src/app/demo/service/authGuard.service'; 
 import { FiltroPorMes, FiltroPorModelo, FiltroPorEstado, FiltroPorSexo } from 'src/app/demo/models/ReporteViewModel';
 import { Sucursal } from '../../models/SucursalViewModel';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -46,7 +46,7 @@ export class ReporteClientesMoraComponent implements OnInit {
     SucursalId: number;
     cities: SelectItem[] = [];
     selectedDrop: SelectItem = { value: '' };
-    usuarioLogueado: string; // Variable para almacenar el nombre del usuario logueado
+    usuarioLogueado: string; 
 
     public ListData = [];
     public cuerpo = [];
@@ -56,7 +56,7 @@ export class ReporteClientesMoraComponent implements OnInit {
         private dashboardService: DashboardService,
         private sucursalService: SucursalServiceService,
         private reporteService: ReporteService,
-        private authService: AuthService // Inyecta el servicio de autenticación
+        private authService: AuthService 
     ) {}
 
     ngOnInit(): void {
@@ -67,7 +67,7 @@ export class ReporteClientesMoraComponent implements OnInit {
         this.fechaInicio = fechaMesAnterior;
         this.fechaFin = fechaActualISO;
         this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
-
+        console.log(this.usuarioLogueado );
         this.sucursalService.getSucursal().subscribe(data => {
             this.sucursales = data;
             console.log(this.sucursales);

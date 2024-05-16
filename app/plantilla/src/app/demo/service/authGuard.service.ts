@@ -26,7 +26,18 @@ interface Pantalla {
     urlsPermitidas = this.service.rolurl + 'PantallaPorRol/'
 
 
+    setUsuarioLogueado(usuario: string) {
+      localStorage.setItem(AuthService.USUARIO_KEY, usuario);
+  }
 
+  getUsuarioLogueado(): string {
+      return localStorage.getItem(AuthService.USUARIO_KEY) || '';
+      
+  }
+
+  clearUsuarioLogueado() {
+      localStorage.removeItem(AuthService.USUARIO_KEY);
+  }
     loadPermissions(): void {
     const roleId = Number.parseInt(this.cookieService.get('roleID'));
 
@@ -77,15 +88,5 @@ interface Pantalla {
       return false;
     }
 
-    setUsuarioLogueado(usuario: string) {
-        localStorage.setItem(AuthService.USUARIO_KEY, usuario);
-    }
-
-    getUsuarioLogueado(): string {
-        return localStorage.getItem(AuthService.USUARIO_KEY) || '';
-    }
-
-    clearUsuarioLogueado() {
-        localStorage.removeItem(AuthService.USUARIO_KEY);
-    }
+ 
   }

@@ -27,12 +27,12 @@ export class UsuarioServiceService {
 
   // }
 
-  getLogin(usuario: string, contraseña: string): Observable<any> {
-    if (!usuario || !contraseña) {
-      // Maneja el caso en que los parámetros sean nulos o vacíos
+  getLogin(usuario: string, clave: string): Observable<any> {
+    if (!usuario || !clave) {
+
       throw new Error('Usuario y contraseña son requeridos');
     }
-    const url = `${this.apiUrl}Login/${encodeURIComponent(usuario)},${encodeURIComponent(contraseña)}`;
+    const url = `${this.apiUrl}Login/${encodeURIComponent(usuario)},${encodeURIComponent(clave)}`;
     return this.http.get<any>(url);
   }
   

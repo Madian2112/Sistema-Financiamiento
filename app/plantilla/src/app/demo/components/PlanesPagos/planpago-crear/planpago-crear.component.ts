@@ -29,7 +29,6 @@ import { Respuesta } from 'src/app/demo/models/ServiceResult';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ImpresionService } from 'src/app/demo/service/impresion.service';
 import { AuthService } from 'src/app/demo/service/authGuard.service'; 
-
 @Component({
   selector: 'app-planpago-crear',
   templateUrl: './planpago-crear.component.html',
@@ -51,7 +50,7 @@ export class PlanpagoCrearComponent implements OnInit {
   pdfSrc: SafeResourceUrl | null = null;
   usuarioLogueado: string;
 
-
+  usuarioLogueado: string;
   create: string = "";
   detalle : string ="collapse";
   idplanpag: number = 0;
@@ -127,8 +126,7 @@ PDF(){
   });
 
   // PDF con datosde la tabla
-  this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte Plan de Pago",  this.usuarioLogueado);
-
+  this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte Plan de Pago", this.usuarioLogueado);
 }
 
 
