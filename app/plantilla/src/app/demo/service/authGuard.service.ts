@@ -32,6 +32,7 @@ interface Pantalla {
 
   getUsuarioLogueado(): string {
       return localStorage.getItem(AuthService.USUARIO_KEY) || '';
+      
   }
 
   clearUsuarioLogueado() {
