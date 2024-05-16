@@ -23,3 +23,9 @@ export class Fill{
     usua_Modifica!:string;   
     usua_Fecha_Modifica!:string;  
 }
+
+export class FillPerfilUsuario{
+    usua_Id: number;
+    usua_Usuario: string;
+    usua_Color: string;
+}

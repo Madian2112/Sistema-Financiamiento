@@ -10,6 +10,8 @@ namespace Practica.Common.Models
     {
         public int Rol_Id { get; set; }
         public string Rol_Descripcion { get; set; }
+       
+        public string Pant_Descripcion { get; set; }
         public int? Rol_Usua_Creacion { get; set; }
         public DateTime? Rol_Fecha_Creacion { get; set; }
         public int? Rol_Usua_Modifica { get; set; }

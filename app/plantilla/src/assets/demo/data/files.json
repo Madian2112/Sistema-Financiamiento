@@ -20,6 +20,13 @@
                 "children": [{ "key": "3", "label": "Cargos", "icon": "pi pi-desktop" }, { "key": "4", "label": "Clientes", "icon": "pi pi-desktop" },{ "key": "5", "label": "Departamentos", "icon": "pi pi-desktop" },{ "key": "6", "label": "Empleados", "icon": "pi pi-desktop" },{ "key": "7", "label": "Estados Civiles", "icon": "pi pi-desktop" },{ "key": "8", "label": "Marcas", "icon": "pi pi-desktop" },{ "key": "9", "label": "Municipios", "icon": "pi pi-desktop" },{ "key": "10", "label": "Sucursales", "icon": "pi pi-desktop" }]
             },
             {
+                "key": "103",
+                "label": "Inicio",
+                "data": "Work Folder",
+                "icon": "pi pi-fw pi-file",
+                "children": [{ "key": "15", "label": "Dashboard", "icon": "pi pi-desktop" }, { "key": "16", "label": "Prestamos Aprobados", "icon": "pi pi-desktop" },{ "key": "17", "label": "Ventas Hechas por Empleados", "icon": "pi pi-desktop" },{ "key": "18", "label": "Clientes en Mora", "icon": "pi pi-desktop" },{ "key": "19", "label": "PlanPago - Cliente", "icon": "pi pi-desktop" },{ "key": "20", "label": "Inicio", "icon": "pi pi-desktop" }]
+            },
+            {
                 "key": "100",
                 "label": "Credito",
                 "data": "Work Folder",

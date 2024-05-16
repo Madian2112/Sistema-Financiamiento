@@ -28,6 +28,7 @@ import { PlanpagoListadoComponent } from '../planpago-listado/planpago-listado.c
 import { Respuesta } from 'src/app/demo/models/ServiceResult';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ImpresionService } from 'src/app/demo/service/impresion.service';
+import { AuthService } from 'src/app/demo/service/authGuard.service'; 
 
 @Component({
   selector: 'app-planpago-crear',
@@ -48,6 +49,7 @@ export class PlanpagoCrearComponent implements OnInit {
   formPlanPago: FormGroup;
   listadoPLanPago: PLanPago[] = [];
   pdfSrc: SafeResourceUrl | null = null;
+  usuarioLogueado: string;
 
 
   create: string = "";
@@ -67,6 +69,7 @@ export class PlanpagoCrearComponent implements OnInit {
     private _PlanPagoservice:PLanPagoServiceService,
     private dialog: MatDialog,    
     private serviceIMprimir: ImpresionService, 
+    private authService: AuthService 
   ) {
 
     this.formPlanPago = this.fb.group({
@@ -105,6 +108,7 @@ RegresarPDF(){
 
 PDF(){
 
+  this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
   const encabezado = ["Pago", "Fecha de Pago" , "Saldo Inicial", "Pago", "Capital", "Interés", "Saldo"];
   const cuerpo = [];
   this.pdf = "";
@@ -123,7 +127,7 @@ PDF(){
   });
 
   // PDF con datosde la tabla
-  this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte Plan de Pago");
+  this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte Plan de Pago",  this.usuarioLogueado);
 
 }
 

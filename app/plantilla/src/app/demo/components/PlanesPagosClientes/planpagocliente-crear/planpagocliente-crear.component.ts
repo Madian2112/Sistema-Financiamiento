@@ -4,6 +4,7 @@ import { PagoClienteFechaPrevia, PagoCliente, PagoClientePapaID } from '../../..
 import { PLanPagoServiceService } from '../../../service/planplago_service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableModule } from 'primeng/table';
+import { AuthService } from 'src/app/demo/service/authGuard.service'; 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
@@ -24,6 +25,7 @@ import { MessageModule } from 'primeng/message';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ImpresionService } from 'src/app/demo/service/impresion.service';
 
+
 @Component({
   selector: 'app-planpagocliente-crear',
   templateUrl: './planpagocliente-crear.component.html',
@@ -39,7 +41,7 @@ export class PlanpagoclienteCrearComponent {
   planpagoid: PagoClientePapaID [] = [];
   selectCliente: any ;
   pdfSrc: SafeResourceUrl | null = null;
-
+  usuarioLogueado: string;
   vacio: string = "collapse";
   encabezado: string = "";
   tablaFecha: string = "collapse";
@@ -69,6 +71,7 @@ ocultarEncabezado: boolean = false;
     private _PagoCliente:  PLanPagoServiceService, 
     private fb: FormBuilder,
     private serviceIMprimir: ImpresionService, 
+    private authService: AuthService 
   ) 
    {
     this.formCliente = this.fb.group({
@@ -91,8 +94,18 @@ ocultarEncabezado: boolean = false;
    
    PDF(){
     this.pdf = "";
+    this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
+    /*this._PagoCliente.getPlanPagoClienteDNI(this.formCliente.get('identidad').value).subscribe(
+      (data: any) => {
+        this.ppagoclientefecha = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );*/
     const encabezado = ["Pago","Fecha de Pago" , "Saldo Inicial", "Pago", "Capital", "Initereses", "Mora"];
     const cuerpo = [];
+   
 
     
     this.ppagoclientefecha.forEach(cliente => {
@@ -108,7 +121,8 @@ ocultarEncabezado: boolean = false;
     });
 
     // PDF con datosde la tabla
-    this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte del plan de pago");
+
+    this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte del plan de pago", this.usuarioLogueado);
 
   }
 
