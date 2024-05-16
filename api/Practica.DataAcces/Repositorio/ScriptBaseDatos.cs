@@ -14,8 +14,11 @@ namespace Practica.DataAcces.Repositorio
         public static string Usua_Actualizar = "Acce.SP_Usuarios_Actualizar";
         public static string Usua_Eliminar = "Acce.SP_Usuarios_Eliminar";
         public static string Usua_Detalles = "Acce.SP_Usuarios_Llenar";
+
+        public static string Usua_DetallesPerfil = "[Acce].[SP_PerfilUsuario_Mostar]";
+
         public static string Usua_Reestablecer = "[Acce].[SP_Usuarios_Reestablecer]";
-        public static string Usua_Inicio = "Acce.SP_Usuarios_InicioSesion";
+        public static string Usua_Inicio = "[Acce].[SP_Usuarios_InicioSesion]";
         #endregion
 
         #region Roles

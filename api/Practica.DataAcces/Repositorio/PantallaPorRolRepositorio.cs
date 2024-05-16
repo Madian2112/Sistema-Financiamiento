@@ -64,6 +64,8 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
+      
+
 
         public RequestStatus Update(tbPantallasPorRoles item)
         {
