@@ -184,9 +184,34 @@
                     </dl>
                 </dl>
                 </div>
+                <div class="row">
+                    <div style="margin-left: 1.5%" class="col-sm-2">
+                        <div class="form-group">
+                            <button pripple="" style="background-color: rgb(28, 134, 160); border-color: rgb(28, 134, 160);" (click)="PDF()" class="p-ripple p-element p-button p-component" ng-reflect-ng-class="[object Object]" type="button" data-pc-name="button" data-pc-section="root">
+                                <span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-file-pdf p-button-icon p-button-icon-left ng-star-inserted"></span>
+                                <span class="p-button-label ng-star-inserted" aria-hidden="false" data-pc-section="label">PDF</span>
+                                <span class="p-ink" aria-hidden="true" role="presentation"></span></button>
+                        </div>
+                    </div>
+                    <div style="margin-left: 1.5%" class="col-sm-2">
+                        <div class="form-group">
+                            <button pripple="" style="background-color: rgb(83, 87, 88); border-color: rgb(83, 87, 88);" (click)="RegresarPDF()" class="p-ripple p-element p-button p-component" ng-reflect-ng-class="[object Object]" type="button" data-pc-name="button" data-pc-section="root">
+                                <span ng-reflect-ng-class="[object Object]" data-pc-section="icon" class="pi pi-arrow-circle-left p-button-icon p-button-icon-left ng-star-inserted"></span>
+                                <span class="p-button-label ng-star-inserted" aria-hidden="false" data-pc-section="label">Regresar</span>
+                                <span class="p-ink" aria-hidden="true" role="presentation"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="{{pdf}}">
+                <div class="no-print">
+                    <div *ngIf="pdfSrc" style="margin-top: 20px;">
+                      <iframe [src]="pdfSrc" width="100%" height="500px"></iframe>
+                    </div>
+                </div>
             </div>
             <p-table [value]="planpagoclientes" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
-            [paginator]="true" [globalFilterFields]="['pacl_Id', 'pacl_Financiamiento' , 'pacl_Monto_Pago', 'pacl_Pago_Capital', 'pacl_Pago_Intereses', 'pacl_Pago_Mora', 'pacl_Fecha_Emision', 'pacl_Saldo_Inicial' , 'pacl_Saldo_Restante' ,'resultado']" responsiveLayout="scroll">
+            [paginator]="true" [globalFilterFields]="['pacl_NumeroCuota', 'pacl_Fecha_Pago', 'pacl_Saldo_Inicial', 'pacl_Total_Pago', 'pacl_Capital_Restar', 'pacl_Intereses_Restar', 'pacl_Saldo' ]" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <div class="flex justify-content-between flex-column sm:flex-row">
                     <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
@@ -202,91 +227,64 @@
                 <tr>
                     <th style="min-width: 12rem">
                         <div class="flex justify-content-between align-items-center">
-                            Código
-                            <p-columnFilter type="text" field="pacl_Id" display="menu"
+                            Pago
+                            <p-columnFilter type="text" field="pacl_NumeroCuota" display="menu"
                                 placeholder="Buscar por código"></p-columnFilter>
                         </div>
                     </th>
                     <th style="min-width: 12rem">
                         <div class="flex justify-content-between align-items-center">
-                            Financiamiento
-                            <p-columnFilter type="text" field="pacl_Financiamiento" display="menu"
+                            Fecha de Pago
+                            <p-columnFilter type="text" field="pacl_Fecha_Pago" display="menu"
                                 placeholder="Buscar por código"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width: 12rem">
-                        <div class="flex justify-content-between align-items-center">
-                            Pago Monto
-                            <p-columnFilter type="text" field="pacl_Monto_Pago" display="menu"
-                                placeholder="Buscar por descripción"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width: 12rem">
-                        <div class="flex justify-content-between align-items-center">
-                            Pago Capital
-                            <p-columnFilter type="text" field="pacl_Pago_Capital" display="menu"
-                                placeholder="Buscar por descripción"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width: 12rem">
-                        <div class="flex justify-content-between align-items-center">
-                            Pago Intereses
-                            <p-columnFilter type="text" field="pacl_Pago_Intereses" display="menu"
-                                placeholder="Buscar por código"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width: 12rem">
-                        <div class="flex justify-content-between align-items-center">
-                            Pago Mora
-                            <p-columnFilter type="text" field="pacl_Pago_Mora" display="menu"
-                                placeholder="Buscar por descripción"></p-columnFilter>
                         </div>
                     </th>
                     <th style="min-width: 12rem">
                         <div class="flex justify-content-between align-items-center">
                             Saldo Inicial
-                            <p-columnFilter type="text" field="pacl_Pago_Mora" display="menu"
+                            <p-columnFilter type="text" field="pacl_Saldo_Inicial" display="menu"
                                 placeholder="Buscar por descripción"></p-columnFilter>
                         </div>
                     </th>
                     <th style="min-width: 12rem">
                         <div class="flex justify-content-between align-items-center">
-                            Saldo Total
-                            <p-columnFilter type="text" field="pacl_Pago_Mora" display="menu"
+                            Pago
+                            <p-columnFilter type="text" field="pacl_Total_Pago" display="menu"
                                 placeholder="Buscar por descripción"></p-columnFilter>
                         </div>
                     </th>
                     <th style="min-width: 12rem">
                         <div class="flex justify-content-between align-items-center">
-                            Fecha Emision
-                            <p-columnFilter type="text" field="pacl_Fecha_Emision" display="menu"
+                            Capital
+                            <p-columnFilter type="text" field="pacl_Capital_Restar" display="menu"
+                                placeholder="Buscar por código"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Intereses
+                            <p-columnFilter type="text" field="pacl_Intereses_Restar" display="menu"
                                 placeholder="Buscar por descripción"></p-columnFilter>
                         </div>
                     </th>
                     <th style="min-width: 12rem">
                         <div class="flex justify-content-between align-items-center">
-                            Acciones
-                          
+                            Saldo
+                            <p-columnFilter type="text" field="pacl_Saldo" display="menu"
+                                placeholder="Buscar por descripción"></p-columnFilter>
                         </div>
                     </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-planpagoclientes>
                 <tr>
-                    <td>{{planpagoclientes.pacl_Id}}</td>
-                    <td>{{planpagoclientes.pacl_Financiamiento}}</td>
-                    <td>{{planpagoclientes.pacl_Monto_Pago}}</td>
-                    <td>{{planpagoclientes.pacl_Pago_Capital}}</td>
-                    <td>{{planpagoclientes.pacl_Pago_Intereses}}</td>
-                    <td>{{planpagoclientes.pacl_Pago_Mora}}</td>
+                    <td>{{planpagoclientes.pacl_NumeroCuota}}</td>
+                    <td>{{planpagoclientes.pacl_Fecha_Pago}}</td>
                     <td>{{planpagoclientes.pacl_Saldo_Inicial}}</td>
-                    <td>{{planpagoclientes.pacl_Saldo_Restante}}</td>
-                    <td>{{planpagoclientes.pacl_Fecha_Emision}}</td>
-                    <td  style="display: flex; grid-gap:10px">
-                        <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editar(planpago)"></button>>
-                        <button pButton pRipple type="button" label="Detalles" class="p-button-info" (click)="detalles(planpago.papa_Id)"></button>
-                        <button pButton pRipple type="button" label="Eliminar" class="p-button-danger" (click)="confirmarEliminar(planpago)" ></button>
-                    </td>
+                    <td>{{planpagoclientes.pacl_Total_Pago}}</td>
+                    <td>{{planpagoclientes.pacl_Capital_Restar}}</td>
+                    <td>{{planpagoclientes.pacl_Intereses_Restar}}</td>
+                    <td>{{planpagoclientes.pacl_Saldo}}</td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">

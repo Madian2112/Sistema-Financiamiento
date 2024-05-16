@@ -61,7 +61,34 @@ namespace Practica.Entities.Entities
 
         [NotMapped]
         public decimal Papa_Intereses_Monto { get; set; }
-        
+
+
+
+
+        [NotMapped]
+        public decimal Pacl_Total_Intereses { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Total_Capital { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Intereses_Restar { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Capital_Restar { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Total_Pago { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Saldo { get; set; }
+
+        [NotMapped]
+        public int? Pacl_NumeroCuota { get; set; }
+
+        [NotMapped]
+        public string Pacl_Fecha_Pago { get; set; }
+
 
         public virtual tbUsuarios Papa_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Papa_Usua_ModiNavigation { get; set; }

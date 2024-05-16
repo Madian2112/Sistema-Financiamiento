@@ -91,6 +91,25 @@ namespace Practica.Entities.Entities
         [NotMapped]
         public string Usua_Modifica { get; set; }
 
+
+        [NotMapped]
+        public decimal Pacl_Total_Intereses { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Total_Capital { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Intereses_Restar { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Capital_Restar { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Total_Pago { get; set; }
+
+        [NotMapped]
+        public decimal Pacl_Saldo { get; set; }
+
         public virtual tbUsuarios Pacl_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Pacl_Usua_ModiNavigation { get; set; }
         public virtual tbPlanesPagos Papa { get; set; }
