@@ -1,3 +1,6 @@
+
+
+
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
     <div class="flex flex-column align-items-center justify-content-center">
         <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, #CC5B1C 10%, rgba(33, 150, 243, 0) 30%);">
@@ -9,15 +12,14 @@
 
                 <div>
                     <form [formGroup]="formUsuario">
-                        <label for="email1" class="block text-900 text-xl font-medium mb-2">Usuario</label>
-                        <input type="text" formControlName="usuario" placeholder="Usuario" required class="form-control">
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Usuario</label>
+                    <input id="usuario"formControlName="usuario" type="text" placeholder="Usuario" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
 
-                        <label for="password1" class="block text-900 font-medium text-xl mb-2">Contraseña</label>
-                        <input type="password" formControlName="clave" placeholder="Contraseña" required class="form-control">
-
-                        <div *ngIf="errorMessage" style="color: red;" class="error-message">{{ errorMessage }}</div>
-                        <button type="button" (click)="onLogin()" pButton pRipple label="Inicia Sesion" style="background-color: #CC5B1C;" class="botonEnviar w-full p-3 text-xl"></button>
+                    <label for="password1" class="block text-900 font-medium text-xl mb-2">Contraseña</label>
+                    <p-password id="clave" formControlName="clave" placeholder="Clave" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
                     </form>
+                    <div *ngIf="errorMessage" style="color: red;" class="error-message">{{ errorMessage }}</div>
+                    <button type="button" pButton pRipple label="Inicia Sesion" style="background-color: #CC5B1C; " class="w-full p-3 text-xl" (click)="onLogin()"></button>
                 </div>
             </div>
         </div>

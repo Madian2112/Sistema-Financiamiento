@@ -61,10 +61,7 @@
     </button>
 
 
-    <button class="p-link layout-topbar-button" (click)="logOut()" aria-label="Cerrar Sesión">
-        <i class="pi pi-sign-out"></i>
-        <span>Cerrar Sesión</span>
-    </button>
+
 
     <button
         #topbarmenubutton
@@ -108,8 +105,9 @@
 <p-overlayPanel #op [style]="{'width': '330px'}">
     <div class="card profile-card">
         <div class="profile-row">
+            
             <h1 class="text-center">Perfil</h1>
-
+            <p style="color: white;">_________________________________________</p>
             <p-avatar
                 label="H"
                 size="xlarge"
@@ -146,7 +144,7 @@
                 class="col-sm-6"
             ></button>
             <div class="color-picker-container" *ngIf="editMode">
-                <label>Cambiar Color</label>
+                <label style="color: white;">Cambiar Color</label>
                 <p-colorPicker [(ngModel)]="color" (onChange)="onColorChange($event)"></p-colorPicker>
             </div>
             <button 
@@ -157,6 +155,11 @@
                 (click)="saveName()"
                 *ngIf="editMode"
             ></button>
+            <p style="color: white;">_________________________________________</p>
+            <button class="p-link layout-topbar-button" (click)="logOut()" aria-label="Cerrar Sesión">
+                <i class="pi pi-sign-out"></i>
+                <span>Cerrar Sesión</span>
+            </button>
         </div>
     </div>
 </p-overlayPanel>
