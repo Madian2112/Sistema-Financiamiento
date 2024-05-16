@@ -42,14 +42,14 @@
     }
 </style>
 
-<!-- app.topbar.component.html -->
+
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="IndexEstadistico">
         <img src="assets/demo/images/credirapi-removebg-preview.png" alt="logo" />
         <span style="color: #cc5b1c">Credi</span><span style="color: #a4bd30">Rapid</span>
     </a>
 
-    <!-- Botón para mostrar/ocultar menú -->
+
     <button
         #menubutton
         class="p-link layout-menu-button layout-topbar-button"
@@ -60,13 +60,12 @@
         <i class="pi pi-bars"></i>
     </button>
 
-    <!-- Botón para cerrar sesión -->
+
     <button class="p-link layout-topbar-button" (click)="logOut()" aria-label="Cerrar Sesión">
         <i class="pi pi-sign-out"></i>
         <span>Cerrar Sesión</span>
     </button>
 
-    <!-- Botón para mostrar el perfil -->
     <button
         #topbarmenubutton
         class="p-link layout-topbar-menu-button layout-topbar-button"
@@ -76,7 +75,7 @@
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <!-- Menú del topbar -->
+
     <div
         #topbarmenu
         class="layout-topbar-menu"
@@ -84,7 +83,7 @@
             'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible
         }"
     >
-        <!-- Avatar del usuario -->
+ 
         <div class="flex gap-1 align-items-center" (click)="showProfile($event)">
             <p-avatar
                 label="H"
@@ -93,7 +92,7 @@
             ></p-avatar>
         </div>
 
-        <!-- Botón de configuraciones -->
+   
         <button
             class="p-link layout-topbar-button"
             [routerLink]="'/documentation'"
