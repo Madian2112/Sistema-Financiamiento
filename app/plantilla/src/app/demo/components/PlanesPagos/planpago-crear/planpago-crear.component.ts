@@ -49,8 +49,6 @@ export class PlanpagoCrearComponent implements OnInit {
   listadoPLanPago: PLanPago[] = [];
   pdfSrc: SafeResourceUrl | null = null;
   usuarioLogueado: string;
-
-  usuarioLogueado: string;
   create: string = "";
   detalle : string ="collapse";
   idplanpag: number = 0;

@@ -55,6 +55,7 @@ export class PlanpagoclienteCrearComponent {
   intereses: number;
   mora: number;
   minimototal: number;
+  capital: number;
   pagarcuota: string = "collapse";
   pdf: string = "collapse";
 
@@ -188,7 +189,7 @@ ocultarEncabezado: boolean = false;
     // Si todas las cuotas anteriores están pagadas, retornar true
     return true;
   }
-
+  Pacl_Capital_Restar
   AbrirModal(ppagoclientefecha : any){
     this.pdf = "collapse";
 
@@ -210,6 +211,7 @@ ocultarEncabezado: boolean = false;
       this.intereses = ppagoclientefecha.papa_Intereses_Monto;
       this.mora = ppagoclientefecha.monto_Mora;
       this.minimototal = ppagoclientefecha.minimoPagar;
+      this.capital = ppagoclientefecha.pacl_Capital_Restar;
   
       this.formClienteInsertar.patchValue({
         pacl_idddd: ppagoclientefecha.pacl_Id,
