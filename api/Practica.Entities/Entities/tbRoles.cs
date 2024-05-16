@@ -21,7 +21,7 @@ namespace Practica.Entities.Entities
         public int? Rol_Usua_Modifica { get; set; }
         public DateTime? Rol_Fecha_Modifica { get; set; }
         public bool? Rol_Estado { get; set; }
-
+        public string Pant_Descripcion { get; set; }
         public virtual tbUsuarios Rol_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Rol_Usua_ModificaNavigation { get; set; }
         public virtual ICollection<tbPantallasPorRoles> tbPantallasPorRoles { get; set; }

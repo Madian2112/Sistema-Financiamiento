@@ -49,6 +49,22 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
+        public IEnumerable<tbRoles> PantallasdeRoles(int id)
+        {
+            const string sql = "[Acce].[SP_PantallasPorRol_Pantallas]";
+
+            List<tbRoles> result = new List<tbRoles>();
+
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameter = new DynamicParameters();
+                parameter.Add("Rol_Id", id);
+                result = db.Query<tbRoles>(sql, parameter, commandType: CommandType.StoredProcedure).ToList();
+
+                return result;
+            }
+        }
+
         public tbRoles Fill(int id)
         {
 

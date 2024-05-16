@@ -82,6 +82,21 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
+        public IEnumerable<tbUsuarios> Login(string usuario, string contra)
+        {
+
+            List<tbUsuarios> result = new List<tbUsuarios>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameter = new DynamicParameters();
+                parameter.Add("Usuario", usuario);
+                parameter.Add("Contra", contra);
+
+                result = db.Query<tbUsuarios>(ScriptBaseDatos.Usua_Inicio, parameter, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+
+        }
         public IEnumerable<tbUsuarios> List()
         {
 
@@ -151,17 +166,17 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
-        public IEnumerable<tbUsuarios> Login(string usuario, string contra)
-        {
-            string sql = "EXEC [Acce].[SP_Usuarios_InicioSesion] @Usuario  , @Contra  ;";
+        //public IEnumerable<tbUsuarios> Login(string usuario, string contra)
+        //{
+        //    string sql = "EXEC [Acce].[SP_Usuarios_InicioSesion] @Usuario  , @Contra  ;";
 
-            List<tbUsuarios> result = new List<tbUsuarios>();
-            using (var db = new SqlConnection(PracticaContext.ConnectionString))
-            {
+        //    List<tbUsuarios> result = new List<tbUsuarios>();
+        //    using (var db = new SqlConnection(PracticaContext.ConnectionString))
+        //    {
 
-                result = db.Query<tbUsuarios>(sql, new { Usuario = usuario, Contra = contra }, commandType: CommandType.Text).ToList();
-                return result;
-            }
-        }
+        //        result = db.Query<tbUsuarios>(sql, new { Usuario = usuario, Contra = contra }, commandType: CommandType.Text).ToList();
+        //        return result;
+        //    }
+        //}
     }
 }

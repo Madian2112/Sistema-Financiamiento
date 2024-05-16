@@ -63,6 +63,21 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult ValidarUsuario(string usua, string contra)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _usuarioRepositorio.Login(usua, contra);
+
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error("Lo siento Tit@ Acceso denegado");
+            }
+        }
         public ServiceResult ActualizarUsua(tbUsuarios item)
         {
             var result = new ServiceResult();
@@ -430,6 +445,21 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
+        public ServiceResult PantallasdeRoles(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _roleRepositorio.PantallasdeRoles(id);
+                return result.Ok(list);
+            }
+
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
 
 
 
