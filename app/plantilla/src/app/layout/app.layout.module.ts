@@ -23,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 
+
 import { OverlaysDemoComponent } from '../demo/components/uikit/overlays/overlaysdemo.component'; 
 import { OverlaysDemoRoutingModule } from '../demo/components/uikit/overlays/overlaysdemo-routing.module';
 import { ToastModule } from 'primeng/toast';
@@ -63,7 +64,6 @@ import { TooltipModule } from 'primeng/tooltip';
         ReactiveFormsModule,
         RippleModule,
         RouterModule,
-        
         AppConfigModule,
         AvatarModule,
          BadgeModule,

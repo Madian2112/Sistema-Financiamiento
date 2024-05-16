@@ -2,9 +2,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
 import { OverlayPanel } from 'primeng/overlaypanel';
-import { UsuarioServiceService } from '../../app/demo/service/usuario_service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html'
@@ -17,12 +17,16 @@ export class AppTopBarComponent {
     @ViewChild('topbarmenu', { static: true }) menu!: ElementRef;
     @ViewChild('op', { static: true }) overlayPanel!: OverlayPanel;
 
-    color: string | undefined;
     userName: string = 'Usuario';
     editMode: boolean = false;
     showPencil: boolean = true; 
+    color: string = '#9c27b0';
 
-    constructor(public layoutService: LayoutService,  private cookieService: CookieService, private router: Router) { }
+    constructor(
+        public layoutService: LayoutService,  
+        private cookieService: CookieService, 
+        private router: Router
+    ) { }
 
     showProfile(event: Event) {
         this.overlayPanel.toggle(event);
@@ -43,12 +47,15 @@ export class AppTopBarComponent {
         this.showPencil = false; 
     }
 
-    logOut()
-    {
+    onColorChange(event: any) {
+        this.color = event.value;
+    }
+
+    logOut() {
         this.cookieService.deleteAll();
         window.location.reload();
-        this.router.navigate(['/app/Login']);
-        // window.location.replace('http://localhost:4200');
-
+        // Alternativamente, usa Angular Router para navegar
+        // this.router.navigate(['/app/Login']);
+        window.location.replace('http://localhost:52845');
     }
 }
