@@ -48,6 +48,7 @@ export class PlanpagoCrearComponent implements OnInit {
   formPlanPago: FormGroup;
   listadoPLanPago: PLanPago[] = [];
   pdfSrc: SafeResourceUrl | null = null;
+  usuarioLogueado: string;
 
   usuarioLogueado: string;
   create: string = "";
@@ -68,7 +69,6 @@ export class PlanpagoCrearComponent implements OnInit {
     private dialog: MatDialog,    
     private serviceIMprimir: ImpresionService, 
     private authService: AuthService 
-
   ) {
 
     this.formPlanPago = this.fb.group({
@@ -107,6 +107,7 @@ RegresarPDF(){
 
 PDF(){
 
+  this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
   const encabezado = ["Pago", "Fecha de Pago" , "Saldo Inicial", "Pago", "Capital", "Interés", "Saldo"];
   const cuerpo = [];
   this.pdf = "";
@@ -126,7 +127,6 @@ PDF(){
 
   // PDF con datosde la tabla
   this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte Plan de Pago", this.usuarioLogueado);
-
 }
 
 

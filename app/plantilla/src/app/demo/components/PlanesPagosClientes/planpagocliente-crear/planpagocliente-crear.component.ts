@@ -87,8 +87,13 @@ ocultarEncabezado: boolean = false;
     });
 
    }
+
+   RegresarPDF(){
+    this.pdf = "collapse";
+  }
    
    PDF(){
+    this.pdf = "";
     this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
     /*this._PagoCliente.getPlanPagoClienteDNI(this.formCliente.get('identidad').value).subscribe(
       (data: any) => {
@@ -98,9 +103,6 @@ ocultarEncabezado: boolean = false;
         console.log(error);
       }
     );*/
-
-
-
     const encabezado = ["Pago","Fecha de Pago" , "Saldo Inicial", "Pago", "Capital", "Initereses", "Mora"];
     const cuerpo = [];
    
