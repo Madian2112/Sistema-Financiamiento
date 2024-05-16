@@ -123,7 +123,9 @@ namespace Practica.API.Controllers
                 var insertarfechas = _credirapidServicio.InsertarFechas(i.Pacl_Id, fechafin.ToString(), fechapreview.ToString());
                 x += 1;
                 y += 1;
-             }
+            }
+
+            var detalles = _credirapidServicio.DetallesPP(valor);
 
             if (prueba.Code == 200)
             {

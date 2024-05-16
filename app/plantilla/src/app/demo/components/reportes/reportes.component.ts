@@ -158,6 +158,7 @@ export class ReportesComponent implements OnInit{
     onImprimir() {
       const encabezado = ["Año", "Mes", "Cantidad"];
       this.cuerpo = []; // Inicializar cuerpo
+      const usuario = "";
       
       this.dashboardService.obtenerPrestaPorMes().subscribe(
         data => {
@@ -172,7 +173,7 @@ export class ReportesComponent implements OnInit{
           }
     
           // Generar el PDF una vez que se hayan obtenido los datos
-          this.pdfSrc = this.service.imprimir(encabezado, this.cuerpo, "Reporte de Prestamos Hechos en cada Mes");
+          this.pdfSrc = this.service.imprimir(encabezado, this.cuerpo, "Reporte de Prestamos Hechos en cada Mes", usuario);
         },
         error => {
           console.log("Error:" + error);

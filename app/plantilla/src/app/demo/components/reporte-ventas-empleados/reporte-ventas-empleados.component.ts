@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { AuthService } from 'src/app/demo/service/authGuard.service'; 
 import { RippleModule } from 'primeng/ripple';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
@@ -46,7 +47,7 @@ export class ReporteVentasEmpleadosComponent implements OnInit{
   SucursalId: number;
   cities: SelectItem[] = [];
   selectedDrop: SelectItem = { value: '' };
-
+  usuarioLogueado: string;
   public ListData = [];
   // public encabezado = ["Año","Mes","Cantidad"]
   public cuerpo = [];
@@ -54,7 +55,8 @@ export class ReporteVentasEmpleadosComponent implements OnInit{
     private service: ImpresionService, 
      private dashboardService: DashboardService,
      private sucursalService: SucursalServiceService,
-     private reporteService: ReporteService
+     private reporteService: ReporteService,
+     private authService: AuthService 
     ) { }
   ngOnInit(): void {
     const fechaActual = new Date();
@@ -68,6 +70,7 @@ export class ReporteVentasEmpleadosComponent implements OnInit{
     this.sucursalService.getSucursal().subscribe(data => {
       this.sucursales = data;
       console.log(this.sucursales)
+      this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
     });
 
     
@@ -162,6 +165,7 @@ export class ReporteVentasEmpleadosComponent implements OnInit{
     onImprimir() {
       const encabezado = ["Año", "Mes", "Empleado", "Monto", "Pago Capital", "Pago interes", "Financiamiento", "Cliente", "Marca Vehiculo", "Modelo", "Sucursal"];
       const cuerpo = [];
+
   
       
       this.FiltroPorEstado.forEach(filtro => {
@@ -181,7 +185,7 @@ export class ReporteVentasEmpleadosComponent implements OnInit{
     });
   
       // PDF con datosde la tabla
-      this.pdfSrc = this.service.imprimir(encabezado, cuerpo, "Reporte de Ventas de Empleados");
+      this.pdfSrc = this.service.imprimir(encabezado, cuerpo, "Reporte de Ventas de Empleados", this.usuarioLogueado);
   }
   
 }

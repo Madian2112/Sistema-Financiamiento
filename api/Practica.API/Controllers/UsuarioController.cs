@@ -41,35 +41,42 @@ namespace Practica.API.Controllers
             return Ok(detail);
         }
 
+        [HttpGet("PerfilDetails/{id}")]
+        public IActionResult PerfilDetails(string id)
+        {
+            var modelo = _accesoServicio.DetallePerfil(id);
+            var detail = modelo.First();
+            return Ok(detail);
+        }
+
         [HttpGet("Edit/{id}")]
         public IActionResult Edit(int id)
         {
             var modelo = _accesoServicio.ObtenerUsuaID(id);
             return Json(modelo.Data);
         }
-        [HttpGet("Login/{usuario},{contraseña}")]
-        public IActionResult loginUsuario(string usuario, string contraseña)
+        [HttpGet("Login/{usuario},{contra}")]
+
+        public IActionResult Login(string usuario, string contra)
         {
-            var estado = _accesoServicio.Login(usuario, contraseña);
 
-            var saber = estado.Data as IEnumerable<tbUsuarios>;
 
-            ServiceResult serviceResult = new ServiceResult();
 
-            serviceResult = estado;
+            var list = _accesoServicio.ValidarUsuario(usuario, contra);
 
-            if (saber.ToList().Count == 1)
+
+            var prueba = list.Data as List<tbUsuarios>;
+            if (prueba.Count > 0)
             {
-                serviceResult.Message = "exito";
+                return Ok(list.Data);
             }
-
             else
             {
-                serviceResult.Message = "error";
+                list.Message = "Error";
+                return Ok(list.Data);
             }
 
-            return Ok(serviceResult);
-
+            //return Json(list.Data);
         }
         [HttpPost("Create")]
         public IActionResult Create(UsuarioViewModel item)
