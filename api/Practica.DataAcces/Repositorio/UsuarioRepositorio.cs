@@ -43,17 +43,14 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("Usuario", item.Usuario);
                 parametro.Add("Usua_Usuario", item.Usua_Usuario);
                 parametro.Add("Usua_Color", item.Usua_Color);
-               
 
-                var result = db.Execute(ScriptBaseDatos.Usua_ActualizarPerfil,
-                    parametro,
-                     commandType: CommandType.StoredProcedure
-                    );
+                var result = db.QuerySingle<int>("Acce.SP_PerfilUsuarios_Actualizar", parametro, commandType: CommandType.StoredProcedure);
 
                 string mensaje = (result == 1) ? "Exito" : "Error";
                 return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
             }
         }
+
 
         public RequestStatus Eliminar(int? id)
         {

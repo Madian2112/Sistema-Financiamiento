@@ -72,8 +72,8 @@ export class UsuarioServiceService {
     return this.http.get<FillPerfilUsuario>(`${this.apiUrl}PerfilDetails/${usuario}`);
   }
 
-  actualizarPerfil(Usuario:string,modelo:FillPerfilUsuario):Observable<FillPerfilUsuario>{
-    return this.http.put<FillPerfilUsuario>(`${this.apiUrl}EditPerfil/${Usuario}`,modelo);
+  actualizarPerfil(usuarioOriginal: string, modelo: FillPerfilUsuario): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}EditPerfil/${usuarioOriginal}`, modelo);
   }
 
 

@@ -108,23 +108,22 @@ namespace Practica.BussinesLogic.Servicios
             try
             {
                 var lost = _usuarioRepositorio.EditPerfil(item);
-                if (lost.CodeStatus > 0)
+                if (lost.CodeStatus == 1)
                 {
                     return result.Ok(lost);
                 }
                 else
                 {
-                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "Error: Usuario no encontrado" : lost.MessageStatus;
                     return result.Error(lost);
                 }
-
             }
             catch (Exception ex)
             {
-
                 return result.Error(ex.Message);
             }
         }
+
         public ServiceResult restablecer(tbUsuarios item)
         {
             var result = new ServiceResult();

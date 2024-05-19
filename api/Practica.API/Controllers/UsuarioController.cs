@@ -126,20 +126,24 @@ namespace Practica.API.Controllers
         }
 
         [HttpPut("EditPerfil/{Usuario}")]
-        public IActionResult EditPerfil(string Usuario, UsuarioViewModel item)
+        public IActionResult EditPerfil(string Usuario, [FromBody] UsuarioViewModel item)
         {
-
-            var model = _mapper.Map<tbUsuarios>(item);
             var modelo = new tbUsuarios()
             {
                 Usuario = Usuario,
                 Usua_Usuario = item.Usua_Usuario,
                 Usua_Color = item.Usua_Color
-
             };
-            var listado = _accesoServicio.ActualizarUsuaPerfil(modelo);
-            return Ok(listado);
+            var result = _accesoServicio.ActualizarUsuaPerfil(modelo);
 
+            if (result.Success)
+            {
+                return Ok(new { success = true, message = "Perfil actualizado correctamente" });
+            }
+            else
+            {
+                return StatusCode(500, new { success = false, message = result.Message, data = result.Data });
+            }
         }
 
         [HttpDelete("Delete/{id}")]

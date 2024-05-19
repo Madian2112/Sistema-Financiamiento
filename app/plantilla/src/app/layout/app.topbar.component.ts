@@ -20,6 +20,7 @@ export class AppTopBarComponent implements OnInit {
     @ViewChild('op', { static: true }) overlayPanel!: OverlayPanel;
 
     userName: string = 'Usuario';
+    originalUserName: string = 'Usuario'; 
     editMode: boolean = false;
     showPencil: boolean = true; 
     color: string = '#9c27b0';
@@ -33,6 +34,7 @@ export class AppTopBarComponent implements OnInit {
 
     ngOnInit() {
         this.userName = this.cookieService.get('Usuario') || 'Usuario';
+        this.originalUserName = this.userName;
         const savedColor = this.cookieService.get('usua_Color');
         if (savedColor) {
             this.color = savedColor;
@@ -48,18 +50,23 @@ export class AppTopBarComponent implements OnInit {
             console.log('Nombre de usuario actualizado:', this.userName);
             this.editMode = false;
             this.showPencil = true;
-            this.cookieService.set('Usuario', this.userName); // Guardar el nombre de usuario en las cookies
-            this.cookieService.set('usua_Color', this.color); // Guardar el color en las cookies
+            this.cookieService.set('Usuario', this.userName);
+            this.cookieService.set('usua_Color', this.color); 
 
-            // Llamar al servicio para actualizar el perfil del usuario
+        
             const perfilActualizado: FillPerfilUsuario = {
                 usua_Usuario: this.userName,
                 usua_Color: this.color
             };
 
-            this.usuarioService.actualizarPerfil(this.userName, perfilActualizado).subscribe({
+            this.usuarioService.actualizarPerfil(this.originalUserName, perfilActualizado).subscribe({
                 next: (response) => {
-                    console.log('Perfil actualizado correctamente:', response);
+                    if (response.success) {
+                        console.log('Perfil actualizado correctamente:', response);
+                        this.originalUserName = this.userName; 
+                    } else {
+                        console.error('Error actualizando el perfil:', response.message);
+                    }
                 },
                 error: (error) => {
                     console.error('Error actualizando el perfil:', error);
@@ -77,13 +84,13 @@ export class AppTopBarComponent implements OnInit {
 
     onColorChange(event: any) {
         this.color = event;
-        this.cookieService.set('usua_Color', this.color); // Guardar el color en las cookies
+        this.cookieService.set('usua_Color', this.color); 
     }
 
     logOut() {
         this.cookieService.deleteAll();
         window.location.reload();
-        // Alternativamente, usa Angular Router para navegar
+  
         // this.router.navigate(['/app/Login']);
         window.location.replace('http:/');
     }
