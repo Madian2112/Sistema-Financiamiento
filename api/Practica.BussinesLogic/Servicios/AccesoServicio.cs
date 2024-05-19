@@ -101,6 +101,29 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult ActualizarUsuaPerfil(tbUsuarios item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _usuarioRepositorio.EditPerfil(item);
+                if (lost.CodeStatus == 1)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "Error: Usuario no encontrado" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
         public ServiceResult restablecer(tbUsuarios item)
         {
             var result = new ServiceResult();
@@ -167,9 +190,9 @@ namespace Practica.BussinesLogic.Servicios
             return _usuarioRepositorio.Detalle(id);
         }
 
-        public IEnumerable<tbUsuarios> DetallePerfil(string id)
+        public IEnumerable<tbUsuarios> DetallePerfil(string usuario)
         {
-            return _usuarioRepositorio.Detalle(id);
+            return _usuarioRepositorio.Detalle(usuario);
         }
 
 
