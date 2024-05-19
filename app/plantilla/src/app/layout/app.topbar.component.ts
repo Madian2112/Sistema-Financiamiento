@@ -33,7 +33,12 @@ export class AppTopBarComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.userName = this.cookieService.get('Usuario') || 'Usuario';
+        this.userName = this.cookieService.get('Usuario') || '.';
+        if (this.userName.includes('.')) {
+            this.router.navigate(['/']); // Redirigir al login
+            return; // Detener ejecución si se redirige
+        }
+        
         this.originalUserName = this.userName;
         const savedColor = this.cookieService.get('usua_Color');
         if (savedColor) {
@@ -53,7 +58,6 @@ export class AppTopBarComponent implements OnInit {
             this.cookieService.set('Usuario', this.userName);
             this.cookieService.set('usua_Color', this.color); 
 
-        
             const perfilActualizado: FillPerfilUsuario = {
                 usua_Usuario: this.userName,
                 usua_Color: this.color

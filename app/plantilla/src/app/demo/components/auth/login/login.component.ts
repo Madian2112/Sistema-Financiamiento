@@ -48,18 +48,11 @@ export class LoginComponent {
     this.userService.getLogin(usuario, clave).subscribe({
         next: (data) => {
             if (Array.isArray(data) && data.length > 0) {
-                console.log('Login successful', data);
                 this.cookieService.set('roleID', data[0].rol_Id);
                 this.cookieService.set('esAdmin', data[0].usua_Admin);
-                this.cookieService.set('Usuario', data[0].usua_Usuario);
-
-                console.log('Es admin:', data[0].usua_Admin);
-                console.log('Nombre de Rol almacenado:', data[0].rol_Id);
-                console.log('Nombre del Usuario almacenado:', data[0].usua_Usuario);
+                this.cookieService.set('Usuario', data[0].usua_Usuario);         
                 this.authServiceguard.loadPermissions();
                 this.authService.setUsuarioLogueado(data[0].usua_Usuario);
-
-                // Obtener y almacenar la información del perfil del usuario
                 this.userService.getFillPerfil(data[0].usua_Usuario).subscribe({
                     next: (perfil) => {
                         this.cookieService.set('usua_Color', perfil.usua_Color);

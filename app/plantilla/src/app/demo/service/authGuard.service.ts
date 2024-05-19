@@ -75,8 +75,19 @@ export class AuthService {
           return this.allowedScreens.has(screenName);
       }
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/app/Login']);
       // window.location.reload();
       return false;
+  }
+
+  isAuthenticated(): boolean {
+    // Verifica si la cookie de sesión existe
+    return this.cookieService.check('Usuario');
+  }
+
+  logout() {
+    // Limpia las cookies y redirige al login
+    this.cookieService.deleteAll();
+    this.router.navigate(['/login']);
   }
 }
