@@ -33,10 +33,10 @@ export class AppTopBarComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.userName = this.cookieService.get('Usuario') || '.';
-        if (this.userName.includes('.')) {
-            this.router.navigate(['/']); // Redirigir al login
-            return; // Detener ejecución si se redirige
+        this.userName = this.cookieService.get('Usuario') || '¡';
+        if (this.userName.includes('¡')) {
+            this.router.navigate(['/']); 
+            return; 
         }
         
         this.originalUserName = this.userName;
