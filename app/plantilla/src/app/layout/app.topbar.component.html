@@ -40,6 +40,28 @@
     .p-error {
         color: red;
     }
+
+    .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid black; /* Agregar borde negro */
+}
+
+.avatar-large {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+    border: 2px solid black; /* Agregar borde negro */
+}
+
+
+
 </style>
 
 
@@ -48,7 +70,6 @@
         <img src="assets/demo/images/credirapi-removebg-preview.png" alt="logo" />
         <span style="color: #cc5b1c">Credi</span><span style="color: #a4bd30">Rapid</span>
     </a>
-
 
     <button
         #menubutton
@@ -60,9 +81,6 @@
         <i class="pi pi-bars"></i>
     </button>
 
-
-
-
     <button
         #topbarmenubutton
         class="p-link layout-topbar-menu-button layout-topbar-button"
@@ -72,7 +90,6 @@
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
-
     <div
         #topbarmenu
         class="layout-topbar-menu"
@@ -80,16 +97,13 @@
             'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible
         }"
     >
- 
         <div class="flex gap-1 align-items-center" (click)="showProfile($event)">
-            <p-avatar
-                label="H"
-                [style]="{ 'background-color': color, color: '#ffffff' }"
-                shape="circle"
-            ></p-avatar>
+            <div 
+                class="avatar" 
+                [ngStyle]="{'background-color': color, 'color': '#ffffff'}"
+            >{{ userName.charAt(0).toUpperCase() }}</div>
         </div>
 
-   
         <button
             class="p-link layout-topbar-button"
             [routerLink]="'/documentation'"
@@ -101,67 +115,63 @@
         </button>
     </div>
 
-   <!-- Panel de perfil -->
-<p-overlayPanel #op [style]="{'width': '330px','background-color': '#B6B6B6'}">
-    <div class="card profile-card">
-        <div class="profile-row">
-            
-            <h1 class="text-center">Perfil</h1>
-            <p style="color: white;">_________________________________________</p>
-            <p-avatar
-                label="H"
-                size="xlarge"
-                [style]="{ 'background-color': color, color: '#ffffff' }"
-                shape="circle"
-                class="profile-avatar-button"
-            ></p-avatar>
-            <h2 *ngIf="!editMode">{{ userName }}</h2>
-            <div class="profile-input" *ngIf="editMode">
-                <input 
-                    type="text" 
-                    pInputText 
-                    [(ngModel)]="userName" 
-                    placeholder="Nombre de usuario" 
-                    required 
-                    minlength="3" 
-                    #userNameInput="ngModel"
-                />
-                <div *ngIf="userNameInput.invalid && (userNameInput.dirty || userNameInput.touched)">
-                    <small class="p-error" *ngIf="userNameInput.errors?.required">El nombre de usuario es requerido.</small>
-                    <small class="p-error" *ngIf="userNameInput.errors?.minlength">El nombre de usuario debe tener al menos 3 caracteres.</small>
-                </div>
-            </div>
-            <button 
-                pButton 
-                pRipple 
-                type="button" 
-                icon="pi pi-pencil" 
-                (click)="editName()"
-                pTooltip="Editar nombre"
-                tooltipPosition="top"
-                *ngIf="showPencil"
-                label="Editar Perfil"
-                class="col-sm-6"
-            ></button>
-            <div class="color-picker-container" *ngIf="editMode">
-                <label style="color: white;">Cambiar Color</label>
-                <p-colorPicker [(ngModel)]="color" (onChange)="onColorChange($event)"></p-colorPicker>
-            </div>
-            <button 
-                pButton 
-                icon="pi pi-save" 
-                label="Guardar Perfil"
-                class="profile-avatar-button"
-                (click)="saveName()"
-                *ngIf="editMode"
-            ></button>
-            <p style="color: white;">_________________________________________</p>
-            <button class="p-link layout-topbar-button" (click)="logOut()" aria-label="Cerrar Sesión">
-                <i class="pi pi-sign-out"></i>
-                <span>Cerrar Sesión</span>
-            </button>
-        </div>
-    </div>
-</p-overlayPanel>
+    <!-- Panel de perfil -->
+    <p-overlayPanel #op [style]="{'width': '330px','background-color': '#B6B6B6'}">
+        <div class="card profile-card">
+            <div class="profile-row">
+                <h1 class="text-center">Perfil</h1>
+                <p style="color: white;">_________________________________________</p>
+                <div 
+                    class="avatar avatar-large" 
+                    [ngStyle]="{'background-color': color, 'color': '#ffffff'}"
+                >{{ userName.charAt(0).toUpperCase() }}</div>
 
+                <h2 *ngIf="!editMode">{{ userName }}</h2>
+                <div class="profile-input" *ngIf="editMode">
+                    <input 
+                        type="text" 
+                        pInputText 
+                        [(ngModel)]="userName" 
+                        placeholder="Nombre de usuario" 
+                        required 
+                        minlength="3" 
+                        #userNameInput="ngModel"
+                    />
+                    <div *ngIf="userNameInput.invalid && (userNameInput.dirty || userNameInput.touched)">
+                        <small class="p-error" *ngIf="userNameInput.errors?.required">El nombre de usuario es requerido.</small>
+                        <small class="p-error" *ngIf="userNameInput.errors?.minlength">El nombre de usuario debe tener al menos 3 caracteres.</small>
+                    </div>
+                </div>
+                <button 
+                    pButton 
+                    pRipple 
+                    type="button" 
+                    icon="pi pi-pencil" 
+                    (click)="editName()"
+                    pTooltip="Editar nombre"
+                    tooltipPosition="top"
+                    *ngIf="showPencil"
+                    label="Editar Perfil"
+                    class="col-sm-6"
+                ></button>
+                <div class="color-picker-container" *ngIf="editMode">
+                    <label style="color: white;">Cambiar Color</label>
+                    <p-colorPicker [(ngModel)]="color" (ngModelChange)="onColorChange($event)"></p-colorPicker>
+                </div>
+                <button 
+                    pButton 
+                    icon="pi pi-save" 
+                    label="Guardar Perfil"
+                    class="profile-avatar-button"
+                    (click)="saveName()"
+                    *ngIf="editMode"
+                ></button>
+                <p style="color: white;">_________________________________________</p>
+                <button class="p-link layout-topbar-button" (click)="logOut()" aria-label="Cerrar Sesión">
+                    <i class="pi pi-sign-out"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </div>
+        </div>
+    </p-overlayPanel>
 </div>

@@ -41,10 +41,10 @@ namespace Practica.API.Controllers
             return Ok(detail);
         }
 
-        [HttpGet("PerfilDetails/{id}")]
-        public IActionResult PerfilDetails(string id)
+        [HttpGet("PerfilDetails/{usuario}")]
+        public IActionResult PerfilDetails(string usuario)
         {
-            var modelo = _accesoServicio.DetallePerfil(id);
+            var modelo = _accesoServicio.DetallePerfil(usuario);
             var detail = modelo.First();
             return Ok(detail);
         }
@@ -55,6 +55,11 @@ namespace Practica.API.Controllers
             var modelo = _accesoServicio.ObtenerUsuaID(id);
             return Json(modelo.Data);
         }
+
+  
+
+
+
         [HttpGet("Login/{usuario},{contra}")]
 
         public IActionResult Login(string usuario, string contra)
@@ -99,6 +104,7 @@ namespace Practica.API.Controllers
             var listado = _accesoServicio.Insertarusua(modelo);
             return Ok(listado);
         }
+
         [HttpPut("Edit/{id}")]
         public IActionResult Edit(int id, UsuarioViewModel item)
         {
@@ -117,6 +123,23 @@ namespace Practica.API.Controllers
                 var listado = _accesoServicio.ActualizarUsua(modelo);
                 return Ok(listado);
           
+        }
+
+        [HttpPut("EditPerfil/{Usuario}")]
+        public IActionResult EditPerfil(string Usuario, UsuarioViewModel item)
+        {
+
+            var model = _mapper.Map<tbUsuarios>(item);
+            var modelo = new tbUsuarios()
+            {
+                Usuario = Usuario,
+                Usua_Usuario = item.Usua_Usuario,
+                Usua_Color = item.Usua_Color
+
+            };
+            var listado = _accesoServicio.ActualizarUsuaPerfil(modelo);
+            return Ok(listado);
+
         }
 
         [HttpDelete("Delete/{id}")]

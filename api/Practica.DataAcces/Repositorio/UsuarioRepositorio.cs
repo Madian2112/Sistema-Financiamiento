@@ -35,6 +35,26 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
+        public RequestStatus EditPerfil(tbUsuarios item)
+        {
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("Usuario", item.Usuario);
+                parametro.Add("Usua_Usuario", item.Usua_Usuario);
+                parametro.Add("Usua_Color", item.Usua_Color);
+               
+
+                var result = db.Execute(ScriptBaseDatos.Usua_ActualizarPerfil,
+                    parametro,
+                     commandType: CommandType.StoredProcedure
+                    );
+
+                string mensaje = (result == 1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
+
         public RequestStatus Eliminar(int? id)
         {
             using (var db = new SqlConnection(PracticaContext.ConnectionString))

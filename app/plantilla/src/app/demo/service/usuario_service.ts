@@ -72,6 +72,10 @@ export class UsuarioServiceService {
     return this.http.get<FillPerfilUsuario>(`${this.apiUrl}PerfilDetails/${usuario}`);
   }
 
+  actualizarPerfil(Usuario:string,modelo:FillPerfilUsuario):Observable<FillPerfilUsuario>{
+    return this.http.put<FillPerfilUsuario>(`${this.apiUrl}EditPerfil/${Usuario}`,modelo);
+  }
+
 
   public rolurl = 'https://localhost:44372/API/';
   UrlPantallasRoles = this.rolurl + 'Rol/'
