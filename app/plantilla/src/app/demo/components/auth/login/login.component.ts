@@ -1,73 +1,73 @@
 import { Component } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import { UsuarioServiceService } from '../../../service/usuario_service';
-import { Respuesta } from 'src/app/demo/models/ServiceResult';
 import { Router } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsuarioServiceService } from '../../../service/usuario_service';
+
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/demo/service/authGuard.service';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styles: [`
-        :host ::ng-deep .pi-eye,
-        :host ::ng-deep .pi-eye-slash {
-            transform:scale(1.6);
-            margin-right: 1rem;
-            color: var(--primary-color) !important;
-        }
-    `]
+  selector: 'app-user-login',
+  templateUrl: './login.component.html',
+  styles: [`
+    :host ::ng-deep .pi-eye,
+    :host ::ng-deep .pi-eye-slash {
+      transform: scale(1.6);
+      margin-right: 1rem;
+      color: var(--primary-color) !important;
+    }
+  `]
 })
-
 export class LoginComponent {
+  formUsuario: FormGroup;
+  loginvalidacion = true;
+  errorMessage: string = '';
 
-    valCheck: string[] = ['remember'];
+  constructor(
+    private router: Router,
+    private userService: UsuarioServiceService,
+    private cookieService: CookieService,
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private authServiceguard: AuthService,
+  ) {
+    this.formUsuario = this.fb.group({
+      usuario: ['', Validators.required],
+      clave: ['', Validators.required]
+    });
+  }
 
-    password!: string;
-    formUsuario: FormGroup;
-    loginvalidacion: string = "collapse";
-
-    constructor(
-        public layoutService: LayoutService, 
-        private router: Router, 
-        private fb: FormBuilder,
-        private _usuarioservice: UsuarioServiceService
-    ) 
-    {
-        this.formUsuario = this.fb.group({
-            usuario: [""],
-            clave: [""],
-          });
+  onLogin() {
+    if (this.formUsuario.invalid) {
+      this.errorMessage = 'Usuario y clave son requeridos';
+      return;
     }
 
-    Dashboard(){
-        this.router.navigate(['dashboard']);
-    };
+    const { usuario, clave } = this.formUsuario.value;
 
-    login() {
-
-        this._usuarioservice.getLogin(this.formUsuario.get('usuario').value, this.formUsuario.get('clave').value).subscribe(
-            (respuesta: Respuesta) => {
-                console.log(respuesta.success)
-                console.log(respuesta.data)
-                console.log(respuesta.data.codeStatus)
-                console.log(respuesta.message)
-                console.log(respuesta.code)
-
-                if(respuesta.message == "exito")
-                {
-                    this.loginvalidacion = "collapse";
-                    this.router.navigate(['/app/IndexPrueba']);
-                }
-
-                else
-                {
-                    this.loginvalidacion = "";
-                }
-            },
-            error => {
-                console.error('Error al crear el rol:', error);
+    this.userService.getLogin(usuario, clave).subscribe({
+      next: (data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          console.log('Login successful', data);
+          this.cookieService.set('roleID', data[0].rol_Id);
            
-            }
-        ); // Ajusta la ruta según tu configuración de enrutamiento
-    }
+          this.cookieService.set('esAdmin', data[0].usua_Admin);
+          this.cookieService.set('Usuario', data[0].usua_Usuario);
+
+          console.log('Es admin:', data[0].usua_Admin);
+          console.log('Nombre de Rol almacenado:', data[0].rol_Id);
+          console.log('Nombre del Usuario almacenado:', data[0].usua_Usuario);
+          this.authServiceguard.loadPermissions();  
+          this.router.navigate(['/app/IndexPrueba']);
+        } else {
+          this.errorMessage = 'Usuario o contraseña incorrectos';
+          console.error('Login failed: Incorrect credentials');
+        }
+      },
+      error: (error) => {
+        this.errorMessage = 'Error en la conexión con el servidor';
+        console.error('Login failed:', error);
+      }
+    });
+  }
 }

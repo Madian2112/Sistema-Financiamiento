@@ -63,6 +63,7 @@ export class PagoClienteFechaPrevia{
     papa_Intereses_Monto: number;
     monto_Mora: number;
     minimoPagar: number;
+    pacl_Capital_Restar: number;
 }
 
 export class PagoClientePapaID{

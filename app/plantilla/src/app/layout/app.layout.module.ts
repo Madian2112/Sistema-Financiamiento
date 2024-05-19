@@ -19,8 +19,10 @@ import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+
 
 import { OverlaysDemoComponent } from '../demo/components/uikit/overlays/overlaysdemo.component'; 
 import { OverlaysDemoRoutingModule } from '../demo/components/uikit/overlays/overlaysdemo-routing.module';
@@ -59,6 +61,7 @@ import { TooltipModule } from 'primeng/tooltip';
         RadioButtonModule,
         InputSwitchModule,
         ConfirmDialogModule,
+        ReactiveFormsModule,
         RippleModule,
         RouterModule,
         AppConfigModule,
@@ -81,6 +84,8 @@ import { TooltipModule } from 'primeng/tooltip';
 		ConfirmPopupModule,
         ColorPickerModule,
     ],
-    exports: [AppLayoutComponent]
+    exports: [AppLayoutComponent],
+    providers: [],
+    bootstrap: [AppLayoutComponent]
 })
 export class AppLayoutModule { }

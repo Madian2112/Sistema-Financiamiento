@@ -122,7 +122,12 @@ namespace Practica.API.Controllers
         }
 
 
-
+        [HttpGet("PantallasdeRoles/{id}")]
+        public IActionResult PantallasdeRoles(int id)
+        {
+            var list = _accesoServicio.PantallasdeRoles(id);
+            return Ok(list.Data);
+        }
 
         [HttpPut("Edit")]
         public IActionResult Update(FormData formData)
