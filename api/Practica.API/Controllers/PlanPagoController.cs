@@ -36,6 +36,15 @@ namespace Practica.API.Controllers
             return Ok(list.Data);
         }
 
+        [HttpGet("Listar/{Usua_Usuario}")]
+        public IActionResult Listar(string Usua_Usuario)
+        {
+            var modelo = _credirapidServicio.Listar(Usua_Usuario);
+            return Ok(modelo.Data);
+        }
+
+
+
         [HttpGet("Details/{id}")]
         public IActionResult Details(int id)
         {

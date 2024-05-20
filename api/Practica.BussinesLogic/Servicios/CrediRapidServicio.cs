@@ -154,6 +154,21 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
+        public ServiceResult Listar(string Usua_Usuario)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoRepositorio.Listar(Usua_Usuario);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+
         public ServiceResult InsertarPlanPago(tbPlanesPagos item)
         {
             var result = new ServiceResult();
