@@ -16,7 +16,7 @@ export class EmpleadoServiceService {
   private endpoint: string = environment.endPoint;
   private apiUrl: string = this.endpoint + "API/Empleado/";
   constructor(private http: HttpClient) { }
-  Url = 'https://localhost:44372/API/Empleado/List';
+  Url = 'http://dbcredirapid.somee.com/API/Empleado/List';
 
   getMunicipios(codigo){
     return this.http.get<dropMunicipio[]>(this.endpoint + 'API/Departamento/Municipios/' + codigo )

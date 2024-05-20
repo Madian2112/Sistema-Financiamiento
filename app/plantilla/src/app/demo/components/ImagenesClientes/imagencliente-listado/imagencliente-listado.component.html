@@ -63,7 +63,7 @@
                                     <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="vehiculo" id="vehiculo">
                                         <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione</option>
                                         <option style="background-color: #121212; color: aliceblue;" *ngFor="let vehiculo of vehiculo" [ngValue]="vehiculo.vehi_Id" [attr.selected]="vehiculo.mode_Descripcion + ', '+ vehiculo.marc_Descripcion + ', ' + vehiculo.clie_Nombre  ">
-                                            {{ departamento.dept_Descripcion }}
+                                            {{ vehiculo.vecl_Id }}
                                         </option>
                                     </select>                                
                                 </div>   
@@ -156,16 +156,16 @@
                     <tr>
                         <td>{{tablaimagencliente.imcl_Id}}</td>
                         <td>
-                        <img *ngIf="bebi.bebi_Imagen" [src]="'https://localhost:44372/uploads/' + tablaimagencliente.imcl_Imagen"
+                        <img *ngIf="vehiculo.imcl_Imagen" [src]="'http://dbcredirapid.somee.com/Subir/' + tablaimagencliente.imcl_Imagen"
                         alt="Imagen de postre" width="100">
                         </td>
                         <td>{{tablaimagencliente.vehi_Placa}}</td>
                         <td>{{tablaimagencliente.mode_Descripcion}}</td>
                         <td>{{tablaimagencliente.marc_Descripcion}}</td>
                         <td style="display: flex; grid-gap:10px">
-                            <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editar(municipio)"></button>
-                            <button pButton pRipple type="button" label="Detalles" class="p-button-info" (click)="detalles(municipio.muni_Id)"></button>
-                            <button pButton pRipple type="button" label="Eliminar" class="p-button-danger" (click)="confirmarEliminar(municipio)" ></button>
+                            <button pButton pRipple type="button" label="Editar" icon="pi pi-pencil" class="p-button-warning" (click)="editar(municipio)"></button>
+                            <button pButton pRipple type="button" label="Detalles" icon="pi pi-info-circle" class="p-button-info" (click)="detalles(municipio.imcl_Id)"></button>
+                            <button pButton pRipple type="button" label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="confirmarEliminar(municipio)" ></button>
                         </td>
                     </tr>
                 </ng-template>

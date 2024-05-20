@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
     }
 
     EnviarImagen(file : any): Observable<any>{
-        return this.http.post<ImagenCliente[]>(this.endpoint + '/Subir/', file).pipe(
+        return this.http.post<ImagenCliente[]>(this.endpoint + 'Subir/', file).pipe(
           map(response => {
             return response;
           }),

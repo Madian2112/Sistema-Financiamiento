@@ -6,10 +6,12 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { UsuarioServiceService } from '../demo/service/usuario_service';
 import { FillPerfilUsuario } from '../demo/models/UsuarioViewModel';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-topbar',
-    templateUrl: './app.topbar.component.html'
+    templateUrl: './app.topbar.component.html',
+    providers: [MessageService]
 })
 export class AppTopBarComponent implements OnInit {
     items!: MenuItem[];
@@ -18,7 +20,7 @@ export class AppTopBarComponent implements OnInit {
     @ViewChild('topbarmenubutton', { static: true }) topbarMenuButton!: ElementRef;
     @ViewChild('topbarmenu', { static: true }) menu!: ElementRef;
     @ViewChild('op', { static: true }) overlayPanel!: OverlayPanel;
-
+    display: boolean = false;
     userName: string = 'Usuario';
     originalUserName: string = 'Usuario'; 
     editMode: boolean = false;
@@ -29,6 +31,7 @@ export class AppTopBarComponent implements OnInit {
         public layoutService: LayoutService,  
         private cookieService: CookieService, 
         private router: Router,
+        private messageService: MessageService,
         private usuarioService: UsuarioServiceService
     ) { }
 
@@ -66,6 +69,8 @@ export class AppTopBarComponent implements OnInit {
             this.usuarioService.actualizarPerfil(this.originalUserName, perfilActualizado).subscribe({
                 next: (response) => {
                     if (response.success) {
+                        this.display = false;
+                        this.messageService.add({severity:'success', summary:'Éxito', detail:'Datos actualizados correctamente!'});
                         console.log('Perfil actualizado correctamente:', response);
                         this.originalUserName = this.userName; 
                     } else {

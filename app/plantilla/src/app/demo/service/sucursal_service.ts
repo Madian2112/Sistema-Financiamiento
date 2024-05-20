@@ -15,7 +15,7 @@ export class SucursalServiceService {
   private apiUrl: string = this.endpoint + "API/Sucursal/";
   private apiUrlm: string = this.endpoint + "API/Departamento/";
   constructor(private http: HttpClient) { }
-  Url = 'https://localhost:44372/API/Sucursal/List';
+  Url = 'http://dbcredirapid.somee.com/API/Sucursal/List';
 
   getMunicipios(codigo){
     return this.http.get<dropMunicipio[]>(this.endpoint + 'API/Departamento/Municipios/' + codigo )

@@ -24,7 +24,7 @@ import { EmpleadosCrearComponent } from "./demo/components/Empleados/empleados-c
 import { ClientesCrearComponent } from "./demo/components/Clientes/clientes-crear/clientes-crear.component";
 import { PlanpagoCrearComponent } from "./demo/components/PlanesPagos/planpago-crear/planpago-crear.component";
 import {DashboardsComponent} from './demo/components/dashboards/dashboards.component';
-import {ListRolComponent} from './demo/components/Rol/rol-listado/rol-listado.component';
+import {ImagenclienteListadoComponent} from './demo/components/ImagenesClientes/imagencliente-listado/imagencliente-listado.component';
 import {ReportesComponent} from './demo/components/reportes/reportes.component';
 import { ReportePrestamosAprobadosComponent } from './demo/components/reporte-prestamos-aprobados/reporte-prestamos-aprobados.component';
 import { ReporteClientesMoraComponent } from './demo/components/reporte-clientes-mora/reporte-clientes-mora.component';
@@ -79,6 +79,7 @@ import { PlanpagoclienteCrearComponent } from './demo/components/PlanesPagosClie
                     { path: 'CrearEmpleados', component: EmpleadosCrearComponent },
                     { path: 'CrearClientes', component: ClientesCrearComponent },
                     { path: 'CrearPlanPago', component: PlanpagoCrearComponent },
+                    { path: 'ImagenesClientes', component: ImagenclienteListadoComponent },
                     { path: 'CrearPlanPagoCliente', component: PlanpagoclienteCrearComponent }
                 ]
             },

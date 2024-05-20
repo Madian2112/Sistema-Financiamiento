@@ -20,7 +20,7 @@ namespace Practica.DataAcces.Repositorio
 
         public IEnumerable<tbImagenesPorClientes> List()
         {
-            string sql = "Cred.sp_ImagenesPorVehiculos_Insertar";
+            string sql = "Cred.sp_ImagenesPorVehiculos_Mostrar";
             List<tbImagenesPorClientes> result = new List<tbImagenesPorClientes>();
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {
@@ -63,7 +63,7 @@ namespace Practica.DataAcces.Repositorio
 
         public RequestStatus Insertar(tbImagenesPorClientes item)
         {
-            string sql = "Cred.sp_ImagenesPorVehiculos_Mostrar";
+            string sql = "Cred.sp_ImagenesPorVehiculos_Insertar";
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {
                 var parametro = new DynamicParameters();
