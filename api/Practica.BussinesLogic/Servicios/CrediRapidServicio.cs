@@ -17,9 +17,11 @@ namespace Practica.BussinesLogic.Servicios
         private readonly TipoCuotaRepositorio _tipocuotaRepositorio;
         private readonly PlanPagoRepositorio _planpagoRepositorio;
         private readonly PlanPagoClienteRepositorio _planpagoclienteRepositorio;
+        private readonly ImagenesClientesRepositorio _imagenesClienresRepositorio;
+
         public CrediRapidServicio(MarcaRepositorio marcaRepositorio, ModeloRepositorio modeloRepositorio,
             VehiculoRepositorio vehiculoRepositorio, TipoCuotaRepositorio tipoCuotaRepositorio, PlanPagoRepositorio planPagoRepositorio,
-            PlanPagoClienteRepositorio planPagoClienteRepositorio)
+            PlanPagoClienteRepositorio planPagoClienteRepositorio, ImagenesClientesRepositorio imagenesClienresRepositorio)
         {
             _marcaRepositorio = marcaRepositorio;
             _modeloRepositorio = modeloRepositorio;
@@ -27,6 +29,7 @@ namespace Practica.BussinesLogic.Servicios
             _tipocuotaRepositorio = tipoCuotaRepositorio;
             _planpagoRepositorio = planPagoRepositorio;
             _planpagoclienteRepositorio = planPagoClienteRepositorio;
+            _imagenesClienresRepositorio = imagenesClienresRepositorio;
         }
 
         #region Tipos Cuotas
@@ -154,6 +157,21 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
+        public ServiceResult Listar(string Usua_Usuario)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoRepositorio.Listar(Usua_Usuario);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+
         public ServiceResult InsertarPlanPago(tbPlanesPagos item)
         {
             var result = new ServiceResult();
@@ -280,6 +298,11 @@ namespace Practica.BussinesLogic.Servicios
         public IEnumerable<tbPlanesPagosClientes> BuscarPapaID(string id)
         {
             return _planpagoclienteRepositorio.BuscarDNI(id);
+        }
+
+        public IEnumerable<tbPlanesPagos> BuscarInteresRestar(int id)
+        {
+            return _planpagoclienteRepositorio.BuscarInteresRestante(id);
         }
 
         public ServiceResult SaberMora(int id)
@@ -1024,6 +1047,87 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
 
+        }
+
+        #endregion
+
+        #region ImagenesClientes 
+        public ServiceResult ListVehiculoImagen()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _imagenesClienresRepositorio.List();
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarVehiculoiImagen(tbImagenesPorClientes item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _imagenesClienresRepositorio.Insertar(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ListadoVehiculos()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _imagenesClienresRepositorio.ListVehiculos();
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarImagenPorCliente(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _imagenesClienresRepositorio.Eliminar(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
         }
 
         #endregion

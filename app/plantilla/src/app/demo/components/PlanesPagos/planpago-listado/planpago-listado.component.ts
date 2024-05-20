@@ -23,6 +23,7 @@ import { MessageService } from 'primeng/api';
 import {DialogAddEditComponent} from 'src/app/demo/Dialogs/dialog-add-edit/dialog-add-edit.component';
 import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -46,7 +47,9 @@ export class PlanpagoListadoComponent implements OnInit {
     private router: Router ,
     private fb:FormBuilder,
     private _PlanPagoservice:PLanPagoServiceService,
-    private dialog: MatDialog, ) 
+    private dialog: MatDialog,
+    private cookieService: CookieService
+   ) 
   {
     this.formPlanPago = this.fb.group({
       financiamiento:[""],
@@ -61,13 +64,16 @@ export class PlanpagoListadoComponent implements OnInit {
      
     })
 
-    this._PlanPagoservice.getPLanPago().subscribe(
-      (data : any) =>{
+    const usuario = this.cookieService.get('Usuario');
+    this.service.getPlanpagoFiltrados(usuario).subscribe(
+      (data: any) => {
         this.listadoPlanPago = data;
-    },error => {
-      console.log(error)
-    }
-  );
+      }, 
+      error => {
+        console.log(error);
+      }
+    );
+  
   
   }
 
@@ -219,18 +225,19 @@ actualizar() {
   })
 }
 
-  ngOnInit(): void {
-    this.service.getPLanPago().subscribe(
-      (data: any) => {
-        console.log(data);
-        this.planpago = data;
-        console.log(this.planpago);
-      },
-       error => {
-        console.log(error);
-      }
-    );
-  }
+ngOnInit(): void {
+  const usuario = this.cookieService.get('Usuario');
+  this.service.getPlanpagoFiltrados(usuario).subscribe(
+    (data: any) => {
+      console.log(data);
+      this.planpago = data;
+      console.log(this.planpago);
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
 }
 
 @NgModule({

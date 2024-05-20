@@ -18,7 +18,7 @@ namespace Practica.Common.Models
         public int? Empl_Id { get; set; }
         public int? Rol_Id { get; set; }
         public string Rol_Descripcion { get; set; }
-
+        public string Usuario { get; set; }
         public int? Usua_Usua_Creacion { get; set; }
         public DateTime? Usua_Fecha_Creacion { get; set; }
         public int? Usua_Usua_Modifica { get; set; }

@@ -18,7 +18,7 @@ export class UsuarioServiceService {
   constructor(private http: HttpClient) { }
   private endpoint: string = environment.endPoint;
   private apiUrl: string = this.endpoint + "API/Usuario/";
-  private apiUrlR: string = this.endpoint + "API/Role/";
+  private apiUrlR: string = this.endpoint + "API/Rol/";
   private apiUrlE: string = this.endpoint + "API/Empleado/";
 
   /* LOGIN USUARIO */
@@ -70,6 +70,10 @@ export class UsuarioServiceService {
 
   getFillPerfil(usuario: string): Observable<FillPerfilUsuario> {
     return this.http.get<FillPerfilUsuario>(`${this.apiUrl}PerfilDetails/${usuario}`);
+  }
+
+  actualizarPerfil(usuarioOriginal: string, modelo: FillPerfilUsuario): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}EditPerfil/${usuarioOriginal}`, modelo);
   }
 
 

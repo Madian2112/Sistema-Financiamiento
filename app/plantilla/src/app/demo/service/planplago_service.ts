@@ -51,6 +51,10 @@ export class PLanPagoServiceService {
     return this.http.get<Respuesta>(this.endpoint + 'API/PlanPago/ValidarCliente/' + id);
   }
 
+  getPlanpagoFiltrados(Usua_Usuario: string): Observable<PLanPago[]> {
+    return this.http.get<PLanPago[]>(`${this.apiUrl}Listar/${Usua_Usuario}`);
+  }
+
   getTipoCuota (){
     return this.http.get<TipoCuota[]>(this.endpoint+ 'API/TipoCuota/List');
   }

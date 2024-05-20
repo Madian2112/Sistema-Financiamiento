@@ -110,6 +110,20 @@ namespace Practica.DataAcces.Repositorio
                 return result;
             }
         }
+
+        public IEnumerable<tbPlanesPagos> Listar(string Usua_Usuario)
+        {
+
+
+            List<tbPlanesPagos> result = new List<tbPlanesPagos>();
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new { Usua_Usuario = Usua_Usuario };
+                result = db.Query<tbPlanesPagos>(ScriptBaseDatos.Papa_ListarAdmin, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
         public IEnumerable<tbPlanesPagos> Detalle(int Papa_Id)
         {
 

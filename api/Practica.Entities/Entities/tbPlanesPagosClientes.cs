@@ -110,6 +110,9 @@ namespace Practica.Entities.Entities
         [NotMapped]
         public decimal Pacl_Saldo { get; set; }
 
+        [NotMapped]
+        public decimal Papa_Total_Intereses_Restados { get; set; }
+
         public virtual tbUsuarios Pacl_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Pacl_Usua_ModiNavigation { get; set; }
         public virtual tbPlanesPagos Papa { get; set; }

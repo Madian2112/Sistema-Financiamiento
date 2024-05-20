@@ -89,6 +89,9 @@ namespace Practica.Entities.Entities
         [NotMapped]
         public string Pacl_Fecha_Pago { get; set; }
 
+        [NotMapped]
+        public decimal Papa_Total_Intereses_Restados { get; set; }
+
 
         public virtual tbUsuarios Papa_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Papa_Usua_ModiNavigation { get; set; }

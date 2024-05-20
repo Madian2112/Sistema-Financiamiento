@@ -55,6 +55,7 @@ namespace Practica.Entities.Entities
         public string Usua_Usuario { get; set; }
         public string Usua_Color { get; set; }
         public string Usua_Contra { get; set; }
+        public string Usuario { get; set; }
         public int? Usua_Admin { get; set; }
         public int? Empl_Id { get; set; }
     
