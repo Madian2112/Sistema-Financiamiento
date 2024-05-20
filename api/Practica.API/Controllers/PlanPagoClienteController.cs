@@ -96,9 +96,18 @@ namespace Practica.API.Controllers
         [HttpPut("PagarCuota/")]
         public IActionResult InsertarCuota(PagosClientesViewModel item)
         {
+            var data = _credirapidServicio.BuscarInteresRestar(item.Papa_Id);
+
+            decimal interes = 0;
+
+            foreach (var hola in data)
+            {
+                interes = hola.Papa_Total_Intereses_Restados;
+            }
 
             var modelo = new tbPlanesPagosClientes()
             {
+                Papa_Total_Intereses_Restados = interes,
                 Pacl_Id = item.Pacl_Id,
                 Papa_Id = item.Papa_Id,
                 Pacl_Monto_Pago = item.Pacl_Monto_Pago,
