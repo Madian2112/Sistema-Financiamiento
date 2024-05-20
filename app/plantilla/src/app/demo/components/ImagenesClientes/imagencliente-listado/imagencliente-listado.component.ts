@@ -1,6 +1,7 @@
 import { Component, OnInit, NgModule  } from '@angular/core';
 import { Router } from '@angular/router';
-import {  ImagenCliente, Fill, Tabla, Vehiculo } from '../../../models/ImagenClienteViewModel';
+import {  ImagenCliente, Fill, Tabla } from '../../../models/ImagenClienteViewModel';
+import {  Vehiculo } from '../../../models/VehiculoViewModel';
 import { Departamento } from '../../../models/Departamentoviewmodel';
 import { ImagenClienteService } from '../../../service/imagencliente';
 import { CommonModule } from '@angular/common';
@@ -30,6 +31,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { PLanPagoServiceService } from '../../../service/planplago_service';
 
 
 @Component({
@@ -41,7 +43,7 @@ export class ImagenclienteListadoComponent implements OnInit {
 
   imagencliente!: ImagenCliente[];
   display: boolean = false;
-  vehiculo : Vehiculo [];
+  vehiculos : Vehiculo [];
   departamentos: ImagenCliente[];
   tablaimagencliente: Tabla [];
   formImagenCliente: FormGroup;
@@ -64,6 +66,7 @@ export class ImagenclienteListadoComponent implements OnInit {
 
   constructor(    
     private service:  ImagenClienteService, 
+    private service1:  PLanPagoServiceService, 
     private router: Router ,
     private fb:FormBuilder,
     private _imagenclienre:ImagenClienteService,
@@ -303,8 +306,8 @@ export class ImagenclienteListadoComponent implements OnInit {
       }
     );
 
-    this.service.getVehiculo().subscribe(data => {
-      this.vehiculo = data;
+    this.service1.getVehiculo().subscribe(data => {
+      this.vehiculos = data;
     });
 
   }
