@@ -30,6 +30,9 @@ namespace Practica.Entities.Entities
         [NotMapped]
         public string Usua_Modifica { get; set; }
 
+        [NotMapped]
+        public string Vecl_Imagen { get; set; }
+
         public virtual tbClientes Clie { get; set; }
         public virtual tbUsuarios Vecl_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Vecl_Usua_ModificaNavigation { get; set; }

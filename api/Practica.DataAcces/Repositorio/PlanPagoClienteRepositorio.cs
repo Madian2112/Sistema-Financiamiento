@@ -17,6 +17,7 @@ namespace Practica.DataAcces.Repositorio
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {
                 var parametro = new DynamicParameters();
+                parametro.Add("InteresRestados", item.Papa_Total_Intereses_Restados);
                 parametro.Add("Pacl_Id", item.Pacl_Id);
                 parametro.Add("Papa_Id", item.Papa_Id);
                 parametro.Add("Pacl_Monto_Pago", item.Pacl_Monto_Pago);
@@ -31,8 +32,21 @@ namespace Practica.DataAcces.Repositorio
                      commandType: CommandType.StoredProcedure
                     );
 
-                string mensaje = (result == -1) ? "Exito" : "Error";
+                string mensaje = (result != -1) ? "Exito" : "Error";
                 return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
+
+        public IEnumerable<tbPlanesPagos> BuscarInteresRestante(int? Papa_Id)
+        {
+
+            List<tbPlanesPagos> result = new List<tbPlanesPagos>();
+            string sp = "Cred.sp_BuscarInteresRestado"; 
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new { Papa_Id = Papa_Id };
+                result = db.Query<tbPlanesPagos>(sp, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
             }
         }
 

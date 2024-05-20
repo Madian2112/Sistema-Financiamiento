@@ -30,6 +30,7 @@ namespace Practica.BussinesLogic.Servicios
             service.AddScoped<PlanPagoClienteRepositorio>();
             service.AddScoped<PlanPagoRepositorio>();
             service.AddScoped<PantallaPorRolRepositorio>();
+            service.AddScoped<ImagenesClientesRepositorio>();
             PracticaContext.BuildConnectionString(conn);
         }
         public static void BussinesLogic(this IServiceCollection service)

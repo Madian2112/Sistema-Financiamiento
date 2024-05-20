@@ -25,7 +25,8 @@ export class Fill{
 }
 
 export class FillPerfilUsuario{
-    usua_Id: number;
+    usua_Id?: number;
     usua_Usuario: string;
     usua_Color: string;
+    usuario?: string;
 }

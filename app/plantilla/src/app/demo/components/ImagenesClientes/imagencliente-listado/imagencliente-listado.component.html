@@ -50,52 +50,35 @@
     <div class="col-12">
         <div class="{{tabla}}">
         <div class="card">
-            <h1>Sucursales</h1>
-                        <p-dialog header="{{modalTitle}}" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
-                <form [formGroup]="formSucursal">
+            <h1>Imagenes de Clientes</h1>
+            <p-dialog header="{{modalTitle}}" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+                <form [formGroup]="formImagenCliente">
                     <div class="p-fluid">
                     
                         <div class="row">
-                        <div class="col-sm-6">
-                        <div class="form-group">
-                                <label htmlFor="name2">Calle</label>
-                                <input pInputText formControlName="calleeee" autocomplete="off" id="calleeee" type="text" />
-                        </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                    <label htmlFor="name2">Direccion</label>
-                                    <input pInputText formControlName="direccionnnn" autocomplete="off" id="direccionnnn" type="text" />
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <label htmlFor="marca">Vehiculo</label>
+                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="vehiculo" id="vehiculo">
+                                        <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione</option>
+                                        <option style="background-color: #121212; color: aliceblue;" *ngFor="let vehiculo of vehiculo" [ngValue]="vehiculo.vehi_Id" [attr.selected]="vehiculo.mode_Descripcion + ', '+ vehiculo.marc_Descripcion + ', ' + vehiculo.clie_Nombre  ">
+                                            {{ departamento.dept_Descripcion }}
+                                        </option>
+                                    </select>                                
+                                </div>   
                             </div>
-                        </div>
-                        </div>
-                        <div class="row" style="margin-left: 1%;">
-                        <div class="col-sm-5">
+                            </div> 
+                        <div class="col-sm-6">
                             <div class="form-group">
-                            <div class="row">
-                                <label htmlFor="marca">Departamentos</label>
-                                <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="departamento" id="departamento"
-                                (change)="onDepartmentChange(formSucursal.get('departamento').value)" >
-                                    <option style="background-color: #121212; color: rgb(14, 55, 92);" [value]="">Seleccione</option>
-                                    <option style="background-color: #121212; color: aliceblue;" *ngFor="let departamento of departamentos" [ngValue]="departamento.dept_Id">
-                                        {{ departamento.dept_Descripcion }}
-                                    </option>
-                                </select>                                
-                            </div>   
+                                <label>Imagen:</label>
+                                <p-fileUpload #fileUpload name="demo[]" [mode]="'basic'" (onSelect)="onUpload($event)"
+                                    [multiple]="false" accept="image/*" [maxFileSize]="1000000"
+                                    chooseLabel="{{ showFileUpload ? 'Seleccione' : '' }}">
+                                </p-fileUpload>
+                           </div>
                         </div>
-                    </div>
-                        <div class="col-sm-5" style="margin-left: 13%">
-                            <div class="form-group">
-                            <div class="row">
-                                <label htmlFor="marca">Municipios</label>
-                                <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="municipio" id="municipio">
-                                    <option style="background-color: #121212; color: aliceblue;" *ngFor="let municipio of municipios" [ngValue]="municipio.value">{{ municipio.text }}
-                                    </option>
-                                </select>                                
-                            </div>   
                         </div>
-                        </div> 
-                    </div>
                     </div>
                 </form>
                 <ng-template pTemplate="footer">
@@ -109,8 +92,9 @@
                     <button (click)="displayNuevo()" pButton icon="pi pi-external-link" label="Nuevo"></button>
                 </div>
             </div>
-            <p-table [value]="sucursal" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
-                [paginator]="true" [globalFilterFields]="['sucu_Id','sucu_Calle', 'sucu_Direccion', 'muni_Descripcion', 'dept_Descripcion', 'muni_Id' ,'dept_Id']" responsiveLayout="scroll">
+            <p-table [value]="tablaimagencliente" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+                [paginator]="true" [globalFilterFields]="['imcl_Id','imcl_Imagen', 'vehi_Placa', 'mode_Descripcion', 'marc_Descripcion']"
+                responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
@@ -127,60 +111,61 @@
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
                                 Código
-                                <p-columnFilter type="text" field="sucu_Id" display="menu"
+                                <p-columnFilter type="text" field="imcl_Id" display="menu"
                                     placeholder="Buscar por código"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Calle
-                                <p-columnFilter type="text" field="sucu_Calle" display="menu"
+                                Imagen
+                                <p-columnFilter type="text" field="imcl_Imagen" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Direccion
-                                <p-columnFilter type="text" field="sucu_Direccion" display="menu"
+                                Placa 
+                                <p-columnFilter type="text" field="vehi_Placa" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Municipio
-                                <p-columnFilter type="text" field="muni_Descripcion" display="menu"
+                                Modelo
+                                <p-columnFilter type="text" field="mode_Descripcion" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Departamento
-                                <p-columnFilter type="text" field="dept_Descripcion" display="menu"
+                                Marca
+                                <p-columnFilter type="text" field="marc_Descripcion" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                             Acciones
-                       
+                                Acciones
+
                             </div>
                         </th>
 
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-sucursal>
+                <ng-template pTemplate="body" let-tablaimagencliente>
                     <tr>
-                        <td>{{sucursal.sucu_Id}}</td>
-                        <td>{{sucursal.sucu_Calle}}</td>
-                        <td>{{sucursal.sucu_Direccion}}</td>
-                        <td>{{sucursal.muni_Descripcion}}</td>
-                        <td>{{sucursal.dept_Descripcion}}</td>
-                        <td class="collapse">{{sucursal.muni_Id}}</td>
-                        <td class="collapse">{{sucursal.dept_Id}}</td>
-                        <td  style="display: flex; grid-gap:10px">
-                            <button pButton pRipple type="button" label="Editar" icon="pi pi-pencil" class="p-button-warning" (click)="editar(sucursal)"></button>
-                            <button pButton pRipple type="button" label="Detalles" icon="pi pi-info-circle" class="p-button-info" (click)="detalles(sucursal.sucu_Id)"></button>
-                            <button pButton pRipple type="button" label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="confirmarEliminar(sucursal)" ></button>
+                        <td>{{tablaimagencliente.imcl_Id}}</td>
+                        <td>
+                        <img *ngIf="bebi.bebi_Imagen" [src]="'https://localhost:44372/uploads/' + tablaimagencliente.imcl_Imagen"
+                        alt="Imagen de postre" width="100">
+                        </td>
+                        <td>{{tablaimagencliente.vehi_Placa}}</td>
+                        <td>{{tablaimagencliente.mode_Descripcion}}</td>
+                        <td>{{tablaimagencliente.marc_Descripcion}}</td>
+                        <td style="display: flex; grid-gap:10px">
+                            <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editar(municipio)"></button>
+                            <button pButton pRipple type="button" label="Detalles" class="p-button-info" (click)="detalles(municipio.muni_Id)"></button>
+                            <button pButton pRipple type="button" label="Eliminar" class="p-button-danger" (click)="confirmarEliminar(municipio)" ></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -197,18 +182,19 @@
             </p-table>
         </div>
     </div>
-    <p-dialog header="Confirmar Eliminación" [(visible)]="confirmacionVisible" modal="true" [style]="{ width: '300px' }">
-        <p>¿Está seguro de que desea eliminar este registro?</p>
-        <p-footer>
-          <button pButton type="button" class="mr-2" label="Cancelar" (click)="cancelarEliminar()"></button>
-          <button pButton type="button" label="Confirmar" class="p-button-danger" (click)="eliminar()"></button>
-        </p-footer>
-      </p-dialog>
-        <div class="{{detalless}}">
+    
+        <p-dialog header="Confirmar Eliminación" [(visible)]="confirmacionVisible" modal="true" [style]="{ width: '300px' }">
+            <p>¿Está seguro de que desea eliminar este registro?</p>
+            <p-footer>
+              <button pButton type="button" class="mr-2" label="Cancelar" (click)="cancelarEliminar()"></button>
+             <!-- <button pButton type="button" label="Confirmar" class="p-button-danger" (click)="eliminar()"></button> -->
+            </p-footer> 
+          </p-dialog>
+          <div class="{{detalless}}">
             <div class="card">
               <div class="card-header ">
                   <div class="d-flex justify-content-between">
-                      <h3 class="card-title titulo">Detalles - Sucursakes</h3>
+                      <h3 class="card-title titulo">Detalles - Municipios</h3>
                   </div>
               </div>
               <div>
@@ -219,36 +205,18 @@
                               ID
                           </dt>
                           <dd class="col-sm-12 letras-content">
-                              {{sucu_Id}}
+                              {{muni_Id}}
                           </dd>
                       </dl>
                       <dl class="form-group col-sm-3">
                           <dt class="col-sm-12 letras">
-                              Calle
+                              Municipio
                           </dt>
                           <dd class="col-sm-12 letras-content">
-                              {{sucu_Calle}}
+                              {{muni_Descripcion}}
                           </dd>
                       </dl>
                       <dl class="form-group col-sm-3">
-                        <dt class="col-sm-12 letras">
-                            Direccion
-                        </dt>
-                        <dd class="col-sm-12 letras-content">
-                            {{sucu_Direccion}}
-                        </dd>
-                    </dl>
-                  </dl>
-                  <dl class="row">
-                    <dl class="form-group col-sm-3">
-                        <dt class="col-sm-12 letras">
-                            Municipio
-                        </dt>
-                        <dd class="col-sm-12 letras-content">
-                            {{muni_Descripcion}}
-                        </dd>
-                    </dl>
-                    <dl class="form-group col-sm-3">
                         <dt class="col-sm-12 letras">
                             Departamento
                         </dt>
@@ -256,7 +224,7 @@
                             {{dept_Descripcion}}
                         </dd>
                     </dl>
-                </dl>
+                  </dl>
                   <div class="table-responsive">
                   <table class="custom-table table-bordered table-striped" style="border: 2px solid #BE561B; background-color: black;" id="MasterTable">
                           <thead style="background-color: #1E1E1E;">
@@ -281,7 +249,7 @@
                                   {{usua_Creacion}}
                               </td>
                               <td>
-                                  {{sucu_Fecha_Creacion}}
+                                  {{muni_Fecha_Creacion}}
                               </td>
                           </tr>
                           <tr>
@@ -290,7 +258,7 @@
                                   {{usua_Modifica}}
                               </td>
                               <td>
-                                  {{sucu_Fecha_Modi}}
+                                  {{muni_Fecha_Modifica}}
                               </td>
                           </tr>
                       </tbody>

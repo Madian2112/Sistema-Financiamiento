@@ -1,10 +1,65 @@
+<style>
+@keyframes rgb-border {
+    0% {
+        border-color: #CC5B1C;
+        box-shadow: 0 0 10px #CC5B1C;
+    }
+    50% {
+        border-color: #a4bd30; 
+        box-shadow: 0 0 10px #a4bd30;
+    }
+    100% {
+        border-color: #CC5B1C;
+        box-shadow: 0 0 10px #CC5B1C;
+    }
+}
+
+@keyframes background-glow {
+    0% {
+        background-color: rgba(204, 91, 28, 0.1);
+        box-shadow: 0 0 20px rgba(204, 91, 28, 0.2);
+    }
+    25% {
+        background-color: rgba(164, 189, 48, 0.1);
+        box-shadow: 0 0 20px rgba(164, 189, 48, 0.2);
+    }
+    50% {
+        background-color: rgba(33, 150, 243, 0.1);
+        box-shadow: 0 0 20px rgba(33, 150, 243, 0.2);
+    }
+    75% {
+        background-color: rgba(255, 193, 7, 0.1);
+        box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+    }
+    100% {
+        background-color: rgba(204, 91, 28, 0.1);
+        box-shadow: 0 0 20px rgba(204, 91, 28, 0.2);
+    }
+}
+
+.background-glow {
+    animation: background-glow 6s infinite;
+}
+
+.rgb-border-wrapper {
+    border-radius: 56px;
+    padding: 0.3rem;
+    background: linear-gradient(180deg, #CC5B1C 10%, rgba(33, 150, 243, 0) 30%);
+}
+
+.rgb-border-content {
+    border: 5px solid;
+    border-radius: 53px;
+    animation: rgb-border 3s infinite;
+}
 
 
+</style>
 
-<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden background-glow">
     <div class="flex flex-column align-items-center justify-content-center">
-        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, #CC5B1C 10%, rgba(33, 150, 243, 0) 30%);">
-            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+        <div class="rgb-border-wrapper" style="border-radius:56px; padding:0.3rem;">
+            <div class="w-full surface-card py-8 px-5 sm:px-8 rgb-border-content" style="border-radius:53px">
                 <div class="text-center mb-5">
                     <div class="text-900 text-3xl font-medium mb-3">Bienvenido a CrediRapi!</div>
                     <img src="assets/demo/images/credirapi-removebg-preview.png" alt="CrediRapid logo" class="mb-5 w-10rem flex-shrink-0">                
@@ -13,13 +68,13 @@
                 <div>
                     <form [formGroup]="formUsuario">
                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Usuario</label>
-                    <input id="usuario"formControlName="usuario" type="text" placeholder="Usuario" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+                    <input id="usuario" formControlName="usuario" type="text" placeholder="Usuario" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
 
                     <label for="password1" class="block text-900 font-medium text-xl mb-2">Contraseña</label>
                     <p-password id="clave" formControlName="clave" placeholder="Clave" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
                     </form>
                     <div *ngIf="errorMessage" style="color: red;" class="error-message">{{ errorMessage }}</div>
-                    <button type="button" pButton pRipple label="Inicia Sesion" style="background-color: #CC5B1C; " class="w-full p-3 text-xl" (click)="onLogin()"></button>
+                    <button type="button" pButton pRipple label="Inicia Sesion" style="background-color: #CC5B1C;" class="w-full p-3 text-xl" (click)="onLogin()"></button>
                 </div>
             </div>
         </div>
