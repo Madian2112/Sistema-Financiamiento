@@ -82,7 +82,7 @@ export class ImagenclienteListadoComponent implements OnInit {
         console.log(error)
       }
     );
-    }
+    } 
 
     tabla: string = "";
     detalless: string = "collapse";
