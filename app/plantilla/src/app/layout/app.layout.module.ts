@@ -57,6 +57,7 @@ import { TooltipModule } from 'primeng/tooltip';
         InputTextModule,
         SidebarModule,
         BadgeModule,
+
         OverlaysDemoRoutingModule,
         RadioButtonModule,
         InputSwitchModule,

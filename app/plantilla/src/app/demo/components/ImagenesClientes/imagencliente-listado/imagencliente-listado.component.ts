@@ -31,6 +31,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
+
 @Component({
   selector: 'app-imagencliente-listado',
   templateUrl: './imagencliente-listado.component.html',
@@ -66,7 +67,7 @@ export class ImagenclienteListadoComponent implements OnInit {
     private router: Router ,
     private fb:FormBuilder,
     private _imagenclienre:ImagenClienteService,
-    private messageService: MessageService,
+    // private messageService: MessageService,
     private dialog: MatDialog,) 
     {
       this.formImagenCliente = this.fb.group({
@@ -279,7 +280,7 @@ export class ImagenclienteListadoComponent implements OnInit {
             if (response.message === "Exito") {
               // this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Imagen Subida', life: 3000 });
             } else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Formato de imagen incorrecto', life: 3000 });
+              // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Formato de imagen incorrecto', life: 3000 });
             }
           },
           error => {
@@ -329,6 +330,7 @@ export class ImagenclienteListadoComponent implements OnInit {
     ReactiveFormsModule,
     ToastModule,
     SliderModule,
+    // MessageService,
     FileUploadModule,
     RatingModule 
     
