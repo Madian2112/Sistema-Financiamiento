@@ -42,11 +42,11 @@ export class ImagenclienteListadoComponent implements OnInit {
   imagencliente!: ImagenCliente[];
   display: boolean = false;
   vehiculo : Vehiculo [];
-  departamentos: Departamento[];
+  departamentos: ImagenCliente[];
   tablaimagencliente: Tabla [];
   formImagenCliente: FormGroup;
   listadoimagencliente: ImagenCliente[] = [];
-  selectedDepartamento: any;
+  selectedImagenCliente: any;
   modalTitle: string = 'Nuevo Registro';
   modalButtonLabel: string = 'Guardar';
   confirmacionVisible: boolean = false;
@@ -176,8 +176,8 @@ export class ImagenclienteListadoComponent implements OnInit {
     
    /* eliminar() {
       if (this.departamentoAEliminar) {
-        const idDepartamento = this.departamentoAEliminar.muni_Id;
-        this._municipioservice.eliminar(idDepartamento).subscribe({
+        const idImagenCliente = this.departamentoAEliminar.muni_Id;
+        this._municipioservice.eliminar(idImagenCliente).subscribe({
           next: (data) => {
             this.getMunicipio();
             this.confirmacionVisible = false;
@@ -214,8 +214,8 @@ export class ImagenclienteListadoComponent implements OnInit {
    
     editar(departamento: any) {
       this.depa = "";
-      this.selectedDepartamento = departamento;
-      console.log(this.selectedDepartamento);
+      this.selectedImagenCliente = departamento;
+      console.log(this.selectedImagenCliente);
       // Usar el nombre del departamento en lugar del código
       this.valor = departamento.dept_Descripcion !== null ? departamento.dept_Descripcion : '';
       this.codigo = departamento.muni_Id;
@@ -244,14 +244,14 @@ export class ImagenclienteListadoComponent implements OnInit {
     }
   
     actualizar() {
-      const idDepartamento = this.selectedDepartamento.muni_Id;
+      const idImagenCliente = this.selectedImagenCliente.muni_Id;
       const modelo: Municipio = {
         dept_Descripcion : this.formMunicipio.value.departamento,
         dept_Id : this.formMunicipio.value.departamento,
         muni_Descripcion : this.formMunicipio.value.municipio,
         muni_Id : this.formMunicipio.value.codigo,
       }
-      this._municipioservice.actualizar(idDepartamento, modelo).subscribe({
+      this._municipioservice.actualizar(idImagenCliente, modelo).subscribe({
         next: (data) => {
           this.getMunicipio();
           this.display = false;
