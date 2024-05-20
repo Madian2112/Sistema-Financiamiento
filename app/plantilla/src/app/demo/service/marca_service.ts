@@ -21,7 +21,7 @@ export class MarcaServiceService {
   }
 
   agregarMarca(modelo: Marca): Observable<Marca> {
-    return this.http.post<Marca>('https://localhost:44372/API/Marca/Create', modelo);
+    return this.http.post<Marca>('http://dbcredirapid.somee.com/API/Marca/Create', modelo);
   }
 
   obtener(id:number){

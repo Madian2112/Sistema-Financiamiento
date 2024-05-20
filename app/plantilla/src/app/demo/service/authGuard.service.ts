@@ -81,12 +81,12 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    // Verifica si la cookie de sesión existe
+
     return this.cookieService.check('Usuario');
   }
 
   logout() {
-    // Limpia las cookies y redirige al login
+
     this.cookieService.deleteAll();
     this.router.navigate(['/login']);
   }
