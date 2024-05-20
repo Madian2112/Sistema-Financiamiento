@@ -117,9 +117,9 @@
                         <td>{{estadocivil.esta_Id}}</td>
                         <td>{{estadocivil.esta_Descripcion}}</td>
                         <td  style="display: flex; grid-gap:10px">
-                            <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editar(estadocivil)"></button>
-                            <button pButton pRipple type="button" label="Detalles" class="p-button-info" (click)="detalles(estadocivil.esta_Id)"></button>
-                            <button pButton pRipple type="button" label="Eliminar" class="p-button-danger" (click)="confirmarEliminar(estadocivil)" ></button>
+                            <button pButton pRipple type="button" label="Editar" icon="pi pi-pencil" class="p-button-warning" (click)="editar(estadocivil)"></button>
+                            <button pButton pRipple type="button" label="Detalles" icon="pi pi-info-circle" class="p-button-info" (click)="detalles(estadocivil.esta_Id)"></button>
+                            <button pButton pRipple type="button" label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="confirmarEliminar(estadocivil)" ></button>
                         </td>
                     </tr>
                 </ng-template>

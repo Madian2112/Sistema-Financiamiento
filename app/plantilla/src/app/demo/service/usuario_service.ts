@@ -18,7 +18,7 @@ export class UsuarioServiceService {
   constructor(private http: HttpClient) { }
   private endpoint: string = environment.endPoint;
   private apiUrl: string = this.endpoint + "API/Usuario/";
-  private apiUrlR: string = this.endpoint + "API/Role/";
+  private apiUrlR: string = this.endpoint + "API/Rol/";
   private apiUrlE: string = this.endpoint + "API/Empleado/";
 
   /* LOGIN USUARIO */
