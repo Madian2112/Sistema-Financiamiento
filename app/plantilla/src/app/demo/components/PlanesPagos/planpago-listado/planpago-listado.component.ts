@@ -42,6 +42,8 @@ export class PlanpagoListadoComponent implements OnInit {
   selectedDepartamento: any;
   modalTitle: string = 'Nuevo Registro';
   modalButtonLabel: string = 'Guardar';
+  timeline: string = "";
+  tablaClientes: string = "collapse";
 
   constructor(    private service:  PLanPagoServiceService, 
     private router: Router ,
@@ -73,8 +75,6 @@ export class PlanpagoListadoComponent implements OnInit {
         console.log(error);
       }
     );
-  
-  
   }
 
 
@@ -124,6 +124,26 @@ export class PlanpagoListadoComponent implements OnInit {
     // Lógica de autenticación (por ejemplo, verificación de credenciales)
     console.log("se hizo click"); 
     this.router.navigate(['/app/CrearPlanPago']); // Ajusta la ruta según tu configuración de enrutamiento
+}
+
+VerCuotas(codigo){
+
+  this.service.getPLanPagoCliente(codigo).subscribe(data => {
+    this.planpagoclientes = data;
+    console.log("El contenido de la clase es: " + this.planpagoclientes)
+    console.log("Los datos son: "+ data)
+  });
+
+  this.tablaClientes = "";
+  this.edit = "collapse";
+  this.tabla = "collapse";
+  this.detalless = "collapse";
+  this.edit = "collapse";
+
+}
+
+LineaTiempo(){
+  this.timeline = "";
 }
 
 getSucursal() {

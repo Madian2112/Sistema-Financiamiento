@@ -50,51 +50,55 @@
         <div class="{{tabla}}">
             <div class="card">
                 <h1>Imagenes de Clientes</h1>
-                <p-dialog header="{{modalTitle}}" [(visible)]="display" [modal]="true" showEffect="fade"
-                    [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
-                    <form [formGroup]="formImagenCliente">
-                        <div class="p-fluid">
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label style="color:aliceblue" htmlFor="marca">Vehiculo</label>
-                                                <select style="background-color: #121212; color: aliceblue;"
-                                                    class="form-control" formControlName="vehiculo" id="vehiculo">
-                                                    <option style="background-color: #121212; color: aliceblue;"
-                                                        [selected]="true" [value]="">Seleccione</option>
-                                                    <option style="background-color: #121212; color: aliceblue;"
-                                                        *ngFor="let vehiculo of vehiculos" [value]="vehiculo.vecl_Id">{{
-                                                        vehiculo.mode_Descripcion + ' - '+ vehiculo.marc_Descripcion + "
-                                                        , "+ vehiculo.cliente}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Imagen:</label>
-                                        <p-fileUpload #fileUpload name="demo[]" [mode]="'basic'"
-                                            (onSelect)="onUpload($event)" [multiple]="false" accept="image/*"
-                                            [maxFileSize]="1000000"
-                                            chooseLabel="{{ showFileUpload ? 'Seleccione' : '' }}">
-                                        </p-fileUpload>
+                <p-dialog header="{{modalTitle}}" [(visible)]="display" (onHide)="recargarPagina()" [modal]="true"
+                showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+                <form [formGroup]="formImagenCliente">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label style="color:aliceblue" htmlFor="marca">Vehiculo</label>
+                                        <select style="background-color: #121212; color: aliceblue;"
+                                            class="form-control" formControlName="vehiculo" id="vehiculo">
+                                            <option style="background-color: #121212; color: aliceblue;"
+                                                [selected]="true" [value]="">Seleccione</option>
+                                            <option style="background-color: #121212; color: aliceblue;"
+                                                *ngFor="let vehiculo of vehiculos" [value]="vehiculo.vecl_Id">{{
+                                                vehiculo.mode_Descripcion + ' - '+ vehiculo.marc_Descripcion + "
+                                                , "+ vehiculo.cliente}}</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <ng-template pTemplate="footer">
-                        <button pButton icon="pi pi-times" (click)="display=false" label="Cerrar"
-                            class="p-button-outlined p-button-danger"></button>
-                        <button pButton icon="pi pi-check" (click)="NuevoModelo()" label="{{modalButtonLabel}}"
-                            class="p-button-outlined"></button>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Imagen:</label>
+                                <p-fileUpload #fileUpload name="demo[]" [mode]="'basic'"
+                                    (onSelect)="onUpload($event)" [multiple]="false" accept="image/*"
+                                    [maxFileSize]="1000000"
+                                    chooseLabel="{{ showFileUpload ? 'Seleccione' : '' }}">
+                                </p-fileUpload>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="justify-content-center ms-5">
+                        <!-- Contenedor para centrar la imagen -->
+                        <div class="text-center">
+                            <p-image *ngIf="selectedImageURL" [src]="selectedImageURL" alt="Imagen seleccionada"
+                                width="250" [preview]="true"></p-image>
+                        </div>
+                    </div>
+                </form>
+                <ng-template pTemplate="footer">
+                    <button pButton icon="pi pi-times" (click)="recargarPagina()" label="Cerrar"
+                        class="p-button-outlined p-button-danger mr-2"></button>
+                    <button pButton icon="pi pi-check" label="{{modalButtonLabel}}" class="p-button-outlined"
+                        (click)="NuevoModelo()"></button>
+                </ng-template>
 
-                    </ng-template>
-                </p-dialog>
+            </p-dialog>
                 <div class="grid">
                     <div class="col-12">
                         <button (click)="displayNuevo()" pButton icon="pi pi-external-link" label="Nuevo"></button>
@@ -166,9 +170,9 @@
                         <tr>
                             <td>{{tablaimagencliente.imcl_Id}}</td>
                             <td>
-                                <img *ngIf="vehiculo.imcl_Imagen"
+                                <img *ngIf="tablaimagencliente.imcl_Imagen"
                                     [src]="'https://localhost:44372/uploads/' + tablaimagencliente.imcl_Imagen"
-                                    alt="Imagen de vehiculo" width="100">
+                                    width="100%">
                             </td>
                             <td>{{tablaimagencliente.vehi_Placa}}</td>
                             <td>{{tablaimagencliente.mode_Descripcion}}</td>

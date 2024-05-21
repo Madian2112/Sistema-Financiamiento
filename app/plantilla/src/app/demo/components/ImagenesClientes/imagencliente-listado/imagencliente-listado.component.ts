@@ -123,6 +123,10 @@ export class ImagenclienteListadoComponent implements OnInit {
       this.dialog.open(DialogAddEditComponent);
     }
 
+    recargarPagina() {
+      location.reload();
+    }
+
     AbrirModal() {
       this.formImagenCliente = this.fb.group({
         vehiculo:["Seleccione"],
