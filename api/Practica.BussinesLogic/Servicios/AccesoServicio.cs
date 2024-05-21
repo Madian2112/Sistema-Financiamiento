@@ -147,6 +147,34 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult EnviarCodigo(string corus)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _usuarioRepositorio.EnviarCodigo(corus);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult Implementarcodigo(string codigo, int usuarioId)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _usuarioRepositorio.IngresarCodigo(codigo, usuarioId);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
         public ServiceResult Eliminarusua(int id)
         {
             var result = new ServiceResult();
