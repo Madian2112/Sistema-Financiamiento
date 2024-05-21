@@ -190,7 +190,7 @@ namespace Practica.API.Controllers
                 MailData mailData = new MailData();
                 mailData.EmailToId = first.correo;
                 mailData.EmailToName = "Usuario";
-                mailData.EmailSubject = "Su codigo para restablecer contraseña es el siguiente";
+                mailData.EmailSubject = "Codigo de Verificacion";
                 mailData.EmailBody = "" + randomNumber.ToString();
                 _mailService.SendMail(mailData);
                 return Ok(estado);
