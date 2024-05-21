@@ -47,23 +47,34 @@ export class AppMenuComponent implements OnInit, OnDestroy {
                                 } else if (nombresPermitidos.has(opcion.label.toLowerCase().trim())) {
                                     return opcion;
                                 }
+                               
                                 return null;
                             })
+                            
                             .filter(opcion => opcion !== null);
+                          
                     };
 
                     this.model = this.Menucompleto.map(section => {
                         const itemsFiltrados = filtrarItems(section.items);
                         if (itemsFiltrados.length > 0) {
                             return { ...section, items: itemsFiltrados };
+                            
                         }
+                 
                         return null;
+                        
                     }).filter(section => section !== null);
+             
                 })
+                
             );
+         
         } else {
             this.model = this.Menucompleto;
+           
         }
+ 
     }
 
     ngOnDestroy() {

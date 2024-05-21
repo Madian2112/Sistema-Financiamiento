@@ -41,10 +41,10 @@ export class UsuarioListadoComponent implements OnInit {
   MunicipioCodigo: String = "";
   display: boolean = false;
   Crear() {
-    // Lógica de autenticación (por ejemplo, verificación de credenciales)
+    // Logica de autenticación (por ejemplo, verificación de credenciales)
     console.log("se hizo click");
     // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/CrearUsuarios']); // Ajusta la ruta según tu configuración de enrutamiento
+    this.router.navigate(['/app/CrearUsuarios']); // Ajusta la ruta segun tu configuración de enrutamiento
 }
 
 
