@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ImagenCliente, Fill, Vehiculo} from '../models/ImagenClienteViewModel'
+import {ImagenCliente, Fill, Vehiculo, Tabla} from '../models/ImagenClienteViewModel'
 import {Departamento} from '../models/Departamentoviewmodel'
 import {HttpClient} from '@angular/common/http'
 import { Observable, map } from 'rxjs';
@@ -16,12 +16,12 @@ import { environment } from 'src/environments/environment';
   
     constructor(private http: HttpClient) { }
   
-    getImagenCliente(): Observable<ImagenCliente[]> {
-      return this.http.get<ImagenCliente[]>(this.apiUrl + 'List');
+    getImagenCliente(): Observable<Tabla[]> {
+      return this.http.get<Tabla[]>(this.apiUrl + 'List');
     }
 
     EnviarImagen(file : any): Observable<any>{
-        return this.http.post<ImagenCliente[]>(this.endpoint + '/Subir/', file).pipe(
+        return this.http.post<ImagenCliente[]>('https://localhost:44372/API/ImagenCliente/Subir', file).pipe(
           map(response => {
             return response;
           }),
@@ -29,11 +29,11 @@ import { environment } from 'src/environments/environment';
       }
   
     getVehiculo(): Observable<Vehiculo[]> {
-      return this.http.get<Vehiculo[]>(this.apiUrl + 'ListadoVehiculos');
+      return this.http.get<Vehiculo[]>('https://localhost:44372/API/ImagenCliente/ListadoVehiculos');
     }
   
     agregar(modelo: ImagenCliente): Observable<ImagenCliente> {
-      return this.http.post<ImagenCliente>(`${this.apiUrl}Create`, modelo);
+      return this.http.post<ImagenCliente>(`https://localhost:44372/API/ImagenCliente/Create`, modelo);
     }
   
     obtener(id:number){

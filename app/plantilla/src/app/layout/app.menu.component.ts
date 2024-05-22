@@ -47,23 +47,34 @@ export class AppMenuComponent implements OnInit, OnDestroy {
                                 } else if (nombresPermitidos.has(opcion.label.toLowerCase().trim())) {
                                     return opcion;
                                 }
+                               
                                 return null;
                             })
+                            
                             .filter(opcion => opcion !== null);
+                          
                     };
 
                     this.model = this.Menucompleto.map(section => {
                         const itemsFiltrados = filtrarItems(section.items);
                         if (itemsFiltrados.length > 0) {
                             return { ...section, items: itemsFiltrados };
+                            
                         }
+                 
                         return null;
+                        
                     }).filter(section => section !== null);
+             
                 })
+                
             );
+         
         } else {
             this.model = this.Menucompleto;
+           
         }
+ 
     }
 
     ngOnDestroy() {
@@ -111,7 +122,7 @@ export class AppMenuComponent implements OnInit, OnDestroy {
                         { label: 'Sucursal', icon: 'pi pi-fw pi-sign-in', routerLink: ['/app/IndexSucursal'] },
                         { label: 'Cliente', icon: 'pi pi-fw pi-sign-in', routerLink: ['/app/IndexCliente'] },
                         { label: 'Empleado', icon: 'pi pi-fw pi-sign-in', routerLink: ['/app/IndexEmpleado'] },
-                        { label: 'Error', icon: 'pi pi-fw pi-times-circle', routerLink: ['/app/auth/error'] },
+                        { label: 'Imagenes Clientes', icon: 'pi pi-fw pi-sign-in', routerLink: ['/app/ImagenesClientes'] },
                         { label: 'Access Denied', icon: 'pi pi-fw pi-lock', routerLink: ['/app/auth/access'] },
                     ]
                 },

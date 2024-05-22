@@ -17,7 +17,7 @@
                 "label": "Generales",
                 "data": "Work Folder",
                 "icon": "pi pi-fw pi-user",
-                "children": [{ "key": "3", "label": "Cargos", "icon": "pi pi-desktop" }, { "key": "4", "label": "Clientes", "icon": "pi pi-desktop" },{ "key": "5", "label": "Departamentos", "icon": "pi pi-desktop" },{ "key": "6", "label": "Empleados", "icon": "pi pi-desktop" },{ "key": "7", "label": "Estados Civiles", "icon": "pi pi-desktop" },{ "key": "8", "label": "Marcas", "icon": "pi pi-desktop" },{ "key": "9", "label": "Municipios", "icon": "pi pi-desktop" },{ "key": "10", "label": "Sucursales", "icon": "pi pi-desktop" }]
+                "children": [{ "key": "3", "label": "Cargos", "icon": "pi pi-desktop" }, { "key": "4", "label": "Clientes", "icon": "pi pi-desktop" },{ "key": "5", "label": "Departamentos", "icon": "pi pi-desktop" },{ "key": "6", "label": "Empleados", "icon": "pi pi-desktop" },{ "key": "7", "label": "Estados Civiles", "icon": "pi pi-desktop" },{ "key": "8", "label": "Marcas", "icon": "pi pi-desktop" },{ "key": "9", "label": "Municipios", "icon": "pi pi-desktop" },{ "key": "10", "label": "Sucursales", "icon": "pi pi-desktop" },{ "key": "25", "label": "Imagenes Clientes", "icon": "pi pi-desktop" }]
             },
             {
                 "key": "103",

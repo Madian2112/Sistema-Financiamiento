@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  endPoint: "https://localhost:44372/"
+  endPoint: "http://dbcredirapid.somee.com/"
 };
 
 

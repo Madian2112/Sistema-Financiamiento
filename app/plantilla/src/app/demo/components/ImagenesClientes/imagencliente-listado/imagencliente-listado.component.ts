@@ -1,6 +1,7 @@
 import { Component, OnInit, NgModule  } from '@angular/core';
 import { Router } from '@angular/router';
-import {  ImagenCliente, Fill, Tabla, Vehiculo } from '../../../models/ImagenClienteViewModel';
+import {  ImagenCliente, Fill, Tabla } from '../../../models/ImagenClienteViewModel';
+import {  Vehiculo } from '../../../models/VehiculoViewModel';
 import { Departamento } from '../../../models/Departamentoviewmodel';
 import { ImagenClienteService } from '../../../service/imagencliente';
 import { CommonModule } from '@angular/common';
@@ -30,6 +31,8 @@ import { CarouselModule } from 'primeng/carousel';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { PLanPagoServiceService } from '../../../service/planplago_service';
+
 
 @Component({
   selector: 'app-imagencliente-listado',
@@ -40,12 +43,12 @@ export class ImagenclienteListadoComponent implements OnInit {
 
   imagencliente!: ImagenCliente[];
   display: boolean = false;
-  vehiculo : Vehiculo [];
-  departamentos: Departamento[];
+  vehiculos : Vehiculo [];
+  departamentos: ImagenCliente[];
   tablaimagencliente: Tabla [];
   formImagenCliente: FormGroup;
   listadoimagencliente: ImagenCliente[] = [];
-  selectedDepartamento: any;
+  selectedImagenCliente: any;
   modalTitle: string = 'Nuevo Registro';
   modalButtonLabel: string = 'Guardar';
   confirmacionVisible: boolean = false;
@@ -63,10 +66,11 @@ export class ImagenclienteListadoComponent implements OnInit {
 
   constructor(    
     private service:  ImagenClienteService, 
+    private service1:  PLanPagoServiceService, 
     private router: Router ,
     private fb:FormBuilder,
     private _imagenclienre:ImagenClienteService,
-    private messageService: MessageService,
+    // private messageService: MessageService,
     private dialog: MatDialog,) 
     {
       this.formImagenCliente = this.fb.group({
@@ -81,7 +85,7 @@ export class ImagenclienteListadoComponent implements OnInit {
         console.log(error)
       }
     );
-    }
+    } 
 
     tabla: string = "";
     detalless: string = "collapse";
@@ -117,6 +121,10 @@ export class ImagenclienteListadoComponent implements OnInit {
 
     openDialog() {
       this.dialog.open(DialogAddEditComponent);
+    }
+
+    recargarPagina() {
+      location.reload();
     }
 
     AbrirModal() {
@@ -175,8 +183,8 @@ export class ImagenclienteListadoComponent implements OnInit {
     
    /* eliminar() {
       if (this.departamentoAEliminar) {
-        const idDepartamento = this.departamentoAEliminar.muni_Id;
-        this._municipioservice.eliminar(idDepartamento).subscribe({
+        const idImagenCliente = this.departamentoAEliminar.muni_Id;
+        this._municipioservice.eliminar(idImagenCliente).subscribe({
           next: (data) => {
             this.getMunicipio();
             this.confirmacionVisible = false;
@@ -213,8 +221,8 @@ export class ImagenclienteListadoComponent implements OnInit {
    
     editar(departamento: any) {
       this.depa = "";
-      this.selectedDepartamento = departamento;
-      console.log(this.selectedDepartamento);
+      this.selectedImagenCliente = departamento;
+      console.log(this.selectedImagenCliente);
       // Usar el nombre del departamento en lugar del código
       this.valor = departamento.dept_Descripcion !== null ? departamento.dept_Descripcion : '';
       this.codigo = departamento.muni_Id;
@@ -243,14 +251,14 @@ export class ImagenclienteListadoComponent implements OnInit {
     }
   
     actualizar() {
-      const idDepartamento = this.selectedDepartamento.muni_Id;
+      const idImagenCliente = this.selectedImagenCliente.muni_Id;
       const modelo: Municipio = {
         dept_Descripcion : this.formMunicipio.value.departamento,
         dept_Id : this.formMunicipio.value.departamento,
         muni_Descripcion : this.formMunicipio.value.municipio,
         muni_Id : this.formMunicipio.value.codigo,
       }
-      this._municipioservice.actualizar(idDepartamento, modelo).subscribe({
+      this._municipioservice.actualizar(idImagenCliente, modelo).subscribe({
         next: (data) => {
           this.getMunicipio();
           this.display = false;
@@ -279,7 +287,7 @@ export class ImagenclienteListadoComponent implements OnInit {
             if (response.message === "Exito") {
               // this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Imagen Subida', life: 3000 });
             } else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Formato de imagen incorrecto', life: 3000 });
+              // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Formato de imagen incorrecto', life: 3000 });
             }
           },
           error => {
@@ -302,8 +310,8 @@ export class ImagenclienteListadoComponent implements OnInit {
       }
     );
 
-    this.service.getVehiculo().subscribe(data => {
-      this.vehiculo = data;
+    this.service1.getVehiculo().subscribe(data => {
+      this.vehiculos = data;
     });
 
   }
@@ -329,6 +337,7 @@ export class ImagenclienteListadoComponent implements OnInit {
     ReactiveFormsModule,
     ToastModule,
     SliderModule,
+    // MessageService,
     FileUploadModule,
     RatingModule 
     

@@ -72,7 +72,7 @@ namespace Practica.API.Controllers
             return Ok(listado);
         }
 
-        [HttpPost("/Subir/")]
+        [HttpPost("Subir")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
 

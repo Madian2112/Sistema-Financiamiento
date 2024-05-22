@@ -56,7 +56,7 @@ export class UsuarioServiceService {
   }
 
   agregar(modelo: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`https://localhost:44372/API/Usuario/Create`, modelo);
+    return this.http.post<Usuario>(`http://dbcredirapid.somee.com/API/Usuario/Create`, modelo);
   }
 
   getFill(codigo: number): Observable<Fill> {
@@ -77,7 +77,7 @@ export class UsuarioServiceService {
   }
 
 
-  public rolurl = 'https://localhost:44372/API/';
+  public rolurl = 'http://dbcredirapid.somee.com/API/';
   UrlPantallasRoles = this.rolurl + 'Rol/'
   getPantallasDeRol(idRoll: Number) {
     return this.http.get<Pantalla[]>(`${this.UrlPantallasRoles}PantallasdeRoles/${idRoll}`);

@@ -43,7 +43,7 @@ Chart.register(...registerables);
 export class EstadisticosComponent implements OnInit{
   fechaInicio: string;
   fechaFin: string;
-
+  cantidadPrestamos: number = 0;
   MyChart: Chart;
   MyChartSexo: Chart;
   MyChartModelo: Chart;
@@ -100,6 +100,16 @@ export class EstadisticosComponent implements OnInit{
             }
         );
 
+        this.dashboardService.obtenerPrestaPorMes().subscribe(
+          data => {
+            this.renderizarGrafico(data);
+          },
+          error => {
+            console.error('Error al obtener datos de préstamos:', error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al obtener datos de la API.' });
+          }
+        );
+
  this.dashboardService.obtenerPrestaPorSexo().subscribe(
   data => {
    
@@ -150,84 +160,91 @@ this.dashboardService.obtenerPrestaPorEstado().subscribe(
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'La fecha de inicio debe ser anterior o igual a la fecha de fin.' });
     }
 }
+renderizarGrafico(compras: { anio: string, mes: string, cantidadPrestamos: number }[]) {
+  const fechas = compras.map(compra => `${compra.anio}-${compra.mes}`);
+  const cantidades = compras.map(compra => compra.cantidadPrestamos);
 
-  renderizarGrafico(compras: { anio: string, mes: string, cantidadPrestamos: number }[]) {
-    const fechas = compras.map(compra => `${compra.anio}-${compra.mes}`);
-    console.log(fechas)
-    const cantidades = compras.map(compra => compra.cantidadPrestamos);
-
-    if (this.MyChart) {
-      this.MyChart.destroy(); // Destruir el gráfico existente si existe
-    }
-
-    this.MyChart = new Chart("barChart", {
-      type: 'bar',
-      data: {
-        labels: fechas,
-        datasets: [{
-          label: 'Prestamos',
-          data: cantidades,
-          backgroundColor: [
-            'rgba(255, 193, 7, 0.6)', // Color #ffc107 para la primera compra
-            'rgba(54, 162, 235, 0.6)', // Color para la segunda compra
-            'rgba(255, 206, 86, 0.6)', // Color para la tercera compra
-            // Añadir más colores si es necesario
-          ],
-          borderColor: [
-            'rgba(255, 193, 7, 1)', // Color del borde para la primera compra
-            'rgba(54, 162, 235, 1)', // Color del borde para la segunda compra
-            'rgba(255, 206, 86, 1)', // Color del borde para la tercera compra
-            // Añadir más colores si es necesario
-          ],
-          borderWidth: 1,
-          barPercentage: 0.4 // Ajusta el ancho de las barras, un valor de 1 significa que las barras ocuparán todo el espacio disponible
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Cantidad de Prestamos',
-              color: 'white' // Cambiar color de texto a blanco
-            },
-            ticks: {
-              color: 'white' // Cambiar color de las etiquetas del eje Y a blanco
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Fecha',
-              color: 'white' // Cambiar color de texto a blanco
-            },
-            ticks: {
-              color: 'white' // Cambiar color de las etiquetas del eje X a blanco
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            display: false,
-            labels: {
-              color: 'white' // Cambiar color de las etiquetas de la leyenda a blanco
-            }
-          }
-        },
-        layout: {
-          padding: {
-            left: 10,
-            right: 10,
-            top: 10,
-            bottom: 10
-          }
-        },
-        responsive: true,
-       
-      }
-    });
+   
+      this.cantidadPrestamos = cantidades.reduce((total, cantidad) => total + cantidad, 0);
+      
+  if (this.MyChart) {
+    this.MyChart.destroy(); 
+    
   }
+
+  this.MyChart = new Chart("barChart", {
+    type: 'bar',
+    data: {
+      labels: fechas,
+      datasets: [{
+        label: 'Prestamos',
+        data: cantidades,
+        backgroundColor: [
+          'rgba(255, 193, 7, 0.6)', 
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+        
+        ],
+        borderColor: [
+          'rgba(255, 193, 7, 1)', 
+          'rgba(54, 162, 235, 1)', 
+          'rgba(255, 206, 86, 1)', 
+     
+        ],
+        borderWidth: 1,
+        barPercentage: 0.4
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Cantidad de Prestamos',
+            color: 'white' 
+          },
+          ticks: {
+            color: 'white' 
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Fecha',
+            color: 'white' 
+          },
+          ticks: {
+            color: 'white'
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false,
+          labels: {
+            color: 'white' 
+          }
+        }
+      },
+      layout: {
+        padding: {
+          left: 10,
+          right: 10,
+          top: 10,
+          bottom: 10
+        }
+      },
+      responsive: true,
+     
+    }
+  });
+}
+
+
+ 
+
+  
   
   renderizarGraficoSexo(compras: { anio: string, mes: string, clie_Sexo: string, cantidadPrestamos: number }[]) {
     // Filtrar los datos por género (solo Femenino y Masculino)
