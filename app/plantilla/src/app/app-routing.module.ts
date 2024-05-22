@@ -32,64 +32,58 @@ import { ReporteModelosVehiculosComponent } from './demo/components/reporte-mode
 import { ReporteVentasEmpleadosComponent } from './demo/components/reporte-ventas-empleados/reporte-ventas-empleados.component';
 import { EstadisticosComponent } from './demo/components/estadisticos/estadisticos.component';
 import { PlanpagoclienteCrearComponent } from './demo/components/PlanesPagosClientes/planpagocliente-crear/planpagocliente-crear.component';
+import { AuthGuard } from './auth/auth.guard';
 
-
-@NgModule({
-    imports: [
-        RouterModule.forRoot([
-            {
-                path: '', component: LoginComponent,
-            },
-            {
-                path: 'app', component: AppLayoutComponent,
-                children: [
-                    { path: 'dashboard', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
-                    { path: 'uikit', loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule) },
-                    { path: 'utilities', loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
-                    { path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule) },
-                    { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
-                    { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
-                    { path: 'IndexDepartamento', component: DepartamentoListadoComponent },
-                    { path: 'IndexPrueba', component: DashboardsComponent },
-                    { path: 'IndexEstadistico', component: EstadisticosComponent },
-                    { path: 'IndexRol', data: { breadcrumb: 'Rol' }, loadChildren: () => import('./demo/components/Rol/rol-listado/roldemo.module').then(m => m.RolDemoModule) },
-                     { path: 'IndexReportes', component: ReportesComponent },
-                     { path: 'IndexReportePrestamos', component: ReportePrestamosAprobadosComponent },
-                     { path: 'IndexReporteClientesMora', component: ReporteClientesMoraComponent },
-                     { path: 'IndexReporteModelosVehiculos', component: ReporteModelosVehiculosComponent },
-                     { path: 'IndexReporteVentasEmpleado', component: ReporteVentasEmpleadosComponent },
-                     { path: 'Login', component: LoginComponent },
-               
-                    // { path: 'departamento/:id', component: DetalleDepartamentoComponent }, // Agrega la ruta para DepartamentosListadoComponent
-                    { path: 'IndexCargo', component: CargosListadoComponent }, // Agrega la ruta para CargosListadoComponent
-                    { path: 'IndexEstadoCivil', component: EstadoscivilesListadoComponent },
-                    { path: 'IndexMarca', component: MarcasListadoComponent },
-                    { path: 'IndexMunicipio', component: MunicipiosListadoComponent },
-                    { path: 'Dashboard', component: DashboardModule },
-                    { path: 'IndexSucursal', component: SucursalesListadoComponent },
-                    { path: 'IndexCliente', component: ClientesListadoComponent },
-                    { path: 'IndexEmpleado', component: EmpleadosListadoComponent },
-                    { path: 'IndexUsuario', component: UsuarioListadoComponent },
-                    { path: 'IndexTipoCuota', component: TipocuotaListadoComponent },
-                    { path: 'IndexModelo', component: ModeloListadoComponent },
-                    { path: 'IndexVehiculo', component: VehiculoListadoComponent },
-                    { path: 'IndexPlanPago', component: PlanpagoListadoComponent },
-                    { path: 'CrearUsuarios', component: UsuarioCrearComponent },
-                    { path: 'CrearVehiculo', component: VehiculoCrearComponent },
-                    { path: 'CrearEmpleados', component: EmpleadosCrearComponent },
-                    { path: 'CrearClientes', component: ClientesCrearComponent },
-                    { path: 'CrearPlanPago', component: PlanpagoCrearComponent },
-                    { path: 'ImagenesClientes', component: ImagenclienteListadoComponent },
-                    { path: 'CrearPlanPagoCliente', component: PlanpagoclienteCrearComponent }
-                ]
-            },
-            { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
-            { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
+const routes: Routes = [
+    { path: '', component: LoginComponent },
+    {
+      path: 'app', component: AppLayoutComponent,
+      children: [
+        { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+        { path: 'uikit', loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule), canActivate: [AuthGuard] },
+        { path: 'utilities', loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule), canActivate: [AuthGuard] },
+        { path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule), canActivate: [AuthGuard] },
+        { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule), canActivate: [AuthGuard] },
+        { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule), canActivate: [AuthGuard] },
+        { path: 'departamento', component: DepartamentoListadoComponent, canActivate: [AuthGuard] },
+        { path: 'inicio', component: DashboardsComponent, canActivate: [AuthGuard] },
+        { path: 'graficos', component: EstadisticosComponent, canActivate: [AuthGuard] },
+        { path: 'roles', data: { breadcrumb: 'Rol' }, loadChildren: () => import('./demo/components/Rol/rol-listado/roldemo.module').then(m => m.RolDemoModule), canActivate: [AuthGuard] },
+        { path: 'reportes', component: ReportesComponent, canActivate: [AuthGuard] },
+        { path: 'prestamosaprobados', component: ReportePrestamosAprobadosComponent, canActivate: [AuthGuard] },
+        { path: 'clientesenmora', component: ReporteClientesMoraComponent, canActivate: [AuthGuard] },
+        { path: 'reporte-modelos-vehiculos', component: ReporteModelosVehiculosComponent, canActivate: [AuthGuard] },
+        { path: 'ventashechasporempleados', component: ReporteVentasEmpleadosComponent, canActivate: [AuthGuard] },
+        { path: 'login', component: LoginComponent },
+        { path: 'cargo', component: CargosListadoComponent, canActivate: [AuthGuard] },
+        { path: 'estadocivil', component: EstadoscivilesListadoComponent, canActivate: [AuthGuard] },
+        { path: 'marca', component: MarcasListadoComponent, canActivate: [AuthGuard] },
+        { path: 'municipio', component: MunicipiosListadoComponent, canActivate: [AuthGuard] },
+        { path: 'sucursal', component: SucursalesListadoComponent, canActivate: [AuthGuard] },
+        { path: 'cliente', component: ClientesListadoComponent, canActivate: [AuthGuard] },
+        { path: 'empleado', component: EmpleadosListadoComponent, canActivate: [AuthGuard] },
+        { path: 'usuarios', component: UsuarioListadoComponent, canActivate: [AuthGuard] },
+        { path: 'tipodecuota', component: TipocuotaListadoComponent, canActivate: [AuthGuard] },
+        { path: 'modelo', component: ModeloListadoComponent, canActivate: [AuthGuard] },
+        { path: 'vehiculo', component: VehiculoListadoComponent, canActivate: [AuthGuard] },
+        { path: 'planpago', component: PlanpagoListadoComponent, canActivate: [AuthGuard] },
+        { path: 'crear-usuarios', component: UsuarioCrearComponent, canActivate: [AuthGuard] },
+        { path: 'crear-vehiculo', component: VehiculoCrearComponent, canActivate: [AuthGuard] },
+        { path: 'crear-empleados', component: EmpleadosCrearComponent, canActivate: [AuthGuard] },
+        { path: 'crear-clientes', component: ClientesCrearComponent, canActivate: [AuthGuard] },
+        { path: 'crear-plan-pago', component: PlanpagoCrearComponent, canActivate: [AuthGuard] },
+        { path: 'imagenesclientes', component: ImagenclienteListadoComponent, canActivate: [AuthGuard] },
+        { path: 'planpagocliente', component: PlanpagoclienteCrearComponent, canActivate: [AuthGuard] }
+      ]
+       
+           },
+            { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule)},
             { path: 'notfound', component: NotfoundComponent },
-            { path: '**', redirectTo: '/notfound' },
-        ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
-    ],
-    exports: [RouterModule]
-})
-export class AppRoutingModule {
-}
+            { path: '**', redirectTo: '/notfound'},
+          ];
+          
+          @NgModule({
+            imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })],
+            exports: [RouterModule]
+          })
+          export class AppRoutingModule { }

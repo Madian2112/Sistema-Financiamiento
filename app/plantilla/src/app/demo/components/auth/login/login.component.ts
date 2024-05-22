@@ -39,39 +39,41 @@ export class LoginComponent {
 
   onLogin() {
     if (this.formUsuario.invalid) {
-        this.errorMessage = 'Usuario y clave son requeridos';
-        return;
+      this.errorMessage = 'Usuario y clave son requeridos';
+      return;
     }
-
+  
     const { usuario, clave } = this.formUsuario.value;
-
+  
     this.userService.getLogin(usuario, clave).subscribe({
-        next: (data) => {
-            if (Array.isArray(data) && data.length > 0) {
-                this.cookieService.set('roleID', data[0].rol_Id);
-                this.cookieService.set('esAdmin', data[0].usua_Admin);
-                this.cookieService.set('Usuario', data[0].usua_Usuario);         
-                this.authServiceguard.loadPermissions();
-                this.authService.setUsuarioLogueado(data[0].usua_Usuario);
-                this.userService.getFillPerfil(data[0].usua_Usuario).subscribe({
-                    next: (perfil) => {
-                        this.cookieService.set('usua_Color', perfil.usua_Color);
-                        this.router.navigate(['/app/IndexPrueba']);
-                    },
-                    error: (error) => {
-                        console.error('Error fetching user profile:', error);
-                        this.router.navigate(['/app/IndexPrueba']);
-                    }
-                });
-            } else {
-                this.errorMessage = 'Usuario o contraseña incorrectos';
-                console.error('Login failed: Incorrect credentials');
+      next: (data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          this.cookieService.set('roleID', data[0].rol_Id);
+          this.cookieService.set('esAdmin', data[0].usua_Admin);
+          this.cookieService.set('Usuario', data[0].usua_Usuario);
+          this.authService.setUsuarioLogueado(data[0].usua_Usuario);
+          this.authService.loadPermissions(); // Cargar permisos
+          this.userService.getFillPerfil(data[0].usua_Usuario).subscribe({
+            next: (perfil) => {
+              this.cookieService.set('usua_Color', perfil.usua_Color);
+              this.router.navigate(['/app/inicio']);
+            },
+            error: (error) => {
+              console.error('Error fetching user profile:', error);
+              this.router.navigate(['/app/inicio']);
             }
-        },
-        error: (error) => {
-            this.errorMessage = 'Error en la conexión con el servidor';
-            console.error('Login failed:', error);
+          });
+        } else {
+          this.errorMessage = 'Usuario o contraseña incorrectos';
+          console.error('Login failed: Incorrect credentials');
         }
+      },
+      error: (error) => {
+        this.errorMessage = 'Error en la conexión con el servidor';
+        console.error('Login failed:', error);
+      }
     });
-}
+  }
+  
+  
 }
