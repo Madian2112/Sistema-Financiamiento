@@ -208,7 +208,7 @@ namespace Practica.DataAcces.Repositorio
 
         public RequestStatus ActualizarEstadoPago(int? id)
         {
-            string sql = "Cred.SP_PLanesPagosClientes_ActualizarEstadoPago ";
+            string sql = "Cred.SP_PLanesPagosClientes_ActualizarEstadoPago";
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {
                 var parametro = new DynamicParameters();

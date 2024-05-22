@@ -104,6 +104,7 @@ namespace Practica.API.Controllers
             
             var modelo = new tbPlanesPagos()
             {
+                Usuario = item.Usuario,
                 Papa_Financiamiento = item.Papa_Financiamiento,
                 Papa_Precio_Mercado = item.Papa_Precio_Mercado,
                 Vecl_Id = item.Vecl_Id,

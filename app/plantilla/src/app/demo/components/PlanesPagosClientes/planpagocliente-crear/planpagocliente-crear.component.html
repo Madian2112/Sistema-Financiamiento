@@ -225,7 +225,7 @@
             <td class="collapse">{{ppagoclientefecha.papa_Id}}</td>
             <td class="collapse">{{ppagoclientefecha.pacl_Id}}</td>
             <label *ngIf="ppagoclientefecha.pacl_Estado_Pago == 'Pagada'">Cuota Pagada</label>
-            <td style="display: flex; grid-gap:10px" *ngIf="ppagoclientefecha.pacl_Estado_Pago != 'Pagada'">
+            <td style="display: flex; grid-gap:10px" *ngIf="ppagoclientefecha.pacl_Estado_Pago != 'Pagada' or ppagoclientefecha.pacl_Fecha_Emision != null ">
                 <button pButton pRipple type="button" label="Pagar cuota" class="p-button-warning" (click)="AbrirModal(ppagoclientefecha)"></button>
             </td>            
             <td>{{ppagoclientefecha.pacl_NumeroCuota}}</td>

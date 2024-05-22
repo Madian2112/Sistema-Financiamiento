@@ -67,6 +67,7 @@ export class PagoClienteFechaPrevia{
     pacl_Capital_Restar: number;
     pacl_Intereses_Restar: number;
     pacl_Total_Intereses: number;
+    pacl_Fecha_Emision: string;
 }
 
 export class PagoClientePapaID{

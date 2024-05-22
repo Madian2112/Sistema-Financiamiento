@@ -25,15 +25,15 @@ export class PLanPagoServiceService {
 
   /*--PLANES DE PAGO CLIENTES*/
   getPlanPagoClienteFecha(codigo: string){
-    return this.http.get<PagoClienteFechaPrevia[]>('http://dbcredirapid.somee.com/API/PlanPagoCliente/BuscarDNIFecha/'+ codigo);
+    return this.http.get<PagoClienteFechaPrevia[]>('https://localhost:44372/API/PlanPagoCliente/BuscarDNIFecha/'+ codigo);
   }
 
   getPlanPagoClienteDNI(codigo: string){
-    return this.http.get<PagoClienteFechaPrevia[]>('http://dbcredirapid.somee.com/API/PlanPagoCliente/BuscarDNI/'+ codigo);
+    return this.http.get<PagoClienteFechaPrevia[]>('https://localhost:44372/API/PlanPagoCliente/BuscarDNI/'+ codigo);
   }
   
   getPlanPagoPapaID(codigo: string){
-    return this.http.get<PagoClienteFechaPrevia[]>('http://dbcredirapid.somee.com/API/PlanPagoCliente/BuscarPapaID/'+ codigo);
+    return this.http.get<PagoClienteFechaPrevia[]>('https://localhost:44372/API/PlanPagoCliente/BuscarPapaID/'+ codigo);
   }
 
   agregarPagoCliente(planpago: PagoCliente): Observable<PagoCliente> {
@@ -72,7 +72,7 @@ export class PLanPagoServiceService {
   }
 
   agregar(planpago: PLanPagoCreate): Observable<Respuesta> {
-    return this.http.post<Respuesta>(`${this.apiUrl}Create`, planpago);
+    return this.http.post<Respuesta>(`https://localhost:44372/API/PlanPago/Create`, planpago);
 
   }
 

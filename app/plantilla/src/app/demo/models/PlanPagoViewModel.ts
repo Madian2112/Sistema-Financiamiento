@@ -19,7 +19,8 @@ export class PLanPagoCreate{
     papa_Financiamiento!:number;   
     papa_Precio_Mercado!: number;
     papa_Numero_Cuota!: number;
-    vecl_Id!: number; 
+    vecl_Id!: number;  
+    usuario !: string;  
 }
 
 export class Fill{
