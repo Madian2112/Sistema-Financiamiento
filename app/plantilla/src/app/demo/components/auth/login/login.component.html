@@ -82,6 +82,7 @@
                     <p-password id="clave" formControlName="clave" placeholder="Clave" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
                     </form>
                     <div *ngIf="errorMessage" style="color: red;" class="error-message">{{ errorMessage }}</div>
+                    <a class="font-medium no-underline ml-2 text-right cursor-pointer"  (click)="reestablecer();"  style="color: rgb(255, 255, 255)">Olvidó su contraseña?</a>
                     <button type="button" pButton pRipple label="Inicia Sesion" style="background-color: #CC5B1C;" class="w-full p-3 text-xl" (click)="onLogin()"></button>
                 </div>
             </div>

@@ -147,6 +147,34 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult EnviarCodigo(string corus)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _usuarioRepositorio.EnviarCodigo(corus);
+                return result.Ok(lost);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult Implementarcodigo(string codigo, int usuarioId)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _usuarioRepositorio.IngresarCodigo(codigo, usuarioId);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
         public ServiceResult Eliminarusua(int id)
         {
             var result = new ServiceResult();
@@ -209,6 +237,49 @@ namespace Practica.BussinesLogic.Servicios
                 return result.Error(ex.Message);
             }
 
+        }
+
+
+        public ServiceResult ValidarCodigo(string codigo)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _usuarioRepositorio.ValidarCodigo(codigo);
+                if (list.Count() > 0)
+                {
+                    return result.Ok(list);
+                }
+                else
+                {
+                    return result.Error(list);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult RestablecerContrasenia(tbUsuarios item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _usuarioRepositorio.RestablecerContra2(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    return result.Error();
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
         }
         #endregion
         #region Role

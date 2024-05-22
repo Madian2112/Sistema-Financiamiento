@@ -70,7 +70,7 @@ export class UsuarioCrearComponent implements OnInit {
     // Lógica de autenticación (por ejemplo, verificación de credenciales)
     console.log("se hizo click");
     // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/IndexUsuario']); // Ajusta la ruta según tu configuración de enrutamiento
+    this.router.navigate(['/app/usuarios']); // Ajusta la ruta según tu configuración de enrutamiento
 }
 
 Nuevo() {

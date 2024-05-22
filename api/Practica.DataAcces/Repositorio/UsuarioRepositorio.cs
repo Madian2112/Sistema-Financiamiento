@@ -183,17 +183,67 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
-        //public IEnumerable<tbUsuarios> Login(string usuario, string contra)
-        //{
-        //    string sql = "EXEC [Acce].[SP_Usuarios_InicioSesion] @Usuario  , @Contra  ;";
+        public IEnumerable<tbUsuarios> ValidarCodigo(string codigo)
+        {
+            string sql = ScriptBaseDatos.UsuariosValidarCodigo;
 
-        //    List<tbUsuarios> result = new List<tbUsuarios>();
-        //    using (var db = new SqlConnection(PracticaContext.ConnectionString))
-        //    {
+            List<tbUsuarios> result = new List<tbUsuarios>();
 
-        //        result = db.Query<tbUsuarios>(sql, new { Usuario = usuario, Contra = contra }, commandType: CommandType.Text).ToList();
-        //        return result;
-        //    }
-        //}
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@Usua_VerificarCorreo", codigo);
+                result = db.Query<tbUsuarios>(sql, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+        public RequestStatus RestablecerContra2(tbUsuarios item)
+        {
+            string sql = ScriptBaseDatos.UsuariosRestablecerContra;
+
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@Usua_VerificarCorreo", item.Usua_VerificarCorreo);
+                parametro.Add("@Usua_Contra", item.Usua_Contra);
+                parametro.Add("@Usua_Usua_Modifica", item.Usua_Usua_Modifica);
+                parametro.Add("@Usua_Fecha_Modifica", item.Usua_Fecha_Modifica);
+                var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
+
+                return new RequestStatus { CodeStatus = result, MessageStatus = "" };
+            }
+        }
+
+        public IEnumerable<tbUsuarios> EnviarCodigo(string Usuario)
+        {
+            string sql = ScriptBaseDatos.UsuariosEnviarCodigo;
+
+            List<tbUsuarios> result = new List<tbUsuarios>();
+
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@UsuarioCorreo", Usuario);
+                result = db.Query<tbUsuarios>(sql, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+
+
+        public IEnumerable<tbUsuarios> IngresarCodigo(string codigo, int usua_id)
+        {
+            string sql = ScriptBaseDatos.UsuariosIngresarCodigo;
+
+            List<tbUsuarios> result = new List<tbUsuarios>();
+
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@Usua_Id", usua_id);
+                parameters.Add("@Usua_VerificarCorreo", codigo);
+                result = db.Query<tbUsuarios>(sql, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
     }
 }

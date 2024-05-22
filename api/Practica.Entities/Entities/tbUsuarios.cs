@@ -58,8 +58,9 @@ namespace Practica.Entities.Entities
         public string Usuario { get; set; }
         public int? Usua_Admin { get; set; }
         public int? Empl_Id { get; set; }
-    
- 
+        [NotMapped]
+        public string correo { get; set; }
+
         public int? Rol_Id { get; set; }
         public int? Usua_Usua_Creacion { get; set; }
         public DateTime? Usua_Fecha_Creacion { get; set; }
@@ -67,7 +68,7 @@ namespace Practica.Entities.Entities
         public DateTime? Usua_Fecha_Modifica { get; set; }
         public bool? Usua_Estado { get; set; }
 
-
+        public string Usua_VerificarCorreo { get; set; }
 
         [NotMapped]
         public string Empleado { get; set; }

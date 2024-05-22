@@ -22,7 +22,7 @@ import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { Departamento } from 'src/app/demo/models/Departamentoviewmodel';
 import { EstadoCivil } from '../../../models/EstadoCivilViewModel';
-
+import { CreationGuard } from '../../../service/autguardUrl';
 
 @Component({
   selector: 'app-clientes-listado',
@@ -49,6 +49,7 @@ export class ClientesListadoComponent implements OnInit {
     private fb:FormBuilder,
     private _Clienteservice:ClienteServiceService,
     private dialog: MatDialog,
+    private creationGuard: CreationGuard
   ) 
   {
     this.formClientes = this.fb.group({
@@ -128,11 +129,9 @@ export class ClientesListadoComponent implements OnInit {
   }
 
   Crear() {
-    // Lógica de autenticación (por ejemplo, verificación de credenciales)
-    console.log("se hizo click");
-    // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/CrearClientes']); // Ajusta la ruta según tu configuración de enrutamiento
-}
+    this.creationGuard.allow();
+    this.router.navigate(['/app/CrearClientes']);
+  }
 
 getSucursal() {
   this.service.getCliente().subscribe(

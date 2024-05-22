@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Practica.BussinesLogic.Servicios;
 using Practica.Common.Models;
 using Practica.Entities.Entities;
-using SistemaAsilos.BussinesLogic;
 using System;
+using Practica.API.Servicios;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Practica.API.Controllers
 {
@@ -17,13 +17,15 @@ namespace Practica.API.Controllers
     {
         private readonly AccesoServicio _accesoServicio;
         private readonly IMapper _mapper;
+        private readonly IMailService _mailService;
 
 
-        public UsuarioController(AccesoServicio accesoServicio, IMapper mapper)
+        public UsuarioController(AccesoServicio accesoServicio, IMapper mapper, IMailService mailService)
         {
 
             _mapper = mapper;
             _accesoServicio = accesoServicio;
+            _mailService = mailService;
 
 
         }
@@ -170,6 +172,72 @@ namespace Practica.API.Controllers
                 var listado = _accesoServicio.restablecer(modelo);
                 return Ok(listado);
            
+        }
+
+
+        [HttpGet("EnviarCorreo/{correo_usuario}")]
+        public IActionResult EnviarCorreo(string correo_usuario)
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(100000, 1000000);
+            var estado = _accesoServicio.EnviarCodigo(correo_usuario);
+            var lista = estado.Data;
+            if (lista.Count > 0)
+            {
+                var datos = estado.Data as List<tbUsuarios>;
+                var first = datos.FirstOrDefault();
+                _accesoServicio.Implementarcodigo(randomNumber.ToString(), first.Usua_Id);
+                MailData mailData = new MailData();
+                mailData.EmailToId = first.correo;
+                mailData.EmailToName = "Usuario";
+                mailData.EmailSubject = "Codigo de Verificacion";
+                mailData.EmailBody = "" + randomNumber.ToString();
+                _mailService.SendMail(mailData);
+                return Ok(estado);
+            }
+            else
+            {
+                return Problem();
+            }
+        }
+
+        [HttpGet("ValidarCodigo/{usua_verificarCorreo}")]
+        public IActionResult restablecer(string usua_verificarCorreo)
+        {
+
+            var lista = _accesoServicio.ValidarCodigo(usua_verificarCorreo);
+
+            if (lista.Success == true)
+            {
+                return Ok(lista);
+            }
+            else
+            {
+                return Problem();
+            }
+        }
+
+        [HttpPut("RestablacerContrasena")]
+        public IActionResult restablecer(UsuarioViewModel item)
+        {
+
+            var modelo = new tbUsuarios()
+            {
+                Usua_VerificarCorreo = item.Usua_VerificarCorreo,
+                Usua_Contra = item.Usua_Contra,
+                Usua_Usua_Modifica = 1,
+                Usua_Fecha_Modifica = DateTime.Now,
+            };
+            var list = _accesoServicio.RestablecerContrasenia(modelo);
+            if (list.Success == true)
+            {
+                return Ok(list);
+            }
+            else
+            {
+                return Problem();
+            }
+
         }
 
 

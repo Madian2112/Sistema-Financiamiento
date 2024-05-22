@@ -27,6 +27,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/demo/service/authGuard.service'; 
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ImpresionService } from 'src/app/demo/service/impresion.service';
+import { CreationGuard } from '../../../service/autguardUrl';
 
 @Component({
   selector: 'app-planpago-listado',
@@ -55,7 +56,8 @@ export class PlanpagoListadoComponent implements OnInit {
     private fb:FormBuilder,
     private _PlanPagoservice:PLanPagoServiceService,
     private dialog: MatDialog,
-    private cookieService: CookieService, 
+    private cookieService: CookieService,
+    private creationGuard: CreationGuard ,
     private authService: AuthService ,
     private serviceIMprimir: ImpresionService, 
    ) 
@@ -131,10 +133,9 @@ export class PlanpagoListadoComponent implements OnInit {
   }
 
   Crear() {
-    // Lógica de autenticación (por ejemplo, verificación de credenciales)
-    console.log("se hizo click"); 
-    this.router.navigate(['/app/CrearPlanPago']); // Ajusta la ruta según tu configuración de enrutamiento
-}
+    this.creationGuard.allow();
+    this.router.navigate(['/app/CrearPlanPago']);
+  }
 
 VerCuotas(codigo){
 

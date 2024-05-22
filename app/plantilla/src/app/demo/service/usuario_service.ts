@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Usuario, Fill, FillPerfilUsuario} from '../models/UsuarioViewModel'
+import {Contra, Codigo, Login} from '../models/loginViewModel'
 import {Rol} from '../models/RolViewModel'
 import {Empleado} from '../models/EmpleadoViewModel'
 import {HttpClient} from '@angular/common/http'
@@ -17,7 +18,9 @@ export class UsuarioServiceService {
 
   constructor(private http: HttpClient) { }
   private endpoint: string = environment.endPoint;
+  private endPointLocal: string = environment.endPointLocal;
   private apiUrl: string = this.endpoint + "API/Usuario/";
+  private apiUrlLocal: string = this.endPointLocal + "API/Usuario/";
   private apiUrlR: string = this.endpoint + "API/Rol/";
   private apiUrlE: string = this.endpoint + "API/Empleado/";
 
@@ -55,6 +58,10 @@ export class UsuarioServiceService {
     return this.http.put<Usuario>(`${this.apiUrl}Edit/${idDepartamento}`,modelo);
   }
 
+  restablecerContraseña(id: number, nuevaContraseña: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}restablecer/${id}`, { usua_Contra: nuevaContraseña });
+  }
+
   agregar(modelo: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(`http://dbcredirapid.somee.com/API/Usuario/Create`, modelo);
   }
@@ -82,4 +89,26 @@ export class UsuarioServiceService {
   getPantallasDeRol(idRoll: Number) {
     return this.http.get<Pantalla[]>(`${this.UrlPantallasRoles}PantallasdeRoles/${idRoll}`);
   }
+
+
+  getcorreo(loginData:Login ): Observable<any> {
+    const urlCorreo = `${this.apiUrlLocal}EnviarCorreo/${loginData.usuario}`;
+    return this.http.get<any>(urlCorreo);
+  }  
+  
+  /* RESTABLECER CONTRASEÑA */
+  private Urlcontra: string = this.endPointLocal + 'API/Usuario/RestablacerContrasena';
+
+  postrestablecer(codigoData: Contra): Observable<any> {
+    return this.http.put<any>(`${this.Urlcontra}`, codigoData);
+  }
+
+  /* VALIDAR CÓDIGO */
+  private Urlcodigo: string = this.endPointLocal + 'API/Usuario/ValidarCodigo/';
+
+  getcodigo(codigoData: Codigo): Observable<any> {
+    return this.http.get<any>(`${this.Urlcodigo}${codigoData.usua_VerificarCorreo}`);
+  }
+
+
 }

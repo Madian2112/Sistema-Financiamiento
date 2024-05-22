@@ -10,28 +10,28 @@
                 "label": "Acceso",
                 "data": "Work Folder",
                 "icon": "pi pi-fw pi-lock",
-                "children": [{ "key": "1", "label": "Usuarios", "icon": "pi pi-desktop" }, { "key": "2", "label": "Roles", "icon": "pi pi-desktop"}]
+                "children": [{ "key": "1", "label": "usuarios", "icon": "pi pi-desktop" }, { "key": "2", "label": "rol", "icon": "pi pi-desktop"}]
             },
             {
                 "key": "101",
                 "label": "Generales",
                 "data": "Work Folder",
                 "icon": "pi pi-fw pi-user",
-                "children": [{ "key": "3", "label": "Cargos", "icon": "pi pi-desktop" }, { "key": "4", "label": "Clientes", "icon": "pi pi-desktop" },{ "key": "5", "label": "Departamentos", "icon": "pi pi-desktop" },{ "key": "6", "label": "Empleados", "icon": "pi pi-desktop" },{ "key": "7", "label": "Estados Civiles", "icon": "pi pi-desktop" },{ "key": "8", "label": "Marcas", "icon": "pi pi-desktop" },{ "key": "9", "label": "Municipios", "icon": "pi pi-desktop" },{ "key": "10", "label": "Sucursales", "icon": "pi pi-desktop" },{ "key": "25", "label": "Imagenes Clientes", "icon": "pi pi-desktop" }]
+                "children": [{ "key": "3", "label": "cargos", "icon": "pi pi-desktop" }, { "key": "4", "label": "clientes", "icon": "pi pi-desktop" },{ "key": "5", "label": "departamentos", "icon": "pi pi-desktop" },{ "key": "6", "label": "empleados", "icon": "pi pi-desktop" },{ "key": "7", "label": "estadocivil", "icon": "pi pi-desktop" },{ "key": "8", "label": "marcas", "icon": "pi pi-desktop" },{ "key": "9", "label": "municipios", "icon": "pi pi-desktop" },{ "key": "10", "label": "sucursales", "icon": "pi pi-desktop" },{ "key": "25", "label": "imagenesclientes", "icon": "pi pi-desktop" }]
             },
             {
                 "key": "103",
                 "label": "Inicio",
                 "data": "Work Folder",
                 "icon": "pi pi-fw pi-file",
-                "children": [{ "key": "15", "label": "Dashboard", "icon": "pi pi-desktop" }, { "key": "16", "label": "Prestamos Aprobados", "icon": "pi pi-desktop" },{ "key": "17", "label": "Ventas Hechas por Empleados", "icon": "pi pi-desktop" },{ "key": "18", "label": "Clientes en Mora", "icon": "pi pi-desktop" },{ "key": "19", "label": "PlanPago - Cliente", "icon": "pi pi-desktop" },{ "key": "20", "label": "Inicio", "icon": "pi pi-desktop" }]
+                "children": [{ "key": "15", "label": "graficos", "icon": "pi pi-desktop" }, { "key": "16", "label": "prestamosaprobados", "icon": "pi pi-desktop" },{ "key": "17", "label": "ventasempleados", "icon": "pi pi-desktop" },{ "key": "18", "label": "clientesenmora", "icon": "pi pi-desktop" },{ "key": "19", "label": "planpagocliente", "icon": "pi pi-desktop" },{ "key": "20", "label": "inicio", "icon": "pi pi-desktop" }]
             },
             {
                 "key": "100",
                 "label": "Credito",
                 "data": "Work Folder",
                 "icon": "pi pi-fw pi-car",
-                "children": [{ "key": "11", "label": "Tipo de Cuota", "icon": "pi pi-desktop" }, { "key": "12", "label": "Modelo", "icon": "pi pi-desktop" }, { "key": "13", "label": "Vehiculo", "icon": "pi pi-desktop" }, { "key": "14", "label": "Plan de Pago", "icon": "pi pi-desktop" }]
+                "children": [{ "key": "11", "label": "tipocuota", "icon": "pi pi-desktop" }, { "key": "12", "label": "modelo", "icon": "pi pi-desktop" }, { "key": "13", "label": "vehiculo", "icon": "pi pi-desktop" }, { "key": "14", "label": "planpago", "icon": "pi pi-desktop" }]
             }
         ]
         }
