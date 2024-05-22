@@ -1,19 +1,28 @@
-// import { Injectable } from '@angular/core';
-// import { CanActivate, Router } from '@angular/router';
-// import { AuthService } from './authGuard.service';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthGuard implements CanActivate {
-//   constructor(private authService: AuthService, private router: Router) {}
+@Injectable({
+  providedIn: 'root'
+})
+export class CreationGuard implements CanActivate {
 
-//   canActivate(): boolean {
-//     if (this.authService.isAuthenticated()) {
-//       return true;
-//     } else {
-//       this.router.navigate(['/login']);
-//       return false;
-//     }
-//   }
-// }
+  private allowAccess: boolean = false;
+
+  constructor(private router: Router) {}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    if (this.allowAccess) {
+      this.allowAccess = false; // Reset after allowing access once
+      return true;
+    } else {
+      this.router.navigate(['/notfound']);
+      return false;
+    }
+  }
+
+  public allow() {
+    this.allowAccess = true;
+  }
+}

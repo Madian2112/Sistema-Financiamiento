@@ -22,6 +22,7 @@ import {DialogAddEditComponent} from 'src/app/demo/Dialogs/dialog-add-edit/dialo
 import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { tick } from '@angular/core/testing';
+import { CreationGuard } from '../../../service/autguardUrl';
 
 @Component({
   selector: 'app-vehiculo-listado',
@@ -42,11 +43,9 @@ export class VehiculoListadoComponent implements OnInit {
   MunicipioCodigo: String = "";
 
   Crear() {
-    // Lógica de autenticación (por ejemplo, verificación de credenciales)
-    console.log("se hizo click");
-    // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/CrearVehiculo']); // Ajusta la ruta según tu configuración de enrutamiento
-}
+    this.creationGuard.allow();
+    this.router.navigate(['/app/CrearVehiculo']);
+  }
 
   constructor(
     private service:  VehiculoServiceService, 
@@ -54,6 +53,7 @@ export class VehiculoListadoComponent implements OnInit {
     private fb:FormBuilder,
     private _vehiculoservice:VehiculoServiceService,
     private dialog: MatDialog,
+    private creationGuard: CreationGuard
   ) {
 
     this.formVehiculo = this.fb.group({

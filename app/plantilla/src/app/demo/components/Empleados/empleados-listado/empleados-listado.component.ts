@@ -23,7 +23,7 @@ import { MessageService } from 'primeng/api';
 import {DialogAddEditComponent} from 'src/app/demo/Dialogs/dialog-add-edit/dialog-add-edit.component';
 import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-
+import { CreationGuard } from '../../../service/autguardUrl';
 
 @Component({
   selector: 'app-empleados-listado',
@@ -52,6 +52,7 @@ export class EmpleadosListadoComponent implements OnInit  {
     private fb:FormBuilder,
     private _Empleadoservice:EmpleadoServiceService,
     private dialog: MatDialog,
+    private creationGuard: CreationGuard
   ) 
    {
     this.formEmpleado = this.fb.group({
@@ -132,11 +133,9 @@ export class EmpleadosListadoComponent implements OnInit  {
   }
 
   Crear() {
-    // Lógica de autenticación (por ejemplo, verificación de credenciales)
-    console.log("se hizo click");
-    // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/CrearEmpleados']); // Ajusta la ruta según tu configuración de enrutamiento
-}
+    this.creationGuard.allow();
+    this.router.navigate(['/app/CrearEmpleados']);
+  }
 
 getSucursal() {
   this.service.getEmpleado().subscribe(

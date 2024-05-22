@@ -22,6 +22,7 @@ import { MessageService } from 'primeng/api';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AdminStatusPipe } from '../../../../admin-status.pipe';
+import { CreationGuard } from '../../../service/autguardUrl';
 
 @Component({
   selector: 'app-usuario-listado',
@@ -45,19 +46,19 @@ export class UsuarioListadoComponent implements OnInit {
   restablecerVisible: boolean = false; 
 
   Crear() {
-
-    console.log("se hizo click");
-
-    this.router.navigate(['/app/CrearUsuarios']); 
-}
+    this.creationGuard.allow();
+    this.router.navigate(['/app/CrearUsuarios']);
+  }
 
   constructor(
     private service: UsuarioServiceService,
     private router: Router,
     private fb: FormBuilder,
     private _Usuarioservice: UsuarioServiceService,
-    private messageService: MessageService, // Inyectar el MessageService
-    private dialog: MatDialog
+    private messageService: MessageService,
+    private dialog: MatDialog,
+    private creationGuard: CreationGuard
+
   ) {
     this.formUsuarioC = this.fb.group({
       Usuario: ["", Validators.required],

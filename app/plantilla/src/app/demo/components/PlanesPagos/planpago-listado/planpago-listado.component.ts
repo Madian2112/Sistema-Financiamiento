@@ -24,7 +24,7 @@ import {DialogAddEditComponent} from 'src/app/demo/Dialogs/dialog-add-edit/dialo
 import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { CookieService } from 'ngx-cookie-service';
-
+import { CreationGuard } from '../../../service/autguardUrl';
 
 @Component({
   selector: 'app-planpago-listado',
@@ -48,7 +48,8 @@ export class PlanpagoListadoComponent implements OnInit {
     private fb:FormBuilder,
     private _PlanPagoservice:PLanPagoServiceService,
     private dialog: MatDialog,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private creationGuard: CreationGuard
    ) 
   {
     this.formPlanPago = this.fb.group({
@@ -121,10 +122,9 @@ export class PlanpagoListadoComponent implements OnInit {
   }
 
   Crear() {
-    // Lógica de autenticación (por ejemplo, verificación de credenciales)
-    console.log("se hizo click"); 
-    this.router.navigate(['/app/CrearPlanPago']); // Ajusta la ruta según tu configuración de enrutamiento
-}
+    this.creationGuard.allow();
+    this.router.navigate(['/app/CrearPlanPago']);
+  }
 
 getSucursal() {
   this.service.getPLanPago().subscribe(
