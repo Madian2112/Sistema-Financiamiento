@@ -23,6 +23,6 @@ import { MessageService } from 'primeng/api';
         ToastModule 
     ],
     declarations: [ValidacionComponent],
-    providers: [MessageService] 
+    providers: [MessageService]
 })
 export class ValidacionModule { }
