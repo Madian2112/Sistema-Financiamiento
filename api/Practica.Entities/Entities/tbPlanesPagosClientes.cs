@@ -56,7 +56,7 @@ namespace Practica.Entities.Entities
         public string Pacl_Fecha_PreviaPago { get; set; }
 
         [NotMapped]
-        public int Pacl_Estado_Pago { get; set; }
+        public string Pacl_Estado_Pago { get; set; }
 
         [NotMapped]
         public string Pacl_Mora_Saber { get; set; }

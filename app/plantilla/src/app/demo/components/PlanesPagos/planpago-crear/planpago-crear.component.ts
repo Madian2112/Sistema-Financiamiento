@@ -145,6 +145,7 @@ cuotas: string = "";
 
 Nuevo() {
 
+   this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
     this._PlanPagoservice.getValidarCliente(this.formPlanPago.get('vehiculo').value).subscribe(
     (respuesta: Respuesta) => {
       console.log(this.formPlanPago.get('vehiculo').value)
@@ -168,6 +169,7 @@ Nuevo() {
               papa_Numero_Cuota: this.formPlanPago.value.cuota, 
               papa_Precio_Mercado: this.formPlanPago.value.preciomercado, 
               vecl_Id: this.formPlanPago.value.vehiculo, 
+              usuario : this.usuarioLogueado
                 }
                 this._PlanPagoservice.agregar(planpago).subscribe(
                   (respuesta: Respuesta) => {

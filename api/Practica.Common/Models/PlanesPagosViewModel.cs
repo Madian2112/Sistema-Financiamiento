@@ -36,5 +36,14 @@ namespace Practica.Common.Models
                 [NotMapped]
         public int Resultado { get; set; }
 
+        [NotMapped]
+        public int Empl_Id { get; set; }
+
+        [NotMapped]
+        public int Sucu_Id { get; set; }
+
+        [NotMapped]
+        public string Usuario { get; set; }
+
     }
 }

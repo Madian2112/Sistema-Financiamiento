@@ -45,6 +45,7 @@ namespace Practica.API.Controllers
             }
             var modelo = _credirapidServicio.DetallesPP(id);
             var fechaActual = DateTime.Now.Date;
+            DateTime fechaactual = DateTime.Today.Date;
 
             foreach (var item in modelo)
             {
@@ -52,7 +53,21 @@ namespace Practica.API.Controllers
                 var holaa = item.Pacl_Fecha_Emision;
                 DateTime fechaUnMesAntes = fechaPago.AddMonths(-1);
 
-                if(item.Pacl_Fecha_Emision != null) 
+                if (item.Pacl_Fecha_Pago != null && item.Pacl_Fecha_PreviaPago != null)
+                {
+
+                    if (DateTime.Parse(item.Pacl_Fecha_Pago) < fechaactual)
+                    {
+                        var sabermora = _credirapidServicio.SaberMora(item.Pacl_Id);
+                    }
+
+                    if (DateTime.Parse(item.Pacl_Fecha_PreviaPago) <= fechaactual)
+                    {
+                        var insertarfechaprevia = _credirapidServicio.InsertarVFechaPrevia(item.Pacl_Id);
+                    }
+                }
+
+                if (item.Pacl_Fecha_Emision != null) 
                 {
                     _credirapidServicio.ActualizarEstadoPago(item.Pacl_Id);
                 }
@@ -93,11 +108,6 @@ namespace Practica.API.Controllers
                     {
                        var sabermora = _credirapidServicio.SaberMora(item.Pacl_Id);
                     }
-
-                    if(DateTime.Parse(item.Pacl_Fecha_PreviaPago) <= fechaactual)
-                    {
-                        var insertarfechaprevia = _credirapidServicio.InsertarVFechaPrevia(item.Pacl_Id);
-                    }
                 }
             }
 
@@ -119,7 +129,9 @@ namespace Practica.API.Controllers
                 }
             }
 
-            return Ok(modelo);
+            var modelo2 = _credirapidServicio.BuscarDNI(id);
+
+            return Ok(modelo2);
         }
 
         [HttpGet("BuscarPapaID/{id}")]
@@ -135,7 +147,9 @@ namespace Practica.API.Controllers
                 }
             }
 
-            return Ok(modelo);
+            var modelo2 = _credirapidServicio.BuscarDNI(id);
+
+            return Ok(modelo2);
         }
 
         [HttpPut("PagarCuota/")]
