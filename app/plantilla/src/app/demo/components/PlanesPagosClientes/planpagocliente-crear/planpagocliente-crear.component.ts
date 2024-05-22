@@ -51,6 +51,7 @@ export class PlanpagoclienteCrearComponent {
   label: string ="collapse";
   pagada: string = "";
   mostrarPDF: string = "";
+  InteresesRestantes: number = 0;
 
   intereses: number;
   mora: number;
@@ -208,7 +209,8 @@ ocultarEncabezado: boolean = false;
       this.montovacio = "collapse";
       this.selectCliente = ppagoclientefecha;
       
-      this.intereses = ppagoclientefecha.papa_Intereses_Monto;
+      this.intereses = ppagoclientefecha.pacl_Intereses_Restar;
+      this.InteresesRestantes = ppagoclientefecha.pacl_Total_Intereses;
       this.mora = ppagoclientefecha.monto_Mora;
       this.minimototal = ppagoclientefecha.minimoPagar;
       this.capital = ppagoclientefecha.pacl_Capital_Restar;

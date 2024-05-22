@@ -3,6 +3,7 @@ export class Empleado{
     empl_DNI!:string;   
     empl_Nombre!: string;
     empl_Apellido!: string;
+    empl_Correo!: string;
     empl_Sexo!:string;   
     esta_Descripcion!: string;
     carg_Descripcion!: string;
@@ -18,6 +19,7 @@ export class Fill{
     empl_DNI!:string;   
     empl_Nombre!: string;
     empl_Apellido!: string;
+    empl_Correo!: string;
     empl_Sexo!:string;   
     esta_Descripcion!: string;
     carg_Descripcion!: string;
