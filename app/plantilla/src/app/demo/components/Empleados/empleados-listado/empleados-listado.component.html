@@ -144,6 +144,14 @@
                                 </div>
                                 </div> 
                             </div>
+                            <div class="row" style="margin-top: 2%; margin-left: 0%;">
+                                <div class="col-sm-6">
+                                    <label style="color:aliceblue" htmlFor="email2">Correo</label>
+                                <div class="form-group">
+                                    <input pInputText formControlName="correo" autocomplete="off" id="correo" type="text" />
+                                </div>
+                                </div>
+                            </div>
                     </form>
                     <div class="row" style="margin-top: 2%;">
                         <div class="col-sm-2">
@@ -169,7 +177,7 @@
                 </div>
             </div>
             <p-table [value]="empleado" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
-                [paginator]="true" [globalFilterFields]="['empl_Id','empl_DNI', 'empl_Nombre', 'empl_Apellido', 'empl_Sexo','esta_Descripcion', 'carg_Descripcion', 'esta_Id', 'carg_Id','muni_Id', 'dept_Id']" responsiveLayout="scroll">
+                [paginator]="true" [globalFilterFields]="['empl_Id','empl_DNI', 'empl_Nombre', 'empl_Apellido', 'empl_Sexo','esta_Descripcion', 'carg_Descripcion', 'empl_Correo' ,'esta_Id', 'carg_Id','muni_Id', 'dept_Id' ]" responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
@@ -234,6 +242,13 @@
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
+                                Correo
+                                <p-columnFilter type="text" field="empl_Correo" display="menu"
+                                    placeholder="Buscar por código"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
                              Acciones
                        
                             </div>
@@ -249,6 +264,7 @@
                         <td>{{empleado.empl_Sexo}}</td>
                         <td>{{empleado.esta_Descripcion}}</td>
                         <td>{{empleado.carg_Descripcion}}</td>
+                        <td>{{empleado.empl_Correo}}</td>
                         <td class="collapse">{{empleado.esta_Id}}</td>
                         <td class="collapse">{{empleado.carg_Id}}</td>
                         <td class="collapse">{{empleado.muni_Id}}</td>

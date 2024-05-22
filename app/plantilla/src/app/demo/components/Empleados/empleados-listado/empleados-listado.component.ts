@@ -64,6 +64,7 @@ export class EmpleadosListadoComponent implements OnInit  {
       municipio:["",],
       cargo:["Seleccione"],
       estado:["Seleccione"],
+      correo: [""],
     })
 
     this._Empleadoservice.getEmpleado().subscribe(
@@ -184,6 +185,7 @@ editar(departamento: any) {
     municipio:[departamento.muni_Id],
     cargo:[departamento.carg_Id],
     estado:[departamento.esta_Id],
+    correo:[departamento.empl_Correo],
 
   });
 
@@ -217,7 +219,8 @@ actualizar() {
     empl_Sexo: this.formEmpleado.value.sexo, 
     esta_Descripcion: "", 
     esta_Id: this.formEmpleado.value.estado, 
-    muni_Id: this.formEmpleado.value.municipio
+    muni_Id: this.formEmpleado.value.municipio, 
+    empl_Correo: this.formEmpleado.value.correo,
   }
   this._Empleadoservice.actualizar(idDepartamento, modelo).subscribe({
     next: (data) => {

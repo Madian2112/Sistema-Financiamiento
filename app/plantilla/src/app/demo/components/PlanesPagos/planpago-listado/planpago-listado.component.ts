@@ -24,6 +24,9 @@ import {DialogAddEditComponent} from 'src/app/demo/Dialogs/dialog-add-edit/dialo
 import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/demo/service/authGuard.service'; 
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { ImpresionService } from 'src/app/demo/service/impresion.service';
 import { CreationGuard } from '../../../service/autguardUrl';
 
 @Component({
@@ -33,15 +36,20 @@ import { CreationGuard } from '../../../service/autguardUrl';
 })
 export class PlanpagoListadoComponent implements OnInit {
   display: boolean = false;
+  usuarioLogueado: string;
   planpago!: PLanPago[];
   planpagoclientes!: PLanPagoClientTB[];
   tipocuotas!: TipoCuota[];
   vehiculos: Vehiculo[];
+  pdfSrc: SafeResourceUrl | null = null;
   formPlanPago: FormGroup;
   listadoPlanPago: PLanPago[] = [];
   selectedDepartamento: any;
   modalTitle: string = 'Nuevo Registro';
   modalButtonLabel: string = 'Guardar';
+  timeline: string = "collapse";
+  tablaClientes: string = "collapse";
+  pdf: string ="collapse";
 
   constructor(    private service:  PLanPagoServiceService, 
     private router: Router ,
@@ -49,7 +57,9 @@ export class PlanpagoListadoComponent implements OnInit {
     private _PlanPagoservice:PLanPagoServiceService,
     private dialog: MatDialog,
     private cookieService: CookieService,
-    private creationGuard: CreationGuard
+    private creationGuard: CreationGuard 
+    private authService: AuthService ,
+    private serviceIMprimir: ImpresionService, 
    ) 
   {
     this.formPlanPago = this.fb.group({
@@ -74,8 +84,6 @@ export class PlanpagoListadoComponent implements OnInit {
         console.log(error);
       }
     );
-  
-  
   }
 
 
@@ -119,12 +127,70 @@ export class PlanpagoListadoComponent implements OnInit {
   volver(){
     this.tabla = "";
     this.detalless = "collapse";
+    this.timeline = "collapse";
+    this.pdf = "collapse";
+    this.tablaClientes = "collapse";
   }
 
   Crear() {
     this.creationGuard.allow();
     this.router.navigate(['/app/CrearPlanPago']);
   }
+
+VerCuotas(codigo){
+
+  this.service.getPLanPagoCliente(codigo).subscribe(data => {
+    this.planpagoclientes = data;
+    console.log("El contenido de la clase es: " + this.planpagoclientes)
+    console.log("Los datos son: "+ data)
+  });
+
+  this.tablaClientes = "";
+  this.edit = "collapse";
+  this.tabla = "collapse";
+  this.detalless = "collapse";
+  this.edit = "collapse";
+
+}
+
+LineaTiempo(){
+  this.timeline = "";
+  this.tablaClientes = "collapse";
+}
+
+Volver(){
+  this.timeline = "collapse";
+  this.pdf = "collapse";
+  this.tablaClientes = "";
+}
+
+PDF(){
+
+  this.usuarioLogueado = this.authService.getUsuarioLogueado(); 
+  const encabezado = ["Pago", "Fecha de Pago" , "Saldo Inicial", "Pago", "Capital", "Interés", "Mora" ,"Saldo", "FechaEmision"];
+  const cuerpo = [];
+  this.pdf = "";
+  this.tablaClientes = "collapse";
+
+  
+  this.planpagoclientes.forEach(cliente => {
+      cuerpo.push([
+          cliente.pacl_NumeroCuota,
+          cliente.pacl_Fecha_Pago,
+          cliente.pacl_Saldo_Inicial,
+          cliente.pacl_Total_Pago,
+          cliente.pacl_Capital_Restar,
+          cliente.pacl_Intereses_Restar, 
+          cliente.pacl_Pago_Mora, 
+          cliente.pacl_Saldo,       
+          cliente.pacl_Fecha_Emision,
+        ]);
+  });
+
+  // PDF con datosde la tabla
+  this.pdfSrc = this.serviceIMprimir.imprimir(encabezado, cuerpo, "Reporte Pago de Cuotas", this.usuarioLogueado);
+}
+
 
 getSucursal() {
   this.service.getPLanPago().subscribe(

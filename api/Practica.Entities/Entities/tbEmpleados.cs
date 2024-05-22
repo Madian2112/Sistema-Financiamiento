@@ -49,6 +49,9 @@ namespace Practica.Entities.Entities
         [NotMapped]
         public string Usua_Modifica { get; set; }
 
+        [NotMapped]
+        public string Empl_Correo { get; set; }
+
         public virtual tbCargos Carg { get; set; }
         public virtual tbUsuarios Empl_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Empl_Usua_ModificaNavigation { get; set; }

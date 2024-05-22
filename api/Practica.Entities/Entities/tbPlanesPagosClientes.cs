@@ -29,7 +29,7 @@ namespace Practica.Entities.Entities
         public decimal? Pacl_Pago_Capital { get; set; }
         public decimal? Pacl_Pago_Intereses { get; set; }
         public decimal? Pacl_Pago_Mora { get; set; }
-        public DateTime? Pacl_Fecha_Emision { get; set; }
+        public string? Pacl_Fecha_Emision { get; set; }
         public int? Sucu_Id { get; set; }
         public int? Pacl_Usua_Creacion { get; set; }
         public DateTime? Pacl_Fecha_Creacion { get; set; }
@@ -56,7 +56,7 @@ namespace Practica.Entities.Entities
         public string Pacl_Fecha_PreviaPago { get; set; }
 
         [NotMapped]
-        public string Pacl_Estado_Pago { get; set; }
+        public int Pacl_Estado_Pago { get; set; }
 
         [NotMapped]
         public string Pacl_Mora_Saber { get; set; }
@@ -112,6 +112,9 @@ namespace Practica.Entities.Entities
 
         [NotMapped]
         public decimal Papa_Total_Intereses_Restados { get; set; }
+
+        [NotMapped]
+        public string Color { get; set; }
 
         public virtual tbUsuarios Pacl_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Pacl_Usua_ModiNavigation { get; set; }

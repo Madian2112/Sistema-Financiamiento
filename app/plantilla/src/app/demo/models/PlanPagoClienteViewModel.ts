@@ -41,6 +41,7 @@ export class PLanPagoClientTB{
     pacl_Saldo!: number; 
     pacl_NumeroCuota!: number; 
     pacl_Fecha_Pago!: string;
+    color!: string;
 }
 
 export class PagoClienteFechaPrevia{
@@ -64,6 +65,8 @@ export class PagoClienteFechaPrevia{
     monto_Mora: number;
     minimoPagar: number;
     pacl_Capital_Restar: number;
+    pacl_Intereses_Restar: number;
+    pacl_Total_Intereses: number;
 }
 
 export class PagoClientePapaID{

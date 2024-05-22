@@ -60,6 +60,7 @@ export class EmpleadosCrearComponent implements OnInit  {
       municipio:["",],
       cargo:["Seleccione"],
       estado:["Seleccione"],
+      correo: [""],
     })
 
     this._Empleadoservice.getEmpleado().subscribe(
@@ -108,7 +109,8 @@ Nuevo() {
       esta_Descripcion: "", 
       esta_Id: this.formEmpleado.value.estado,
       muni_Id: this.formEmpleado.value.municipio,
-      dept_Id: this.formEmpleado.value.departamento
+      dept_Id: this.formEmpleado.value.departamento, 
+      empl_Correo: this.formEmpleado.value.correo,
     }
     this.formEmpleado = this.fb.group({
       dni:[""],
@@ -119,6 +121,7 @@ Nuevo() {
       municipio:[""],
       cargo:["Seleccione"],
       estado:["Seleccione"],
+      correo: [""],
     })
     // Llamar al servicio solo si los valores necesarios están definidos
     this._Empleadoservice.agregar(empleado).subscribe({
