@@ -9,8 +9,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-validacion',
   templateUrl: './validacion.component.html',
-  styleUrls: ['./validacion.component.scss'],
-  providers: [MessageService]
+  styleUrls: ['./validacion.component.scss']
 })
 export class ValidacionComponent {
   loginForm: FormGroup;
@@ -46,6 +45,7 @@ export class ValidacionComponent {
             if (response.code === 200) {
               this.cookieService.set('namee', response.data.empl_Nombre);
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Correo enviado', life: 3000 });
+              console.log(this.messageService);
               this.router.navigate(['/reestablecer1']);
             } else {
               errorSpan.classList.remove('collapse');

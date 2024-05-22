@@ -217,7 +217,7 @@ namespace Practica.API.Controllers
             }
         }
 
-        [HttpPut("RestablacerContrasena")]
+        [HttpPut("RestablecerContra2")]
         public IActionResult restablecer(UsuarioViewModel item)
         {
 

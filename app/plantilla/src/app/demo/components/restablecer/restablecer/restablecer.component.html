@@ -1,16 +1,37 @@
+<!-- <style>
+    .text-danger {
+    color: #dc3545;
+}
+
+.error  {
+    color: #dc3545;
+}
+
+.btn-primary {
+    background-color: #e24000;
+    border-color: #e24000;
+}
+
+.btn-primary:hover {
+    background-color: #e24000;
+    border-color: #e24000;
+}
+</style> -->
+
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
     <div class="flex flex-column align-items-center justify-content-center">
         <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 15px; background: rgba(255, 255, 255, 0.95); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div class="text-center mb-5">
                 <img src="assets/demo/images/credirapi-removebg-preview.png" alt="Image" height="50" class="mb-3">
-                <h2 class="text-900 font-bold mb-3">Enviar código de restablecimiento</h2>
+                <h2 class="text-900 font-bold mb-3">Código de restablecimiento de contraseña</h2>
             </div>
 
             <form [formGroup]="restaForm" (ngSubmit)="onSubmitEdit()">
                 <div class="mb-4">
-                    <label for="usua_Contra" class="block text-900 text-lg font-medium mb-2">Nueva Contraseña</label>
+                    <label for="usua_Contra" class="block text-900 text-lg font-medium mb-2">Contraseña Nueva</label>
                     <input id="usua_Contra" type="password" placeholder="Contraseña" formControlName="usua_Contra" class="w-full form-control">
                 </div>
+                <br>
                 <div class="mb-4">
                     <label for="otp" class="block text-900 text-lg font-medium mb-2">Código OTP</label>
                     <div class="otp-input-group">
@@ -24,7 +45,10 @@
                     <span id="validarOtp" class="text-danger collapse">El código OTP es obligatorio.</span>
                     <span class="error collapse" id="error-span">Código </span>
                 </div>
-                <button type="submit" pButton pRipple label="Aceptar" class="w-full btn btn-primary text-xl mt-4" style="max-width: 200px;"></button>
+   
+                    <button type="submit" pButton pRipple label="Aceptar" class="w-full btn btn-primary text-xl mt-4" style="max-width: 200px; text-align: center;"></button>
+           
+               
             </form>
         </div>
     </div>
