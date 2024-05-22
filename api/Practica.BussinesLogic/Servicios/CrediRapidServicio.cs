@@ -353,6 +353,54 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
+        public ServiceResult ActualizarCuotaActual(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ActualizarCuotaActual(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarEstadoPago(int? id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _planpagoclienteRepositorio.ActualizarEstadoPago(id);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
         public IEnumerable<tbPlanesPagosClientes> BuscarFechaPrevia(string id)
         {
             return _planpagoclienteRepositorio.BuscarVFechaPrevia(id);
@@ -1091,6 +1139,30 @@ namespace Practica.BussinesLogic.Servicios
             }
         }
 
+        public ServiceResult ActualizarImagenPorVehiculo(tbImagenesPorClientes item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var lost = _imagenesClienresRepositorio.Actualizar(item);
+                if (lost.CodeStatus > 0)
+                {
+                    return result.Ok(lost);
+                }
+                else
+                {
+                    lost.MessageStatus = (lost.CodeStatus == 0) ? "401 Error de Consulta" : lost.MessageStatus;
+                    return result.Error(lost);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return result.Error(ex.Message);
+            }
+        }
+
         public ServiceResult ListadoVehiculos()
         {
             var result = new ServiceResult();
@@ -1128,6 +1200,11 @@ namespace Practica.BussinesLogic.Servicios
 
                 return result.Error(ex.Message);
             }
+        }
+
+        public IEnumerable<tbImagenesPorClientes> DetallesImagenesPorVehiculo(int id)
+        {
+            return _imagenesClienresRepositorio.Detalle(id);
         }
 
         #endregion

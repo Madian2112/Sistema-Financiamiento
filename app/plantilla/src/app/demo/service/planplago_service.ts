@@ -37,7 +37,7 @@ export class PLanPagoServiceService {
   }
 
   agregarPagoCliente(planpago: PagoCliente): Observable<PagoCliente> {
-    return this.http.put<PagoCliente>('http://dbcredirapid.somee.com/API/PlanPagoCliente/PagarCuota/', planpago);
+    return this.http.put<PagoCliente>('https://localhost:44372/API/PlanPagoCliente/PagarCuota/', planpago);
 
   }
 
@@ -64,7 +64,7 @@ export class PLanPagoServiceService {
   }
 
   getPLanPagoCliente(codigo:number){
-    return this.http.get<PLanPagoClientTB[]>('http://dbcredirapid.somee.com/API/PlanPagoCliente/DetailsPP/'+codigo);
+    return this.http.get<PLanPagoClientTB[]>('https://localhost:44372/API/PlanPagoCliente/DetailsPP/'+codigo);
   }
 
   getFill(codigo: number): Observable<Fill> {

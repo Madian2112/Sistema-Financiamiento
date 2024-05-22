@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="justify-content-center ms-5">
+                    <div class="justify-content-center ms-5" style="margin-top:3%">
                         <!-- Contenedor para centrar la imagen -->
                         <div class="text-center">
                             <p-image *ngIf="selectedImageURL" [src]="selectedImageURL" alt="Imagen seleccionada"
@@ -95,7 +95,7 @@
                     <button pButton icon="pi pi-times" (click)="recargarPagina()" label="Cerrar"
                         class="p-button-outlined p-button-danger mr-2"></button>
                     <button pButton icon="pi pi-check" label="{{modalButtonLabel}}" class="p-button-outlined"
-                        (click)="NuevoModelo()"></button>
+                        (click)="guardar()"></button>
                 </ng-template>
 
             </p-dialog>
@@ -106,7 +106,7 @@
                 </div>
                 <p-table [value]="tablaimagencliente" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
                     [paginator]="true"
-                    [globalFilterFields]="['imcl_Id','imcl_Imagen', 'vehi_Placa', 'mode_Descripcion', 'marc_Descripcion']"
+                    [globalFilterFields]="['imcl_Id','imcl_Imagen', 'vehi_Placa', 'mode_Descripcion', 'marc_Descripcion', 'vecl_Id']"
                     responsiveLayout="scroll">
                     <ng-template pTemplate="header">
                         <div class="flex justify-content-between flex-column sm:flex-row">
@@ -177,13 +177,14 @@
                             <td>{{tablaimagencliente.vehi_Placa}}</td>
                             <td>{{tablaimagencliente.mode_Descripcion}}</td>
                             <td>{{tablaimagencliente.marc_Descripcion}}</td>
+                            <td class="collapse">{{tablaimagencliente.vecl_Id}}</td>
                             <td style="display: flex; grid-gap:10px">
                                 <button pButton pRipple type="button" label="Editar" icon="pi pi-pencil"
-                                    class="p-button-warning" (click)="editar(municipio)"></button>
+                                    class="p-button-warning" (click)="editar(tablaimagencliente)"></button>
                                 <button pButton pRipple type="button" label="Detalles" icon="pi pi-info-circle"
-                                    class="p-button-info" (click)="detalles(municipio.imcl_Id)"></button>
+                                    class="p-button-info" (click)="detalles(tablaimagencliente.imcl_Id)"></button>
                                 <button pButton pRipple type="button" label="Eliminar" icon="pi pi-trash"
-                                    class="p-button-danger" (click)="confirmarEliminar(municipio)"></button>
+                                    class="p-button-danger" (click)="confirmarEliminar(tablaimagencliente)"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -206,14 +207,14 @@
             <p>¿Está seguro de que desea eliminar este registro?</p>
             <p-footer>
                 <button pButton type="button" class="mr-2" label="Cancelar" (click)="cancelarEliminar()"></button>
-                <!-- <button pButton type="button" label="Confirmar" class="p-button-danger" (click)="eliminar()"></button> -->
+                <button pButton type="button" label="Confirmar" class="p-button-danger" (click)="eliminar()"></button> 
             </p-footer>
         </p-dialog>
         <div class="{{detalless}}">
             <div class="card">
                 <div class="card-header ">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title titulo">Detalles - Municipios</h3>
+                        <h3 class="card-title titulo">Detalles - Imagenes de Clientes</h3>
                     </div>
                 </div>
                 <div>
@@ -224,23 +225,43 @@
                                     ID
                                 </dt>
                                 <dd class="col-sm-12 letras-content">
-                                    {{muni_Id}}
+                                    {{imcl_Id}}
                                 </dd>
                             </dl>
                             <dl class="form-group col-sm-3">
                                 <dt class="col-sm-12 letras">
-                                    Municipio
+                                    Imagen
                                 </dt>
                                 <dd class="col-sm-12 letras-content">
-                                    {{muni_Descripcion}}
+                                    <img *ngIf="imcl_Imagen"
+                                    [src]="'https://localhost:44372/uploads/' + imcl_Imagen"
+                                    width="100%">
                                 </dd>
                             </dl>
                             <dl class="form-group col-sm-3">
                                 <dt class="col-sm-12 letras">
-                                    Departamento
+                                    Placa
                                 </dt>
                                 <dd class="col-sm-12 letras-content">
-                                    {{dept_Descripcion}}
+                                    {{vehi_Placa}}
+                                </dd>
+                            </dl>
+                        </dl>
+                        <dl class="row">
+                            <dl class="form-group col-sm-3">
+                                <dt class="col-sm-12 letras">
+                                    Modelo
+                                </dt>
+                                <dd class="col-sm-12 letras-content">
+                                    {{mode_Descripcion}}
+                                </dd>
+                            </dl>
+                            <dl class="form-group col-sm-3">
+                                <dt class="col-sm-12 letras">
+                                    Marca
+                                </dt>
+                                <dd class="col-sm-12 letras-content">
+                                    {{marc_Descripcion}}
                                 </dd>
                             </dl>
                         </dl>
@@ -269,7 +290,7 @@
                                             {{usua_Creacion}}
                                         </td>
                                         <td>
-                                            {{muni_Fecha_Creacion}}
+                                            {{imcl_Fecha_Creacion}}
                                         </td>
                                     </tr>
                                     <tr>
@@ -278,7 +299,7 @@
                                             {{usua_Modifica}}
                                         </td>
                                         <td>
-                                            {{muni_Fecha_Modifica}}
+                                            {{imcl_Fecha_Modifica}}
                                         </td>
                                     </tr>
                                 </tbody>

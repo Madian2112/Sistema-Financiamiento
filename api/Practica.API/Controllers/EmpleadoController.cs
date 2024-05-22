@@ -60,6 +60,7 @@ namespace Practica.API.Controllers
                 Empl_Usua_Creacion = 1,
                 Esta_Id = item.Esta_Id,
                 Muni_Id = item.Muni_Id,
+                Empl_Correo = item.Empl_Correo,
                 Empl_Fecha_Creacion = DateTime.Now,
                 Empl_Estado = true
 
@@ -82,6 +83,7 @@ namespace Practica.API.Controllers
                     Carg_Id = item.Carg_Id,
                     Esta_Id = item.Esta_Id,
                     Muni_Id = item.Muni_Id,
+                    Empl_Correo = item.Empl_Correo,
                     Empl_Usua_Modifica = item.Empl_Usua_Modifica,
                     Empl_Fecha_Modifica = item.Empl_Fecha_Modifica
 

@@ -27,5 +27,8 @@ namespace Practica.Common.Models
 
         [NotMapped]
         public string Usua_Modifica { get; set; }
+
+        [NotMapped]
+        public string Empl_Correo { get; set; }
     }
 }

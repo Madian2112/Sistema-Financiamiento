@@ -104,11 +104,12 @@
 	transform: translateX(-50%);
 	background-image: linear-gradient(to bottom, #8DA22C, #CC5B1C);
 }
+/*121212  242323*/
 .container ul li {
 	width: 50%;
 	height: auto;
 	padding: 15px 20px;
-	background-color: #242323;
+	background-color: #121212;
 	border-radius: 8px;
 	box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.218);
 	position: relative;
@@ -132,7 +133,6 @@
 	content: ' ';
 	width: 12px;
 	height: 12px;
-	background-color: RGB(204, 91, 28);
 	border-radius: 50%;
 }
 ul li:nth-child(odd) .circle {
@@ -473,13 +473,13 @@ ul li a {
             <div class="card-body">
             <div class="grid">
                 <div class="col-2">
-                    <button (click)="Crear()"  pButton icon="pi pi-file-pdf" label="Pdf"></button>
+                    <button (click)="PDF()"  pButton icon="pi pi-file-pdf" label="Pdf"></button>
                 </div>
                 <div class="col-3">
-                    <button (click)="Crear()" style="background-color: #BE561B; border-color: #BE561B;" pButton icon="pi pi-box" label="Linea de tiempo"></button>
+                    <button (click)="LineaTiempo()" style="background-color: #BE561B; border-color: #BE561B;" pButton icon="pi pi-box" label="Linea de tiempo"></button>
                 </div>
                 <div class="col-2">
-                    <button (click)="Crear()" style="background-color: gray; border-color: gray;" pButton icon="pi pi-arrow-circle-left" label="Regresar"></button>
+                    <button (click)="volver()" style="background-color: gray; border-color: gray;" pButton icon="pi pi-arrow-circle-left" label="Regresar"></button>
                 </div>
             </div>
             <p-table [value]="planpagoclientes" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
@@ -703,27 +703,49 @@ ul li a {
           </div>
       </div>
   </div>
+  <div class="{{pdf}}">
+    <div class="card">
+        <h1>Imprimir Cuotas Pagadas</h1>
+        <div class="card-body">
+            <div class="col-2">
+                <button (click)="Volver()" style="background-color: gray; border-color: gray;" pButton icon="pi pi-arrow-circle-left" label="Regresar"></button>
+            </div>
+    <div class="no-print">
+        <div *ngIf="pdfSrc" style="margin-top: 20px;">
+          <iframe [src]="pdfSrc" width="100%" height="500px"></iframe>
+        </div>
+    </div>
+</div>
+</div>
+</div>
   <div class="{{timeline}}">
-    <div class="card timeline" >
+    <div class="card timeline">
+        <h1 style="margin-top:3%; margin-left:3%;">Linea de tiempo</h1>
+        <div class="card-body">
+        <div class="col-2">
+            <button (click)="Volver()" style="background-color: gray; border-color: gray;" pButton icon="pi pi-arrow-circle-left" label="Regresar"></button>
+        </div>
         <div class="main">
             <h3 class="head" style="color: #A4BC32;">Linea de tiempo</h3>
             <div class="container">
                 <ul>
                     <li *ngFor="let cliente of planpagoclientes">
-                        <h3 class="heading" style="color: #A4BC32;">Cuota {{cliente.pacl_NumeroCuota}}</h3>
                         <div style="text-align: left;">
                         <p>Pago: {{cliente.pacl_Monto_Pago}}</p>
                         <p>Pago Capital: {{cliente.pacl_Pago_Capital}}</p>
                         <p>Pago Intereses: {{cliente.pacl_Pago_Intereses}}</p>
                         <p>Pago Mora: {{cliente.pacl_Pago_Mora}}</p>
+                        <p>Fecha de Emision: {{cliente.pacl_Fecha_Emision}}</p>
+                        <p>Fecha de Pago: {{cliente.pacl_Fecha_Pago}}</p>
                         </div>
-                        <a href="#">Read More></a>
-                        <span class="date">{{cliente.pacl_Fecha_Emision}}</span>
-                        <span class="circle"></span>
+                        <a href="#" style="text-align: right;">Leer Mas</a>
+                        <span class="date" style="font-size: 140%;">Cuota {{cliente.pacl_NumeroCuota}}</span>
+                        <span class="circle" [ngStyle]="{'background-color': cliente.color}" ></span>
                     </li>
                 </ul>
             </div>
         </div>
+    </div>
     </div>
   </div>
     </div>

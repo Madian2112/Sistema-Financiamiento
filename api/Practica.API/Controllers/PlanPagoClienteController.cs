@@ -38,13 +38,35 @@ namespace Practica.API.Controllers
         
         [HttpGet("DetailsPP/{id}")]
         public IActionResult DetailsPP(int? id)
-        {
+         {
             if (id == 0)
             {
                 return Ok(id);
             }
             var modelo = _credirapidServicio.DetallesPP(id);
-            return Ok(modelo);
+            var fechaActual = DateTime.Now.Date;
+
+            foreach (var item in modelo)
+            {
+                DateTime fechaPago = DateTime.Parse(item.Pacl_Fecha_Pago);
+                var holaa = item.Pacl_Fecha_Emision;
+                DateTime fechaUnMesAntes = fechaPago.AddMonths(-1);
+
+                if(item.Pacl_Fecha_Emision != null) 
+                {
+                    _credirapidServicio.ActualizarEstadoPago(item.Pacl_Id);
+                }
+
+                if (fechaActual >= fechaUnMesAntes && fechaActual <= fechaPago)
+                {
+                    var hola = "hola mundo";
+                    _credirapidServicio.ActualizarCuotaActual(item.Pacl_Id);
+                }
+            }
+
+            var modelo2 = _credirapidServicio.DetallesPP(id);
+
+            return Ok(modelo2);
         }
 
         [HttpGet("BuscarDNIFecha/{id}")]
@@ -59,6 +81,11 @@ namespace Practica.API.Controllers
 
             foreach (var item in modelo)
             {
+                if (item.Pacl_Fecha_Emision != null)
+                {
+                    _credirapidServicio.ActualizarEstadoPago(item.Pacl_Id);
+                }
+
                 if (item.Pacl_Fecha_Pago != null && item.Pacl_Fecha_PreviaPago != null)
                 { 
 
@@ -83,6 +110,15 @@ namespace Practica.API.Controllers
         public IActionResult BuscarDNI(string id)
         {
             var modelo = _credirapidServicio.BuscarDNI(id);
+
+            foreach (var item in modelo)
+            {
+                if (item.Pacl_Fecha_Emision != null)
+                {
+                    _credirapidServicio.ActualizarEstadoPago(item.Pacl_Id);
+                }
+            }
+
             return Ok(modelo);
         }
 
@@ -90,6 +126,15 @@ namespace Practica.API.Controllers
         public IActionResult BuscarPapaID(string id)
         {
             var modelo = _credirapidServicio.BuscarPapaID(id);
+
+            foreach (var item in modelo)
+            {
+                if (item.Pacl_Fecha_Emision != null)
+                {
+                    _credirapidServicio.ActualizarEstadoPago(item.Pacl_Id);
+                }
+            }
+
             return Ok(modelo);
         }
 

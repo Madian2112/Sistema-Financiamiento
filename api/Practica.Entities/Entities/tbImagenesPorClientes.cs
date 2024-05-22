@@ -39,6 +39,9 @@ namespace Practica.Entities.Entities
         [NotMapped]
         public int Vehi_Id { get; set; }
 
+        [NotMapped]
+        public string Cliente { get; set; }
+
         public virtual tbUsuarios Imcl_Usua_CreacionNavigation { get; set; }
         public virtual tbUsuarios Imcl_Usua_ModificaNavigation { get; set; }
         public virtual tbVehiculosPorClientes Vecl { get; set; }

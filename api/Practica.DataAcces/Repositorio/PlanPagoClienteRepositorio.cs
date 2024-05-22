@@ -189,6 +189,40 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
+        public RequestStatus ActualizarCuotaActual(int id)
+        {
+            string sql = "Cred.SP_PlanesPagosClientes_InsertarCuotaActual";
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("Pacl_Id", id);
+                var result = db.Execute(sql,
+                    parametro,
+                     commandType: CommandType.StoredProcedure
+                    );
+
+                string mensaje = (result == 1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
+
+        public RequestStatus ActualizarEstadoPago(int? id)
+        {
+            string sql = "Cred.SP_PLanesPagosClientes_ActualizarEstadoPago ";
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("Pacl_Id", id);
+                var result = db.Execute(sql,
+                    parametro,
+                     commandType: CommandType.StoredProcedure
+                    );
+
+                string mensaje = (result == 1) ? "Exito" : "Error";
+                return new RequestStatus { CodeStatus = result, MessageStatus = mensaje };
+            }
+        }
+
         public IEnumerable<tbPlanesPagosClientes> BuscarVFechaPrevia(string Clie_DNI)
         {
 
