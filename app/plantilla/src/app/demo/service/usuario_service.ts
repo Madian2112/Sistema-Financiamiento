@@ -18,7 +18,9 @@ export class UsuarioServiceService {
 
   constructor(private http: HttpClient) { }
   private endpoint: string = environment.endPoint;
+  private endPointLocal: string = environment.endPointLocal;
   private apiUrl: string = this.endpoint + "API/Usuario/";
+  private apiUrlLocal: string = this.endPointLocal + "API/Usuario/";
   private apiUrlR: string = this.endpoint + "API/Rol/";
   private apiUrlE: string = this.endpoint + "API/Empleado/";
 
@@ -56,6 +58,10 @@ export class UsuarioServiceService {
     return this.http.put<Usuario>(`${this.apiUrl}Edit/${idDepartamento}`,modelo);
   }
 
+  restablecerContraseña(id: number, nuevaContraseña: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}restablecer/${id}`, { usua_Contra: nuevaContraseña });
+  }
+
   agregar(modelo: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(`http://dbcredirapid.somee.com/API/Usuario/Create`, modelo);
   }
@@ -86,19 +92,19 @@ export class UsuarioServiceService {
 
 
   getcorreo(loginData:Login ): Observable<any> {
-    const urlCorreo = `${this.apiUrl}EnviarCorreo/${loginData.usuario}`;
+    const urlCorreo = `${this.apiUrlLocal}EnviarCorreo/${loginData.usuario}`;
     return this.http.get<any>(urlCorreo);
   }  
   
   /* RESTABLECER CONTRASEÑA */
-  private Urlcontra: string = this.endpoint + 'API/Usuario/RestablacerContrasena';
+  private Urlcontra: string = this.endPointLocal + 'API/Usuario/RestablacerContrasena';
 
   postrestablecer(codigoData: Contra): Observable<any> {
     return this.http.put<any>(`${this.Urlcontra}`, codigoData);
   }
 
   /* VALIDAR CÓDIGO */
-  private Urlcodigo: string = this.endpoint + 'API/Usuario/ValidarCodigo/';
+  private Urlcodigo: string = this.endPointLocal + 'API/Usuario/ValidarCodigo/';
 
   getcodigo(codigoData: Codigo): Observable<any> {
     return this.http.get<any>(`${this.Urlcodigo}${codigoData.usua_VerificarCorreo}`);

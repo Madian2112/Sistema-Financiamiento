@@ -12,6 +12,7 @@ export class Login {
   }
 
   export class Contra{
-    usua_VerificarCorreo !: String;
-    usua_Contra!: String;
+    usua_VerificarCorreo ?: String;
+    usua_Contra?: String;
+
   }

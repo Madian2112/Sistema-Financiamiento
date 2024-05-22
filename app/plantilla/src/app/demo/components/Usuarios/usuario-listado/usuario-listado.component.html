@@ -44,8 +44,45 @@
 .table-responsive {
     overflow-x: auto;
 }
+.button-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto; 
+}
+
+.button-container button {
+  white-space: nowrap; 
+}
+
+.dialog-label {
+    color: aliceblue;
+    font-weight: bold;
+}
+
+.dialog-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.p-button-outlined {
+    margin-right: 10px;
+}
+
+.p-field.p-fluid {
+    margin-bottom: 20px;
+}
+
+.p-dialog .p-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
 
 </style>
+
+<p-toast></p-toast>
+
 <div class="grid">
     <div class="col-12">
         <div class="{{edit}}">
@@ -194,14 +231,18 @@
                         <td>{{usuario.usua_Usuario}}</td>
                         <td>{{usuario.empleado}}</td>
                         <td>{{usuario.rol_Descripcion}}</td>
-                        <td>{{usuario.usua_Admin}}</td>
+                        <td>{{usuario.usua_Admin | adminStatus}}</td> 
                         <td class="collapse">{{usuario.empl_Id}}</td>
                         <td class="collapse">{{usuario.rol_Id}}</td>
-                        <td style="display: flex; grid-gap:10px">
-                            <button pButton pRipple type="button" label="Editar" icon="pi pi-pencil" class="p-button-warning" (click)="editar(usuario)"></button>
-                            <button pButton pRipple type="button" label="Detalles" icon="pi pi-info-circle" class="p-button-info" (click)="detalles(usuario.usua_Id)"></button>
-                            <button pButton pRipple type="button" label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="confirmarEliminar(usuario)"></button>
-                        </td>
+                        <td>
+                            <div class="button-container">
+                              <button pButton pRipple type="button" label="Editar" icon="pi pi-pencil" class="p-button-warning" (click)="editar(usuario)"></button>
+                              <button pButton pRipple type="button" label="Restablecer Contraseña" icon="pi pi-lock-open" class="p-button-warning" (click)="restablecerContrasena(usuario)"></button>
+                              <button pButton pRipple type="button" label="Detalles" icon="pi pi-info-circle" class="p-button-info" (click)="detalles(usuario.usua_Id)"></button>
+                              <button pButton pRipple type="button" label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="confirmarEliminar(usuario)"></button>
+                            </div>
+                          </td>
+                          
                         
                     </tr>
                 </ng-template>
@@ -329,4 +370,21 @@
       </div>
   </div>
     </div>
+
+
+    <p-dialog header="Restablecer Contraseña" [(visible)]="restablecerVisible" modal="true" [style]="{ width: '400px' }">
+        <form [formGroup]="formRestablecer">
+            <div class="p-field p-fluid">
+                <label for="usua_Contra" class="dialog-label">Nueva Contraseña</label>
+                <input id="usua_Contra" type="password" pInputText formControlName="usua_Contra" class="dialog-input" />
+            </div>
+            <p-footer>
+                <button pButton type="button" class="p-button-outlined p-button-danger mr-2" label="Cancelar" (click)="cancelarRestablecer()"></button>
+                <button pButton type="button" label="Guardar" class="p-button-primary" (click)="guardarRestablecer()"></button>
+            </p-footer>
+        </form>
+    </p-dialog>
+    
+
+
 </div>

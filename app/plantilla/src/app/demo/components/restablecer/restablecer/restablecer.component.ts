@@ -1,84 +1,75 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioServiceService } from '../../../service/usuario_service';
 import { Contra } from '../../../models/loginViewModel';
 import { Router } from '@angular/router';
-
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-restablecer',
   templateUrl: './restablecer.component.html',
   styleUrls: ['./restablecer.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [MessageService]
 })
-export class RestablecerComponent {
+export class RestablecerComponent implements OnInit {
   restaForm: FormGroup;
+  isSubmit: boolean = false;
 
-  isSubmit:boolean = false;
+  constructor(
+    private formBuilder: FormBuilder,
+    private contraservice: UsuarioServiceService,
+    private router: Router,
+    private messageService: MessageService,
+    private cookieService: CookieService
+  ) {}
 
-  cols: any[] = [];
-  statuses: any[] = [];
-  rowsPerPageOptions = [5, 10, 20];
-  schemas = [
-      CUSTOM_ELEMENTS_SCHEMA
-    ];
-
-    contra!:Contra[];
-
-
-
-  constructor(private messageService: MessageService, private formBuilder: FormBuilder, private contraservice: UsuarioServiceService, private router:Router, private cookieService: CookieService) {}
-   errorMessage: string;
-
-   ngOnInit() {
-
-    this.restaForm = new FormGroup({
-      usua_VerificarCorreo: new FormControl("",Validators.required),
-      usua_Contra: new FormControl("",Validators.required),
+  ngOnInit() {
+    this.restaForm = this.formBuilder.group({
+      // Se comenta el campo usua_VerificarCorreo ya que se usa el OTP
+      // usua_VerificarCorreo: ['', Validators.required],
+      usua_Contra: ['', Validators.required],
+      digit1: ['', [Validators.required, Validators.pattern('^[0-9]$')]],
+      digit2: ['', [Validators.required, Validators.pattern('^[0-9]$')]],
+      digit3: ['', [Validators.required, Validators.pattern('^[0-9]$')]],
+      digit4: ['', [Validators.required, Validators.pattern('^[0-9]$')]],
+      digit5: ['', [Validators.required, Validators.pattern('^[0-9]$')]],
+      digit6: ['', [Validators.required, Validators.pattern('^[0-9]$')]]
     });
+  }
 
-    this.schemas = [
-      CUSTOM_ELEMENTS_SCHEMA
-    ];
-   }
-
-   onSubmitEdit(): void {
-
+  onSubmitEdit(): void {
     this.isSubmit = true;
 
     if (this.restaForm.valid) {
-      const ciudadData: Contra = this.restaForm.value;
+      const otpCode = this.restaForm.get('digit1').value +
+                      this.restaForm.get('digit2').value +
+                      this.restaForm.get('digit3').value +
+                      this.restaForm.get('digit4').value +
+                      this.restaForm.get('digit5').value +
+                      this.restaForm.get('digit6').value;
+
+      const ciudadData: Contra = {
+        usua_VerificarCorreo: otpCode, // Asigna el OTP combinado a usua_VerificarCorreo
+        usua_Contra: this.restaForm.get('usua_Contra').value
+      };
+
       this.contraservice.postrestablecer(ciudadData).subscribe(
         response => {
-
-            if (response.code == 200) {
-
-
-                this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contraseña Reestablecida Exitosamente', life: 3000 });
-                console.log(response)
-                // this.router.navigate(['/pages/estados']);
-                  this.router.navigate(['/pages/empty']);
-
-
-            } else {
-
+          if (response.code === 200) {
+            this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contraseña Reestablecida Exitosamente', life: 3000 });
+            this.router.navigate(['/app/inicio']);
+          } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo reestablecer la contraseña', life: 3000 });
-            }
-
+          }
         },
         error => {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo reestablecer la contraseña', life: 3000 });
-            console.log(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo reestablecer la contraseña', life: 3000 });
+          console.log(error);
         }
       );
     } else {
       console.log('Formulario inválido');
     }
-
-}
-
-
+  }
 }

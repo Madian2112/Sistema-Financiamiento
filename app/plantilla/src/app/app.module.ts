@@ -25,6 +25,9 @@ import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 // import { LoginComponent } from "./demo/components/auth/login/login.component";
 
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 
 import { CookieService } from 'ngx-cookie-service';
 @NgModule({
@@ -34,6 +37,7 @@ import { CookieService } from 'ngx-cookie-service';
         AppLayoutModule,
         AvatarModule, 
         BadgeModule,
+        ToastModule,
         MatButtonModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -47,7 +51,7 @@ import { CookieService } from 'ngx-cookie-service';
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService,  AppLayoutModule, ProductService,CookieService, provideAnimationsAsync()
+        PhotoService,  AppLayoutModule, ProductService,CookieService,MessageService, provideAnimationsAsync()
     ],
     bootstrap: [AppComponent],
 })

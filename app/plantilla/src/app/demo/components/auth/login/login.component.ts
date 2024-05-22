@@ -37,10 +37,8 @@ export class LoginComponent {
     });
   }
 
-  reestablecer()
-  {
-     window.location.replace('/reestablecer');
-
+  reestablecer() {
+    this.router.navigate(['/reestablecer']); 
   }
   onLogin() {
     if (this.formUsuario.invalid) {

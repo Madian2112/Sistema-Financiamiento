@@ -223,7 +223,7 @@ namespace Practica.API.Controllers
 
             var modelo = new tbUsuarios()
             {
-                Usua_Id = item.Usua_Id,
+                Usua_VerificarCorreo = item.Usua_VerificarCorreo,
                 Usua_Contra = item.Usua_Contra,
                 Usua_Usua_Modifica = 1,
                 Usua_Fecha_Modifica = DateTime.Now,

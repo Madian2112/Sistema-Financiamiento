@@ -204,7 +204,7 @@ namespace Practica.DataAcces.Repositorio
             using (var db = new SqlConnection(PracticaContext.ConnectionString))
             {
                 var parametro = new DynamicParameters();
-                parametro.Add("@Usua_Id", item.Usua_Id);
+                parametro.Add("@Usua_VerificarCorreo", item.Usua_VerificarCorreo);
                 parametro.Add("@Usua_Contra", item.Usua_Contra);
                 parametro.Add("@Usua_Usua_Modifica", item.Usua_Usua_Modifica);
                 parametro.Add("@Usua_Fecha_Modifica", item.Usua_Fecha_Modifica);

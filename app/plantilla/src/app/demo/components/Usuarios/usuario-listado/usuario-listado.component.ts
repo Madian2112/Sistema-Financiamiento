@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule  } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario, Fill } from '../../../models/UsuarioViewModel';
 import { Empleado } from '../../../models/EmpleadoViewModel';
@@ -19,9 +19,10 @@ import { ToastModule } from 'primeng/toast';
 import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
 import { MessageService } from 'primeng/api';
-import {DialogAddEditComponent} from 'src/app/demo/Dialogs/dialog-add-edit/dialog-add-edit.component';
-import { MatDialog} from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { AdminStatusPipe } from '../../../../admin-status.pipe';
+
 @Component({
   selector: 'app-usuario-listado',
   templateUrl: './usuario-listado.component.html',
@@ -33,6 +34,7 @@ export class UsuarioListadoComponent implements OnInit {
   empleados!: Empleado[];
   roles!: Rol[];
   formUsuarioC: FormGroup;
+  formRestablecer: FormGroup; 
   listadoUsuario: Usuario[] = [];
   selectedDepartamento: any;
   modalTitle: string = 'Nuevo Registro';
@@ -40,84 +42,87 @@ export class UsuarioListadoComponent implements OnInit {
   municipios: any[] = [];
   MunicipioCodigo: String = "";
   display: boolean = false;
+  restablecerVisible: boolean = false; 
+
   Crear() {
-    // Logica de autenticación (por ejemplo, verificación de credenciales)
+
     console.log("se hizo click");
-    // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/CrearUsuarios']); // Ajusta la ruta segun tu configuración de enrutamiento
+
+    this.router.navigate(['/app/CrearUsuarios']); 
 }
 
+  constructor(
+    private service: UsuarioServiceService,
+    private router: Router,
+    private fb: FormBuilder,
+    private _Usuarioservice: UsuarioServiceService,
+    private messageService: MessageService, // Inyectar el MessageService
+    private dialog: MatDialog
+  ) {
+    this.formUsuarioC = this.fb.group({
+      Usuario: ["", Validators.required],
+      Claveee: ["", Validators.required],
+      empleadooo: ["Seleccione"],
+      rolll: ["Seleccione"],
+      number: [0],
+    });
 
-  constructor(    private service:  UsuarioServiceService, 
-    private router: Router ,
-    private fb:FormBuilder,
-    private _Usuarioservice:UsuarioServiceService,
-    private dialog: MatDialog,    ) 
-    {
-      this.formUsuarioC = this.fb.group({
-        Usuario:["",Validators.required],
-        Claveee:["",Validators.required],
-        empleadooo:["Seleccione"],
-        rolll:["Seleccione"],
-        number:[0],
-       
-      })
+    this.formRestablecer = this.fb.group({
+      usua_Contra: ["", Validators.required]
+    });
 
-      this._Usuarioservice.getUsuarios().subscribe(
-        (data : any) =>{
-          this.listadoUsuario = data;
-      },error => {
+    this._Usuarioservice.getUsuarios().subscribe(
+      (data: any) => {
+        this.listadoUsuario = data;
+      }, error => {
         console.log(error)
       }
     );
-    }
-
+  }
 
   tabla: string = "";
   detalless: string = "collapse";
   edit: string = "collapse";
 
   usua_Id?: number = 0;
-  usua_Usuario?:string = "";  
-  empleado?:string = "";
-  rol_Descripcion?:string = "";
-  usua_Admin?:number =0;
-  usua_Creacion?:string = "";   
-  usua_Fecha_Creacion?:string ="";    
-  usua_Modifica?:string ="";   
-  usua_Fecha_Modifica?:string = "";  
+  usua_Usuario?: string = "";
+  empleado?: string = "";
+  rol_Descripcion?: string = "";
+  usua_Admin?: number = 0;
+  usua_Creacion?: string = "";
+  usua_Fecha_Creacion?: string = "";
+  usua_Modifica?: string = "";
+  usua_Fecha_Modifica?: string = "";
 
-  detalles(codigo){
+  detalles(codigo) {
     this.tabla = "collapse";
     this.detalless = "";
     this.service.getFill(codigo).subscribe({
-        next: (data: Fill) => {
-          this.usua_Id = data.usua_Id;
-          this.usua_Usuario = data.usua_Usuario;
-          this.empleado = data.empleado;
-          this.rol_Descripcion = data.rol_Descripcion;
-          this.usua_Admin = data.usua_Admin;
-          this.usua_Creacion = data.usua_Creacion;
-          this.usua_Fecha_Creacion = data.usua_Fecha_Creacion;
-          this.usua_Modifica = data.usua_Modifica;
-          this.usua_Fecha_Modifica = data.usua_Fecha_Modifica;
-        }
-      });
+      next: (data: Fill) => {
+        this.usua_Id = data.usua_Id;
+        this.usua_Usuario = data.usua_Usuario;
+        this.empleado = data.empleado;
+        this.rol_Descripcion = data.rol_Descripcion;
+        this.usua_Admin = data.usua_Admin;
+        this.usua_Creacion = data.usua_Creacion;
+        this.usua_Fecha_Creacion = data.usua_Fecha_Creacion;
+        this.usua_Modifica = data.usua_Modifica;
+        this.usua_Fecha_Modifica = data.usua_Fecha_Modifica;
+      }
+    });
   }
 
-  volver(){
+  volver() {
     this.tabla = "";
     this.detalless = "collapse";
   }
 
   Regresar() {
-    // Lógica de autenticación (por ejemplo, verificación de credenciales)
     console.log("se hizo click");
     this.tabla = "";
     this.detalless = "collapse";
     this.edit = "collapse";
-     // Ajusta la ruta según tu configuración de enrutamiento
-}
+  }
 
   getUsuarios() {
     this.service.getUsuarios().subscribe(
@@ -129,15 +134,15 @@ export class UsuarioListadoComponent implements OnInit {
       }
     );
   }
-  
+
   confirmacionVisible: boolean = false;
   departamentoAEliminar: Usuario | null = null;
-  
+
   confirmarEliminar(departamento: Usuario) {
     this.departamentoAEliminar = departamento;
     this.confirmacionVisible = true;
   }
-  
+
   eliminar() {
     if (this.departamentoAEliminar) {
       const idDepartamento = this.departamentoAEliminar.usua_Id;
@@ -152,6 +157,7 @@ export class UsuarioListadoComponent implements OnInit {
       });
     }
   }
+
   cancelarEliminar() {
     this.confirmacionVisible = false;
   }
@@ -159,7 +165,6 @@ export class UsuarioListadoComponent implements OnInit {
   editar(departamento: any) {
     this.selectedDepartamento = departamento;
     console.log(this.selectedDepartamento);
-    // Usar el nombre del departamento en lugar del código
     this.formUsuarioC = this.fb.group({
       Usuario: [departamento.usua_Usuario],
       empleadooo: [departamento.empl_Id],
@@ -179,13 +184,13 @@ export class UsuarioListadoComponent implements OnInit {
     const idDepartamento = this.selectedDepartamento.usua_Id;
     const modelo: Usuario = {
       empl_Id: this.formUsuarioC.value.empleadooo,
-      empleado: "", 
-      rol_Descripcion: "", 
+      empleado: "",
+      rol_Descripcion: "",
       rol_Id: this.formUsuarioC.value.rolll,
       usua_Admin: this.formUsuarioC.value.number,
-      usua_Contra: "d", 
-      usua_Id:idDepartamento , 
-      usua_Usuario: this.formUsuarioC.value.Usuario, 
+      usua_Contra: "d",
+      usua_Id: idDepartamento,
+      usua_Usuario: this.formUsuarioC.value.Usuario,
     }
     this._Usuarioservice.actualizar(idDepartamento, modelo).subscribe({
       next: (data) => {
@@ -198,6 +203,30 @@ export class UsuarioListadoComponent implements OnInit {
     })
   }
 
+  restablecerContrasena(usuario: Usuario) {
+    this.selectedDepartamento = usuario;
+    this.restablecerVisible = true;
+  }
+
+  cancelarRestablecer() {
+    this.restablecerVisible = false;
+  }
+
+  guardarRestablecer() {
+    const idUsuario = this.selectedDepartamento.usua_Id;
+    const nuevaContraseña = this.formRestablecer.value.usua_Contra;
+    this._Usuarioservice.restablecerContraseña(idUsuario, nuevaContraseña).subscribe({
+      next: (data) => {
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Contraseña restablecida correctamente' });
+        this.getUsuarios();
+        this.restablecerVisible = false;
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al restablecer la contraseña' });
+        console.log(e);
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.service.getUsuarios().subscribe(
@@ -206,7 +235,7 @@ export class UsuarioListadoComponent implements OnInit {
         this.usuario = data;
         console.log(this.usuario);
       },
-       error => {
+      error => {
         console.log(error);
       }
     );
@@ -214,11 +243,10 @@ export class UsuarioListadoComponent implements OnInit {
     this.service.getRoles().subscribe(data => {
       this.roles = data;
     });
-  
+
     this.service.getEmpleado().subscribe(data => {
       this.empleados = data;
     });
-  
   }
 }
 
@@ -238,8 +266,9 @@ export class UsuarioListadoComponent implements OnInit {
     ToastModule,
     SliderModule,
     RatingModule,
-      MatButtonModule,
+    MatButtonModule,
   ],
-  declarations: [UsuarioListadoComponent]
+  declarations: [UsuarioListadoComponent, AdminStatusPipe],
+  providers: [MessageService]
 })
-export class UsuariosListadoModule {}
+export class UsuariosListadoModule { }

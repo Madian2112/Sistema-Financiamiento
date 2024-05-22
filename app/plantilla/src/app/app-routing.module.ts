@@ -33,16 +33,21 @@ import { ReporteVentasEmpleadosComponent } from './demo/components/reporte-venta
 import { EstadisticosComponent } from './demo/components/estadisticos/estadisticos.component';
 import { PlanpagoclienteCrearComponent } from './demo/components/PlanesPagosClientes/planpagocliente-crear/planpagocliente-crear.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ValidacionComponent } from './demo/components/restablecer/validacion/validacion.component';
+import { RestablecerComponent } from './demo/components/restablecer/restablecer/restablecer.component';
+import { CompararComponent } from './demo/components/restablecer/comparar/comparar.component';
 
 const routes: Routes = [
     { path: '', component: LoginComponent },
+    { path: 'reestablecer', component: ValidacionComponent }, // Asegúrate de que estas rutas están correctas
+    { path: 'compararcodigo', component: CompararComponent },
+    { path: 'reestablecer1', component: RestablecerComponent },
     {
       path: 'app', component: AppLayoutComponent,
       children: [
-        { path: 'reestablecer', data: { breadcrumb: 'EnviarCodigo' }, loadChildren: () => import('./demo/components/restablecer/validacion/validacion.module').then(m => m.ValidacionModule) },
-        { path: 'compararcodigo', data: { breadcrumb: 'CompararCodigo' }, loadChildren: () => import('./demo/components/restablecer/comparar/comparar.module').then(m => m.CompararModule) },
+     
 
-        { path: 'reestablecer1', data: { breadcrumb: 'Restablecer' }, loadChildren: () => import('./demo/components/restablecer/restablecer/restablecer.module').then(m => m.restablecerModule)},
+
         { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
         { path: 'uikit', loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule), canActivate: [AuthGuard] },
         { path: 'utilities', loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule), canActivate: [AuthGuard] },

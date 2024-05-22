@@ -1,26 +1,53 @@
+<style>
 
-<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+.surface-ground {
+    background-image: url('path/to/your/background-image.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.surface-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 53px;
+    box-shadow: 0 4px 8px rgb(236, 128, 19);
+}
+
+.btn-primary {
+    background-color: #6a991a;
+    border-color: #6a991a;
+}
+
+.btn-primary:hover {
+    background-color: #7ec700;
+    border-color: #7ec700;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+
+</style>
+
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden" style="background-image: url('path/to/your/background-image.jpg'); background-size: cover; background-position: center;">
     <div class="flex flex-column align-items-center justify-content-center">
-        <div class="w-full surface-cardd py-8 px-5 sm:px-8" style="border-radius: 53px;">
+        <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px; background: rgba(255, 255, 255, 0.9);">
             <div class="text-center mb-5">
-                <img src="assets/layout/images/ProcincoPNG.png" alt="Image" height="50" class="mb-3">
+                <img src="assets/demo/images/credirapi-removebg-preview.png" alt="Image" height="50" class="mb-3">
                 <div class="text-900 text-3xl font-medium mb-3"></div>
-                <span class="text-700 font-medium" style="font-weight: bold;">Enviar código de reestablecimiento</span>
+                <span class="text-700 font-medium" style="font-weight: bold;">Código de reestablecimiento</span>
             </div>
 
-            <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div>
                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Usuario</label>
-                    <input id="usuaa" type="text" placeholder="usuario" formControlName="usuario" class="w-full md:w-30rem form-control" >
+                    <input id="usuaa" type="text" placeholder="usuario" formControlName="usuario" class="w-full md:w-30rem form-control">
                     <span id="validarusu" class="text-danger mb-5 collapse">El campo Usuario es obligatorio.</span>
-
                     <span class="error collapse" id="error-span">Usuario Inválido</span>
-
-
                     <button type="submit" pButton pRipple label="Enviar Verificacion" class="w-full p-3 text-xl btn btn-primary mt-4" style="max-width: 200px;"></button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
+<p-toast></p-toast>

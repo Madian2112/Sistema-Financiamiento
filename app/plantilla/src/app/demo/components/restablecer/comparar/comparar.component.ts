@@ -1,88 +1,58 @@
 import { Component } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioServiceService } from '../../../service/usuario_service';
 import { Codigo } from '../../../models/loginViewModel';
-import { emptyInputValidator } from '../../../components/auth/login/CustomValidatorss';
-
 import { Router } from '@angular/router';
-
 import { CookieService } from 'ngx-cookie-service';
+
 @Component({
   selector: 'app-comparar',
   templateUrl: './comparar.component.html',
-  styleUrl: './comparar.component.scss'
+  styleUrls: ['./comparar.component.scss']
 })
 export class CompararComponent {
+  compararForm: FormGroup;
+  errorMessage: string;
 
-    // valCheck: string[] = ['remember'];
+  constructor(
+    private formBuilder: FormBuilder,
+    private compararservice: UsuarioServiceService,
+    private router: Router,
+    private cookieService: CookieService
+  ) {
+    this.compararForm = this.formBuilder.group({
+      codigo: ['', [Validators.required, Validators.minLength(1)]]
+    });
+  }
 
-    // password!: string;
+  onSubmit(): void {
+    const errorSpan = document.getElementById('error-span');
+    const validarcodi = document.getElementById('validarcodi');
 
-    compararForm: FormGroup;
+    if (this.compararForm.get('codigo').value === '') {
+      validarcodi.classList.remove('collapse');
+    } else {
+      validarcodi.classList.add('collapse');
+    }
 
-    constructor(public layoutService: LayoutService, private formBuilder: FormBuilder, private compararservice: UsuarioServiceService, private router:Router, private cookieService: CookieService) {
-
-        this.compararForm = this.formBuilder.group({
-            codigo: ['', [Validators.required, emptyInputValidator()]],
-          });
-
-     }
-     errorMessage: string;
-
-
-
-
-     onSubmit(): void {
-
-        var errorSpan = document.getElementById('error-span');
-        var validarcodi = document.getElementById('validarcodi');
-
-
-
-
-        if(this.compararForm.get('codigo').value == '' )
-            {
-              validarcodi.classList.remove('collapse');
-
+    if (this.compararForm.get('codigo').value !== '') {
+      if (this.compararForm.valid) {
+        const codigoData: Codigo = this.compararForm.value;
+        this.compararservice.getcodigo(codigoData).subscribe(
+          response => {
+            if (response.code === 200) {
+              this.router.navigate(['/app/reestablecer1']);
+            } else {
+              errorSpan.classList.remove('collapse');
             }
-            else
-            {
-              validarcodi.classList.add('collapse');
-
-            }
-
-
-        if(this.compararForm.get('codigo').value != '')
-            {
-            const errorSpan = document.getElementById('error-span');
-        if (this.compararForm.valid) {
-          const codigoData: Codigo = this.compararForm.value;
-          this.compararservice.getcodigo(codigoData).subscribe(
-            response => {
-
-                if (response.code == 200) {
-
-                    console.log(response)
-                    this.router.navigate(['/reestablecer1']);
-                } else {
-
-                    errorSpan.classList.remove('collapse');
-
-                }
-
-            },
-            error => {
-                errorSpan.classList.remove('collapse');
-            }
-          );
-        } else {
-          console.log('Formulario inválido');
-        }
-
-             }
-
+          },
+          error => {
+            errorSpan.classList.remove('collapse');
+          }
+        );
+      } else {
+        console.log('Formulario inválido');
       }
-
+    }
+  }
 }
