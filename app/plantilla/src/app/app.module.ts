@@ -23,13 +23,21 @@ import { ChartModule } from 'primeng/chart';
 import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
+// import { LoginComponent } from "./demo/components/auth/login/login.component";
+
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
-    declarations: [AppComponent, NotfoundComponent],
+    declarations: [AppComponent, NotfoundComponent ],
     imports: [
         AppRoutingModule, 
         AppLayoutModule,
         AvatarModule, 
         BadgeModule,
+        ToastModule,
         MatButtonModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -37,12 +45,13 @@ import { BadgeModule } from 'primeng/badge';
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        ChartModule
+        ChartModule,
+        AppLayoutModule 
     ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, provideAnimationsAsync()
+        PhotoService,  AppLayoutModule, ProductService,CookieService,MessageService, provideAnimationsAsync()
     ],
     bootstrap: [AppComponent],
 })
