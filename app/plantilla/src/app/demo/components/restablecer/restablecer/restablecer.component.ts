@@ -37,7 +37,7 @@ export class RestablecerComponent {
 
     this.restaForm = new FormGroup({
       usua_VerificarCorreo: new FormControl("",Validators.required),
-      usua_Contraseña: new FormControl("",Validators.required),
+      usua_Contra: new FormControl("",Validators.required),
     });
 
     this.schemas = [
