@@ -14,10 +14,12 @@ export class CreationGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
     if (this.allowAccess) {
-      this.allowAccess = false; // Reset after allowing access once
+      this.allowAccess = false; 
       return true;
     } else {
-      this.router.navigate(['/notfound']);
+      
+      this.router.navigate(['/']);
+       
       return false;
     }
   }

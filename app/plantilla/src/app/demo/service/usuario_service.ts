@@ -92,19 +92,19 @@ export class UsuarioServiceService {
 
 
   getcorreo(loginData:Login ): Observable<any> {
-    const urlCorreo = `${this.apiUrlLocal}EnviarCorreo/${loginData.usuario}`;
+    const urlCorreo = `${this.apiUrl}EnviarCorreo/${loginData.usuario}`;
     return this.http.get<any>(urlCorreo);
   }  
   
   /* RESTABLECER CONTRASEÑA */
-  private Urlcontra: string = this.endPointLocal + 'API/Usuario/RestablacerContrasena';
+  private Urlcontra: string = this.endpoint + 'API/Usuario/RestablecerContra2';
 
   postrestablecer(codigoData: Contra): Observable<any> {
     return this.http.put<any>(`${this.Urlcontra}`, codigoData);
   }
 
   /* VALIDAR CÓDIGO */
-  private Urlcodigo: string = this.endPointLocal + 'API/Usuario/ValidarCodigo/';
+  private Urlcodigo: string = this.endpoint + 'API/Usuario/ValidarCodigo/';
 
   getcodigo(codigoData: Codigo): Observable<any> {
     return this.http.get<any>(`${this.Urlcodigo}${codigoData.usua_VerificarCorreo}`);

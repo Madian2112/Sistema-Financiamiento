@@ -25,8 +25,19 @@ export class RestablecerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
+
+    // const errorSpan = document.getElementById('error-span');
+    // const validarOtp = document.getElementById('validarOtp');
+
+    // if (this.restaForm.get('usuario').value === '') {
+    //   validarOtp.classList.remove('collapse');
+    // } else {
+    //   validarOtp.classList.add('collapse');
+    // }
+    
     this.restaForm = this.formBuilder.group({
-      // Se comenta el campo usua_VerificarCorreo ya que se usa el OTP
+
       // usua_VerificarCorreo: ['', Validators.required],
       usua_Contra: ['', Validators.required],
       digit1: ['', [Validators.required, Validators.pattern('^[0-9]$')]],
@@ -50,7 +61,7 @@ export class RestablecerComponent implements OnInit {
                       this.restaForm.get('digit6').value;
 
       const ciudadData: Contra = {
-        usua_VerificarCorreo: otpCode, // Asigna el OTP combinado a usua_VerificarCorreo
+        usua_VerificarCorreo: otpCode, 
         usua_Contra: this.restaForm.get('usua_Contra').value
       };
 
@@ -58,7 +69,7 @@ export class RestablecerComponent implements OnInit {
         response => {
           if (response.code === 200) {
             this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Contraseña Reestablecida Exitosamente', life: 3000 });
-            this.router.navigate(['/app/inicio']);
+            this.router.navigate(['/']);
           } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo reestablecer la contraseña', life: 3000 });
           }
@@ -70,6 +81,7 @@ export class RestablecerComponent implements OnInit {
       );
     } else {
       console.log('Formulario inválido');
+
     }
   }
 }
