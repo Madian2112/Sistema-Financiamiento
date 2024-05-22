@@ -57,7 +57,7 @@ export class PlanpagoListadoComponent implements OnInit {
     private _PlanPagoservice:PLanPagoServiceService,
     private dialog: MatDialog,
     private cookieService: CookieService,
-    private creationGuard: CreationGuard 
+    private creationGuard: CreationGuard ,
     private authService: AuthService ,
     private serviceIMprimir: ImpresionService, 
    ) 
