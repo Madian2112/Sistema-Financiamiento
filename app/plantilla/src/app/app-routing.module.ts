@@ -39,6 +39,10 @@ const routes: Routes = [
     {
       path: 'app', component: AppLayoutComponent,
       children: [
+        { path: 'reestablecer', data: { breadcrumb: 'EnviarCodigo' }, loadChildren: () => import('./demo/components/restablecer/validacion/validacion.module').then(m => m.ValidacionModule) },
+        { path: 'compararcodigo', data: { breadcrumb: 'CompararCodigo' }, loadChildren: () => import('./demo/components/restablecer/comparar/comparar.module').then(m => m.CompararModule) },
+
+        { path: 'reestablecer1', data: { breadcrumb: 'Restablecer' }, loadChildren: () => import('./demo/components/restablecer/restablecer/restablecer.module').then(m => m.restablecerModule)},
         { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
         { path: 'uikit', loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule), canActivate: [AuthGuard] },
         { path: 'utilities', loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule), canActivate: [AuthGuard] },
@@ -67,11 +71,11 @@ const routes: Routes = [
         { path: 'modelo', component: ModeloListadoComponent, canActivate: [AuthGuard] },
         { path: 'vehiculo', component: VehiculoListadoComponent, canActivate: [AuthGuard] },
         { path: 'planpago', component: PlanpagoListadoComponent, canActivate: [AuthGuard] },
-        { path: 'crear-usuarios', component: UsuarioCrearComponent, canActivate: [AuthGuard] },
-        { path: 'crear-vehiculo', component: VehiculoCrearComponent, canActivate: [AuthGuard] },
-        { path: 'crear-empleados', component: EmpleadosCrearComponent, canActivate: [AuthGuard] },
-        { path: 'crear-clientes', component: ClientesCrearComponent, canActivate: [AuthGuard] },
-        { path: 'crear-plan-pago', component: PlanpagoCrearComponent, canActivate: [AuthGuard] },
+        { path: 'CrearUsuarios', component: UsuarioCrearComponent },
+        { path: 'CrearVehiculo', component: VehiculoCrearComponent},
+        { path: 'CrearEmpleados', component: EmpleadosCrearComponent},
+        { path: 'CrearClientes', component: ClientesCrearComponent},
+        { path: 'CrearPlanPago', component: PlanpagoCrearComponent},
         { path: 'imagenesclientes', component: ImagenclienteListadoComponent, canActivate: [AuthGuard] },
         { path: 'planpagocliente', component: PlanpagoclienteCrearComponent, canActivate: [AuthGuard] }
       ]

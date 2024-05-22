@@ -7,6 +7,7 @@ export class Usuario{
     empl_Id!: number;
     rol_Id!: number;  
     usua_Contra!: string;
+    Usua_VerificarCorreo?: string;
 }
 
 export class Fill{
@@ -22,6 +23,7 @@ export class Fill{
     usua_Fecha_Creacion!:string;   
     usua_Modifica!:string;   
     usua_Fecha_Modifica!:string;  
+    Usua_VerificarCorreo?: string;
 }
 
 export class FillPerfilUsuario{

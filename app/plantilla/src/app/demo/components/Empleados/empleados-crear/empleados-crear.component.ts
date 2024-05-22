@@ -75,7 +75,7 @@ export class EmpleadosCrearComponent implements OnInit  {
     // Lógica de autenticación (por ejemplo, verificación de credenciales)
     console.log("se hizo click");
     // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/IndexEmpleado']); // Ajusta la ruta según tu configuración de enrutamiento
+    this.router.navigate(['/app/empleado']); // Ajusta la ruta según tu configuración de enrutamiento
 }
 
 onDepartmentChange(departmentId) {

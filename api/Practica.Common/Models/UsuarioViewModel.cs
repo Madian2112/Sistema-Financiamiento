@@ -13,6 +13,7 @@ namespace Practica.Common.Models
         public string Usua_Usuario { get; set; }
         [NotMapped]
         public string correo { get; set; }
+        public string Usua_VerificarCorreo { get; set; }
         public string Usua_Color { get; set; }
         public string Usua_Contra { get; set; }
         public int? Usua_Admin { get; set; }

@@ -68,7 +68,7 @@ namespace Practica.Entities.Entities
         public DateTime? Usua_Fecha_Modifica { get; set; }
         public bool? Usua_Estado { get; set; }
 
-
+        public string Usua_VerificarCorreo { get; set; }
 
         [NotMapped]
         public string Empleado { get; set; }

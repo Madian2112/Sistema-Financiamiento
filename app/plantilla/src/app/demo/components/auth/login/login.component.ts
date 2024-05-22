@@ -37,11 +37,18 @@ export class LoginComponent {
     });
   }
 
+  reestablecer()
+  {
+     window.location.replace('/reestablecer');
+
+  }
   onLogin() {
     if (this.formUsuario.invalid) {
       this.errorMessage = 'Usuario y clave son requeridos';
       return;
     }
+
+  
   
     const { usuario, clave } = this.formUsuario.value;
   

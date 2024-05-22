@@ -183,6 +183,37 @@ namespace Practica.DataAcces.Repositorio
             }
         }
 
+        public IEnumerable<tbUsuarios> ValidarCodigo(string codigo)
+        {
+            string sql = ScriptBaseDatos.UsuariosValidarCodigo;
+
+            List<tbUsuarios> result = new List<tbUsuarios>();
+
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@Usua_VerificarCorreo", codigo);
+                result = db.Query<tbUsuarios>(sql, parameters, commandType: CommandType.StoredProcedure).ToList();
+                return result;
+            }
+        }
+        public RequestStatus RestablecerContra2(tbUsuarios item)
+        {
+            string sql = ScriptBaseDatos.UsuariosRestablecerContra;
+
+            using (var db = new SqlConnection(PracticaContext.ConnectionString))
+            {
+                var parametro = new DynamicParameters();
+                parametro.Add("@Usua_Id", item.Usua_Id);
+                parametro.Add("@Usua_Contra", item.Usua_Contra);
+                parametro.Add("@Usua_Usua_Modifica", item.Usua_Usua_Modifica);
+                parametro.Add("@Usua_Fecha_Modifica", item.Usua_Fecha_Modifica);
+                var result = db.Execute(sql, parametro, commandType: CommandType.StoredProcedure);
+
+                return new RequestStatus { CodeStatus = result, MessageStatus = "" };
+            }
+        }
+
         public IEnumerable<tbUsuarios> EnviarCodigo(string Usuario)
         {
             string sql = ScriptBaseDatos.UsuariosEnviarCodigo;

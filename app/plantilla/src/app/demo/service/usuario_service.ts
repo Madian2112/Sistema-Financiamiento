@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Usuario, Fill, FillPerfilUsuario} from '../models/UsuarioViewModel'
+import {Contra, Codigo, Login} from '../models/loginViewModel'
 import {Rol} from '../models/RolViewModel'
 import {Empleado} from '../models/EmpleadoViewModel'
 import {HttpClient} from '@angular/common/http'
@@ -82,4 +83,26 @@ export class UsuarioServiceService {
   getPantallasDeRol(idRoll: Number) {
     return this.http.get<Pantalla[]>(`${this.UrlPantallasRoles}PantallasdeRoles/${idRoll}`);
   }
+
+
+  getcorreo(loginData:Login ): Observable<any> {
+    const urlCorreo = `${this.apiUrl}EnviarCorreo/${loginData.usuario}`;
+    return this.http.get<any>(urlCorreo);
+  }  
+  
+  /* RESTABLECER CONTRASEÑA */
+  private Urlcontra: string = this.endpoint + 'API/Usuario/RestablacerContrasena';
+
+  postrestablecer(codigoData: Contra): Observable<any> {
+    return this.http.put<any>(`${this.Urlcontra}`, codigoData);
+  }
+
+  /* VALIDAR CÓDIGO */
+  private Urlcodigo: string = this.endpoint + 'API/Usuario/ValidarCodigo/';
+
+  getcodigo(codigoData: Codigo): Observable<any> {
+    return this.http.get<any>(`${this.Urlcodigo}${codigoData.usua_VerificarCorreo}`);
+  }
+
+
 }

@@ -201,6 +201,45 @@ namespace Practica.API.Controllers
             }
         }
 
+        [HttpGet("ValidarCodigo/{usua_verificarCorreo}")]
+        public IActionResult restablecer(string usua_verificarCorreo)
+        {
+
+            var lista = _accesoServicio.ValidarCodigo(usua_verificarCorreo);
+
+            if (lista.Success == true)
+            {
+                return Ok(lista);
+            }
+            else
+            {
+                return Problem();
+            }
+        }
+
+        [HttpPut("RestablacerContrasena")]
+        public IActionResult restablecer(UsuarioViewModel item)
+        {
+
+            var modelo = new tbUsuarios()
+            {
+                Usua_Id = item.Usua_Id,
+                Usua_Contra = item.Usua_Contra,
+                Usua_Usua_Modifica = 1,
+                Usua_Fecha_Modifica = DateTime.Now,
+            };
+            var list = _accesoServicio.RestablecerContrasenia(modelo);
+            if (list.Success == true)
+            {
+                return Ok(list);
+            }
+            else
+            {
+                return Problem();
+            }
+
+        }
+
 
     }
 }

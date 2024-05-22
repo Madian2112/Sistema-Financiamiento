@@ -26,13 +26,13 @@ export class AuthGuard implements CanActivate {
         return true;
       } else {
         console.log(`Acceso denegado a la URL: ${url}`);
-        window.location.replace('/');  // Reemplaza con la URL de tu página de login
-        return false; // Importante: devuelve false para cancelar la navegación
+        window.location.replace('/'); 
+        return false;
       }
     } else {
       console.log('Usuario no autenticado');
-      window.location.replace('/');  // Reemplaza con la URL de tu página de inicio de sesión
-      return false; // Importante: devuelve false para cancelar la navegación
+      window.location.replace('/'); 
+      return false; 
     }
   }
 }
