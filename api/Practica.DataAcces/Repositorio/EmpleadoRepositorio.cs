@@ -23,6 +23,7 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("Empl_Apellido", item.Empl_Apellido);
                 parametro.Add("Empl_Sexo", item.Empl_Sexo);
                 parametro.Add("Carg_Id", item.Carg_Id);
+                parametro.Add("Empl_Correo", item.Empl_Correo);
                 parametro.Add("Esta_Id", item.Esta_Id);
                 parametro.Add("Muni_Id", item.Muni_Id);
                 parametro.Add("Empl_Usua_Modifica", item.Empl_Usua_Modifica);
@@ -70,9 +71,10 @@ namespace Practica.DataAcces.Repositorio
                 parametro.Add("Empl_Nombre", item.Empl_Nombre);
                 parametro.Add("Empl_Apellido", item.Empl_Apellido);
                 parametro.Add("Empl_Sexo", item.Empl_Sexo);
-                parametro.Add("Carg_Id", item.Carg_Id);
                 parametro.Add("Esta_Id", item.Esta_Id);
                 parametro.Add("Muni_Id", item.Muni_Id);
+                parametro.Add("Carg_Id", item.Carg_Id);
+                parametro.Add("Empl_Correo", item.Empl_Correo);
                 parametro.Add("Empl_Usua_Creacion", item.Empl_Usua_Creacion);
                 parametro.Add("Empl_Fecha_Creacion", DateTime.Now);
                 var result = db.Execute(ScriptBaseDatos.Empl_Insertar,

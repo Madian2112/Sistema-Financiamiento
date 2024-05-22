@@ -27,7 +27,8 @@ namespace Practica.API.Extensiones
             CreateMap<PlanesPagosViewModel, tbPlanesPagos>().ReverseMap();
             CreateMap<PlanesPagosClientesViewModel, tbPlanesPagosClientes>().ReverseMap();
             CreateMap<TipoCuotaViewModel, tbTipoCuotas>().ReverseMap();
-   
+            CreateMap<ImagenesClientesViewModel, tbImagenesPorClientes>().ReverseMap();
+
         }
     }
 }

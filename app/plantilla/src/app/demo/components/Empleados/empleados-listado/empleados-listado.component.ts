@@ -23,7 +23,7 @@ import { MessageService } from 'primeng/api';
 import {DialogAddEditComponent} from 'src/app/demo/Dialogs/dialog-add-edit/dialog-add-edit.component';
 import { MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-
+import { CreationGuard } from '../../../service/autguardUrl';
 
 @Component({
   selector: 'app-empleados-listado',
@@ -52,6 +52,7 @@ export class EmpleadosListadoComponent implements OnInit  {
     private fb:FormBuilder,
     private _Empleadoservice:EmpleadoServiceService,
     private dialog: MatDialog,
+    private creationGuard: CreationGuard
   ) 
    {
     this.formEmpleado = this.fb.group({
@@ -63,6 +64,7 @@ export class EmpleadosListadoComponent implements OnInit  {
       municipio:["",],
       cargo:["Seleccione"],
       estado:["Seleccione"],
+      correo: [""],
     })
 
     this._Empleadoservice.getEmpleado().subscribe(
@@ -132,11 +134,9 @@ export class EmpleadosListadoComponent implements OnInit  {
   }
 
   Crear() {
-    // Lógica de autenticación (por ejemplo, verificación de credenciales)
-    console.log("se hizo click");
-    // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/CrearEmpleados']); // Ajusta la ruta según tu configuración de enrutamiento
-}
+    this.creationGuard.allow();
+    this.router.navigate(['/app/CrearEmpleados']);
+  }
 
 getSucursal() {
   this.service.getEmpleado().subscribe(
@@ -185,6 +185,7 @@ editar(departamento: any) {
     municipio:[departamento.muni_Id],
     cargo:[departamento.carg_Id],
     estado:[departamento.esta_Id],
+    correo:[departamento.empl_Correo],
 
   });
 
@@ -218,7 +219,8 @@ actualizar() {
     empl_Sexo: this.formEmpleado.value.sexo, 
     esta_Descripcion: "", 
     esta_Id: this.formEmpleado.value.estado, 
-    muni_Id: this.formEmpleado.value.municipio
+    muni_Id: this.formEmpleado.value.municipio, 
+    empl_Correo: this.formEmpleado.value.correo,
   }
   this._Empleadoservice.actualizar(idDepartamento, modelo).subscribe({
     next: (data) => {

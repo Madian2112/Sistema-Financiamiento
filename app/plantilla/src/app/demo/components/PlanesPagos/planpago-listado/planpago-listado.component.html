@@ -45,6 +45,197 @@
     overflow-x: auto;
 }
 
+/*TIMELINEEEEEEEEEEEEEEEEEEEEEEE*/
+
+.timeline {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Poppins;
+}
+@font-face {
+	font-family: Poppins;
+	src: url(./fonts/Poppins-Medium.ttf);
+}
+.main {
+	width: 100%;
+	height: auto;
+	display: grid;
+	place-items: center;
+	background-color: #121212;
+	padding: 50px 0;
+}
+.main .head {
+	font-size: 29px;
+	color: #CC5B1C;
+	position: relative;
+	margin-bottom: 100px;
+	font-weight: 500;
+}
+.main .head::after {
+	content: " ";
+	position: absolute;
+	width: 50%;
+	height: 3px;
+	left: 50%;
+	bottom: -5px;
+	transform: translateX(-50%);
+	background-image: linear-gradient(to right,#8DA22C, #CC5B1C);
+}
+
+/* Container Css Start  */
+
+.container {
+	width: 70%;
+	height: auto;
+	margin: auto 0;
+	position: relative;
+}
+.container ul {
+	list-style: none;
+}
+.container ul::after {
+	content: " ";
+	position: absolute;
+	width: 2px;
+	height: 100%;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%);
+	background-image: linear-gradient(to bottom, #8DA22C, #CC5B1C);
+}
+/*121212  242323*/
+.container ul li {
+	width: 50%;
+	height: auto;
+	padding: 15px 20px;
+	background-color: #121212;
+	border-radius: 8px;
+	box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.218);
+	position: relative;
+	margin-bottom: 30px;
+	z-index: 99;
+}
+.container ul li:nth-child(4) {
+	margin-bottom: 0;
+}
+.container ul li .circle {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: RGB(165, 190, 49);
+	top: 0;
+	display: grid;
+	place-items: center;
+}
+.circle::after{
+	content: ' ';
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+}
+ul li:nth-child(odd) .circle {
+	transform: translate(50%, -50%);
+	right: -30px;
+}
+ul li:nth-child(even) .circle {
+	transform: translate(-50%, -50%);
+	left: -30px;
+}
+ul li .date {
+	position: absolute;
+	width: 130px;
+	height: 33px;
+	background-image: linear-gradient(to right,#8DA22C,#CC5B1C);
+	border-radius: 15px;
+	top: -45px;
+	display: grid;
+	place-items: center;
+	color: #fff;
+	font-size: 13px;
+	box-shadow: 1px 2px 12px rgba(0, 0, 0, 0.318);
+}
+.container ul li:nth-child(odd) {
+	float: left;
+	clear: right;
+	text-align: right;
+	transform: translateX(-30px);
+}
+ul li:nth-child(odd) .date {
+	right: 20px;
+}
+.container ul li:nth-child(even) {
+	float: right;
+	clear: left;
+	transform: translateX(30px);
+}
+ul li .heading {
+	font-size: 17px;
+	color: rgb(91, 14, 216);
+}
+ul li p {
+	font-size: 13px;
+	color: #e7e7e7;
+	line-height: 18px;
+	margin: 6px 0 4px 0;
+}
+ul li a {
+	font-size: 13px;
+	text-decoration: none;
+	color: rgb(18, 54, 214);
+	transition: all 0.3s ease;
+}
+
+
+@media only screen and (min-width:798px) and (max-width: 1100px) {
+	.container{
+		width: 80%;
+	}
+}
+
+@media only screen and (max-width: 798px) {
+	.container{
+		width: 70%;
+		transform: translateX(20px);
+	}
+	.container ul::after{
+		left: -40px;
+	}
+	.container ul li {
+		width: 100%;
+		float: none;
+		clear: none;
+		margin-bottom: 80px;
+	}
+	.container ul li .circle{
+		left: -40px;
+		transform: translate(-50%, -50%);
+	}
+	.container ul li .date{
+		left: 20px;
+	}
+	.container ul li:nth-child(odd) {
+		transform: translateX(0px);
+		text-align: left;
+	}
+	.container ul li:nth-child(even) {
+		transform: translateX(0px);
+	}
+}
+
+@media only screen and (max-width: 550px) {
+	.container{
+		width: 80%;
+	}
+	.container ul::after{
+		left: -20px;
+	}
+	.container ul li .circle{
+		left: -20px;
+	}
+}
+
 </style>
 <div class="grid">
     <div class="col-12">
@@ -132,25 +323,167 @@
                         </div>
                     </div>
             </div>
+            </div>
+            <div class="{{tabla}}">
+                <div class="card">
+                <h1>Planes de Pago</h1>
+                <div class="card-body">
+                <p-dialog header="Nuevo Registro" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+    
+                    <ng-template pTemplate="footer">
+                        <button pButton icon="pi pi-times" (click)="display=false" label="Cerrar" class="p-button-outlined p-button-danger"></button>
+                        <button pButton icon="pi pi-check" (click)="NuevoModelo()" [disabled]="formModelo.invalid" label="Guardar" class="p-button-outlined"></button>
+    
+                    </ng-template>
+                </p-dialog>
+                <div class="grid">
+                    <div class="col-12">
+                        <button (click)="Crear()" pButton icon="pi pi-external-link" label="Nuevo"></button>
+                    </div>
+                </div>
+            <p-table [value]="planpago" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+            [paginator]="true" [globalFilterFields]="['papa_Id', 'papa_Financiamiento', 'papa_Precio_Mercado', 'pap_Intereses_Porcentaje', 'pap_Intereses_Monto', 'papa_Numero_Cuota', 'marc_Descripcion','mode_Descripcion', 'cliente', 'ticu_Descripcion' ,'papa_Estado_PlanesPagos']" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <div class="flex justify-content-between flex-column sm:flex-row">
+                    <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+                        (click)="clear()"></button>
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" #filter (input)="onGlobalFilter($event)" placeholder="Buscar"
+                            class="w-full" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Código
+                            <p-columnFilter type="text" field="papa_Id" display="menu"
+                                placeholder="Buscar por código"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Financiamiento
+                            <p-columnFilter type="text" field="papa_Financiamiento" display="menu"
+                                placeholder="Buscar por descripción"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Precio Mercado
+                            <p-columnFilter type="text" field="papa_Precio_Mercado" display="menu"
+                                placeholder="Buscar por descripción"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Porcentaje Intereses
+                            <p-columnFilter type="text" field="pap_Intereses_Porcentaje" display="menu"
+                                placeholder="Buscar por código"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Monto Intereses
+                            <p-columnFilter type="text" field="pap_Intereses_Monto" display="menu"
+                                placeholder="Buscar por descripción"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Numero Cuotas
+                            <p-columnFilter type="text" field="papa_Numero_Cuota" display="menu"
+                                placeholder="Buscar por descripción"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Marca Carro
+                            <p-columnFilter type="text" field="marc_Descripcion" display="menu"
+                                placeholder="Buscar por descripción"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Modelo Carro
+                            <p-columnFilter type="text" field="mode_Descripcion" display="menu"
+                                placeholder="Buscar por descripción"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Cliente
+                            <p-columnFilter type="text" field="cliente" display="menu"
+                                placeholder="Buscar por código"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Estado
+                            <p-columnFilter type="text" field="papa_Estado_PlanesPagos" display="menu"
+                                placeholder="Buscar por descripción"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Acciones
+                          
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-planpago>
+                <tr>
+                    <td>{{planpago.papa_Id}}</td>
+                    <td>{{planpago.papa_Financiamiento}}</td>
+                    <td>{{planpago.papa_Precio_Mercado}}</td>
+                    <td>{{planpago.papa_Intereses_Porcentaje}}</td>
+                    <td>{{planpago.papa_Intereses_Monto}}</td>
+                    <td>{{planpago.papa_Numero_Cuota}}</td>
+                    <td>{{planpago.marc_Descripcion}}</td>
+                    <td>{{planpago.mode_Descripcion}}</td>
+                    <td>{{planpago.cliente}}</td>
+                    <td>{{planpago.papa_Estado_PlanesPagos}}</td>
+                    <td  style="display: flex; grid-gap:10px">
+                        <button pButton pRipple type="button" label="Detalles" icon="pi pi-info-circle" class="p-button-info" (click)="detalles(planpago.papa_Id)"></button>
+                        <button pButton pRipple type="button" label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="confirmarEliminar(planpago)" ></button>
+                        <button pButton pRipple type="button" label="Ver cuotas" icon="pi pi-eye" class="p-button-success"(click)="VerCuotas(planpago.papa_Id)" ></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="2">No hay datos para cargar.</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="2">Cargando datos. Por favor espera.</td>
+                </tr>
+            </ng-template>
+          </p-table>
         </div>
-        <div class="{{tabla}}">
+        </div>
+        </div>
+        <div class="{{tablaClientes}}">
         <div class="card">
-            <h1>Planes de Pago</h1>
-            <p-dialog header="Nuevo Registro" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
-
-                <ng-template pTemplate="footer">
-                    <button pButton icon="pi pi-times" (click)="display=false" label="Cerrar" class="p-button-outlined p-button-danger"></button>
-                    <button pButton icon="pi pi-check" (click)="NuevoModelo()" [disabled]="formModelo.invalid" label="Guardar" class="p-button-outlined"></button>
-
-                </ng-template>
-            </p-dialog>
+            <h1>Cuotas - Plan de Pago</h1>
+            <div class="card-body">
             <div class="grid">
-                <div class="col-12">
-                    <button (click)="Crear()" pButton icon="pi pi-external-link" label="Nuevo"></button>
+                <div class="col-2">
+                    <button (click)="PDF()"  pButton icon="pi pi-file-pdf" label="Pdf"></button>
+                </div>
+                <div class="col-3">
+                    <button (click)="LineaTiempo()" style="background-color: #BE561B; border-color: #BE561B;" pButton icon="pi pi-box" label="Linea de tiempo"></button>
+                </div>
+                <div class="col-2">
+                    <button (click)="volver()" style="background-color: gray; border-color: gray;" pButton icon="pi pi-arrow-circle-left" label="Regresar"></button>
                 </div>
             </div>
-            <p-table [value]="planpago" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
-                [paginator]="true" [globalFilterFields]="['papa_Id', 'papa_Financiamiento', 'papa_Precio_Mercado', 'pap_Intereses_Porcentaje', 'pap_Intereses_Monto', 'papa_Numero_Cuota', 'marc_Descripcion','mode_Descripcion', 'cliente', 'ticu_Descripcion' ,'papa_Estado_PlanesPagos']" responsiveLayout="scroll">
+            <p-table [value]="planpagoclientes" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+                [paginator]="true" [globalFilterFields]="['pacl_Id', 'pacl_NumeroCuota', 'pacl_Monto_Pago', 'pacl_Pago_Capital', 'pacl_Pago_Intereses', 'pacl_Pago_Mora', 'pacl_Fecha_Pago', 'pacl_Fecha_Emision']" responsiveLayout="scroll">
                 <ng-template pTemplate="header">
                     <div class="flex justify-content-between flex-column sm:flex-row">
                         <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
@@ -167,99 +500,71 @@
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
                                 Código
-                                <p-columnFilter type="text" field="papa_Id" display="menu"
+                                <p-columnFilter type="text" field="pacl_Id" display="menu"
                                     placeholder="Buscar por código"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Financiamiento
-                                <p-columnFilter type="text" field="papa_Financiamiento" display="menu"
+                                Cuota
+                                <p-columnFilter type="text" field="pacl_NumeroCuota" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Precio Mercado
-                                <p-columnFilter type="text" field="papa_Precio_Mercado" display="menu"
+                                Monto Pagado
+                                <p-columnFilter type="text" field="pacl_Monto_Pago" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Porcentaje Intereses
-                                <p-columnFilter type="text" field="pap_Intereses_Porcentaje" display="menu"
+                                Capital Pagado
+                                <p-columnFilter type="text" field="pacl_Pago_Capital" display="menu"
+                                    placeholder="Buscar por descripción"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th style="min-width: 12rem">
+                            <div class="flex justify-content-between align-items-center">
+                                Intereses Pagados
+                                <p-columnFilter type="text" field="pacl_Pago_Intereses" display="menu"
                                     placeholder="Buscar por código"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Monto Intereses
-                                <p-columnFilter type="text" field="pap_Intereses_Monto" display="menu"
+                                Pago de Mora
+                                <p-columnFilter type="text" field="pacl_Pago_Mora" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Numero Cuotas
-                                <p-columnFilter type="text" field="papa_Numero_Cuota" display="menu"
+                                Fecha Pago
+                                <p-columnFilter type="text" field="pacl_Fecha_Pago" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width: 12rem">
                             <div class="flex justify-content-between align-items-center">
-                                Marca Carro
-                                <p-columnFilter type="text" field="marc_Descripcion" display="menu"
+                                Fecha Emision
+                                <p-columnFilter type="text" field="pacl_Fecha_Emision" display="menu"
                                     placeholder="Buscar por descripción"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Modelo Carro
-                                <p-columnFilter type="text" field="mode_Descripcion" display="menu"
-                                    placeholder="Buscar por descripción"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Cliente
-                                <p-columnFilter type="text" field="cliente" display="menu"
-                                    placeholder="Buscar por código"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Estado
-                                <p-columnFilter type="text" field="papa_Estado_PlanesPagos" display="menu"
-                                    placeholder="Buscar por descripción"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Acciones
-                              
                             </div>
                         </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-planpago>
+                <ng-template pTemplate="body" let-planpagoclientes>
                     <tr>
-                        <td>{{planpago.papa_Id}}</td>
-                        <td>{{planpago.papa_Financiamiento}}</td>
-                        <td>{{planpago.papa_Precio_Mercado}}</td>
-                        <td>{{planpago.papa_Intereses_Porcentaje}}</td>
-                        <td>{{planpago.papa_Intereses_Monto}}</td>
-
-                        <td>{{planpago.papa_Numero_Cuota}}</td>
-                        <td>{{planpago.marc_Descripcion}}</td>
-                        <td>{{planpago.mode_Descripcion}}</td>
-                        <td>{{planpago.cliente}}</td>
-                        <td>{{planpago.papa_Estado_PlanesPagos}}</td>
-                        <td  style="display: flex; grid-gap:10px">
-                            <button pButton pRipple type="button" label="Editar" icon="pi pi-pencil"v class="p-button-warning" (click)="editar(planpago)"></button>
-                            <button pButton pRipple type="button" label="Detalles" icon="pi pi-info-circle" class="p-button-info" (click)="detalles(planpago.papa_Id)"></button>
-                            <button pButton pRipple type="button" label="Eliminar" icon="pi pi-trash" class="p-button-danger" (click)="confirmarEliminar(planpago)" ></button>
-                        </td>
+                        <td>{{planpagoclientes.pacl_Id}}</td>
+                        <td>{{planpagoclientes.pacl_NumeroCuota}}</td>
+                        <td>{{planpagoclientes.pacl_Monto_Pago}}</td>
+                        <td>{{planpagoclientes.pacl_Pago_Capital}}</td>
+                        <td>{{planpagoclientes.pacl_Pago_Intereses}}</td>
+                        <td>{{planpagoclientes.pacl_Pago_Mora}}</td>
+                        <td>{{planpagoclientes.pacl_Fecha_Pago}}</td>
+                        <td>{{planpagoclientes.pacl_Fecha_Emision}}</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
@@ -273,6 +578,7 @@
                     </tr>
                 </ng-template>
             </p-table>
+            </div>
         </div>
     </div>
     <p-dialog header="Confirmar Eliminación" [(visible)]="confirmacionVisible" modal="true" [style]="{ width: '300px' }">
@@ -396,6 +702,51 @@
               </div>
           </div>
       </div>
+  </div>
+  <div class="{{pdf}}">
+    <div class="card">
+        <h1>Imprimir Cuotas Pagadas</h1>
+        <div class="card-body">
+            <div class="col-2">
+                <button (click)="Volver()" style="background-color: gray; border-color: gray;" pButton icon="pi pi-arrow-circle-left" label="Regresar"></button>
+            </div>
+    <div class="no-print">
+        <div *ngIf="pdfSrc" style="margin-top: 20px;">
+          <iframe [src]="pdfSrc" width="100%" height="500px"></iframe>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+  <div class="{{timeline}}">
+    <div class="card timeline">
+        <h1 style="margin-top:3%; margin-left:3%;">Linea de tiempo</h1>
+        <div class="card-body">
+        <div class="col-2">
+            <button (click)="Volver()" style="background-color: gray; border-color: gray;" pButton icon="pi pi-arrow-circle-left" label="Regresar"></button>
+        </div>
+        <div class="main">
+            <h3 class="head" style="color: #A4BC32;">Linea de tiempo</h3>
+            <div class="container">
+                <ul>
+                    <li *ngFor="let cliente of planpagoclientes">
+                        <div style="text-align: left;">
+                        <p>Pago: {{cliente.pacl_Monto_Pago}}</p>
+                        <p>Pago Capital: {{cliente.pacl_Pago_Capital}}</p>
+                        <p>Pago Intereses: {{cliente.pacl_Pago_Intereses}}</p>
+                        <p>Pago Mora: {{cliente.pacl_Pago_Mora}}</p>
+                        <p>Fecha de Emision: {{cliente.pacl_Fecha_Emision}}</p>
+                        <p>Fecha de Pago: {{cliente.pacl_Fecha_Pago}}</p>
+                        </div>
+                        <a href="#" style="text-align: right;">Leer Mas</a>
+                        <span class="date" style="font-size: 140%;">Cuota {{cliente.pacl_NumeroCuota}}</span>
+                        <span class="circle" [ngStyle]="{'background-color': cliente.color}" ></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
   </div>
     </div>
 </div>

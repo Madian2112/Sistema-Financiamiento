@@ -1,6 +1,7 @@
 import { Component, OnInit, NgModule  } from '@angular/core';
 import { Router } from '@angular/router';
-import {  ImagenCliente, Fill, Tabla, Vehiculo } from '../../../models/ImagenClienteViewModel';
+import {  ImagenCliente, Fill, Tabla, Actualizar } from '../../../models/ImagenClienteViewModel';
+import {  Vehiculo } from '../../../models/VehiculoViewModel';
 import { Departamento } from '../../../models/Departamentoviewmodel';
 import { ImagenClienteService } from '../../../service/imagencliente';
 import { CommonModule } from '@angular/common';
@@ -30,6 +31,8 @@ import { CarouselModule } from 'primeng/carousel';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { PLanPagoServiceService } from '../../../service/planplago_service';
+
 
 @Component({
   selector: 'app-imagencliente-listado',
@@ -40,12 +43,12 @@ export class ImagenclienteListadoComponent implements OnInit {
 
   imagencliente!: ImagenCliente[];
   display: boolean = false;
-  vehiculo : Vehiculo [];
-  departamentos: Departamento[];
+  vehiculos : Vehiculo [];
+  departamentos: ImagenCliente[];
   tablaimagencliente: Tabla [];
   formImagenCliente: FormGroup;
   listadoimagencliente: ImagenCliente[] = [];
-  selectedDepartamento: any;
+  selectedImagenCliente: any;
   modalTitle: string = 'Nuevo Registro';
   modalButtonLabel: string = 'Guardar';
   confirmacionVisible: boolean = false;
@@ -63,10 +66,11 @@ export class ImagenclienteListadoComponent implements OnInit {
 
   constructor(    
     private service:  ImagenClienteService, 
+    private service1:  PLanPagoServiceService, 
     private router: Router ,
     private fb:FormBuilder,
     private _imagenclienre:ImagenClienteService,
-    private messageService: MessageService,
+    // private messageService: MessageService,
     private dialog: MatDialog,) 
     {
       this.formImagenCliente = this.fb.group({
@@ -81,34 +85,43 @@ export class ImagenclienteListadoComponent implements OnInit {
         console.log(error)
       }
     );
-    }
+    } 
 
     tabla: string = "";
     detalless: string = "collapse";
-  
-    muni_Id?: string = "";
-    muni_Descripcion?:string = "";   
-    dept_Descripcion?:string = "";  
+
+    imcl_Id?: number = 0 ;
+    imcl_Imagen?:string = "";   
+    vehi_Placa?:string = ""; 
+    mode_Descripcion?:string = ""; 
+    marc_Descripcion?:string = ""; 
+    cliente?:string; 
     usua_Creacion?:string = "";   
-    muni_Fecha_Creacion?:string ="";    
-    usua_Modifica?:string ="";   
-    muni_Fecha_Modifica?:string = "";  
+    imcl_Fecha_Creacion?:string = "";   
+    usua_Modifica?:string = "";   
+    imcl_Fecha_Modifica?:string = ""; 
   
-   /* detalles(codigo){
+   detalles(codigo){
       this.tabla = "collapse";
       this.detalless = "";
       this.service.getFill(codigo).subscribe({
           next: (data: Fill) => {
-            this.muni_Id = data.muni_Id;
-            this.muni_Descripcion = data.muni_Descripcion;
-            this.dept_Descripcion = data.dept_Descripcion;
+
+            console.log("Los datos son: " + data)
+
+            this.imcl_Id = data.imcl_Id;
+            this.imcl_Imagen = data.imcl_Imagen;
+            this.vehi_Placa = data.vehi_Placa;
+            this.mode_Descripcion = data.mode_Descripcion;
+            this.marc_Descripcion = data.marc_Descripcion;
+            this.cliente = data.cliente;
             this.usua_Creacion = data.usua_Creacion;
-            this.muni_Fecha_Creacion = data.muni_Fecha_Creacion;
+            this.imcl_Fecha_Creacion = data.imcl_Fecha_Creacion;
             this.usua_Modifica = data.usua_Modifica;
-            this.muni_Fecha_Modifica = data.muni_Fecha_Modifica;
+            this.imcl_Fecha_Modifica = data.imcl_Fecha_Modifica;
           }
         });
-    } */
+    } 
   
     volver(){
       this.tabla = "";
@@ -117,6 +130,10 @@ export class ImagenclienteListadoComponent implements OnInit {
 
     openDialog() {
       this.dialog.open(DialogAddEditComponent);
+    }
+
+    recargarPagina() {
+      location.reload();
     }
 
     AbrirModal() {
@@ -168,27 +185,27 @@ export class ImagenclienteListadoComponent implements OnInit {
       );
     }
   
-   /* confirmarEliminar(departamento: Municipio) {
+   confirmarEliminar(departamento: ImagenCliente) {
       this.departamentoAEliminar = departamento;
       this.confirmacionVisible = true;
-    } */
+    } 
     
-   /* eliminar() {
+   eliminar() {
       if (this.departamentoAEliminar) {
-        const idDepartamento = this.departamentoAEliminar.muni_Id;
-        this._municipioservice.eliminar(idDepartamento).subscribe({
+        const idImagenCliente = this.departamentoAEliminar.imcl_Id;
+        this.service.eliminar(idImagenCliente).subscribe({
           next: (data) => {
             this.getMunicipio();
             this.confirmacionVisible = false;
-            this.messageService.add({severity:'success', summary:'Éxito', detail:'Municipio eliminado correctamente!'});
-          },
+         },
           error: (e) => {
             console.log(e);
-            this.messageService.add({severity:'error', summary:'Error', detail:'Esta municipio no se puede eliminar.'});
           }
         });
+        this.recargarPagina(); 
       }
-    } */
+    } 
+
     cancelarEliminar() {
       this.confirmacionVisible = false;
     }
@@ -213,26 +230,23 @@ export class ImagenclienteListadoComponent implements OnInit {
    
     editar(departamento: any) {
       this.depa = "";
-      this.selectedDepartamento = departamento;
-      console.log(this.selectedDepartamento);
+      console.log(this.selectedImagenCliente);
+      this.selectedImagenCliente = departamento;
       // Usar el nombre del departamento en lugar del código
-      this.valor = departamento.dept_Descripcion !== null ? departamento.dept_Descripcion : '';
-      this.codigo = departamento.muni_Id;
-      this.depa = departamento.dept_Descripcion;
-      console.log(this.depa + ' ' + departamento.dept_Id);
-      this.formImagenCliente = this.fb.group({
-        codigo: [departamento.muni_Id],
-        municipio: [departamento.muni_Descripcion],
-        departamento: [departamento.dept_Id],
+      this.selectedImageURL = "https://localhost:44372/uploads/" + departamento.imcl_Imagen;
+      console.log("La imagen es: "+ this.selectedImageURL)
+      this.formImagenCliente.patchValue({
+        vehiculo: departamento.vecl_Id,
       });
+
       this.modalTitle = 'Editar Registro';
       this.modalButtonLabel = 'Actualizar';
       this.display = true;
     }
   
-    /*
+    
     guardar() {
-      if (this.formMunicipio.invalid) {
+      if (this.formImagenCliente.invalid) {
         return;
       }
       if (this.modalTitle === 'Nuevo Registro') {
@@ -243,25 +257,24 @@ export class ImagenclienteListadoComponent implements OnInit {
     }
   
     actualizar() {
-      const idDepartamento = this.selectedDepartamento.muni_Id;
-      const modelo: Municipio = {
-        dept_Descripcion : this.formMunicipio.value.departamento,
-        dept_Id : this.formMunicipio.value.departamento,
-        muni_Descripcion : this.formMunicipio.value.municipio,
-        muni_Id : this.formMunicipio.value.codigo,
+      const idImagenCliente = this.selectedImagenCliente.imcl_Id;
+      const modelo: Actualizar = {
+        imcl_Id :  idImagenCliente,
+        imcl_Imagen : this.prueba,
+        Imcl_Usua_Modifica: 1, 
+        vecl_Id: this.formImagenCliente.value.vehiculo
+        
       }
-      this._municipioservice.actualizar(idDepartamento, modelo).subscribe({
+      this.service.actualizar(modelo).subscribe({
         next: (data) => {
           this.getMunicipio();
           this.display = false;
-          this.messageService.add({severity:'success', summary:'Éxito', detail:'Municipio editado correctamente!'});
-        },
+       },
         error: (e) => {
           console.log(e);
-          this.messageService.add({severity:'error', summary:'Error', detail:'Municipio ya existente.'});
         }
       })
-    } */
+    } 
   
     onUpload(event) {
       const file: File = event.files[0];
@@ -279,7 +292,7 @@ export class ImagenclienteListadoComponent implements OnInit {
             if (response.message === "Exito") {
               // this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Imagen Subida', life: 3000 });
             } else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Formato de imagen incorrecto', life: 3000 });
+              // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Formato de imagen incorrecto', life: 3000 });
             }
           },
           error => {
@@ -302,8 +315,8 @@ export class ImagenclienteListadoComponent implements OnInit {
       }
     );
 
-    this.service.getVehiculo().subscribe(data => {
-      this.vehiculo = data;
+    this.service1.getVehiculo().subscribe(data => {
+      this.vehiculos = data;
     });
 
   }
@@ -329,6 +342,7 @@ export class ImagenclienteListadoComponent implements OnInit {
     ReactiveFormsModule,
     ToastModule,
     SliderModule,
+    // MessageService,
     FileUploadModule,
     RatingModule 
     

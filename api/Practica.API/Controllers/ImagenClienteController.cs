@@ -65,6 +65,23 @@ namespace Practica.API.Controllers
             }
         }
 
+        [HttpPut("Edit")]
+        public IActionResult Edit(ImagenesClientesViewModel item)
+        {
+
+            var model = _mapper.Map<tbImagenesPorClientes>(item);
+            var modelo = new tbImagenesPorClientes()
+            {
+                Imcl_Id = item.Imcl_Id,
+                Imcl_Imagen = item.Imcl_Imagen,
+                Vecl_Id = item.Vecl_Id,
+                Imcl_Usua_Modifica = item.Imcl_Usua_Modifica,
+            };
+            var listado = _credirapidServicio.ActualizarImagenPorVehiculo(modelo);
+            return Ok(listado);
+
+        }
+
         [HttpDelete("Delete/{id}")]
         public IActionResult Delete(int id)
         {
@@ -72,7 +89,15 @@ namespace Practica.API.Controllers
             return Ok(listado);
         }
 
-        [HttpPost("/Subir/")]
+        [HttpGet("Details/{id}")]
+        public IActionResult Details(int id)
+        {
+            var modelo = _credirapidServicio.DetallesImagenesPorVehiculo(id);
+            var detail = modelo.First();
+            return Ok(detail);
+        }
+
+        [HttpPost("Subir")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
 

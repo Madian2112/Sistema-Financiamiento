@@ -10,84 +10,87 @@ interface Pantalla {
 }
 
 @Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  private allowedScreens: Set<string>;
-  private static readonly USUARIO_KEY = 'usuarioLogueado';
-
-  constructor(private http: HttpClient, private service: UsuarioServiceService,
-      private cookieService: CookieService, private router: Router) {
-      this.allowedScreens = new Set();
-  }
-
-  setUsuarioLogueado(usuario: string) {
+    providedIn: 'root'
+  })
+  export class AuthService {
+    private allowedScreens: Set<string> = new Set();
+    private static readonly USUARIO_KEY = 'usuarioLogueado';
+    private static readonly PERMISSIONS_KEY = 'allowedScreens';
+  
+    constructor(private http: HttpClient, private service: UsuarioServiceService,
+                private cookieService: CookieService, private router: Router) {
+      const storedPermissions = localStorage.getItem(AuthService.PERMISSIONS_KEY);
+      if (storedPermissions) {
+        this.allowedScreens = new Set(JSON.parse(storedPermissions));
+      }
+    }
+  
+    setUsuarioLogueado(usuario: string) {
       localStorage.setItem(AuthService.USUARIO_KEY, usuario);
-  }
-
-  getUsuarioLogueado(): string {
+    }
+  
+    getUsuarioLogueado(): string {
       return localStorage.getItem(AuthService.USUARIO_KEY) || '';
-  }
-
-  clearUsuarioLogueado() {
+    }
+  
+    clearUsuarioLogueado() {
       localStorage.removeItem(AuthService.USUARIO_KEY);
-  }
-
-  loadPermissions(): void {
+      localStorage.removeItem(AuthService.PERMISSIONS_KEY);
+    }
+  
+    loadPermissions(): void {
       const roleId = Number.parseInt(this.cookieService.get('roleID'));
-
+  
+      if (!roleId) {
+        console.error('Role ID is not set or invalid.');
+        return;
+      }
+  
       this.service.getPantallasDeRol(roleId).subscribe({
-          next: (pantallas: Pantalla[]) => {
-              if (roleId !== null) {
-                  const pantallaAdicional = {
-                      pant_Descripcion: "empty",
-                  };
-                  pantallas.push(pantallaAdicional);
-              }
-
-              this.allowedScreens = new Set(
-                  pantallas.map(pant =>
-                      pant.pant_Descripcion.toLowerCase().replace(/\s+/g, '')
-                  ));
-
-              console.log("Allowed screens :", Array.from(this.allowedScreens));
-          },
-          error: (error) => {
-              console.error('Error', error);
-          }
+        next: (pantallas: Pantalla[]) => {
+          this.allowedScreens = new Set(
+            pantallas.map(pant =>
+              pant.pant_Descripcion.toLowerCase().replace(/\s+/g, '')
+            )
+          );
+          localStorage.setItem(AuthService.PERMISSIONS_KEY, JSON.stringify(Array.from(this.allowedScreens)));
+        },
+        error: (error) => {
+          console.error('Error', error);
+        }
       });
-  }
-
-  isUrlAllowed(url: string): boolean {
-      const admin = this.cookieService.get('esAdmin').toString()
-
+    }
+  
+    isUrlAllowed(url: string): boolean {
+      const admin = this.cookieService.get('esAdmin').toString();
+  
+      if (url === '/app/login' || url === '/auth' || url === '/') {
+        return true;
+      }
+  
       if (admin === "true") {
-          console.log("authh")
-          return true;
+        return true;
       }
-
-      const urlSegments = url.split('/').filter(segment => segment.trim() !== '');
-
-      const screenNameIndex = urlSegments.indexOf('pages') + 1;
+  
+      const urlSegments = url.toLowerCase().split('/').filter(segment => segment.trim() !== '');
+  
+      const screenNameIndex = urlSegments.indexOf('app') + 1;
       if (screenNameIndex > 0 && screenNameIndex < urlSegments.length) {
-          const screenName = urlSegments[screenNameIndex].toLowerCase().trim();
-          console.log(`Screen name extracted: ${screenName}`);
-          return this.allowedScreens.has(screenName);
+        const screenName = urlSegments[screenNameIndex].trim();
+        return this.allowedScreens.has(screenName);
       }
-
-      this.router.navigate(['/app/Login']);
-      // window.location.reload();
+  
       return false;
+    }
+  
+    isAuthenticated(): boolean {
+      return this.cookieService.check('Usuario');
+    }
+  
+    logout() {
+      this.cookieService.deleteAll();
+      this.clearUsuarioLogueado();
+      this.router.navigate(['/']);
+    }
   }
-
-  isAuthenticated(): boolean {
-    // Verifica si la cookie de sesión existe
-    return this.cookieService.check('Usuario');
-  }
-
-  logout() {
-    // Limpia las cookies y redirige al login
-    this.cookieService.deleteAll();
-    this.router.navigate(['/login']);
-  }
-}
+  

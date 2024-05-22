@@ -43,7 +43,7 @@ namespace Practica.Common.Models
         public DateTime? Pacl_Fecha_Emision { get; set; }
         public int? Sucu_Id { get; set; }
         public int? Pacl_Usua_Creacion { get; set; }
-        public DateTime? Pacl_Fecha_Creacion { get; set; }
+        public string? Pacl_Fecha_Creacion { get; set; }
         public int? Pacl_Usua_Modi { get; set; }
         public DateTime? Pacl_Fecha_Modi { get; set; }
     }

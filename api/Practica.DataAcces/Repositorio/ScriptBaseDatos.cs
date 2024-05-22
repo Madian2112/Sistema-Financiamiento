@@ -21,6 +21,13 @@ namespace Practica.DataAcces.Repositorio
 
         public static string Usua_Reestablecer = "[Acce].[SP_Usuarios_Reestablecer]";
         public static string Usua_Inicio = "[Acce].[SP_Usuarios_InicioSesion]";
+
+        public static string UsuariosEnviarCodigo = "[Acce].[SP_Usuarios_EnviarCorreo]";
+        public static string UsuariosIngresarCodigo = "[Acce].[SP_Usuarios_IngresarCodigo]";
+
+        public static string UsuariosValidarCodigo = "[Acce].[SP_Usuarios_ValidarCodigo]";
+
+        public static string UsuariosRestablecerContra = "[Acce].[SP_Usuarios_Reestablecer2]";
         #endregion
 
         #region Roles

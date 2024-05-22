@@ -60,6 +60,7 @@ export class EmpleadosCrearComponent implements OnInit  {
       municipio:["",],
       cargo:["Seleccione"],
       estado:["Seleccione"],
+      correo: [""],
     })
 
     this._Empleadoservice.getEmpleado().subscribe(
@@ -75,7 +76,7 @@ export class EmpleadosCrearComponent implements OnInit  {
     // Lógica de autenticación (por ejemplo, verificación de credenciales)
     console.log("se hizo click");
     // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/IndexEmpleado']); // Ajusta la ruta según tu configuración de enrutamiento
+    this.router.navigate(['/app/empleado']); // Ajusta la ruta según tu configuración de enrutamiento
 }
 
 onDepartmentChange(departmentId) {
@@ -108,7 +109,8 @@ Nuevo() {
       esta_Descripcion: "", 
       esta_Id: this.formEmpleado.value.estado,
       muni_Id: this.formEmpleado.value.municipio,
-      dept_Id: this.formEmpleado.value.departamento
+      dept_Id: this.formEmpleado.value.departamento, 
+      empl_Correo: this.formEmpleado.value.correo,
     }
     this.formEmpleado = this.fb.group({
       dni:[""],
@@ -119,6 +121,7 @@ Nuevo() {
       municipio:[""],
       cargo:["Seleccione"],
       estado:["Seleccione"],
+      correo: [""],
     })
     // Llamar al servicio solo si los valores necesarios están definidos
     this._Empleadoservice.agregar(empleado).subscribe({

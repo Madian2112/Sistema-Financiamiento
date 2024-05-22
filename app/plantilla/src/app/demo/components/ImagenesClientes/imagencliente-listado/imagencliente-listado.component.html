@@ -4,12 +4,12 @@
         font-size: 130%;
     }
 
-    .titulo{
-        color:aliceblue;
+    .titulo {
+        color: aliceblue;
         font-size: 150%;
     }
 
-    .hola{
+    .hola {
         background-color: #1E1E1E;
     }
 
@@ -20,260 +20,302 @@
     }
 
     .custom-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 2px solid #8DA22C;
-    background-color: #1E1E1E;
-}
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #8DA22C;
+        background-color: #1E1E1E;
+    }
 
-.custom-table th,
-.custom-table td {
-    padding: 8px;
-    border: 1px solid #8DA22C;
-    color: white;
-}
+    .custom-table th,
+    .custom-table td {
+        padding: 8px;
+        border: 1px solid #8DA22C;
+        color: white;
+    }
 
-.custom-table th {
-    background-color: #8DA22C;
-}
+    .custom-table th {
+        background-color: #8DA22C;
+    }
 
-.custom-table tbody tr:nth-child(even) {
-    background-color: #1E1E1E;
-}
+    .custom-table tbody tr:nth-child(even) {
+        background-color: #1E1E1E;
+    }
 
-.table-responsive {
-    overflow-x: auto;
-}
-
+    .table-responsive {
+        overflow-x: auto;
+    }
 </style>
 <div class="grid">
     <div class="col-12">
         <div class="{{tabla}}">
-        <div class="card">
-            <h1>Imagenes de Clientes</h1>
-            <p-dialog header="{{modalTitle}}" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+            <div class="card">
+                <h1>Imagenes de Clientes</h1>
+                <p-dialog header="{{modalTitle}}" [(visible)]="display" (onHide)="recargarPagina()" [modal]="true"
+                showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
                 <form [formGroup]="formImagenCliente">
-                    <div class="p-fluid">
-                    
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
                                 <div class="row">
-                                    <label htmlFor="marca">Vehiculo</label>
-                                    <select style="background-color: #121212; color: aliceblue;" class="form-control" formControlName="vehiculo" id="vehiculo">
-                                        <option style="background-color: #121212; color: aliceblue;" [value]="">Seleccione</option>
-                                        <option style="background-color: #121212; color: aliceblue;" *ngFor="let vehiculo of vehiculo" [ngValue]="vehiculo.vehi_Id" [attr.selected]="vehiculo.mode_Descripcion + ', '+ vehiculo.marc_Descripcion + ', ' + vehiculo.clie_Nombre  ">
-                                            {{ departamento.dept_Descripcion }}
-                                        </option>
-                                    </select>                                
-                                </div>   
+                                    <div class="col-sm-6">
+                                        <label style="color:aliceblue" htmlFor="marca">Vehiculo</label>
+                                        <select style="background-color: #121212; color: aliceblue;"
+                                            class="form-control" formControlName="vehiculo" id="vehiculo">
+                                            <option style="background-color: #121212; color: aliceblue;"
+                                                [selected]="true" [value]="">Seleccione</option>
+                                            <option style="background-color: #121212; color: aliceblue;"
+                                                *ngFor="let vehiculo of vehiculos" [value]="vehiculo.vecl_Id">{{
+                                                vehiculo.mode_Descripcion + ' - '+ vehiculo.marc_Descripcion + "
+                                                , "+ vehiculo.cliente}}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            </div> 
+                        </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Imagen:</label>
-                                <p-fileUpload #fileUpload name="demo[]" [mode]="'basic'" (onSelect)="onUpload($event)"
-                                    [multiple]="false" accept="image/*" [maxFileSize]="1000000"
+                                <p-fileUpload #fileUpload name="demo[]" [mode]="'basic'"
+                                    (onSelect)="onUpload($event)" [multiple]="false" accept="image/*"
+                                    [maxFileSize]="1000000"
                                     chooseLabel="{{ showFileUpload ? 'Seleccione' : '' }}">
                                 </p-fileUpload>
-                           </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="justify-content-center ms-5" style="margin-top:3%">
+                        <!-- Contenedor para centrar la imagen -->
+                        <div class="text-center">
+                            <p-image *ngIf="selectedImageURL" [src]="selectedImageURL" alt="Imagen seleccionada"
+                                width="250" [preview]="true"></p-image>
                         </div>
                     </div>
                 </form>
                 <ng-template pTemplate="footer">
-                    <button pButton icon="pi pi-times" (click)="display=false" label="Cerrar" class="p-button-outlined p-button-danger"></button>
-                    <button pButton icon="pi pi-check" (click)="guardar()"  label="{{modalButtonLabel}}" class="p-button-outlined"></button>
-
+                    <button pButton icon="pi pi-times" (click)="recargarPagina()" label="Cerrar"
+                        class="p-button-outlined p-button-danger mr-2"></button>
+                    <button pButton icon="pi pi-check" label="{{modalButtonLabel}}" class="p-button-outlined"
+                        (click)="guardar()"></button>
                 </ng-template>
+
             </p-dialog>
-            <div class="grid">
-                <div class="col-12">
-                    <button (click)="displayNuevo()" pButton icon="pi pi-external-link" label="Nuevo"></button>
-                </div>
-            </div>
-            <p-table [value]="tablaimagencliente" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
-                [paginator]="true" [globalFilterFields]="['imcl_Id','imcl_Imagen', 'vehi_Placa', 'mode_Descripcion', 'marc_Descripcion']"
-                responsiveLayout="scroll">
-                <ng-template pTemplate="header">
-                    <div class="flex justify-content-between flex-column sm:flex-row">
-                        <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
-                            (click)="clear()"></button>
-                        <span class="p-input-icon-left mb-2">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" #filter (input)="onGlobalFilter($event)" placeholder="Buscar"
-                                class="w-full" />
-                        </span>
+                <div class="grid">
+                    <div class="col-12">
+                        <button (click)="displayNuevo()" pButton icon="pi pi-external-link" label="Nuevo"></button>
                     </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Código
-                                <p-columnFilter type="text" field="imcl_Id" display="menu"
-                                    placeholder="Buscar por código"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Imagen
-                                <p-columnFilter type="text" field="imcl_Imagen" display="menu"
-                                    placeholder="Buscar por descripción"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Placa 
-                                <p-columnFilter type="text" field="vehi_Placa" display="menu"
-                                    placeholder="Buscar por descripción"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Modelo
-                                <p-columnFilter type="text" field="mode_Descripcion" display="menu"
-                                    placeholder="Buscar por descripción"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Marca
-                                <p-columnFilter type="text" field="marc_Descripcion" display="menu"
-                                    placeholder="Buscar por descripción"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="min-width: 12rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Acciones
+                </div>
+                <p-table [value]="tablaimagencliente" [rows]="10" [rowHover]="true" styleClass="p-datatable-gridlines"
+                    [paginator]="true"
+                    [globalFilterFields]="['imcl_Id','imcl_Imagen', 'vehi_Placa', 'mode_Descripcion', 'marc_Descripcion', 'vecl_Id']"
+                    responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <div class="flex justify-content-between flex-column sm:flex-row">
+                            <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+                                (click)="clear()"></button>
+                            <span class="p-input-icon-left mb-2">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" #filter (input)="onGlobalFilter($event)"
+                                    placeholder="Buscar" class="w-full" />
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="min-width: 12rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Código
+                                    <p-columnFilter type="text" field="imcl_Id" display="menu"
+                                        placeholder="Buscar por código"></p-columnFilter>
+                                </div>
+                            </th>
 
-                            </div>
-                        </th>
+                            <th style="min-width: 12rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Imagen
+                                    <p-columnFilter type="text" field="imcl_Imagen" display="menu"
+                                        placeholder="Buscar por descripción"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th style="min-width: 12rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Placa
+                                    <p-columnFilter type="text" field="vehi_Placa" display="menu"
+                                        placeholder="Buscar por descripción"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th style="min-width: 12rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Modelo
+                                    <p-columnFilter type="text" field="mode_Descripcion" display="menu"
+                                        placeholder="Buscar por descripción"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th style="min-width: 12rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Marca
+                                    <p-columnFilter type="text" field="marc_Descripcion" display="menu"
+                                        placeholder="Buscar por descripción"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th style="min-width: 12rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Acciones
 
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-tablaimagencliente>
-                    <tr>
-                        <td>{{tablaimagencliente.imcl_Id}}</td>
-                        <td>
-                        <img *ngIf="bebi.bebi_Imagen" [src]="'https://localhost:44372/uploads/' + tablaimagencliente.imcl_Imagen"
-                        alt="Imagen de postre" width="100">
-                        </td>
-                        <td>{{tablaimagencliente.vehi_Placa}}</td>
-                        <td>{{tablaimagencliente.mode_Descripcion}}</td>
-                        <td>{{tablaimagencliente.marc_Descripcion}}</td>
-                        <td style="display: flex; grid-gap:10px">
-                            <button pButton pRipple type="button" label="Editar" class="p-button-warning" (click)="editar(municipio)"></button>
-                            <button pButton pRipple type="button" label="Detalles" class="p-button-info" (click)="detalles(municipio.muni_Id)"></button>
-                            <button pButton pRipple type="button" label="Eliminar" class="p-button-danger" (click)="confirmarEliminar(municipio)" ></button>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                    <tr>
-                        <td colspan="2">No hay datos para cargar.</td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="loadingbody">
-                    <tr>
-                        <td colspan="2">Cargando datos. Por favor espera.</td>
-                    </tr>
-                </ng-template>
-            </p-table>
+                                </div>
+                            </th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-tablaimagencliente>
+                        <tr>
+                            <td>{{tablaimagencliente.imcl_Id}}</td>
+                            <td>
+                                <img *ngIf="tablaimagencliente.imcl_Imagen"
+                                    [src]="'https://localhost:44372/uploads/' + tablaimagencliente.imcl_Imagen"
+                                    width="100%">
+                            </td>
+                            <td>{{tablaimagencliente.vehi_Placa}}</td>
+                            <td>{{tablaimagencliente.mode_Descripcion}}</td>
+                            <td>{{tablaimagencliente.marc_Descripcion}}</td>
+                            <td class="collapse">{{tablaimagencliente.vecl_Id}}</td>
+                            <td style="display: flex; grid-gap:10px">
+                                <button pButton pRipple type="button" label="Editar" icon="pi pi-pencil"
+                                    class="p-button-warning" (click)="editar(tablaimagencliente)"></button>
+                                <button pButton pRipple type="button" label="Detalles" icon="pi pi-info-circle"
+                                    class="p-button-info" (click)="detalles(tablaimagencliente.imcl_Id)"></button>
+                                <button pButton pRipple type="button" label="Eliminar" icon="pi pi-trash"
+                                    class="p-button-danger" (click)="confirmarEliminar(tablaimagencliente)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="2">No hay datos para cargar.</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="loadingbody">
+                        <tr>
+                            <td colspan="2">Cargando datos. Por favor espera.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </div>
-    </div>
-    
-        <p-dialog header="Confirmar Eliminación" [(visible)]="confirmacionVisible" modal="true" [style]="{ width: '300px' }">
+
+        <p-dialog header="Confirmar Eliminación" [(visible)]="confirmacionVisible" modal="true"
+            [style]="{ width: '300px' }">
             <p>¿Está seguro de que desea eliminar este registro?</p>
             <p-footer>
-              <button pButton type="button" class="mr-2" label="Cancelar" (click)="cancelarEliminar()"></button>
-             <!-- <button pButton type="button" label="Confirmar" class="p-button-danger" (click)="eliminar()"></button> -->
-            </p-footer> 
-          </p-dialog>
-          <div class="{{detalless}}">
+                <button pButton type="button" class="mr-2" label="Cancelar" (click)="cancelarEliminar()"></button>
+                <button pButton type="button" label="Confirmar" class="p-button-danger" (click)="eliminar()"></button> 
+            </p-footer>
+        </p-dialog>
+        <div class="{{detalless}}">
             <div class="card">
-              <div class="card-header ">
-                  <div class="d-flex justify-content-between">
-                      <h3 class="card-title titulo">Detalles - Municipios</h3>
-                  </div>
-              </div>
-              <div>
-              <div class="card-body" >
-                  <dl class="row">
-                      <dl class="form-group col-sm-3">
-                          <dt class="col-sm-12 letras">
-                              ID
-                          </dt>
-                          <dd class="col-sm-12 letras-content">
-                              {{muni_Id}}
-                          </dd>
-                      </dl>
-                      <dl class="form-group col-sm-3">
-                          <dt class="col-sm-12 letras">
-                              Municipio
-                          </dt>
-                          <dd class="col-sm-12 letras-content">
-                              {{muni_Descripcion}}
-                          </dd>
-                      </dl>
-                      <dl class="form-group col-sm-3">
-                        <dt class="col-sm-12 letras">
-                            Departamento
-                        </dt>
-                        <dd class="col-sm-12 letras-content">
-                            {{dept_Descripcion}}
-                        </dd>
-                    </dl>
-                  </dl>
-                  <div class="table-responsive">
-                  <table class="custom-table table-bordered table-striped" style="border: 2px solid #BE561B; background-color: black;" id="MasterTable">
-                          <thead style="background-color: #1E1E1E;">
-                              <tr style="background-color: #8DA22C ">
-                                  <th class="letras" >
-                                      Acciones
-                                  </th>
-                                  <th class="letras">
-                                      Usuario
-                                  </th>
-                                  <th class="letras">
-                                      Fecha
-                                  </th>
-                              </tr>
-                          </thead>
-                      <tbody>
-                          <tr style="background-color: #1E1E1E;">
-                              <td>
-                                  Creacion
-                              </td>
-                              <td>
-                                  {{usua_Creacion}}
-                              </td>
-                              <td>
-                                  {{muni_Fecha_Creacion}}
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Modificacion</td>
-                              <td>
-                                  {{usua_Modifica}}
-                              </td>
-                              <td>
-                                  {{muni_Fecha_Modifica}}
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-              <div class="row" style="margin-top:2%">
-                  <div class="col-sm-4">
-                      <div class="form-group">
-                          <button pButton type="button" label="Regresar" class="btn btn-dark" (click)="volver()"></button>
-                      </div>
-                  </div>
-              </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                <div class="card-header ">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title titulo">Detalles - Imagenes de Clientes</h3>
+                    </div>
+                </div>
+                <div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dl class="form-group col-sm-3">
+                                <dt class="col-sm-12 letras">
+                                    ID
+                                </dt>
+                                <dd class="col-sm-12 letras-content">
+                                    {{imcl_Id}}
+                                </dd>
+                            </dl>
+                            <dl class="form-group col-sm-3">
+                                <dt class="col-sm-12 letras">
+                                    Imagen
+                                </dt>
+                                <dd class="col-sm-12 letras-content">
+                                    <img *ngIf="imcl_Imagen"
+                                    [src]="'https://localhost:44372/uploads/' + imcl_Imagen"
+                                    width="100%">
+                                </dd>
+                            </dl>
+                            <dl class="form-group col-sm-3">
+                                <dt class="col-sm-12 letras">
+                                    Placa
+                                </dt>
+                                <dd class="col-sm-12 letras-content">
+                                    {{vehi_Placa}}
+                                </dd>
+                            </dl>
+                        </dl>
+                        <dl class="row">
+                            <dl class="form-group col-sm-3">
+                                <dt class="col-sm-12 letras">
+                                    Modelo
+                                </dt>
+                                <dd class="col-sm-12 letras-content">
+                                    {{mode_Descripcion}}
+                                </dd>
+                            </dl>
+                            <dl class="form-group col-sm-3">
+                                <dt class="col-sm-12 letras">
+                                    Marca
+                                </dt>
+                                <dd class="col-sm-12 letras-content">
+                                    {{marc_Descripcion}}
+                                </dd>
+                            </dl>
+                        </dl>
+                        <div class="table-responsive">
+                            <table class="custom-table table-bordered table-striped"
+                                style="border: 2px solid #BE561B; background-color: black;" id="MasterTable">
+                                <thead style="background-color: #1E1E1E;">
+                                    <tr style="background-color: #8DA22C ">
+                                        <th class="letras">
+                                            Acciones
+                                        </th>
+                                        <th class="letras">
+                                            Usuario
+                                        </th>
+                                        <th class="letras">
+                                            Fecha
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background-color: #1E1E1E;">
+                                        <td>
+                                            Creacion
+                                        </td>
+                                        <td>
+                                            {{usua_Creacion}}
+                                        </td>
+                                        <td>
+                                            {{imcl_Fecha_Creacion}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Modificacion</td>
+                                        <td>
+                                            {{usua_Modifica}}
+                                        </td>
+                                        <td>
+                                            {{imcl_Fecha_Modifica}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row" style="margin-top:2%">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <button pButton type="button" label="Regresar" class="btn btn-dark"
+                                        (click)="volver()"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

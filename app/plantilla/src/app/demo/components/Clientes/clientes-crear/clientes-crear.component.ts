@@ -72,7 +72,7 @@ export class ClientesCrearComponent implements OnInit  {
     // Lógica de autenticación (por ejemplo, verificación de credenciales)
     console.log("se hizo click");
     // Si la autenticación es exitosa, redirige al usuario a la página de dashboard
-    this.router.navigate(['/app/IndexCliente']); // Ajusta la ruta según tu configuración de enrutamiento
+    this.router.navigate(['/app/cliente']); // Ajusta la ruta según tu configuración de enrutamiento
 }
 
 onDepartmentChange(departmentId) {
